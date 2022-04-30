@@ -7,7 +7,7 @@ type LogoProps = {
 	url?: string,
 }
 
-const Logo: FunctionComponent<LogoProps> = ({ className, size = 40, url = "/app/dashboard" }) => {
+const Logo: FunctionComponent<LogoProps> = ({ className, size = 40, url = "/" }) => {
 	return (
 		<Link href={url}>
 			<a className={className}>
