@@ -16,8 +16,8 @@ type HeaderProps = {
 
 const Header: FunctionComponent<HeaderProps> = ({ className }) => {
 	return (
-		<Popover className={cn(className, 'relative bg-white')}>
-			<div className="max-w-7xl mx-auto px-4 sm:px-6">
+		<Popover as="header" className={cn(className, 'relative bg-white')}>
+			<div className="2xl:container mx-auto px-4 sm:px-6">
 				<div className="flex justify-between items-center border-b-2 border-gray-100 py-6">
 					<Logo />
 

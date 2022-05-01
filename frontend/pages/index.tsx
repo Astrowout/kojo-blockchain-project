@@ -1,11 +1,16 @@
-import type { NextPage } from 'next';
+import type { NextPage, GetStaticProps } from 'next';
 import Head from 'next/head';
 
 import {
 	Header,
+	Footer,
 } from "../components";
 
-const Home: NextPage = () => {
+interface Props {
+	version?: string;
+}
+
+const Home: NextPage<Props> = ({ version }) => {
 	return (
 		<div>
 			<Head>
@@ -20,9 +25,17 @@ const Home: NextPage = () => {
 				main content comes here
 			</main>
 
-			footer comes here
+			<Footer version={version} />
 	   </div>
   	)
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+	return {
+		props: {
+			version: process.env.APP_VERSION
+		}
+	}
+  }
 
 export default Home
