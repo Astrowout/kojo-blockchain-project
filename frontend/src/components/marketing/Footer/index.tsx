@@ -6,7 +6,6 @@ import { FooterProps } from "./types";
 import { useTranslation } from "@/hooks";
 import {
 	Button,
-	Link,
 	MBottomBar,
 } from '@/components';
 
