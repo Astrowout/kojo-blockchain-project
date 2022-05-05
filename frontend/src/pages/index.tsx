@@ -3,14 +3,15 @@ import Head from 'next/head';
 
 import {
 	MHeader,
-	MFooter,
 } from "@/components";
 
 interface Props {
 	version?: string;
 }
 
-const Index: NextPage<Props> = ({ version }) => {
+const IndexPage: NextPage<Props> = ({
+	version = ""
+}) => {
 	return (
 		<div>
 			<Head>
@@ -24,8 +25,6 @@ const Index: NextPage<Props> = ({ version }) => {
 			<main>
 				main content comes here
 			</main>
-
-			<MFooter version={version} />
 	   </div>
   	)
 }
@@ -38,4 +37,4 @@ export const getStaticProps: GetStaticProps = async () => {
 	}
 }
 
-export default Index;
+export default IndexPage;
