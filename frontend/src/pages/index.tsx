@@ -2,15 +2,15 @@ import type { NextPage, GetStaticProps } from 'next';
 import Head from 'next/head';
 
 import {
-	Header,
-	Footer,
-} from "../components";
+	MHeader,
+	MFooter,
+} from "@/components";
 
 interface Props {
 	version?: string;
 }
 
-const Home: NextPage<Props> = ({ version }) => {
+const Index: NextPage<Props> = ({ version }) => {
 	return (
 		<div>
 			<Head>
@@ -19,13 +19,13 @@ const Home: NextPage<Props> = ({ version }) => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<Header />
+			<MHeader />
 
 			<main>
 				main content comes here
 			</main>
 
-			<Footer version={version} />
+			<MFooter version={version} />
 	   </div>
   	)
 }
@@ -36,6 +36,6 @@ export const getStaticProps: GetStaticProps = async () => {
 			version: process.env.APP_VERSION
 		}
 	}
-  }
+}
 
-export default Home
+export default Index;
