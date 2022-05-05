@@ -12,10 +12,10 @@ import {
 
 interface Props {
 	version?: string;
-	domain?: string;
+	domain: string;
 }
 
-const Home: NextPage<Props> = ({ version, domain }) => {
+const HomePage: NextPage<Props> = ({ domain }) => {
 	return (
 		<div>
 			<Head>
@@ -52,4 +52,4 @@ export const getStaticProps: GetStaticProps = async () => {
 	}
 }
 
-export default Home
+export default HomePage;
