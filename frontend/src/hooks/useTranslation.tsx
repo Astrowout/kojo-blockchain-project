@@ -1,10 +1,10 @@
-import { useState, useEffect, Fragment } from "react";
+import { Fragment } from "react";
 import get from "lodash/get";
 
 import enTranslations from "@/assets/i18n/en";
 
 const useTranslation = () => {
-	const translate = (key: string, ...elements): JSX.Element => {
+	const translate = (key: string, ...elements: any[]): JSX.Element => {
 		const translationString = get(enTranslations, key, key);
 
 		if (!!elements.length) {

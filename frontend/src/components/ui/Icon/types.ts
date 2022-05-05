@@ -1,5 +1,7 @@
+import icons from "./icons";
+
 export type IconProps = {
-	name: string,
+	name: keyof typeof icons,
 	size?: number,
 	url?: string,
 	className?: string,

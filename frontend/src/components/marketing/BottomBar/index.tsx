@@ -1,12 +1,9 @@
 import { FunctionComponent } from 'react';
-import Image from "next/image";
 import cn from "classnames";
 
 import { BottomBarProps } from "./types";
 import { useTranslation } from "@/hooks";
 import {
-	Button,
-	Link,
 	Icon,
 } from '@/components';
 

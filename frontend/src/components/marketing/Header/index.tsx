@@ -1,4 +1,4 @@
-import { FunctionComponent, Fragment } from 'react';
+import { FunctionComponent } from 'react';
 import { Popover, Transition } from "@headlessui/react";
 
 import cn from "classnames";
@@ -50,7 +50,6 @@ const Header: FunctionComponent<HeaderProps> = ({ className }) => {
 			{({ open }) => (
 				<>
 					<Transition
-						as={Fragment}
 						enter="transition duration-300"
 						enterFrom="opacity-0"
 						enterTo="opacity-100"
@@ -63,7 +62,6 @@ const Header: FunctionComponent<HeaderProps> = ({ className }) => {
 					</Transition>
 
 					<Transition
-						as={Fragment}
 						enter="transition-transform duration-300 ease-out"
 						enterFrom="-translate-y-full"
 						enterTo="translate-y-0"

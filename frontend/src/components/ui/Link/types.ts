@@ -1,5 +1,5 @@
 export type LinkProps = {
-	children: JSX.Element,
+	children: JSX.Element | string,
 	url?: string,
 	className?: string,
 	icon?: string,

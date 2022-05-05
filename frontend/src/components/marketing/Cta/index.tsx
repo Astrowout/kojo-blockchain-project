@@ -1,5 +1,4 @@
 import { FunctionComponent } from 'react';
-import Image from "next/image";
 import cn from "classnames";
 
 import { CtaProps } from "./types";
@@ -8,10 +7,6 @@ import { useTranslation } from "@/hooks";
 import {
 	Button,
 } from '@/components';
-
-import farysLogo from '@/assets/img/farys.png'
-import polygonLogo from '@/assets/img/polygon.png'
-import howestLogo from '@/assets/img/howest.png'
 
 const Token: FunctionComponent<CtaProps> = ({ className }) => {
 	const { t } = useTranslation();

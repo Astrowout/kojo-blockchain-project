@@ -3,7 +3,7 @@ export type ButtonProps = {
 	url?: string,
 	className?: string,
 	icon?: string,
-	iconAfter: boolean,
+	iconAfter?: boolean,
 	fluid?: boolean,
 	newTab?: boolean,
 	alt?: boolean,
