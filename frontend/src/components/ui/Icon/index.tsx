@@ -1,15 +1,14 @@
-import { FunctionComponent } from 'react';
-import Link from 'next/link';
+import { ComponentType, FunctionComponent, SVGProps } from 'react';
 
 import { IconProps } from "./types";
 import icons from "./icons";
 
 const Icon: FunctionComponent<IconProps> = ({
-	name = "External",
+	name = "ArrowRight",
 	size = 20,
 	className = "",
 }) => {
-	const Icon = icons[name];
+	const Icon: ComponentType<SVGProps<SVGElement>> = icons[name];
 
 	return (
 		<Icon

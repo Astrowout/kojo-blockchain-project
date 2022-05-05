@@ -3,7 +3,7 @@ import Link from 'next/link';
 import cn from "classnames";
 
 import { Icon } from "@/components";
-import { ButtonProps } from "./types.ts";
+import { ButtonProps } from "./types";
 
 const Button: FunctionComponent<ButtonProps> = ({
 	className,

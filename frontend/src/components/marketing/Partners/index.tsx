@@ -5,10 +5,6 @@ import cn from "classnames";
 import { PartnersProps } from "./types";
 
 import { useTranslation } from "@/hooks";
-import {
-	Button,
-	Link,
-} from '@/components';
 
 import farysLogo from '@/assets/img/farys.png'
 import polygonLogo from '@/assets/img/polygon.png'
