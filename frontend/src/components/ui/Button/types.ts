@@ -1,8 +1,10 @@
+import icons from "../Icon/icons";
+
 export type ButtonProps = {
 	children: JSX.Element,
 	url?: string,
 	className?: string,
-	icon?: string,
+	icon?: keyof typeof icons,
 	iconAfter?: boolean,
 	fluid?: boolean,
 	newTab?: boolean,

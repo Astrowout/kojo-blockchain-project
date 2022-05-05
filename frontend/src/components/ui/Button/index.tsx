@@ -46,6 +46,7 @@ const Button: FunctionComponent<ButtonProps> = ({
 		<button
 			type="button"
 			className={classes}
+			onClick={onClick}
 		>
 			{ renderContent() }
 		</button>
