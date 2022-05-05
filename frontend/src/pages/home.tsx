@@ -11,11 +11,12 @@ import {
 } from "@/components";
 
 interface Props {
-	version?: string;
 	domain: string;
 }
 
-const HomePage: NextPage<Props> = ({ domain }) => {
+const HomePage: NextPage<Props> = ({
+	domain = ""
+}) => {
 	return (
 		<div>
 			<Head>
@@ -46,7 +47,6 @@ const HomePage: NextPage<Props> = ({ domain }) => {
 export const getStaticProps: GetStaticProps = async () => {
 	return {
 		props: {
-			version: process.env.APP_VERSION,
 			domain: process.env.APP_DOMAIN,
 		}
 	}
