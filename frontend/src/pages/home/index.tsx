@@ -1,6 +1,7 @@
-import type { NextPage, GetStaticProps } from 'next';
-import Head from 'next/head';
+import type { NextPage, GetStaticProps } from "next";
+import Head from "next/head";
 
+import { HomePageProps } from "./types";
 import {
 	MHeader,
 	MFooter,
@@ -10,11 +11,7 @@ import {
 	MCta,
 } from "@/components";
 
-interface Props {
-	domain: string;
-}
-
-const HomePage: NextPage<Props> = ({
+const HomePage: NextPage<HomePageProps> = ({
 	domain = ""
 }) => {
 	return (

@@ -1,10 +1,10 @@
-import { FunctionComponent } from 'react';
-import NextLink from 'next/link';
+import { FunctionComponent } from "react";
+import NextLink from "next/link";
 import cn from "classnames";
 
 import { Icon } from "@/components";
 
-import { LinkProps } from "./types";
+import { LinkProps } from "./Link.types";
 
 const Link: FunctionComponent<LinkProps> = ({ className, newTab = false, children, url = "/", icon = null }) => {
 	const classes = cn(className, "inline-flex whitespace-nowrap items-center text-emerald-900 text-lg hover:underline", {

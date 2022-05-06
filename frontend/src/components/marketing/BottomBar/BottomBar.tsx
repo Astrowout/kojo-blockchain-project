@@ -1,17 +1,17 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent } from "react";
 import cn from "classnames";
 
-import { BottomBarProps } from "./types";
+import { BottomBarProps } from "./BottomBar.types";
 import { useTranslation } from "@/hooks";
 import {
 	Icon,
-} from '@/components';
+} from "@/components";
 
 const BottomBar: FunctionComponent<BottomBarProps> = ({ className, domain = "" }) => {
 	const { t } = useTranslation();
 
 	return (
-		<div className={cn(className, 'border-t py-8 md:py-4 flex flex-col space-y-4 lg:space-y-0 lg:flex-row items-center justify-between')}>
+		<div className={cn(className, "border-t py-8 md:py-4 flex flex-col space-y-4 lg:space-y-0 lg:flex-row items-center justify-between")}>
 			<div className="flex items-center divide-x">
 				<p className="text-gray-400 text-sm pr-3">
 					© { domain }
@@ -23,12 +23,12 @@ const BottomBar: FunctionComponent<BottomBarProps> = ({ className, domain = "" }
 					rel="noreferrer"
 					className="pl-3 text-gray-400 text-sm underline hover:text-gray-600"
 				>
-					{ t('footer.pitch') }
+					{ t("footer.pitch") }
 				</a>
 			</div>
 
 			<p className="text-sm text-gray-600 text-center">
-				{ t('footer.support',
+				{ t("footer.support",
 					<a
 						href="https://www.howest.be/en"
 						target="_blank"
