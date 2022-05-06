@@ -19,7 +19,7 @@ const Footer: FunctionComponent<FooterProps> = ({ className, domain = "" }) => {
 			<div className='max-w-screen-xl mx-auto flex flex-col md:flex-row items-center gap-x-24 gap-y-12 py-10 sm:py-16'>
 				<div className="flex flex-col items-center md:items-start">
 					<h1 className="font-serif text-center md:text-left text-emerald-900 text-3xl leading-tight md:text-4xl md:leading-tight xl:text-5xl xl:leading-tight">
-						{ t("footer.title") }
+						{ t("footer.title.1", <span className="font-bold">{t("footer.title.2")}</span>) }
 					</h1>
 
 					<Button
@@ -34,7 +34,7 @@ const Footer: FunctionComponent<FooterProps> = ({ className, domain = "" }) => {
 				<Image
 					src={footerImage}
 					alt="Water management for plants"
-					placeholder="blur" // Optional blur-up while loading
+					placeholder="blur"
 				/>
 			</div>
 
