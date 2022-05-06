@@ -1,6 +1,6 @@
-import { ComponentType, FunctionComponent, SVGProps } from 'react';
+import { ComponentType, FunctionComponent, SVGProps } from "react";
 
-import { IconProps } from "./types";
+import { IconProps } from "./Icon.types";
 import icons from "./icons";
 
 const Icon: FunctionComponent<IconProps> = ({

@@ -1,13 +1,13 @@
-import { FunctionComponent } from 'react';
-import Link from 'next/link';
+import { FunctionComponent } from "react";
+import Link from "next/link";
 
-type LogoProps = {
-	w?: number,
-	className?: string,
-	url?: string,
-}
+import { LogoProps } from "./Logo.types";
 
-const Logo: FunctionComponent<LogoProps> = ({ className, w = 40, url = "/" }) => {
+const Logo: FunctionComponent<LogoProps> = ({
+	className,
+	w = 40,
+	url = "/",
+}) => {
 	return (
 		<Link href={url}>
 			<a className={className}>

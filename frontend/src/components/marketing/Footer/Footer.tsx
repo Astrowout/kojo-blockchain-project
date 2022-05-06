@@ -1,13 +1,13 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent } from "react";
 import Image from "next/image";
 import cn from "classnames";
 
-import { FooterProps } from "./types";
+import { FooterProps } from "./Footer.types";
 import { useTranslation } from "@/hooks";
 import {
 	Button,
 	MBottomBar,
-} from '@/components';
+} from "@/components";
 
 import footerImage from "@/assets/img/footer.png"
 
@@ -15,11 +15,11 @@ const Footer: FunctionComponent<FooterProps> = ({ className, domain = "" }) => {
 	const { t } = useTranslation();
 
 	return (
-		<footer className={cn(className, 'px-6 sm:px-10 bg-gray-100')}>
+		<footer className={cn(className, "px-6 sm:px-10 bg-gray-100")}>
 			<div className='max-w-screen-xl mx-auto flex flex-col md:flex-row items-center gap-x-24 gap-y-12 py-10 sm:py-16'>
 				<div className="flex flex-col items-center md:items-start">
 					<h1 className="font-serif text-center md:text-left text-emerald-900 text-3xl leading-tight md:text-4xl md:leading-tight xl:text-5xl xl:leading-tight">
-						{ t('footer.title') }
+						{ t("footer.title") }
 					</h1>
 
 					<Button
@@ -27,7 +27,7 @@ const Footer: FunctionComponent<FooterProps> = ({ className, domain = "" }) => {
 						compact
 						className="mt-6 md:mt-8"
 					>
-						{ t('navigation.download') }
+						{ t("navigation.download") }
 					</Button>
 				</div>
 

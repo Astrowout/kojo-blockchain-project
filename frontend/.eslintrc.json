@@ -1,6 +1,7 @@
 {
   "extends": "next/core-web-vitals",
   "rules": {
-	"indent": ["error", "tab"]
+	"indent": ["error", "tab"],
+	"quotes": ["error", "double"]
   }
 }

@@ -1,5 +1,5 @@
-import type { NextPage, GetStaticProps } from 'next';
-import Head from 'next/head';
+import type { NextPage, GetStaticProps } from "next";
+import Head from "next/head";
 
 import {
 	MHeader,

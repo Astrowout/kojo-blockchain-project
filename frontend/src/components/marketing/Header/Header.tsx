@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent } from "react";
 import { Popover, Transition } from "@headlessui/react";
 
 import cn from "classnames";
@@ -9,11 +9,8 @@ import {
 	Icon,
 	Button,
 	Link,
-} from '@/components';
-
-type HeaderProps = {
-	className?: string,
-}
+} from "@/components";
+import { HeaderProps } from "./Header.types";
 
 const Header: FunctionComponent<HeaderProps> = ({ className }) => {
 	const { t } = useTranslation();
@@ -25,7 +22,7 @@ const Header: FunctionComponent<HeaderProps> = ({ className }) => {
 				icon="External"
 				newTab
 			>
-				{ t('navigation.download') }
+				{ t("navigation.download") }
 			</Link>
 
 			<Link
@@ -40,13 +37,13 @@ const Header: FunctionComponent<HeaderProps> = ({ className }) => {
 				url="#"
 				compact
 			>
-				{ t('navigation.app') }
+				{ t("navigation.app") }
 			</Button>
 		</nav>
 	);
 
 	return (
-		<Popover as="header" className={cn(className, 'z-50')}>
+		<Popover as="header" className={cn(className, "z-50")}>
 			{({ open }) => (
 				<>
 					<Transition
