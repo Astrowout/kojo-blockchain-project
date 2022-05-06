@@ -5,7 +5,10 @@ const translations = {
 		browser: "Or use kojo in your browser",
 	},
 	hero: {
-		title: "In partnership with",
+		title: {
+			1: "Grow seeds into plants based on your {$}.",
+			2: "sustainable water consumption.",
+		},
 	},
 	partners: {
 		title: "In partnership with",
@@ -19,7 +22,10 @@ const translations = {
 		label: "Mint my first seed",
 	},
 	footer: {
-		title: "Download the app to reduce your water consumption by over 20%.",
+		title: {
+			1: "Download the app to {$}.",
+			2: "reduce your water consumption by over 20%",
+		},
 		pitch: "View our pitch",
 		support: "Kojo is a project supported by {$}."
 	},

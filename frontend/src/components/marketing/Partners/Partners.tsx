@@ -24,17 +24,17 @@ const Partners: FunctionComponent<PartnersProps> = ({ className }) => {
 					<Image
 						src={farysLogo}
 						alt="Farys logo"
-						placeholder="blur" // Optional blur-up while loading
+						placeholder="blur"
 					/>
 					<Image
 						src={polygonLogo}
 						alt="Polygon network logo"
-						placeholder="blur" // Optional blur-up while loading
+						placeholder="blur"
 					/>
 					<Image
 						src={howestLogo}
 						alt="Howest hogeschool logo"
-						placeholder="blur" // Optional blur-up while loading
+						placeholder="blur"
 					/>
 				</div>
 
