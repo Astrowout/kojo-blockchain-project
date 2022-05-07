@@ -6,7 +6,7 @@ const translations = {
 	},
 	hero: {
 		title: {
-			1: "Grow seeds into plants based on your {$}.",
+			1: "Grow seeds into plants based on your {$}",
 			2: "sustainable water consumption.",
 		},
 	},
