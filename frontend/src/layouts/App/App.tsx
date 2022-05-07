@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 
 interface AppLayoutProps {
-	children?: JSX.Element;
+	children?: JSX.Element | string;
 }
 
 const AppLayout: NextPage<AppLayoutProps> = ({
