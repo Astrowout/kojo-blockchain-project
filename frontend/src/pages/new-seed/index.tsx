@@ -1,11 +1,11 @@
 import { AppLayout } from "@layouts";
 
-const ConsumptionPage = () => {
+const NewSeedPage = () => {
 	return (
 		<AppLayout>
-			consumption page
+			new seed page
 		</AppLayout>
 	)
 }
 
-export default ConsumptionPage;
+export default NewSeedPage;

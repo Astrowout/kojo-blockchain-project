@@ -11,7 +11,10 @@ import {
 
 import footerImage from "@/assets/img/footer.png"
 
-const Footer: FunctionComponent<FooterProps> = ({ className, domain = "" }) => {
+const Footer: FunctionComponent<FooterProps> = ({
+	className,
+	domain = "",
+}) => {
 	const { t } = useTranslation();
 
 	return (

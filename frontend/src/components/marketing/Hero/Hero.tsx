@@ -20,7 +20,7 @@ const Hero: FunctionComponent<HeroProps> = ({ className }) => {
 			<div className='max-w-screen-xl mx-auto flex flex-col md:flex-row items-center gap-x-24 gap-y-12 px-6 sm:px-10 py-10 sm:py-16'>
 				<div>
 					<h1 className="font-serif text-center md:text-left text-emerald-900 text-4xl leading-tight md:text-5xl md:leading-tight xl:text-6xl xl:leading-tight">
-						{ t("hero.title.1", <span className="font-bold underline decoration-dotted underline-offset-4 decoration-2 decoration-emerald-600">{t("hero.title.2")}</span>) }
+						{ t("hero.title.1", <span className="bg-emerald-100 px-1.5">{t("hero.title.2")}</span>) }
 					</h1>
 
 					<div className="flex flex-col md:flex-row items-center mt-8 md:mt-10 gap-x-8 gap-y-5">

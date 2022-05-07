@@ -10,7 +10,7 @@ import {
 	MCta,
 } from "@/components";
 
-export interface HomePageProps {
+interface HomePageProps {
 	domain: string;
 }
 
