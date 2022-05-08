@@ -16,20 +16,18 @@ import onboardingImage from "@/assets/img/onboarding.jpg";
 const OnboardingPage = () => {
 	return (
 		<AppShell>
-			<IonContent>
-				<main className="flex items-end min-h-screen">
-					<div className="absolute inset-0 z-10 bg-gradient-to-t from-emerald-900 to-transparent"></div>
+			<main className="flex justify-center min-h-screen relative">
+				<div className="absolute inset-0 z-10 bg-gradient-to-t from-emerald-900 to-transparent"></div>
 
-					<Image
-						src={onboardingImage}
-						alt="Water management for plants"
-						layout="fill"
-						className="absolute inset-0 object-cover"
-					/>
+				<Image
+					src={onboardingImage}
+					alt="Water management for plants"
+					layout="fill"
+					className="absolute inset-0 object-cover min-h-full"
+				/>
 
-					<Onboarding className="relative z-10" />
-				</main>
-			</IonContent>
+				<Onboarding className="relative z-10" />
+			</main>
 		</AppShell>
 	)
 }
