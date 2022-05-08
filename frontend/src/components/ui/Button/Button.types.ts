@@ -7,6 +7,7 @@ export type ButtonProps = {
 	icon?: keyof typeof icons,
 	iconAfter?: boolean,
 	fluid?: boolean,
+	loading?: boolean,
 	newTab?: boolean,
 	alt?: boolean,
 	compact?: boolean,

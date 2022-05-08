@@ -34,7 +34,7 @@ const Header: FunctionComponent<HeaderProps> = ({ className }) => {
 			</Link>
 
 			<Button
-				url="#"
+				url="/"
 				compact
 			>
 				{ t("navigation.app") }
@@ -73,7 +73,7 @@ const Header: FunctionComponent<HeaderProps> = ({ className }) => {
 					</Transition>
 
 					<div className="2xl:container px-6 sm:px-10 py-10 relative z-30 flex justify-between items-center bg-white">
-						<Logo w={120} url="/home" />
+						<Logo w={120} url="/" />
 
 						<div className="hidden md:block">
 							{ renderNavigation() }

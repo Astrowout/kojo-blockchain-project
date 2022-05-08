@@ -1,10 +1,9 @@
 import type { NextPage } from "next";
+import type { PropsWithChildren } from "react";
 
-interface AppLayoutProps {
-	children?: JSX.Element | string;
-}
+type AppLayoutProps = {};
 
-const AppLayout: NextPage<AppLayoutProps> = ({
+const AppLayout: NextPage<PropsWithChildren<AppLayoutProps>> = ({
 	children,
 }) => (
 	<>

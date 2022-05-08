@@ -1,5 +1,4 @@
 import { FunctionComponent } from "react";
-import Image from "next/image";
 import cn from "classnames";
 
 import { HeroProps } from "./Hero.types";
@@ -8,9 +7,10 @@ import { useTranslation } from "@/hooks";
 import {
 	Button,
 	Link,
+	Image,
 } from "@/components";
 
-import heroImage from "@/assets/img/hero.png"
+import heroImage from "@/assets/img/hero.png";
 
 const Hero: FunctionComponent<HeroProps> = ({ className }) => {
 	const { t } = useTranslation();
@@ -42,7 +42,6 @@ const Hero: FunctionComponent<HeroProps> = ({ className }) => {
 				<Image
 					src={heroImage}
 					alt="Water management for plants"
-					placeholder="blur"
 				/>
 			</div>
 		</section>

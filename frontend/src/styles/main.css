@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./app.css";
+
+html {
+	@apply bg-white;
+}

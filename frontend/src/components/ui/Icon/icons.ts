@@ -5,6 +5,7 @@ import Close from "@/assets/icons/close.svg";
 import KojoToken from "@/assets/icons/kojo-token.svg";
 import ArrowRight from "@/assets/icons/arrow-right.svg";
 import GitHub from "@/assets/icons/github.svg";
+import Spinner from "@/assets/icons/spinner.svg";
 
 // Mapping
 const icons = {
@@ -14,6 +15,7 @@ const icons = {
 	KojoToken,
 	ArrowRight,
 	GitHub,
+	Spinner,
 }
 
 export default icons;

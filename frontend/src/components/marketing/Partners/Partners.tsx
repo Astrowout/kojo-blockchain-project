@@ -1,10 +1,12 @@
 import { FunctionComponent } from "react";
-import Image from "next/image";
 import cn from "classnames";
 
 import { PartnersProps } from "./Partners.types";
 
 import { useTranslation } from "@/hooks";
+import {
+	Image,
+} from "@/components";
 
 import farysLogo from "@/assets/img/farys.png"
 import polygonLogo from "@/assets/img/polygon.png"
@@ -24,17 +26,14 @@ const Partners: FunctionComponent<PartnersProps> = ({ className }) => {
 					<Image
 						src={farysLogo}
 						alt="Farys logo"
-						placeholder="blur"
 					/>
 					<Image
 						src={polygonLogo}
 						alt="Polygon network logo"
-						placeholder="blur"
 					/>
 					<Image
 						src={howestLogo}
 						alt="Howest hogeschool logo"
-						placeholder="blur"
 					/>
 				</div>
 

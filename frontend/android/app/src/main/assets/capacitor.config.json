@@ -2,5 +2,11 @@
 	"appId": "xyz.kojo",
 	"appName": "kojo",
 	"webDir": "out",
-	"bundledWebRuntime": false
+	"bundledWebRuntime": false,
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 3000,
+			"androidScaleType": "CENTER_CROP"
+		}
+	}
 }
