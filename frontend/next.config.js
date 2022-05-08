@@ -15,14 +15,6 @@ const nextConfig = {
 	images: {
 		loader: "custom",
 	},
-	async rewrites() {
-		return [
-			{
-				source: '/product',
-				destination: '/',
-			},
-		]
-	},
 };
 
 module.exports = withTM(nextConfig);

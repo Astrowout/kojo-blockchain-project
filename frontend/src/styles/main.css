@@ -7,3 +7,9 @@
 html {
 	@apply bg-white;
 }
+
+html,
+body,
+#__next {
+	@apply flex flex-col flex-grow min-h-screen h-full;
+}

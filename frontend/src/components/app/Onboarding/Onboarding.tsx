@@ -13,10 +13,17 @@ const Onboarding: FunctionComponent<OnboardingProps> = ({ className }) => {
 	const { handleConnect, isLoading } = useWallet();
 
 	return (
-		<section className={cn(className, "px-6 sm:px-10 py-12 mx-auto flex flex-col items-center text-center text-white max-w-prose")}>
-				<Logo w={80} url="/" white />
+		<section
+			className={cn(
+				className,
+				"px-6 sm:px-10 sm:py-4 flex items-end mt-auto sm:mb-auto"
+			)}
+		>
+			<div className="sm:px-10 py-12 sm:py-10 flex flex-col items-center text-center text-white max-w-md rounded-2xl sm:border sm:bg-white sm:text-emerald-900">
+				<Logo w={80} url="/" white className="sm:hidden" />
+				<Logo w={120} url="/" className="hidden sm:block" />
 
-				<h1 className="text-lg mt-10 font-semibold uppercase tracking-wider">
+				<h1 className="text-lg mt-10 sm:mt-14 font-semibold uppercase tracking-wider">
 					{ t("onboarding.title") }
 				</h1>
 
@@ -30,13 +37,22 @@ const Onboarding: FunctionComponent<OnboardingProps> = ({ className }) => {
 
 				<Button
 					alt
-					className="mt-12"
+					className="mt-12 sm:hidden"
 					fluid
 					loading={isLoading}
 					onClick={handleConnect}
 				>
 					{ t("onboarding.cta") }
 				</Button>
+				<Button
+					className="mt-10 hidden sm:block"
+					fluid
+					loading={isLoading}
+					onClick={handleConnect}
+				>
+					{ t("onboarding.cta") }
+				</Button>
+			</div>
 		</section>
 	)
 }
