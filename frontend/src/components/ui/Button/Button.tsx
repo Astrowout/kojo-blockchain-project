@@ -11,14 +11,15 @@ const Button: FunctionComponent<ButtonProps> = ({
 	children,
 	alt = false,
 	compact = false,
+	loading = false,
 	iconAfter = false,
-	url = "/",
+	url = "",
 	icon = null,
 	onClick,
 }) => {
-	const classes = cn(className, "inline-flex space-x-2 text-center justify-center duration-300 transition hover:scale-105 whitespace-nowrap items-center rounded-2xl shadow-lg shadow-emerald-600/20 hover:shadow-xl hover:shadow-emerald-600/20", {
-		"text-white bg-emerald-600": !alt,
-		"text-emerald-600 bg-white": alt,
+	const classes = cn(className, "inline-flex space-x-2 text-center justify-center duration-300 transition hover:scale-105 whitespace-nowrap items-center rounded-2xl shadow-lg hover:shadow-xl", {
+		"text-white bg-emerald-600 shadow-emerald-600/20 hover:shadow-emerald-600/20": !alt,
+		"text-emerald-900 bg-white shadow-emerald-900/20 hover:shadow-emerald-900/20": alt,
 		"px-8 sm:px-14 h-16 sm:h-20 text-lg sm:text-xl": !compact,
 		"px-7 h-12": compact,
 		"w-full": fluid,
@@ -26,7 +27,9 @@ const Button: FunctionComponent<ButtonProps> = ({
 
 	const renderContent = () => (
 		<>
-			{icon && !iconAfter && <Icon name={icon} />}
+			{icon && !iconAfter && !loading && <Icon name={icon} />}
+
+			{loading && <Icon className="animate-spin" name="Spinner" />}
 
 			<span>
 				{children}
@@ -47,6 +50,7 @@ const Button: FunctionComponent<ButtonProps> = ({
 			type="button"
 			className={classes}
 			onClick={onClick}
+			disabled={loading}
 		>
 			{ renderContent() }
 		</button>

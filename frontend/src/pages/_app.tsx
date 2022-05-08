@@ -1,11 +1,10 @@
 import type { AppProps } from "next/app";
 
-import "@/styles/app.css";
+import "@/styles/main.css";
+import "@ionic/react/css/core.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
-	return (
-		<Component {...pageProps} />
-	);
+	return <Component {...pageProps} />;
 }
 
 export default MyApp;

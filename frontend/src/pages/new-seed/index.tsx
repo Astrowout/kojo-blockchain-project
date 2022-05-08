@@ -1,10 +1,15 @@
-import { AppLayout } from "@layouts";
+import {
+	AppShell,
+	AppLayout,
+} from "@/components";
 
 const NewSeedPage = () => {
 	return (
-		<AppLayout>
-			new seed page
-		</AppLayout>
+		<AppShell>
+			<AppLayout>
+				new seed page
+			</AppLayout>
+		</AppShell>
 	)
 }
 

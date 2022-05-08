@@ -1,10 +1,15 @@
-import { AppLayout } from "@layouts";
+import {
+	AppShell,
+	AppLayout,
+} from "@/components";
 
 const ConsumptionPage = () => {
 	return (
-		<AppLayout>
-			consumption page
-		</AppLayout>
+		<AppShell>
+			<AppLayout>
+				consumption page
+			</AppLayout>
+		</AppShell>
 	)
 }
 

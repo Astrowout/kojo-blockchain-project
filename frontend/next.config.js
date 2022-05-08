@@ -1,23 +1,28 @@
-/** @type {import('next').NextConfig} */
+const withTM = require("next-transpile-modules")(["@ionic/react", "@ionic/core", "@stencil/core", "ionicons"]);
+
+/** @type {import("next").NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: ['@svgr/webpack'],
-    })
+	reactStrictMode: true,
+	webpack(config) {
+		config.module.rules.push({
+			test: /\.svg$/i,
+			issuer: /\.[jt]sx?$/,
+			use: ["@svgr/webpack"],
+		})
 
-    return config
-  },
-  async rewrites() {
-    return [
-      {
-        source: '/about',
-        destination: '/',
-      },
-    ]
-  },
-}
+		return config;
+	},
+	images: {
+		loader: "custom",
+	},
+	async rewrites() {
+		return [
+			{
+				source: '/product',
+				destination: '/',
+			},
+		]
+	},
+};
 
-module.exports = nextConfig
+module.exports = withTM(nextConfig);

@@ -1,11 +1,11 @@
 import { FunctionComponent } from "react";
-import Image from "next/image";
 import cn from "classnames";
 
 import { FooterProps } from "./Footer.types";
 import { useTranslation } from "@/hooks";
 import {
 	Button,
+	Image,
 	MBottomBar,
 } from "@/components";
 
@@ -37,7 +37,6 @@ const Footer: FunctionComponent<FooterProps> = ({
 				<Image
 					src={footerImage}
 					alt="Water management for plants"
-					placeholder="blur"
 				/>
 			</div>
 

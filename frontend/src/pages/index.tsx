@@ -1,55 +1,37 @@
-import type { NextPage, GetStaticProps } from "next";
-import Head from "next/head";
+import dynamic from "next/dynamic";
+import { IonContent } from "@ionic/react";
 
 import {
-	MHeader,
-	MFooter,
-	MHero,
-	MPartners,
-	MToken,
-	MCta,
+	Image,
+	Onboarding,
 } from "@/components";
 
-interface HomePageProps {
-	domain: string;
-}
+const AppShell = dynamic(
+	() => import("@/components/app/AppShell/AppShell"),
+	{ ssr: false, },
+)
 
-const HomePage: NextPage<HomePageProps> = ({
-	domain = ""
-}) => {
+import onboardingImage from "@/assets/img/onboarding.jpg";
+
+const OnboardingPage = () => {
 	return (
-		<div>
-			<Head>
-				<title>Welcome to kojo</title>
-				<meta name="description" content="Kojo aims at designing a solution that brings blockchain technology and water management together. We challenge ourselves in designing an NFT-game where end-users can grow seeds into plants based on their sustainable water consumption." />
-				<link rel="icon" href="/favicon.ico" />
-			</Head>
+		<AppShell>
+			<IonContent>
+				<main className="flex items-end min-h-screen">
+					<div className="absolute inset-0 z-10 bg-gradient-to-t from-emerald-900 to-transparent"></div>
 
-			<MHeader />
+					<Image
+						src={onboardingImage}
+						alt="Water management for plants"
+						layout="fill"
+						className="absolute inset-0 object-cover"
+					/>
 
-			<main>
-				<MHero />
-				<MPartners />
-				<MToken />
-				<MCta
-					className="pt-10 sm:pt-16"
-				/>
-			</main>
-
-			<MFooter
-				domain={domain}
-				className="pt-40 -mt-20"
-			/>
-	   </div>
-  	)
+					<Onboarding className="relative z-10" />
+				</main>
+			</IonContent>
+		</AppShell>
+	)
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-	return {
-		props: {
-			domain: process.env.APP_DOMAIN,
-		}
-	}
-}
-
-export default HomePage;
+export default OnboardingPage;

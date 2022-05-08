@@ -1,10 +1,15 @@
-import { AppLayout } from "@layouts";
+import {
+	AppShell,
+	AppLayout,
+} from "@/components";
 
 const TokensPage = () => {
 	return (
-		<AppLayout>
-			tokens page
-		</AppLayout>
+		<AppShell>
+			<AppLayout>
+				tokens page
+			</AppLayout>
+		</AppShell>
 	)
 }
 
