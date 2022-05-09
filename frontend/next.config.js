@@ -1,4 +1,4 @@
-const withTM = require("next-transpile-modules")(["@ionic/react", "@ionic/core", "@stencil/core", "ionicons"]);
+const withTM = require("next-transpile-modules")(["@ionic/react", "@ionic/core", "@stencil/core", "ionicons", "gsap"]);
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
