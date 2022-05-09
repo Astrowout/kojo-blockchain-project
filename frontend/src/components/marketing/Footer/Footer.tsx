@@ -34,10 +34,12 @@ const Footer: FunctionComponent<FooterProps> = ({
 					</Button>
 				</div>
 
-				<Image
-					src={footerImage}
-					alt="Water management for plants"
-				/>
+				<div className="hidden md:block">
+					<Image
+						src={footerImage}
+						alt="Water management for plants"
+					/>
+				</div>
 			</div>
 
 			<MBottomBar
