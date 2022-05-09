@@ -32,7 +32,7 @@ const Hero: FunctionComponent<HeroProps> = ({ className }) => {
 						</Button>
 
 						<Link
-							url="#"
+							url="/"
 						>
 							{ t("navigation.browser") }
 						</Link>
@@ -41,6 +41,7 @@ const Hero: FunctionComponent<HeroProps> = ({ className }) => {
 
 				<Image
 					src={heroImage}
+					priority
 					alt="Water management for plants"
 				/>
 			</div>

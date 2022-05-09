@@ -13,16 +13,17 @@
     "cr": "cordova-res",
     "build:web": "next build",
     "build:app": "next build && next export && npx cap sync",
-	"postbuild:app": "yarn generate:assets"
+    "postbuild:app": "yarn generate:assets"
   },
   "dependencies": {
     "@capacitor/android": "^3.5.0",
     "@capacitor/core": "^3.5.0",
     "@capacitor/splash-screen": "^1.2.2",
     "@capacitor/status-bar": "^1.0.8",
-    "@headlessui/react": "^1.6.0",
+    "@headlessui/react": "^0.0.0-insiders.c494fa3",
     "@ionic/react": "6",
     "classnames": "^2.3.1",
+    "gsap": "^3.10.4",
     "lodash": "^4.17.21",
     "next": "12.1.5",
     "next-transpile-modules": "^9.0.0",
