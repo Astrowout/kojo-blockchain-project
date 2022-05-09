@@ -11,6 +11,7 @@ export { default as MFooter } from "./marketing/Footer/Footer";
 export { default as MBottomBar } from "./marketing/BottomBar/BottomBar";
 export { default as MHero } from "./marketing/Hero/Hero";
 export { default as MPartners } from "./marketing/Partners/Partners";
+export { default as MHow } from "./marketing/How/How";
 export { default as MToken } from "./marketing/Token/Token";
 export { default as MCta } from "./marketing/Cta/Cta";
 

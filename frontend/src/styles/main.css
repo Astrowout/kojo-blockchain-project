@@ -11,5 +11,5 @@ html {
 html,
 body,
 #__next {
-	@apply flex flex-col flex-grow min-h-screen h-full;
+	@apply flex flex-col flex-grow min-h-screen;
 }

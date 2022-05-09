@@ -6,6 +6,7 @@ import {
 	MFooter,
 	MHero,
 	MPartners,
+	MHow,
 	MToken,
 	MCta,
 } from "@/components";
@@ -30,6 +31,7 @@ const HomePage: NextPage<HomePageProps> = ({
 			<main>
 				<MHero />
 				<MPartners />
+				<MHow />
 				<MToken />
 				<MCta
 					className="pt-10 sm:pt-16"

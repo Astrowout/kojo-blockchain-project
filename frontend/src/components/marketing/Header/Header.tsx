@@ -66,7 +66,7 @@ const Header: FunctionComponent<HeaderProps> = ({ className }) => {
 					leaveTo="-translate-y-full"
 					className="block md:hidden px-6 sm:px-10 pt-32 pb-8 absolute z-20 inset-x-0 w-full bg-white shadow-xl"
 				>
-					<Popover.Panel focus={false}>
+					<Popover.Panel>
 						{ renderNavigation() }
 					</Popover.Panel>
 				</Transition>
