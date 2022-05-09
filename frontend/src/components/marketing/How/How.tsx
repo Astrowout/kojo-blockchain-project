@@ -1,8 +1,6 @@
-import { FunctionComponent, useEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { FunctionComponent, useState } from "react";
 import cn from "classnames";
-import debounce from "lodash/debounce";
+import { motion } from "framer-motion"
 
 import { HowProps } from "./How.types";
 
@@ -16,12 +14,9 @@ import how2Image from "@/assets/img/how2.jpg";
 import how3Image from "@/assets/img/how3.jpg";
 import how4Image from "@/assets/img/how4.jpg";
 
-gsap.registerPlugin(ScrollTrigger);
-
 const How: FunctionComponent<HowProps> = ({ className }) => {
 	const { t } = useTranslation();
-
-	let tl: any = null;
+	const [activeIndex, setActiveIndex] = useState(0);
 
 	const CONTENT = [
 		{
@@ -46,114 +41,79 @@ const How: FunctionComponent<HowProps> = ({ className }) => {
 		},
 	];
 
-	useEffect(() => {
-		if (tl) {
-			tl.kill();
-		}
-
-		ScrollTrigger.matchMedia({
-			"(min-width: 960px)": function() {
-				tl = gsap.timeline({
-					ease: "none",
-					scrollTrigger: {
-						trigger: ".js-container",
-						pin: true,
-						pinSpacing: true,
-						start: "top top",
-						end: "+=1200px",
-						scrub: 0.5,
-						invalidateOnRefresh: true,
-						toggleActions: "play complete reverse reset",
-					}
-				});
-
-				tl
-					.set(".js-content:not(.js-content--0)", {
-						autoAlpha: 0,
-					})
-					.set(".js-image:not(.js-image--0)", {
-						autoAlpha: 0,
-					})
-
-					for (let i = 0; i < CONTENT.length; i++) {
-						tl
-							.to("js-image", {
-
-							}, "+=0.5")
-							.to(`.js-content--${i}`, {
-								autoAlpha: 0,
-								y: 30
-							})
-							.to(`.js-image--${i}`, {
-								autoAlpha: 0,
-							})
-							.fromTo(`.js-content--${i + 1}`, {
-								y: 30
-							}, {
-								autoAlpha: 1,
-								y: 0
-							})
-							.to(`.js-image--${i + 1}`, {
-								autoAlpha: 1,
-							})
-					}
-			},
-		});
-
-		const debounceResize = debounce(() => {
-			ScrollTrigger.refresh(true);
-		}, 300)
-
-		window.addEventListener("resize", debounceResize);
-
-		return () => {
-			if (tl) {
-				tl.kill();
-			}
-
-			window.removeEventListener("resize", debounceResize);
-		}
-	}, []);
-
-
 	return (
-		<section className={cn(className, "js-container lg:mb-[1200px] bg-emerald-50 flex flex-col")}>
-			<div className='w-full h-full max-w-screen-xl mx-auto grid lg:grid-cols-2 items-center lg:h-screen gap-x-24 gap-y-12 px-6 sm:px-10 py-10 sm:py-16'>
-				<div className="relative flex h-64 lg:h-4/5">
+		<section className={cn(className, "bg-emerald-50 flex flex-col")}>
+			<div className='w-full max-w-screen-xl mx-auto grid md:grid-cols-2 gap-x-16 xl:gap-x-24 gap-y-12 px-6 sm:px-10 py-10 sm:py-16'>
+				<div className="h-64 hidden md:flex md:h-screen md:sticky md:top-0">
 					{CONTENT.map((step, index) => (
-						<div
+						<motion.div
+							animate={{
+								opacity: index === activeIndex ? 1 : 0,
+								y: index === activeIndex ? 0 : 30,
+							}}
+							transition={{
+								y: {
+									type: 'spring',
+									bounce: 0.8,
+									duration: 1
+								}
+							}}
 							key={index}
-							className={cn(`js-image--${index}`, "js-image rounded-2xl overflow-hidden shadow-2xl lg:absolute inset-0")}
+							className="rounded-2xl overflow-hidden shadow-2xl absolute inset-x-0 inset-y-36"
 						>
 							<Image
 								src={step.image}
 								layout="fill"
 								alt="Water management for plants"
-								className="object-cover"
+								className="object-cover hidden md:block"
 							/>
-						</div>
+						</motion.div>
 					))}
 				</div>
 
-				<div className="h-full flex flex-col justify-center">
-					<h1 className="font-sans font-semibold text-emerald-600 uppercase tracking-wider">
-						{ t("how.title") }
-					</h1>
-					<div className="relative">
-						{CONTENT.map((step, index) => (
-							<div
+
+				<div className="flex flex-col space-y-12 md:space-y-0">
+					{CONTENT.map((step, index) => (
+						<div
+							key={index}
+							className="md:h-screen flex flex-col justify-center"
+						>
+							<motion.div
+								onViewportEnter={() => setActiveIndex(index)}
+								initial={{
+									opacity: 0,
+								}}
+								whileInView={{
+									opacity: 1,
+								}}
+								viewport={{
+									amount: 0.5,
+								}}
 								key={index}
-								className={cn(`js-content--${index}`, "js-content lg:absolute inset-0 space-y-4")}
 							>
-								<h2 className="mt-8 font-serif text-emerald-900 text-3xl leading-tight md:text-4xl md:leading-tight xl:text-5xl xl:leading-tight">
+								<div className="md:hidden relative rounded-2xl overflow-hidden shadow-2xl h-56">
+									<Image
+										src={step.image}
+										layout="fill"
+										alt="Water management for plants"
+										className="object-cover"
+									/>
+								</div>
+
+								<h1 className="hidden md:block font-sans mt-4 font-semibold text-emerald-600 uppercase tracking-wider">
+									{ t("how.title") }
+								</h1>
+
+								<h2 className="font-serif mt-10 text-emerald-900 text-3xl leading-tight md:text-4xl md:leading-tight xl:text-5xl xl:leading-tight">
 									{ step.title }
 								</h2>
-								<p className="font-sans text-gray-400">
+
+								<p className="font-sans mt-4 text-gray-400">
 									{ step.description }
 								</p>
-							</div>
-						))}
-					</div>
+							</motion.div>
+						</div>
+					))}
 				</div>
 			</div>
 		</section>
