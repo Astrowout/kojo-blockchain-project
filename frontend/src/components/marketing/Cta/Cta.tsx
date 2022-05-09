@@ -28,7 +28,7 @@ const Token: FunctionComponent<CtaProps> = ({ className }) => {
 					<Button
 						icon="ArrowRight"
 						iconAfter
-						url="#"
+						url="/app"
 						alt
 					>
 						{ t("cta.label") }

@@ -1,4 +1,5 @@
 import { FunctionComponent } from "react";
+import NextLink from "next/link";
 import { Popover, Transition } from "@headlessui/react";
 
 import cn from "classnames";
@@ -34,7 +35,7 @@ const Header: FunctionComponent<HeaderProps> = ({ className }) => {
 			</Link>
 
 			<Button
-				url="/"
+				url="/app"
 				compact
 			>
 				{ t("navigation.app") }
@@ -72,7 +73,11 @@ const Header: FunctionComponent<HeaderProps> = ({ className }) => {
 				</Transition>
 
 				<div className="2xl:container px-6 sm:px-10 py-10 relative z-20 flex justify-between items-center bg-white">
-					<Logo w={120} url="/" />
+					<NextLink href="/">
+						<a>
+							<Logo w={120} />
+						</a>
+					</NextLink>
 
 					<div className="hidden md:block">
 						{ renderNavigation() }

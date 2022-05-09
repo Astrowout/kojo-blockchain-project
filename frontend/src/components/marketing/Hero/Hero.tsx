@@ -32,7 +32,7 @@ const Hero: FunctionComponent<HeroProps> = ({ className }) => {
 						</Button>
 
 						<Link
-							url="/"
+							url="/app"
 						>
 							{ t("navigation.browser") }
 						</Link>

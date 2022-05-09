@@ -64,6 +64,7 @@ const How: FunctionComponent<HowProps> = ({ className }) => {
 							<Image
 								src={step.image}
 								layout="fill"
+								priority={index === 0}
 								alt="Water management for plants"
 								className="object-cover hidden md:block"
 							/>
