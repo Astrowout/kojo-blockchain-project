@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from "react";
-import { gsap } from "gsap/dist/gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import cn from "classnames";
 import debounce from "lodash/debounce";
 
@@ -128,7 +128,6 @@ const How: FunctionComponent<HowProps> = ({ className }) => {
 							<Image
 								src={step.image}
 								layout="fill"
-								height={500}
 								alt="Water management for plants"
 								className="object-cover"
 							/>

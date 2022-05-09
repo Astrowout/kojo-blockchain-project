@@ -19,6 +19,6 @@
 		"@*": ["src/*"]
 	  }
   },
-  "include": ["app/next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["app/next-env.d.ts", "**/*.ts", "**/*.tsx", "node_modules/gsap/types/index.d.ts"],
   "exclude": ["node_modules"]
 }
