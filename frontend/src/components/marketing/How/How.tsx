@@ -81,15 +81,11 @@ const How: FunctionComponent<HowProps> = ({ className }) => {
 						>
 							<motion.div
 								onViewportEnter={() => setActiveIndex(index)}
-								initial={{
-									opacity: 0,
-								}}
 								whileInView={{
 									opacity: 1,
 								}}
 								viewport={{
-									amount: 0.5,
-									margin: "80px 0px 0px 0px"
+									amount: 0.6,
 								}}
 								key={index}
 							>

@@ -1,14 +1,12 @@
-
-import { setupIonicReact } from "@ionic/react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
-
-setupIonicReact();
 
 class MyDocument extends Document {
 	render() {
 		return (
 			<Html>
 				<Head>
+					<base href="/" />
+
 					<meta name="format-detection" content="telephone=no" />
 					<meta name="msapplication-tap-highlight" content="no" />
 

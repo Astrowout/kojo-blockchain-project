@@ -1,9 +1,13 @@
 import { PropsWithChildren, useEffect } from "react";
 import type { NextPage } from "next";
-import { IonApp, IonContent } from "@ionic/react";
+import { IonApp, IonPage } from "@ionic/react";
 import { StatusBar, Style } from "@capacitor/status-bar";
 
 type AppShellProps = {};
+
+// const IonApp = dynamic(() => import("@ionic/react").then((m) => m.IonApp) as any, {
+// 	ssr: false,
+// }) as any;
 
 const AppShell: NextPage<PropsWithChildren<AppShellProps>> = ({
 	children,
@@ -20,9 +24,9 @@ const AppShell: NextPage<PropsWithChildren<AppShellProps>> = ({
 
 	return (
 		<IonApp className="font-sans">
-			<IonContent>
+			<IonPage>
       			{children}
-  			</IonContent>
+  			</IonPage>
 		</IonApp>
 	)
 };

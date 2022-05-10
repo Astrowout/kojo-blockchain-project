@@ -1,7 +1,0 @@
-/* Set variables for all modes */
-:root {
-	/* Set the font family of the entire app */
-	--ion-font-family: 'Poppins', 'ui-sans-serif', sans-serif;
-	--ion-text-color: #273F34;
-	--ion-text-color-rgb: rgba(39, 63, 52, 1);
-}

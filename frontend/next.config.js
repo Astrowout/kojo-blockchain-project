@@ -1,4 +1,6 @@
 const withTM = require("next-transpile-modules")(["@ionic/react", "@ionic/core", "@stencil/core", "ionicons"]);
+const withPWA = require('next-pwa');
+const runtimeCaching = require('next-pwa/cache');
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
@@ -15,6 +17,10 @@ const nextConfig = {
 	images: {
 		loader: "custom",
 	},
+	pwa: {
+		dest: 'public',
+		runtimeCaching,
+	},
 };
 
-module.exports = withTM(nextConfig);
+module.exports = withPWA(withTM(nextConfig));
