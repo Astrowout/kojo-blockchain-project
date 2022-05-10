@@ -1,4 +1,7 @@
 {
 	"name": "kojo",
+	"integrations": {
+		"capacitor": {}
+	},
 	"type": "react"
 }

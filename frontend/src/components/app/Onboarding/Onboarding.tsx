@@ -44,11 +44,13 @@ const Onboarding: FunctionComponent<OnboardingProps> = ({ className }) => {
 				>
 					{ t("onboarding.cta") }
 				</Button>
+
 				<Button
-					className="mt-10 hidden sm:block"
+					className="mt-10 hidden sm:flex"
 					fluid
 					loading={isLoading}
-					onClick={handleConnect}
+					url="/dashboard"
+					// onClick={handleConnect}
 				>
 					{ t("onboarding.cta") }
 				</Button>

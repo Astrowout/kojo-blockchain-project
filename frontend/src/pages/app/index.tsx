@@ -1,14 +1,8 @@
-import dynamic from "next/dynamic";
-
 import {
 	Image,
 	Onboarding,
+	AppShell,
 } from "@/components";
-
-const AppShell = dynamic(
-	() => import("@/components/app/AppShell/AppShell"),
-	{ ssr: false, },
-)
 
 import onboardingImage from "@/assets/img/onboarding.jpg";
 

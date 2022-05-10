@@ -1,3 +1,5 @@
+import dynamic from "next/dynamic";
+
 // UI components (both marketing and app)
 export { default as Logo } from "./ui/Logo/Logo";
 export { default as Icon } from "./ui/Icon/Icon";
@@ -16,6 +18,12 @@ export { default as MToken } from "./marketing/Token/Token";
 export { default as MCta } from "./marketing/Cta/Cta";
 
 // App components
-export { default as AppShell } from "./app/AppShell/AppShell";
-export { default as AppLayout } from "./app/AppLayout/AppLayout";
+export { default as AppLayout } from "./app/Layout/Layout";
+export { default as AppHeader } from "./app/Header/Header";
 export { default as Onboarding } from "./app/Onboarding/Onboarding";
+
+// Make sure AppShell is always only rendered on the client side and never on the server.
+const AppShell = dynamic(() => import("./app/Shell/Shell"), {
+	ssr: false,
+});
+export { AppShell };
