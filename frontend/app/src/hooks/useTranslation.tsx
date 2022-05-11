@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import get from "lodash/get";
 
-import enTranslations from "@/assets/i18n/en";
+import enTranslations from "../assets/i18n/en";
 
 const useTranslation = () => {
 	const translate = (key: string, ...elements: any[]): JSX.Element => {

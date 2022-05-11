@@ -19,6 +19,6 @@
 		"@*": ["src/*"]
 	}
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "../app/src/useNotifications.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }

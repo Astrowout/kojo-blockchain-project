@@ -1,15 +1,14 @@
 import { FunctionComponent } from "react";
-import Link from "next/link";
 
-import { useNotifications } from "@/hooks";
+import { useNotifications } from "../../hooks";
 import {
 	Icon,
-	Image,
-} from "@/components";
+} from "../../components";
 import { AppHeaderProps } from "./Header.types";
 import { IonHeader } from "@ionic/react";
 
-import headerImage from "@/assets/img/onboarding.jpg";
+import headerImage from "../../assets/img/onboarding.jpg";
+import { Link } from "react-router-dom";
 
 const AppHeader: FunctionComponent<AppHeaderProps> = ({
 	title = "",
@@ -23,10 +22,9 @@ const AppHeader: FunctionComponent<AppHeaderProps> = ({
 			<div className="absolute inset-0 z-10 bg-emerald-600 bg-opacity-90"></div>
 
 			<div className="md:hidden">
-				<Image
+				<img
 					src={headerImage}
 					alt="Water management for plants"
-					layout="fill"
 					aria-hidden="true"
 					className="absolute inset-0 object-cover"
 				/>
@@ -36,15 +34,12 @@ const AppHeader: FunctionComponent<AppHeaderProps> = ({
 				<div className="text-white flex justify-between">
 					<div className="flex items-center">
 						{backLink && (
-							<Link href={backLink}>
-								<a className="mr-3 flex text-emerald-100">
-									<Icon name="ArrowLeft" size={28}></Icon>
+							<Link to={backLink} className="mr-3 flex text-emerald-100">
+								<Icon name="ArrowLeft" size={28}></Icon>
 
-									<span className="sr-only">
-										Go back
-									</span>
-								</a>
-
+								<span className="sr-only">
+									Go back
+								</span>
 							</Link>
 						)}
 

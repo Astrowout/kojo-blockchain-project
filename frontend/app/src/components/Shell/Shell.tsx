@@ -1,37 +1,13 @@
-// @ts-nocheck
-import { PropsWithChildren } from "react";
-import type { NextPage } from "next";
-import { IonApp, IonRouterOutlet } from "@ionic/react";
-
-import {
-	OnboardingPage,
-	DashboardPage,
-	ConsumptionPage,
-	NewSeedPage,
-	PlantsPage,
-	PlantPage,
-	NotFoundPage,
-} from "@routes";
-import { Route } from "react-router";
-import { IonReactRouter } from "@ionic/react-router";
+import { FC, PropsWithChildren } from "react";
+import { IonContent } from "@ionic/react";
 
 type AppShellProps = {};
 
-const AppShell: NextPage<PropsWithChildren<AppShellProps>> = () => {
+const AppShell: FC<PropsWithChildren<AppShellProps>> = ({children}) => {
 	return (
-		<IonApp className="font-sans">
-			<IonReactRouter>
-				<IonRouterOutlet>
-					<Route path="/app" exact component={OnboardingPage} />
-					<Route path="/app/dashboard" exact component={DashboardPage} />
-					<Route path="/consumption" component={ConsumptionPage} />
-					<Route path="/plants" component={PlantsPage} />
-					<Route path="/plant" component={PlantPage} />
-					<Route path="/new-seed" component={NewSeedPage} />
-					<Route component={NotFoundPage} />
-				</IonRouterOutlet>
-			</IonReactRouter>
-		</IonApp>
+		<IonContent className="font-sans">
+			{children}
+		</IonContent>
 	)
 };
 

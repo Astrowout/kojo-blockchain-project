@@ -1,14 +1,14 @@
-import { FunctionComponent } from "react";
+import { FC } from "react";
 import cn from "classnames";
 
 import { OnboardingProps } from "./Onboarding.types";
-import { useTranslation, useWallet } from "@/hooks";
+import { useTranslation, useWallet } from "../../hooks";
 import {
 	Logo,
 	Button,
-} from "@/components";
+} from "../../components";
 
-const Onboarding: FunctionComponent<OnboardingProps> = ({ className }) => {
+const Onboarding: FC<OnboardingProps> = ({ className }) => {
 	const { t } = useTranslation();
 	const { handleConnect, isLoading } = useWallet();
 
@@ -40,8 +40,7 @@ const Onboarding: FunctionComponent<OnboardingProps> = ({ className }) => {
 					className="mt-12 sm:hidden"
 					fluid
 					loading={isLoading}
-					// url="/app/dashboard"
-					// onClick={handleConnect}
+					onClick={handleConnect}
 				>
 					{ t("onboarding.cta") }
 				</Button>
@@ -50,8 +49,7 @@ const Onboarding: FunctionComponent<OnboardingProps> = ({ className }) => {
 					className="mt-10 hidden sm:flex"
 					fluid
 					loading={isLoading}
-					// url="/app/dashboard"
-					// onClick={handleConnect}
+					onClick={handleConnect}
 				>
 					{ t("onboarding.cta") }
 				</Button>

@@ -1,8 +1,8 @@
 import { IonContent, IonPage } from "@ionic/react";
 import {
 	Layout,
-} from "@/components";
-import { useTranslation } from "@/hooks";
+} from "../../components";
+import { useTranslation } from "../../hooks";
 
 const DashboardPage = () => {
 	const { t } = useTranslation();
