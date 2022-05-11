@@ -1,14 +1,14 @@
 import {
-	AppLayout,
+	Layout,
 } from "@/components";
 import { IonPage } from "@ionic/react";
 
 const NotFoundPage = () => {
 	return (
 		<IonPage>
-			<AppLayout>
+			<Layout>
 				tokens page
-			</AppLayout>
+			</Layout>
 		</IonPage>
 	)
 }

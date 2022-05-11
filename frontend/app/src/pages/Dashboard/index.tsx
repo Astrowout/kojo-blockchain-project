@@ -1,22 +1,22 @@
 import { IonContent, IonPage } from "@ionic/react";
 import {
-	AppLayout,
+	Layout,
 } from "@/components";
-import { useTranslation } from "@hooks";
+import { useTranslation } from "@/hooks";
 
 const DashboardPage = () => {
 	const { t } = useTranslation();
 
 	return (
 		<IonPage>
-			<AppLayout
+			<Layout
 				title={t("dashboard.title")}
 				description={t("dashboard.description.1", <b className="font-semibold">{t("dashboard.description.2")}</b>)}
 			>
 				<IonContent>
 					dashboard page
 				</IonContent>
-			</AppLayout>
+			</Layout>
 		</IonPage>
 	)
 }

@@ -1,15 +1,15 @@
 import { IonPage } from "@ionic/react";
 
 import {
-	AppLayout,
+	Layout,
 } from "@/components";
 
 const ConsumptionPage = () => {
 	return (
 		<IonPage>
-			<AppLayout>
+			<Layout>
 				consumption page
-			</AppLayout>
+			</Layout>
 		</IonPage>
 	)
 }
