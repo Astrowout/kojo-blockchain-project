@@ -1,14 +1,14 @@
 import {
-	AppLayout,
+	Layout,
 } from "@/components";
 import { IonPage } from "@ionic/react";
 
 const NewSeedPage = () => {
 	return (
 		<IonPage>
-			<AppLayout>
+			<Layout>
 				new seed page
-			</AppLayout>
+			</Layout>
 		</IonPage>
 	)
 }
