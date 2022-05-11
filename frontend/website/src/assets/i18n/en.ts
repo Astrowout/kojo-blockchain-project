@@ -1,4 +1,9 @@
 const translations = {
+	navigation: {
+		download: "Download the app",
+		app: "To the app",
+		browser: "Or use kojo in your browser",
+	},
 	hero: {
 		title: {
 			1: "Grow seeds into plants based on your {$}",
