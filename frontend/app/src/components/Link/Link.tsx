@@ -1,12 +1,12 @@
-import { FunctionComponent } from "react";
-import NextLink from "next/link";
+import { FC } from "react";
 import cn from "classnames";
 
-import { Icon } from "@/components";
+import { Icon } from "../../components";
 
 import { LinkProps } from "./Link.types";
+import { Link as RouterLink } from "react-router-dom";
 
-const Link: FunctionComponent<LinkProps> = ({ className, newTab = false, children, url = "/", icon = null }) => {
+const Link: FC<LinkProps> = ({ className, children, url = "/", icon = null }) => {
 	const classes = cn(className, "inline-flex whitespace-nowrap items-center text-emerald-900 text-lg hover:underline", {
 		"underline": !icon,
 	});
@@ -20,14 +20,12 @@ const Link: FunctionComponent<LinkProps> = ({ className, newTab = false, childre
 	)
 
 	return url ? (
-		<NextLink href={url}>
-			<a
-				className={classes}
-				target={newTab ? "_blank" : undefined}
-			>
-				{ renderContent() }
-			</a>
-		</NextLink>
+		<RouterLink
+			to={url}
+			className={classes}
+		>
+			{ renderContent() }
+		</RouterLink>
 	) : (
 		<button
 			type="button"

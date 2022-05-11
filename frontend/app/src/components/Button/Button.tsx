@@ -1,9 +1,9 @@
 import { FunctionComponent } from "react";
-import Link from "next/link";
 import cn from "classnames";
 
-import { Icon } from "@/components";
+import { Icon } from "../../components";
 import { ButtonProps } from "./Button.types";
+import { IonButton } from "@ionic/react";
 
 const Button: FunctionComponent<ButtonProps> = ({
 	className,
@@ -42,11 +42,9 @@ const Button: FunctionComponent<ButtonProps> = ({
 	// check capacitor is native and use different link if needed
 
 	return url ? (
-		<Link href={url}>
-			<a className={classes}>
-				{ renderContent() }
-			</a>
-		</Link>
+		<IonButton routerLink={url}>
+			{ renderContent() }
+		</IonButton>
 	) : (
 		<button
 			type="button"

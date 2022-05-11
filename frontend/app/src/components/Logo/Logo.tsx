@@ -1,9 +1,9 @@
-import { FunctionComponent } from "react";
+import { FC } from "react";
 import cn from "classnames";
 
 import { LogoProps } from "./Logo.types";
 
-const Logo: FunctionComponent<LogoProps> = ({
+const Logo: FC<LogoProps> = ({
 	className,
 	w = 40,
 	white = false,

@@ -1,6 +1,6 @@
 import {
 	Layout,
-} from "@/components";
+} from "../../components";
 import { IonPage } from "@ionic/react";
 
 const NewSeedPage = () => {

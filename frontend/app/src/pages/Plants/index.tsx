@@ -1,14 +1,14 @@
 import {
-	AppLayout,
-} from "@/components";
+	Layout,
+} from "../../components";
 import { IonPage } from "@ionic/react";
 
 const PlantsPage = () => {
 	return (
 		<IonPage>
-			<AppLayout>
+			<Layout>
 				plants page
-			</AppLayout>
+			</Layout>
 		</IonPage>
 	)
 }

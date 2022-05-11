@@ -2,7 +2,7 @@ import { IonPage } from "@ionic/react";
 
 import {
 	Layout,
-} from "@/components";
+} from "../../components";
 
 const ConsumptionPage = () => {
 	return (
