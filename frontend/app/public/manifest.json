@@ -1,0 +1,28 @@
+{
+  "short_name": "kojo",
+  "name": "kojo water management",
+  "icons": [
+    {
+      "src": "assets/icon/favicon.png",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "assets/icon/icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon/icon.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#059669",
+  "background_color": "#ffffff",
+  "description": "Kojo is the water saving NFT-game where you can grow seeds into plants based on your sustainable water consumption."
+}
