@@ -1,0 +1,12 @@
+export { default as Logo } from "./Logo/Logo";
+export { default as Icon } from "./Icon/Icon";
+export { default as Link } from "./Link/Link";
+export { default as Button } from "./Button/Button";
+export { default as Header } from "./Header/Header";
+export { default as Footer } from "./Footer/Footer";
+export { default as BottomBar } from "./BottomBar/BottomBar";
+export { default as Hero } from "./Hero/Hero";
+export { default as Partners } from "./Partners/Partners";
+export { default as How } from "./How/How";
+export { default as Token } from "./Token/Token";
+export { default as Cta } from "./Cta/Cta";
