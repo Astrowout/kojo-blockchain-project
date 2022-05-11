@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@capacitor/android": "3.5.1",
     "@capacitor/app": "1.1.1",
     "@capacitor/core": "3.5.1",
     "@capacitor/haptics": "1.1.4",
@@ -40,6 +41,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "generate:assets": "cordova-res android --skip-config --copy",
+    "build:app": "ionic cap sync",
+    "open:android": "ionic cap open android",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
