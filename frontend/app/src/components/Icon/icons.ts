@@ -9,6 +9,12 @@ import { ReactComponent as Spinner } from "../../assets/icons/spinner.svg";
 import { ReactComponent as ArrowLeft } from "../../assets/icons/arrow-left.svg";
 import { ReactComponent as Settings } from "../../assets/icons/settings.svg";
 import { ReactComponent as Bell } from "../../assets/icons/bell.svg";
+import { ReactComponent as MetaMask } from "../../assets/icons/MetaMask.svg";
+import { ReactComponent as WalletConnect } from "../../assets/icons/WalletConnect.svg";
+import { ReactComponent as EmptyWallet } from "../../assets/icons/empty-wallet.svg";
+import { ReactComponent as Dashboard } from "../../assets/icons/dashboard.svg";
+import { ReactComponent as Plants } from "../../assets/icons/plants.svg";
+import { ReactComponent as Consumption } from "../../assets/icons/consumption.svg";
 
 // Mapping
 const icons = {
@@ -22,6 +28,12 @@ const icons = {
 	ArrowLeft,
 	Settings,
 	Bell,
+	MetaMask,
+	WalletConnect,
+	EmptyWallet,
+	Dashboard,
+	Plants,
+	Consumption,
 }
 
 export default icons;

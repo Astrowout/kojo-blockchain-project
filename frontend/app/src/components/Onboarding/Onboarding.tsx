@@ -1,16 +1,22 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import cn from "classnames";
 
 import { OnboardingProps } from "./Onboarding.types";
-import { useTranslation, useWallet } from "../../hooks";
+import { useTranslation } from "../../hooks";
 import {
 	Logo,
 	Button,
 } from "../../components";
+import ConnectModal from "../ConnectModal/ConnectModal";
+import { ButtonContext } from "../Button/Button.types";
 
 const Onboarding: FC<OnboardingProps> = ({ className }) => {
 	const { t } = useTranslation();
-	const { handleConnect, isLoading } = useWallet();
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	const close = () => {
+		setIsModalOpen(false);
+	}
 
 	return (
 		<section
@@ -36,11 +42,10 @@ const Onboarding: FC<OnboardingProps> = ({ className }) => {
 				</p>
 
 				<Button
-					alt
 					className="mt-12 sm:hidden"
 					fluid
-					loading={isLoading}
-					onClick={handleConnect}
+					context={ButtonContext.ALT}
+					onClick={() => setIsModalOpen(true)}
 				>
 					{ t("onboarding.cta") }
 				</Button>
@@ -48,12 +53,18 @@ const Onboarding: FC<OnboardingProps> = ({ className }) => {
 				<Button
 					className="mt-10 hidden sm:flex"
 					fluid
-					loading={isLoading}
-					onClick={handleConnect}
+					onClick={() => setIsModalOpen(true)}
 				>
 					{ t("onboarding.cta") }
 				</Button>
 			</div>
+
+			<ConnectModal
+				title={t("connect.title")}
+				description={t("connect.description")}
+				close={close}
+				isOpen={isModalOpen}
+			/>
 		</section>
 	)
 }

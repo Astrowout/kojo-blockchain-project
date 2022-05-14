@@ -1,15 +1,21 @@
+import { IonContent } from "@ionic/react";
 import {
 	Layout,
 } from "../../components";
-import { IonPage } from "@ionic/react";
+import { useTranslation } from "../../hooks";
 
 const PlantsPage = () => {
+	const { t } = useTranslation();
+
 	return (
-		<IonPage>
-			<Layout>
+		<Layout
+			title={t("plants.title")}
+			description={t("plants.description.1", <b className="font-semibold">{t("plants.description.2")}</b>)}
+		>
+			<IonContent>
 				plants page
-			</Layout>
-		</IonPage>
+			</IonContent>
+		</Layout>
 	)
 }
 

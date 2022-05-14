@@ -1,8 +1,24 @@
 const translations = {
+	notFound: {
+		title: "Oops...",
+		description: "Looks like this seed has not been planted yet.",
+		cta: "To my dashboard",
+	},
+	errors: {
+		noWallet: "No Ethereum wallet was detected. <br />Please install {$}.",
+	},
+	buttons: {
+		close: "Close",
+	},
+	general: {
+		loading: "Loading...",
+	},
 	navigation: {
-		download: "Download the app",
-		app: "To the app",
-		browser: "Or use kojo in your browser",
+		dashboard: "My dashboard",
+		plants: "My plants",
+		consumption: "My consumption",
+		notifications: "Notifications",
+		settings: "Settings",
 	},
 	onboarding: {
 		title: "Welcome to kojo",
@@ -12,6 +28,10 @@ const translations = {
 			3: "sustainable water consumption.",
 		},
 		cta: "Connect my wallet",
+	},
+	connect: {
+		title: "Connect your wallet",
+		description: "Choose your connection method",
 	},
 	dashboard: {
 		title: "My dashboard",
@@ -27,6 +47,11 @@ const translations = {
 	},
 	consumption: {
 		title: "My water consumption",
+		average: "Of average in your area",
+		view: "View my water consumption",
+	},
+	plants: {
+		title: "My seeds & plants",
 		average: "Of average in your area",
 		view: "View my water consumption",
 	},

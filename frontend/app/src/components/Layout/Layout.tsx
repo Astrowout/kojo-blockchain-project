@@ -1,11 +1,12 @@
-import { IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from "@ionic/react";
+import { IonLabel, IonPage, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from "@ionic/react";
 import type { FC, PropsWithChildren } from "react";
 import { Redirect, Route } from "react-router";
-import AppHeader from "../Header/Header";
 import { AppLayoutProps } from "./Layout.types";
-import Tab1 from '../../pages/Tab1';
-import Tab2 from '../../pages/Tab2';
-import Tab3 from '../../pages/Tab3';
+// import Tab1 from '../../pages/Tab1';
+// import Tab2 from '../../pages/Tab2';
+// import Tab3 from '../../pages/Tab3';
+import AppHeader from "../Header/Header";
+import Sidebar from "../Sidebar/Sidebar";
 
 const AppLayout: FC<PropsWithChildren<AppLayoutProps>> = ({
 	children,
@@ -13,19 +14,23 @@ const AppLayout: FC<PropsWithChildren<AppLayoutProps>> = ({
 	description,
 	backLink,
 }) => (
-	<>
-		<AppHeader
-			title={title}
-			description={description}
-			backLink={backLink}
-		>
-		</AppHeader>
+	<IonPage className="flex flex-row">
+		<Sidebar className="hidden md:flex" />
 
-		<main>
-			{children}
-		</main>
+		<div className="flex-grow">
+			<AppHeader
+				title={title}
+				description={description}
+				backLink={backLink}
+			>
+			</AppHeader>
 
-		<IonTabs>
+			<main>
+				{children}
+			</main>
+		</div>
+
+		{/* <IonTabs>
 				<IonRouterOutlet>
 					<Route exact path="/tab1">
 						<Tab1 />
@@ -51,8 +56,8 @@ const AppLayout: FC<PropsWithChildren<AppLayoutProps>> = ({
 						<IonLabel>Tab 3</IonLabel>
 					</IonTabButton>
 				</IonTabBar>
-			</IonTabs>
-	</>
+			</IonTabs> */}
+	</IonPage>
 );
 
 export default AppLayout;
