@@ -10,7 +10,6 @@ import { useTranslation } from "@/hooks";
 import how1Image from "@/assets/img/how1.jpg";
 import how2Image from "@/assets/img/how2.jpg";
 import how3Image from "@/assets/img/how3.jpg";
-import how4Image from "@/assets/img/how4.jpg";
 
 const How: FunctionComponent<HowProps> = ({ className }) => {
 	const { t } = useTranslation();
@@ -31,11 +30,6 @@ const How: FunctionComponent<HowProps> = ({ className }) => {
 			title: t("how.3.title"),
 			description: t("how.3.description"),
 			image: how3Image,
-		},
-		{
-			title: t("how.4.title"),
-			description: t("how.4.description"),
-			image: how4Image,
 		},
 	];
 
