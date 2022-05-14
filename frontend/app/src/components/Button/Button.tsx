@@ -2,32 +2,36 @@ import { FunctionComponent } from "react";
 import cn from "classnames";
 
 import { Icon } from "../../components";
-import { ButtonProps } from "./Button.types";
-import { IonButton } from "@ionic/react";
+import { ButtonProps, ButtonContext } from "./Button.types";
+import { IonRouterLink } from "@ionic/react";
 
 const Button: FunctionComponent<ButtonProps> = ({
 	className,
 	fluid = false,
 	children,
-	alt = false,
+	context = ButtonContext.PRIMARY,
 	compact = false,
 	loading = false,
+	disabled = false,
 	iconAfter = false,
 	url = "",
 	icon = null,
 	onClick,
 }) => {
 	const classes = cn(className, "inline-flex space-x-2 text-center justify-center duration-300 transition hover:scale-105 whitespace-nowrap items-center rounded-2xl shadow-lg hover:shadow-xl", {
-		"text-white bg-emerald-600 shadow-emerald-600/20 hover:shadow-emerald-600/20": !alt,
-		"text-emerald-900 bg-white shadow-emerald-900/20 hover:shadow-emerald-900/20": alt,
+		"text-white bg-emerald-600 shadow-emerald-600/20 hover:shadow-emerald-600/20": context === ButtonContext.PRIMARY,
+		"text-emerald-900 bg-white shadow-emerald-900/20 hover:shadow-emerald-900/20": context === ButtonContext.ALT,
+		"text-white bg-amber-500 space-x-4 shadow-amber-900/20 hover:shadow-amber-900/20 hover:scale-100": context === ButtonContext.METAMASK,
+		"text-white bg-blue-500 space-x-4 shadow-blue-900/20 hover:shadow-blue-900/20 hover:scale-100": context === ButtonContext.WALLET_CONNECT,
 		"px-8 sm:px-14 h-16 sm:h-20 text-lg sm:text-xl": !compact,
 		"px-7 h-12": compact,
 		"w-full": fluid,
+		"pointer-events-none opacity-30 cursor-not-allowed": disabled
 	});
 
 	const renderContent = () => (
-		<>
-			{icon && !iconAfter && !loading && <Icon name={icon} />}
+		<span className={classes}>
+			{icon && !iconAfter && !loading && <Icon name={icon} size={context === ButtonContext.METAMASK || context === ButtonContext.WALLET_CONNECT ? 36 : 20} />}
 
 			{loading && <Icon className="animate-spin" name="Spinner" />}
 
@@ -36,21 +40,20 @@ const Button: FunctionComponent<ButtonProps> = ({
 			</span>
 
 			{icon && iconAfter && <Icon name={icon} />}
-		</>
+		</span>
 	);
 
 	// check capacitor is native and use different link if needed
 
 	return url ? (
-		<IonButton routerLink={url}>
+		<IonRouterLink routerLink={url}>
 			{ renderContent() }
-		</IonButton>
+		</IonRouterLink>
 	) : (
 		<button
 			type="button"
-			className={classes}
 			onClick={onClick}
-			disabled={loading}
+			disabled={disabled || loading}
 		>
 			{ renderContent() }
 		</button>

@@ -3,30 +3,35 @@ import { ethers } from "ethers";
 import { Error, ErrorType } from "../types";
 import { useIonToast } from "@ionic/react";
 import { useHistory } from "react-router";
+import useTranslation from "./useTranslation";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const useWallet = () => {
+const useAuth = () => {
 	const [isLoading, setIsLoading] = useState(false);
+	const { t } = useTranslation();
 	const [present] = useIonToast();
 	const history = useHistory();
 	const [error, setError] = useState<Error | null>(null);
 
 	useEffect(() => {
-		if (window.ethereum === undefined) {
-			setError({
-				type: ErrorType.NO_ETHEREUM,
-				message: "string",
+		const isWeb3Available = typeof window !== "undefined" && window?.ethereum;
+		if (!isWeb3Available) {
+			present({
+				color: "danger",
+				duration: 6000,
+				position: "top",
+				message: t("errors.noWeb3") as unknown as string,
 			});
 
 			return;
 		}
-	  console.log("INIT useWallet");
+	  console.log("INIT useAuth");
 
 	  return () => {
 		// cleanup
 	  }
-	}, []);
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const connectMetaMask = async (cb?: () => void | null): Promise<void> => {
 		setIsLoading(true);
@@ -64,6 +69,17 @@ const useWallet = () => {
 		setIsLoading(false);
 	};
 
+	const disconnect = async (): Promise<void> => {
+		await window.ethereum.request({
+			method: "wallet_requestPermissions",
+			params: [
+			  {
+				eth_accounts: {}
+			  }
+			]
+		  });
+	}
+
  	return {
 		connectMetaMask,
 		connectWalletConnect,
@@ -73,4 +89,4 @@ const useWallet = () => {
 };
 
 
-export default useWallet;
+export default useAuth;

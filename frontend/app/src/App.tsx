@@ -46,10 +46,10 @@ const App: React.FC = () => {
 				<IonRouterOutlet>
 					<Route path="/" exact component={OnboardingPage} />
 					<Route path="/dashboard" exact component={DashboardPage} />
-					<Route path="/consumption" component={ConsumptionPage} />
-					<Route path="/plants" component={PlantsPage} />
+					<Route path="/consumption" exact component={ConsumptionPage} />
+					<Route path="/plants" exact component={PlantsPage} />
 					<Route path="/plant" component={PlantPage} />
-					<Route path="/new-seed" component={NewSeedPage} />
+					<Route path="/new-seed" exact component={NewSeedPage} />
 					<Route component={NotFoundPage} />
 				</IonRouterOutlet>
 			</IonReactRouter>

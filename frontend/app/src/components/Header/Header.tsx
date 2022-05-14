@@ -21,16 +21,14 @@ const AppHeader: FunctionComponent<AppHeaderProps> = ({
 		<IonHeader className="bg-emerald-600">
 			<div className="absolute inset-0 z-10 bg-emerald-600 bg-opacity-90"></div>
 
-			<div className="md:hidden">
-				<img
-					src={headerImage}
-					alt="Water management for plants"
-					aria-hidden="true"
-					className="absolute inset-0 object-cover"
-				/>
-			</div>
+			<img
+				src={headerImage}
+				alt="Water management for plants"
+				aria-hidden="true"
+				className="absolute inset-0 object-cover w-full h-full md:hidden"
+			/>
 
-			<div className="px-4 sm:px-8 pt-8 pb-16 md:pt-12 md:pb-24 relative z-10">
+			<div className="px-4 sm:px-8 md:px-12 pt-8 pb-16 md:pt-14 md:pb-24 relative z-10">
 				<div className="text-white flex justify-between">
 					<div className="flex items-center">
 						{backLink && (
@@ -43,7 +41,7 @@ const AppHeader: FunctionComponent<AppHeaderProps> = ({
 							</Link>
 						)}
 
-						<h1 className="font-bold text-xl md:text-3xl">
+						<h1 className="font-bold text-xl sm:text-2xl md:text-4xl">
 							{ title }
 						</h1>
 					</div>

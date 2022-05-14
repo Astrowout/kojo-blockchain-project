@@ -1,16 +1,21 @@
-import { IonPage } from "@ionic/react";
-
+import { IonContent } from "@ionic/react";
 import {
 	Layout,
 } from "../../components";
+import { useTranslation } from "../../hooks";
 
 const ConsumptionPage = () => {
+	const { t } = useTranslation();
+
 	return (
-		<IonPage>
-			<Layout>
-				consumption page
-			</Layout>
-		</IonPage>
+		<Layout
+			title={t("consumption.title")}
+			description={t("consumption.description.1", <b className="font-semibold">{t("consumption.description.2")}</b>)}
+		>
+			<IonContent>
+				dashboard page
+			</IonContent>
+		</Layout>
 	)
 }
 
