@@ -18,7 +18,7 @@ const Button: FunctionComponent<ButtonProps> = ({
 	icon = null,
 	onClick,
 }) => {
-	const classes = cn("inline-flex space-x-2 text-center justify-center duration-300 transition hover:scale-105 whitespace-nowrap items-center rounded-2xl shadow-lg hover:shadow-xl", {
+	const contentClasses = cn("flex w-full space-x-2 text-center justify-center duration-300 transition hover:scale-105 whitespace-nowrap items-center rounded-2xl shadow-lg hover:shadow-xl", {
 		"text-white bg-emerald-600 shadow-emerald-600/20 hover:shadow-emerald-600/20": context === ButtonContext.PRIMARY,
 		"text-emerald-900 bg-white shadow-emerald-900/20 hover:shadow-emerald-900/20": context === ButtonContext.ALT,
 		"text-red-500 bg-red-100 shadow-red-600/10 hover:shadow-red-600/10": context === ButtonContext.DANGER,
@@ -26,12 +26,15 @@ const Button: FunctionComponent<ButtonProps> = ({
 		"text-white bg-blue-500 space-x-4 shadow-blue-900/20 hover:shadow-blue-900/20 hover:scale-100": context === ButtonContext.WALLET_CONNECT,
 		"px-8 sm:px-14 h-16 sm:h-20 text-lg sm:text-xl": !compact,
 		"px-7 h-12": compact,
+	});
+
+	const buttonClasses = cn(className, {
 		"w-full": fluid,
 		"pointer-events-none opacity-30 cursor-not-allowed": disabled
 	});
 
 	const renderContent = () => (
-		<span className={classes}>
+		<span className={contentClasses}>
 			{icon && !iconAfter && !loading && <Icon name={icon} size={context === ButtonContext.METAMASK || context === ButtonContext.WALLET_CONNECT ? 36 : 20} />}
 
 			{loading && <Icon className="animate-spin" name="Spinner" />}
@@ -47,7 +50,10 @@ const Button: FunctionComponent<ButtonProps> = ({
 	// check capacitor is native and use different link if needed
 
 	return url ? (
-		<IonRouterLink routerLink={url}>
+		<IonRouterLink
+			routerLink={url}
+			className={buttonClasses}
+		>
 			{ renderContent() }
 		</IonRouterLink>
 	) : (
@@ -55,7 +61,7 @@ const Button: FunctionComponent<ButtonProps> = ({
 			type="button"
 			onClick={onClick}
 			disabled={disabled || loading}
-			className={className}
+			className={buttonClasses}
 		>
 			{ renderContent() }
 		</button>

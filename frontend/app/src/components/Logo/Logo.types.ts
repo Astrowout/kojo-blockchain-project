@@ -1,5 +1,5 @@
 export type LogoProps = {
 	w?: number;
-	white?: boolean;
+	blank?: boolean;
 	className?: string;
 }

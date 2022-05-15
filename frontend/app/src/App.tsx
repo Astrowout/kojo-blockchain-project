@@ -13,6 +13,7 @@ import {
 	SettingsPage,
 	PlantPage,
 	NotFoundPage,
+	ClaimPage,
 } from "./pages";
 
 /* Core CSS required for Ionic components to work properly */
@@ -28,7 +29,7 @@ import './styles/variables.css';
 import './styles/main.css';
 
 import { Tabs } from './components';
-import { AuthProvider } from './context';
+import { GlobalProvider } from './context';
 
 setupIonicReact();
 
@@ -42,20 +43,21 @@ window.matchMedia("(prefers-color-scheme: dark)").addListener(async (status) => 
 
 const App: React.FC = () => {
 	return (
-		<AuthProvider>
-			<IonApp>
-				<IonReactRouter>
+		<IonApp>
+			<IonReactRouter>
+				<GlobalProvider>
 					<IonRouterOutlet>
 						<Route path="/" exact component={OnboardingPage} />
 						<Route path="/tabs" component={Tabs} />
 						<Route path="/plant" component={PlantPage} />
 						<Route path="/settings" component={SettingsPage} />
+						<Route path="/claim" component={ClaimPage} />
 						<Route path="/new-seed" exact component={NewSeedPage} />
 						<Route component={NotFoundPage} />
 					</IonRouterOutlet>
-				</IonReactRouter>
-			</IonApp>
-		</AuthProvider>
+				</GlobalProvider>
+			</IonReactRouter>
+		</IonApp>
 	);
 };
 

@@ -1,5 +1,5 @@
 import { ReactComponentOrElement } from "@ionic/react";
-import { FC } from "react";
+import { FC, memo } from "react";
 
 import { IconProps } from "./Icon.types";
 import icons from "./icons";
@@ -21,4 +21,4 @@ const Icon: FC<IconProps> = ({
 	)
 }
 
-export default Icon;
+export default memo(Icon);

@@ -1,17 +1,22 @@
-import { FunctionComponent, useEffect } from 'react';
+import { FunctionComponent, useContext, useEffect } from 'react';
 import { Dialog } from '@headlessui/react';
 
 import Modal from '../Modal/Modal';
 import Button from '../Button/Button';
-import { useAuth } from '../../hooks';
 import { ButtonContext } from '../Button/Button.types';
 import Loader from '../Loader/Loader';
 import NoWalletDetected from '../NoWalletDetected/NoWalletDetected';
 import { ErrorType } from '../../types';
 import { ConnectModalProps } from './ConnectModal.types';
+import { GlobalContext } from '../../context';
 
 const ConnectModal: FunctionComponent<ConnectModalProps> = ({ title, description, close, isOpen }) => {
-	const { connectMetaMask, connectWalletConnect, error, isLoading } = useAuth();
+	const {
+		isLoading,
+		error,
+		connectMetaMask,
+		connectWalletConnect,
+	} = useContext(GlobalContext);
 
 	useEffect(() => {
 		if (error) {

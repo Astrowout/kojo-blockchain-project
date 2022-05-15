@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 
-export type AppHeaderProps = {
+export type HeaderProps = {
 	title: ReactNode;
 	description?: ReactNode;
 	backLink?: string | boolean;

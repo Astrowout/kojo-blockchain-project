@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import cn from "classnames";
 
 import { Icon } from "../../components";
@@ -36,4 +36,4 @@ const Link: FC<LinkProps> = ({ className, children, url = "/", icon = null }) =>
 	)
 }
 
-export default Link;
+export default memo(Link);

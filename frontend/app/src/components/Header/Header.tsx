@@ -1,17 +1,17 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, memo } from "react";
 import cn from "classnames";
 
 import { useNotifications } from "../../hooks";
 import {
 	Icon,
 } from "../../components";
-import { AppHeaderProps } from "./Header.types";
+import { HeaderProps } from "./Header.types";
 import { IonHeader, IonRouterLink } from "@ionic/react";
 
 import headerImage from "../../assets/img/onboarding.jpg";
 import { Link, useHistory } from "react-router-dom";
 
-const AppHeader: FunctionComponent<AppHeaderProps> = ({
+const Header: FunctionComponent<HeaderProps> = ({
 	title = "",
 	description = "",
 	backLink = null,
@@ -28,11 +28,11 @@ const AppHeader: FunctionComponent<AppHeaderProps> = ({
 				src={headerImage}
 				alt="Water management for plants"
 				aria-hidden="true"
-				className="absolute inset-0 object-cover w-full h-full md:hidden"
+				className="absolute inset-0 object-cover w-full h-full"
 			/>
 
 			<div
-				className={cn("px-4 sm:px-8 md:px-12 2xl:container pt-8 pb-16 md:pt-14 md:pb-24 relative z-10", {
+				className={cn("px-4 sm:px-8 lg:px-12 2xl:max-w-screen-xl mx-auto pt-8 pb-16 md:pt-14 md:pb-24 relative z-10", {
 					"pb-8": !withOverlap,
 				})}
 			>
@@ -109,4 +109,4 @@ const AppHeader: FunctionComponent<AppHeaderProps> = ({
 	)
 }
 
-export default AppHeader;
+export default memo(Header);

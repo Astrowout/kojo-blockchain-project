@@ -60,7 +60,21 @@ const translations = {
 		connected: "connected",
 		disconnect: "Disconnect",
 		wallet: "My wallet",
+		network: "Blockchain network",
 		waterMeter: "My digital water meter",
+	},
+	footer: {
+		title: "With {$} for water and our nature."
+	},
+	tokens: {
+		title: "My kojo balance",
+		claim: "Claim my kojos",
+		nextClaim: "Next distribution of kojos happens in...",
+		days: "{$} days",
+	},
+	claim: {
+		title: "Claim kojos",
+		description: "You can claim a total amount of {$} this month.",
 	},
 };
 
