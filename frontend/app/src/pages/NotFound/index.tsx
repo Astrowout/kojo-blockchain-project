@@ -19,7 +19,7 @@ const NotFoundPage = () => {
 						</p>
 
 						<Button
-							url="/dashboard"
+							url="/tabs/dashboard"
 							className="mt-10"
 						>
 							{ t("notFound.cta") }

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { ethers } from "ethers";
+import { providers } from "ethers";
 import { useIonToast } from "@ionic/react";
 import useTranslation from "./useTranslation";
 
 const isWeb3Available = typeof window !== "undefined" && window?.ethereum;
-const provider = isWeb3Available ? new ethers.providers.Web3Provider(window.ethereum) : null;
-// const rpcProvider = isWeb3Available ? new ethers.providers.JsonRpcProvider(process.env.REACT_APP_RPC_URL) : null;
+const provider = isWeb3Available ? new providers.Web3Provider(window.ethereum) : null;
+// const rpcProvider = isWeb3Available ? new providers.JsonRpcProvider(process.env.REACT_APP_RPC_URL) : null;
 
 const useWeb3 = () => {
 	const [network, setNetwork] = useState<any | null>(null);
