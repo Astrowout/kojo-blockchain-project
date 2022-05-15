@@ -2,20 +2,23 @@ import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { Error, ErrorType } from "../types";
 import { useIonToast } from "@ionic/react";
-import { useHistory } from "react-router";
 import useTranslation from "./useTranslation";
+import { useHistory } from "react-router";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
+const isWeb3Available = typeof window !== "undefined" && window?.ethereum;
+const provider = isWeb3Available ? new ethers.providers.Web3Provider(window.ethereum) : null;
+
 const useAuth = () => {
 	const [isLoading, setIsLoading] = useState(false);
+	const [address, setAddress] = useState<string | null>(null);
+	const [error, setError] = useState<Error | null>(null);
 	const { t } = useTranslation();
 	const [present] = useIonToast();
 	const history = useHistory();
-	const [error, setError] = useState<Error | null>(null);
 
 	useEffect(() => {
-		const isWeb3Available = typeof window !== "undefined" && window?.ethereum;
 		if (!isWeb3Available) {
 			present({
 				color: "danger",
@@ -26,25 +29,49 @@ const useAuth = () => {
 
 			return;
 		}
-	  console.log("INIT useAuth");
 
-	  return () => {
-		// cleanup
-	  }
+		checkCurrentAccount();
+
+		// Events
+		window.ethereum.on("accountsChanged", handleAccountChange);
+		window.ethereum.on("chainChanged", handleChainChange);
+
+		return () => {
+			window.ethereum.removeListener("accountsChanged", handleAccountChange);
+			window.ethereum.removeListener("chainChanged", handleChainChange);
+		}
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-	const connectMetaMask = async (cb?: () => void | null): Promise<void> => {
+
+	const handleAccountChange = ([newAddress]: string[]): void => {
+		if (newAddress) {
+			setAddress(newAddress)
+		} else if (!newAddress) {
+			window.location.reload();
+		}
+	}
+
+	const handleChainChange = (): void => {
+		window.location.reload();
+	}
+
+	const checkCurrentAccount = async (): Promise<void> => {
+		await delay(300);
+		const accounts = await provider!.listAccounts();
+
+		setAddress(accounts[0]);
+	}
+
+	const connectMetaMask = async (): Promise<void> => {
 		setIsLoading(true);
 
 		try {
-			const provider = new ethers.providers.Web3Provider(window.ethereum);
 			await delay(300);
-			const [acc] = await provider.send("eth_requestAccounts", []);
-			await console.log(acc);
+			const [acc] = await provider!.send("eth_requestAccounts", []);
+			setAddress(acc);
 
-			if (cb) {
-				cb();
-			}
+			history.push("/tabs");
+			await delay(300);
 		} catch (error: any) {
 			present({
 				color: "danger",
@@ -70,21 +97,29 @@ const useAuth = () => {
 	};
 
 	const disconnect = async (): Promise<void> => {
-		await window.ethereum.request({
-			method: "wallet_requestPermissions",
-			params: [
-			  {
-				eth_accounts: {}
-			  }
-			]
-		  });
+		try {
+			await provider!.send("wallet_requestPermissions", [{ eth_accounts: {} }]);
+			const accounts = await provider!.listAccounts();
+			console.log(accounts);
+			setAddress(null);
+			history.push("/");
+		} catch (error: any) {
+			present({
+				color: "danger",
+				duration: 6000,
+				position: "top",
+				message: error.data.message,
+			});
+		}
 	}
 
  	return {
-		connectMetaMask,
-		connectWalletConnect,
+		address,
 		isLoading,
 		error,
+		connectMetaMask,
+		connectWalletConnect,
+		disconnect,
 	};
 };
 

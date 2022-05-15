@@ -3,5 +3,6 @@ import { ReactNode } from "react";
 export type AppLayoutProps = {
 	title?: ReactNode;
 	description?: ReactNode;
-	backLink?: string;
+	backLink?: string | boolean;
+	withOverlap?: boolean;
 };

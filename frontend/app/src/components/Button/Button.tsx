@@ -18,9 +18,10 @@ const Button: FunctionComponent<ButtonProps> = ({
 	icon = null,
 	onClick,
 }) => {
-	const classes = cn(className, "inline-flex space-x-2 text-center justify-center duration-300 transition hover:scale-105 whitespace-nowrap items-center rounded-2xl shadow-lg hover:shadow-xl", {
+	const classes = cn("inline-flex space-x-2 text-center justify-center duration-300 transition hover:scale-105 whitespace-nowrap items-center rounded-2xl shadow-lg hover:shadow-xl", {
 		"text-white bg-emerald-600 shadow-emerald-600/20 hover:shadow-emerald-600/20": context === ButtonContext.PRIMARY,
 		"text-emerald-900 bg-white shadow-emerald-900/20 hover:shadow-emerald-900/20": context === ButtonContext.ALT,
+		"text-red-500 bg-red-100 shadow-red-600/10 hover:shadow-red-600/10": context === ButtonContext.DANGER,
 		"text-white bg-amber-500 space-x-4 shadow-amber-900/20 hover:shadow-amber-900/20 hover:scale-100": context === ButtonContext.METAMASK,
 		"text-white bg-blue-500 space-x-4 shadow-blue-900/20 hover:shadow-blue-900/20 hover:scale-100": context === ButtonContext.WALLET_CONNECT,
 		"px-8 sm:px-14 h-16 sm:h-20 text-lg sm:text-xl": !compact,
@@ -54,6 +55,7 @@ const Button: FunctionComponent<ButtonProps> = ({
 			type="button"
 			onClick={onClick}
 			disabled={disabled || loading}
+			className={className}
 		>
 			{ renderContent() }
 		</button>

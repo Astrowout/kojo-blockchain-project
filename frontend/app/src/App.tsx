@@ -9,10 +9,8 @@ import { IonReactRouter } from '@ionic/react-router';
 
 import {
 	OnboardingPage,
-	DashboardPage,
-	ConsumptionPage,
 	NewSeedPage,
-	PlantsPage,
+	SettingsPage,
 	PlantPage,
 	NotFoundPage,
 } from "./pages";
@@ -29,6 +27,9 @@ import '@ionic/react/css/typography.css';
 import './styles/variables.css';
 import './styles/main.css';
 
+import { Tabs } from './components';
+import { AuthProvider } from './context';
+
 setupIonicReact();
 
 window.matchMedia("(prefers-color-scheme: dark)").addListener(async (status) => {
@@ -41,19 +42,20 @@ window.matchMedia("(prefers-color-scheme: dark)").addListener(async (status) => 
 
 const App: React.FC = () => {
 	return (
-		<IonApp>
-			<IonReactRouter>
-				<IonRouterOutlet>
-					<Route path="/" exact component={OnboardingPage} />
-					<Route path="/dashboard" exact component={DashboardPage} />
-					<Route path="/consumption" exact component={ConsumptionPage} />
-					<Route path="/plants" exact component={PlantsPage} />
-					<Route path="/plant" component={PlantPage} />
-					<Route path="/new-seed" exact component={NewSeedPage} />
-					<Route component={NotFoundPage} />
-				</IonRouterOutlet>
-			</IonReactRouter>
-		</IonApp>
+		<AuthProvider>
+			<IonApp>
+				<IonReactRouter>
+					<IonRouterOutlet>
+						<Route path="/" exact component={OnboardingPage} />
+						<Route path="/tabs" component={Tabs} />
+						<Route path="/plant" component={PlantPage} />
+						<Route path="/settings" component={SettingsPage} />
+						<Route path="/new-seed" exact component={NewSeedPage} />
+						<Route component={NotFoundPage} />
+					</IonRouterOutlet>
+				</IonReactRouter>
+			</IonApp>
+		</AuthProvider>
 	);
 };
 

@@ -9,14 +9,20 @@ import {
 } from "../../components";
 import ConnectModal from "../ConnectModal/ConnectModal";
 import { ButtonContext } from "../Button/Button.types";
+import { useIonViewWillLeave } from "@ionic/react";
 
 const Onboarding: FC<OnboardingProps> = ({ className }) => {
 	const { t } = useTranslation();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
+	useIonViewWillLeave(() => {
+		setIsModalOpen(false);
+	});
+
 	const close = () => {
 		setIsModalOpen(false);
 	}
+
 
 	return (
 		<section

@@ -1,0 +1,60 @@
+import { FC } from "react";
+
+import { TabsProps } from "./Tabs.types";
+import { useTranslation } from "../../hooks";
+import { IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from "@ionic/react";
+import { Redirect, Route } from "react-router";
+import { ConsumptionPage, DashboardPage, PlantsPage } from "../../pages";
+import Icon from "../Icon/Icon";
+
+const Tabs: FC<TabsProps> = () => {
+	const { t } = useTranslation();
+
+	return (
+		<IonTabs>
+			<IonRouterOutlet>
+				<Redirect exact path="/tabs" to="/tabs/dashboard" />
+				<Route path="/tabs/dashboard" exact component={DashboardPage} />
+				<Route path="/tabs/consumption" exact component={ConsumptionPage} />
+				<Route path="/tabs/plants" exact component={PlantsPage} />
+			</IonRouterOutlet>
+
+			<IonTabBar slot="bottom" className="md:hidden border-t border-emerald-600/20">
+				<IonTabButton tab="dashboard" href="/tabs/dashboard" className="space-y-1">
+					<Icon
+						name="Dashboard"
+						size={24}
+					/>
+
+					<IonLabel>
+						{ t("navigation.dashboard") }
+					</IonLabel>
+				</IonTabButton>
+
+				<IonTabButton tab="plants" href="/tabs/plants" className="space-y-1">
+					<Icon
+						name="Plants"
+						size={24}
+					/>
+
+					<IonLabel>
+						{ t("navigation.plants") }
+					</IonLabel>
+				</IonTabButton>
+
+				<IonTabButton tab="consumption" href="/tabs/consumption" className="space-y-1">
+					<Icon
+						name="Consumption"
+						size={24}
+					/>
+
+					<IonLabel>
+						{ t("navigation.consumption") }
+					</IonLabel>
+				</IonTabButton>
+			</IonTabBar>
+		</IonTabs>
+	)
+}
+
+export default Tabs;

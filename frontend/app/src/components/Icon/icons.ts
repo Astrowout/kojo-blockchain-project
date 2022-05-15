@@ -15,6 +15,8 @@ import { ReactComponent as EmptyWallet } from "../../assets/icons/empty-wallet.s
 import { ReactComponent as Dashboard } from "../../assets/icons/dashboard.svg";
 import { ReactComponent as Plants } from "../../assets/icons/plants.svg";
 import { ReactComponent as Consumption } from "../../assets/icons/consumption.svg";
+import { ReactComponent as Meter } from "../../assets/icons/meter.svg";
+import { ReactComponent as Logout } from "../../assets/icons/logout.svg";
 
 // Mapping
 const icons = {
@@ -34,6 +36,8 @@ const icons = {
 	Dashboard,
 	Plants,
 	Consumption,
+	Meter,
+	Logout,
 }
 
 export default icons;
