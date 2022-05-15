@@ -12,6 +12,7 @@ const provider = isWeb3Available ? new ethers.providers.Web3Provider(window.ethe
 
 const useAuth = () => {
 	const [isLoading, setIsLoading] = useState(false);
+	const [isGlobalLoading, setIsGlobalLoading] = useState(false);
 	const [address, setAddress] = useState<string | null>(null);
 	const [error, setError] = useState<Error | null>(null);
 	const { t } = useTranslation();
@@ -56,10 +57,12 @@ const useAuth = () => {
 	}
 
 	const checkCurrentAccount = async (): Promise<void> => {
+		setIsGlobalLoading(true);
 		await delay(300);
 		const accounts = await provider!.listAccounts();
 
 		setAddress(accounts[0]);
+		setIsGlobalLoading(false);
 	}
 
 	const connectMetaMask = async (): Promise<void> => {
@@ -115,6 +118,7 @@ const useAuth = () => {
 
  	return {
 		address,
+		isGlobalLoading,
 		isLoading,
 		error,
 		connectMetaMask,

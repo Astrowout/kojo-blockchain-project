@@ -10,9 +10,9 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType>({});
 
 export const AuthProvider: FC<PropsWithChildren<any>> = ({ children }) => {
-	const { address, disconnect } = useAuth();
+	const { address, isGlobalLoading, disconnect } = useAuth();
 
-	if (!address) {
+	if (isGlobalLoading) {
 		return (
 			<div className="w-screen h-screen flex items-center justify-center">
 				<Loader />
