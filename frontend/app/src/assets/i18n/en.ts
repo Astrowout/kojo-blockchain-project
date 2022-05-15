@@ -6,6 +6,7 @@ const translations = {
 	},
 	errors: {
 		noWallet: "No Ethereum wallet was detected. <br />Please install {$}.",
+		general: "Oops, something went wrong on our side. Please try again later.",
 	},
 	buttons: {
 		close: "Close",
