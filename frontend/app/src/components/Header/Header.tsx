@@ -32,7 +32,8 @@ const Header: FunctionComponent<HeaderProps> = ({
 			/>
 
 			<div
-				className={cn("px-4 sm:px-8 lg:px-12 2xl:max-w-screen-xl mx-auto pt-8 pb-16 md:pt-14 md:pb-24 relative z-10", {
+				className={cn("px-4 sm:px-8 lg:px-12 2xl:max-w-screen-xl mx-auto pt-8 md:pt-14 md:pb-24 relative z-10", {
+					"pb-16": withOverlap,
 					"pb-8": !withOverlap,
 				})}
 			>

@@ -11,8 +11,8 @@ const useAuth = (provider?: any) => {
 	const [isGlobalLoading, setIsGlobalLoading] = useState(false);
 	const [address, setAddress] = useState<string | null>(null);
 	const [error, setError] = useState<Error | null>(null);
-	const { t } = useTranslation();
 	const [present] = useIonToast();
+	const { t } = useTranslation();
 	const history = useHistory();
 
 	useEffect(() => {
@@ -33,13 +33,6 @@ const useAuth = (provider?: any) => {
 
 		if (account) {
 			setAddress(account);
-
-			present({
-				color: "success",
-				duration: 6000,
-				position: "top",
-				message: t("notifications.web3") as unknown as string,
-			});
 		} else {
 			setAddress(null);
 			history.push("/");
@@ -69,7 +62,7 @@ const useAuth = (provider?: any) => {
 			setError(
 				{
 					type: ErrorType.GENERAL,
-					message: "Oops, something went wrong..."
+					message: t("errors.general") as unknown as string,
 				}
 			);
 		} finally {
