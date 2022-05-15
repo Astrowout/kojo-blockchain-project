@@ -16,7 +16,7 @@ const AppLayout: FC<PropsWithChildren<AppLayoutProps>> = ({
 	<IonPage className="flex flex-row">
 		<Sidebar className="hidden md:flex" />
 
-		<IonContent className="flex-grow" fullscreen>
+		<IonContent fullscreen>
 			<AppHeader
 				title={title}
 				description={description}
@@ -26,7 +26,7 @@ const AppLayout: FC<PropsWithChildren<AppLayoutProps>> = ({
 			</AppHeader>
 
 			<div
-				className={cn("md:-mt-14 px-4 sm:px-8 md:px-12 2xl:container", {
+				className={cn("md:-mt-14 px-4 sm:px-8 lg:px-12 2xl:max-w-screen-xl mx-auto w-full flex flex-col flex-grow", {
 					"-mt-8": withOverlap,
 					"mt-8": !withOverlap,
 				})}

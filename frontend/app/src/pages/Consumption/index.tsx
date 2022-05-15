@@ -1,6 +1,6 @@
-import { IonContent } from "@ionic/react";
 import {
 	Layout,
+	Tokens,
 } from "../../components";
 import { useTranslation } from "../../hooks";
 
@@ -12,9 +12,9 @@ const ConsumptionPage = () => {
 			title={t("consumption.title")}
 			description={t("consumption.description.1", <b className="font-semibold">{t("consumption.description.2")}</b>)}
 		>
-			<IonContent>
-				dashboard page
-			</IonContent>
+			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-12 w-full">
+				<Tokens />
+			</div>
 		</Layout>
 	)
 }

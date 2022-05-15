@@ -1,1 +1,1 @@
-export { default as AuthContext, AuthProvider } from "./auth";
+export { default as GlobalContext, GlobalProvider } from "./global";

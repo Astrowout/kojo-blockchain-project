@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import cn from "classnames";
 import { useRouteMatch } from "react-router-dom";
 import { IonRouterLink } from "@ionic/react";
@@ -60,4 +60,4 @@ const NavLink: FC<NavLinkProps> = ({
 	)
 }
 
-export default NavLink;
+export default memo(NavLink);

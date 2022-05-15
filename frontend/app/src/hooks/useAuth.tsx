@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
-import { ethers } from "ethers";
 import { Error, ErrorType } from "../types";
 import { useIonToast } from "@ionic/react";
+import { useHistory } from "react-router-dom";
 import useTranslation from "./useTranslation";
-import { useHistory } from "react-router";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const isWeb3Available = typeof window !== "undefined" && window?.ethereum;
-const provider = isWeb3Available ? new ethers.providers.Web3Provider(window.ethereum) : null;
-
-const useAuth = () => {
+const useAuth = (provider?: any) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [isGlobalLoading, setIsGlobalLoading] = useState(false);
 	const [address, setAddress] = useState<string | null>(null);
@@ -20,48 +16,35 @@ const useAuth = () => {
 	const history = useHistory();
 
 	useEffect(() => {
-		if (!isWeb3Available) {
-			present({
-				color: "danger",
-				duration: 6000,
-				position: "top",
-				message: t("errors.noWeb3") as unknown as string,
-			});
-
-			return;
-		}
-
-		checkCurrentAccount();
+		initAccount();
 
 		// Events
-		window.ethereum.on("accountsChanged", handleAccountChange);
-		window.ethereum.on("chainChanged", handleChainChange);
+		provider!.on("accountsChanged", initAccount);
 
 		return () => {
-			window.ethereum.removeListener("accountsChanged", handleAccountChange);
-			window.ethereum.removeListener("chainChanged", handleChainChange);
+			provider!.removeAllListeners();
 		}
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-
-	const handleAccountChange = ([newAddress]: string[]): void => {
-		if (newAddress) {
-			setAddress(newAddress)
-		} else if (!newAddress) {
-			window.location.reload();
-		}
-	}
-
-	const handleChainChange = (): void => {
-		window.location.reload();
-	}
-
-	const checkCurrentAccount = async (): Promise<void> => {
+	const initAccount = async (): Promise<void> => {
 		setIsGlobalLoading(true);
 		await delay(300);
-		const accounts = await provider!.listAccounts();
+		const [account] = await provider!.listAccounts();
 
-		setAddress(accounts[0]);
+		if (account) {
+			setAddress(account);
+
+			present({
+				color: "success",
+				duration: 6000,
+				position: "top",
+				message: t("notifications.web3") as unknown as string,
+			});
+		} else {
+			setAddress(null);
+			history.push("/");
+		}
+
 		setIsGlobalLoading(false);
 	}
 
@@ -70,11 +53,11 @@ const useAuth = () => {
 
 		try {
 			await delay(300);
-			const [acc] = await provider!.send("eth_requestAccounts", []);
-			setAddress(acc);
+			const [account] = await provider!.send("eth_requestAccounts", []);
+			setAddress(account);
 
 			history.push("/tabs");
-			await delay(300);
+			await delay(100);
 		} catch (error: any) {
 			present({
 				color: "danger",
@@ -82,6 +65,7 @@ const useAuth = () => {
 				position: "top",
 				message: error.data.message,
 			});
+
 			setError(
 				{
 					type: ErrorType.GENERAL,
@@ -101,9 +85,6 @@ const useAuth = () => {
 
 	const disconnect = async (): Promise<void> => {
 		try {
-			await provider!.send("wallet_requestPermissions", [{ eth_accounts: {} }]);
-			const accounts = await provider!.listAccounts();
-			console.log(accounts);
 			setAddress(null);
 			history.push("/");
 		} catch (error: any) {
@@ -124,7 +105,7 @@ const useAuth = () => {
 		connectMetaMask,
 		connectWalletConnect,
 		disconnect,
-	};
+	 };
 };
 
 

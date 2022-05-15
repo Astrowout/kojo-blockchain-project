@@ -19,3 +19,11 @@ ion-tab-bar {
 .u-card {
 	@apply md:bg-white md:rounded-2xl md:shadow-2xl md:shadow-emerald-900/20 md:p-8;
 }
+
+ion-footer::before {
+	@apply bg-none !important;
+}
+
+ion-content::part(scroll) {
+	@apply flex flex-col;
+}

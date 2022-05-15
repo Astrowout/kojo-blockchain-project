@@ -4,14 +4,15 @@ module.exports = {
 		"./src/components/**/*.{js,ts,jsx,tsx}",
 	],
 	theme: {
-		fontFamily: {
-			'sans': ['Poppins', 'ui-sans-serif'],
-			'serif': ['Abhaya Libre', 'ui-serif'],
-		},
 		container: {
 			center: true,
 		},
-		extend: {},
+		extend: {
+			fontFamily: {
+				'sans': ['Poppins', 'ui-sans-serif'],
+				'serif': ['Abhaya Libre', 'ui-serif'],
+			},
+		},
 	},
 	plugins: [],
 }

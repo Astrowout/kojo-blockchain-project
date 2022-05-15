@@ -14,3 +14,5 @@ export { default as SettingItem } from "./SettingItem/SettingItem";
 export { default as NoWalletDetected } from "./NoWalletDetected/NoWalletDetected";
 export { default as Modal } from "./Modal/Modal";
 export { default as ConnectModal } from "./ConnectModal/ConnectModal";
+export { default as Footer } from "./Footer/Footer";
+export { default as Tokens } from "./Tokens/Tokens";

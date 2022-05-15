@@ -2,16 +2,21 @@ import { useContext } from "react";
 import {
 	Button,
 	ButtonContext,
+	Footer,
 	Icon,
 	Layout, SettingItem,
 } from "../../components";
-import { AuthContext } from "../../context";
+import { GlobalContext } from "../../context";
 import { truncateAddress } from "../../helpers";
 import { useTranslation } from "../../hooks";
 
 const SettingsPage = () => {
 	const { t } = useTranslation();
-	const { address, disconnect } = useContext(AuthContext);
+	const {
+		address,
+		network,
+		disconnect,
+	} = useContext(GlobalContext);
 
 	return (
 		<Layout
@@ -20,12 +25,23 @@ const SettingsPage = () => {
 			backLink
 			withOverlap={false}
 		>
-			<div className="flex flex-col justify-between items-center flex-grow pb-40">
-				<div className="grid xl:grid-cols-2 gap-8 w-full">
+			<div className="flex flex-col justify-between items-center flex-grow pb-8">
+				<div className="grid xl:grid-cols-2 gap-x-8 gap-y-12 w-full">
 					{address && (
 						<SettingItem
 							title={t("settings.wallet")}
 							className="u-card"
+							actionSlot={
+								<Button
+									context={ButtonContext.DANGER}
+									onClick={disconnect}
+									icon="Logout"
+									compact
+									fluid
+								>
+									{ t("settings.disconnect") }
+								</Button>
+							}
 						>
 							{ truncateAddress(address) }
 						</SettingItem>
@@ -45,17 +61,22 @@ const SettingsPage = () => {
 							</span>
 						</div>
 					</SettingItem>
+
+					{network && (
+						<SettingItem
+							title={t("settings.network")}
+							className="u-card"
+							connected={false}
+						>
+							{ network.name }
+						</SettingItem>
+					)}
 				</div>
 
-				<Button
-					context={ButtonContext.DANGER}
-					onClick={disconnect}
-					icon="Logout"
-					compact
-					className="my-12 absolute bottom-0"
-				>
-					{ t("settings.disconnect") }
-				</Button>
+				<Footer
+					version={process.env.REACT_APP_VERSION!}
+					className="mt-20"
+				/>
 			</div>
 		</Layout>
 	)

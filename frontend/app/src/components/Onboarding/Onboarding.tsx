@@ -32,7 +32,7 @@ const Onboarding: FC<OnboardingProps> = ({ className }) => {
 			)}
 		>
 			<div className="sm:px-10 py-12 sm:py-10 flex flex-col items-center text-center text-white max-w-md rounded-2xl sm:border sm:bg-white sm:text-emerald-900">
-				<Logo w={80} white className="sm:hidden" />
+				<Logo w={80} blank className="sm:hidden text-white" />
 				<Logo w={120} className="hidden sm:block" />
 
 				<h1 className="text-lg mt-10 sm:mt-14 font-semibold uppercase tracking-wider">
