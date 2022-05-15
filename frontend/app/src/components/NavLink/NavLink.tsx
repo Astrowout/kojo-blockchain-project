@@ -38,7 +38,7 @@ const NavLink: FC<NavLinkProps> = ({
 				)}
 			</span>
 
-			<span>
+			<span className="font-semibold">
 				{children}
 			</span>
 		</span>

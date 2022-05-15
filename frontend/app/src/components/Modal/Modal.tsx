@@ -3,8 +3,14 @@ import { Fragment, useRef, memo, FC } from 'react';
 import { createPortal } from "react-dom";
 import { Dialog, Transition } from '@headlessui/react';
 import { ModalProps } from './Modal.types';
+import Icon from '../Icon/Icon';
 
-const Modal: FC<ModalProps> = ({ children, isOpen = false, onClose }) => {
+const Modal: FC<ModalProps> = ({
+	children,
+	isOpen = false,
+	onClose,
+	close,
+}) => {
 	const cancelButtonRef = useRef(null);
 
 	return createPortal(
@@ -31,10 +37,18 @@ const Modal: FC<ModalProps> = ({ children, isOpen = false, onClose }) => {
 						leave="ease-in"
 						leaveFrom="opacity-100 translate-y-0 sm:scale-100"
 						leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-						className="bg-white w-full rounded-2xl mx-auto text-left overflow-hidden shadow-xl transform transition-all sm:align-middle max-w-md"
+						className="bg-white w-full rounded-2xl mx-auto text-left overflow-hidden shadow-xl relative transform transition-all sm:align-middle max-w-md"
 					>
 						<div className="px-4 py-6 sm:p-10">
 							{children}
+
+							<button
+								className="absolute right-6 top-6 flex items-center justify-center ml-4 w-10 h-10 text-gray-400"
+								onClick={close}
+								ref={cancelButtonRef}
+							>
+								<Icon name="Close" size={32}></Icon>
+							</button>
 						</div>
 					</Transition.Child>
 				</div>

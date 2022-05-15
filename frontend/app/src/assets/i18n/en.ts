@@ -16,7 +16,7 @@ const translations = {
 	navigation: {
 		dashboard: "My dashboard",
 		plants: "My plants",
-		consumption: "My consumption",
+		consumption: "Consumption",
 		notifications: "Notifications",
 		settings: "Settings",
 	},
@@ -54,6 +54,13 @@ const translations = {
 		title: "My seeds & plants",
 		average: "Of average in your area",
 		view: "View my water consumption",
+	},
+	settings: {
+		title: "Settings",
+		connected: "connected",
+		disconnect: "Disconnect",
+		wallet: "My wallet",
+		waterMeter: "My digital water meter",
 	},
 };
 

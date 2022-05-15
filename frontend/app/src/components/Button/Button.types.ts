@@ -5,6 +5,7 @@ import icons from "../Icon/icons";
 export enum ButtonContext {
 	PRIMARY,
 	ALT,
+	DANGER,
 	METAMASK,
 	WALLET_CONNECT,
 }

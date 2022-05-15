@@ -8,8 +8,8 @@ const NotFoundPage = () => {
 	return (
 		<IonPage>
 			<IonContent fullscreen>
-				<section className="2xl:container flex items-center justify-center px-4 sm:px-8 h-full">
-					<div className="flex flex-col items-center max-w-prose text-center">
+				<main className="2xl:container flex items-center justify-center px-4 sm:px-8 h-full">
+					<section className="flex flex-col items-center max-w-prose text-center">
 						<h1 className="mt-6 text-2xl font-bold sm:text-3xl md:text-4xl text-emerald-900">
 							{ t("notFound.title") }
 						</h1>
@@ -24,8 +24,8 @@ const NotFoundPage = () => {
 						>
 							{ t("notFound.cta") }
 						</Button>
-					</div>
-				</section>
+					</section>
+				</main>
 			</IonContent>
 		</IonPage>
 	)

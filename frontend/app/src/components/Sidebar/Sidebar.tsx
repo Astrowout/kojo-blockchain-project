@@ -14,24 +14,24 @@ const Sidebar: FC<SidebarProps> = ({ className }) => {
 		<nav
 			className={cn(
 				className,
-				"pl-10 pr-4 pt-14 pb-12 flex flex-col h-screen justify-between bg-white shadow-2xl shadow-emerald-600/20 w-full max-w-xs lg:max-w-sm"
+				"z-10 pl-10 pr-4 pt-14 pb-12 flex flex-col h-screen justify-between bg-white shadow-2xl shadow-emerald-600/20 w-full max-w-xs lg:max-w-sm"
 			)}
 		>
 			<div className="flex flex-col">
-				<IonRouterLink routerLink="/dashboard" routerDirection="root">
+				<IonRouterLink routerLink="/tabs/dashboard" routerDirection="root">
 					<Logo w={120} />
 				</IonRouterLink>
 
 				<div className="mt-16 flex flex-col space-y-10">
-					<NavLink url="/dashboard" icon="Dashboard">
+					<NavLink url="/tabs/dashboard" icon="Dashboard">
 						{ t("navigation.dashboard") }
 					</NavLink>
 
-					<NavLink url="/plants" icon="Plants">
+					<NavLink url="/tabs/plants" icon="Plants">
 						{ t("navigation.plants") }
 					</NavLink>
 
-					<NavLink url="/consumption" icon="Consumption">
+					<NavLink url="/tabs/consumption" icon="Consumption">
 						{ t("navigation.consumption") }
 					</NavLink>
 				</div>
