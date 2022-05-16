@@ -60,7 +60,6 @@ const ConnectModal: FunctionComponent<ConnectModalProps> = ({ title, description
 						icon="WalletConnect"
 						context={ButtonContext.WALLET_CONNECT}
 						onClick={connectWalletConnect}
-						disabled
 					>
 						WalletConnect
 					</Button>

@@ -1,11 +1,7 @@
-import { useIonToast } from "@ionic/react";
 import WalletConnectProvider from "@walletconnect/web3-provider";
+import { useIonToast } from "@ionic/react";
 import { useState } from "react";
 import useTranslation from "./useTranslation";
-
-// const provider = new WalletConnectProvider({
-// 	infuraId: "27e484dcd9e3efcfd25a83a78777cdf1",
-// });
 
 // Check if connection is already established
 // if (!connector.connected) {
@@ -48,8 +44,29 @@ const useWalletConnect = (setProvider: (provider: any) => void) => {
 
 	const connectWalletConnect = async (): Promise<void> => {
 		setIsLoading(true);
-		await console.log("connect walletconnect");
-		setIsLoading(false);
+
+		try {
+			const provider = new WalletConnectProvider({
+				rpc: {
+					137: "https://polygon-rpc.com/",
+				},
+				qrcodeModalOptions: {
+					mobileLinks: [
+						"metamask",
+						"trust",
+						"rainbow",
+						"argent",
+					],
+				},
+			});
+			await provider.enable();
+
+			setProvider(provider);
+		} catch (error) {
+
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
  	return {
