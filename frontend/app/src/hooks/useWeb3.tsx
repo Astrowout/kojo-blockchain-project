@@ -24,6 +24,7 @@ const useWeb3 = () => {
 
 		// Events
 		provider!.on("accountsChanged", initAccount);
+		provider!.on("disconnect", disconnect);
 		provider!.on("chainChanged", window.location.reload);
 
 		return () => {
@@ -49,8 +50,22 @@ const useWeb3 = () => {
 		}
 	}
 
-	const disconnect = async (): Promise<void> => {
+	const disconnect = async (code?: string, reason?: string): Promise<void> => {
+		if (code && reason) {
+			present({
+				color: "tertiary",
+				duration: 6000,
+				position: "top",
+				header: code,
+				message: reason,
+			});
+		}
+
 		try {
+			if (provider!.disconnect) {
+				provider!.disconnect();
+			}
+
 			setAddress(null);
 			history.push("/");
 		} catch (error: any) {

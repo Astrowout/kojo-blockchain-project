@@ -18,15 +18,23 @@
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
     "@walletconnect/web3-provider": "^1.7.8",
+    "assert": "^2.0.0",
     "classnames": "^2.3.1",
     "ethers": "^5.6.5",
+    "https-browserify": "^1.0.0",
     "lodash": "^4.17.21",
+    "os-browserify": "^0.3.0",
+    "process": "^0.11.10",
     "react": "^17.0.1",
+    "react-app-rewired": "^2.2.1",
     "react-dom": "^17.0.1",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^5.0.0",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
     "typescript": "^4.1.3",
+    "url": "^0.11.0",
     "web3": "^1.7.3",
     "workbox-background-sync": "^5.1.4",
     "workbox-broadcast-update": "^5.1.4",
@@ -42,12 +50,12 @@
     "workbox-streams": "^5.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
     "generate:assets": "cordova-res android --skip-config --copy",
     "build:app": "ionic cap sync",
     "open:android": "ionic cap open android",
-    "eject": "react-scripts eject"
+    "eject": "react-app-rewired eject"
   },
   "eslintConfig": {
     "extends": [
@@ -71,5 +79,15 @@
     "@capacitor/cli": "3.5.1",
     "@types/lodash": "^4.14.182"
   },
-  "description": "An Ionic project"
+  "description": "Kojo water management app",
+  "browser": {
+    "os": false,
+    "https": false,
+    "http": false,
+    "stream": false,
+    "util": false,
+    "url": false,
+    "assert": false,
+    "crypto": false
+  }
 }

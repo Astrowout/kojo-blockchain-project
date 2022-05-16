@@ -27,3 +27,7 @@ ion-footer::before {
 ion-content::part(scroll) {
 	@apply flex flex-col;
 }
+
+.walletconnect-modal__mobile__toggle a {
+	@apply text-black;
+}
