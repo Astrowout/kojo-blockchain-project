@@ -1,5 +1,5 @@
 import WalletConnectProvider from "@walletconnect/web3-provider";
-import { useIonToast } from "@ionic/react";
+// import { useIonToast } from "@ionic/react";
 import { useState } from "react";
 import { Error, ErrorType } from "../types";
 
@@ -10,7 +10,7 @@ import { Error, ErrorType } from "../types";
 // }
 
 const useWalletConnect = (setProvider: (provider: any) => void) => {
-	const [present] = useIonToast();
+	// const [present] = useIonToast();
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<Error | null>(null);
 
@@ -62,13 +62,6 @@ const useWalletConnect = (setProvider: (provider: any) => void) => {
 
 			setProvider(provider);
 		} catch (error: any) {
-			present({
-				color: "danger",
-				duration: 6000,
-				position: "top",
-				message: error.message,
-			});
-
 			setError({
 				type: ErrorType.GENERAL,
 				message: error.message,

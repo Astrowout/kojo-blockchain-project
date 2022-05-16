@@ -1,6 +1,7 @@
 import { createContext, FC, PropsWithChildren } from "react";
 import { Loader } from "../components";
 import { useMetaMask, useWalletConnect, useWeb3 } from "../hooks";
+import useMagicLink from "../hooks/useMagicLink";
 import { Error } from "../types";
 
 type GlobalContextType = {
@@ -11,6 +12,7 @@ type GlobalContextType = {
 	isMetaMaskAvailable?: boolean;
 	connectMetaMask?: () => void;
 	connectWalletConnect?: () => void;
+	connectMagicLink?: (value: string) => void;
 	disconnect?: () => void;
 }
 
@@ -37,6 +39,11 @@ export const GlobalProvider: FC<PropsWithChildren<any>> = ({ children }) => {
 		connectMetaMask,
 	} = useMetaMask(setProvider);
 
+	const {
+		isLoading: isMagicLinkLoading,
+		connectMagicLink,
+	} = useMagicLink(setProvider);
+
 	if (isGlobalLoading) {
 		return (
 			<div className="w-screen h-screen flex items-center justify-center">
@@ -49,12 +56,13 @@ export const GlobalProvider: FC<PropsWithChildren<any>> = ({ children }) => {
 		<GlobalContext.Provider
 			value={{
 				address,
-				isLoading: isMetaMaskLoading || isWalletConnectLoading,
+				isLoading: isMetaMaskLoading || isWalletConnectLoading || isMagicLinkLoading,
 				error,
 				network,
 				isMetaMaskAvailable,
 				connectMetaMask,
 				connectWalletConnect,
+				connectMagicLink,
 				disconnect,
 			}}
 		>

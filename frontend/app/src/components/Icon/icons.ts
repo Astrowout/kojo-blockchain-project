@@ -19,6 +19,8 @@ import { ReactComponent as Meter } from "../../assets/icons/meter.svg";
 import { ReactComponent as Logout } from "../../assets/icons/logout.svg";
 import { ReactComponent as Heart } from "../../assets/icons/heart.svg";
 import { ReactComponent as Token } from "../../assets/icons/token.svg";
+import { ReactComponent as Magic } from "../../assets/icons/Magic.svg";
+import { ReactComponent as Send } from "../../assets/icons/send.svg";
 
 // Mapping
 const icons = {
@@ -42,6 +44,8 @@ const icons = {
 	Logout,
 	Heart,
 	Token,
+	Magic,
+	Send,
 }
 
 export default icons;

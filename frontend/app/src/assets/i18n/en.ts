@@ -4,6 +4,9 @@ const translations = {
 		description: "Looks like this seed has not been planted yet.",
 		cta: "To my dashboard",
 	},
+	messages: {
+		loginSuccess: "You are logged in succesfully!",
+	},
 	errors: {
 		noWeb3: {
 			title: "No Ethereum wallet was detected.",
@@ -36,6 +39,7 @@ const translations = {
 	connect: {
 		title: "Connect your wallet",
 		description: "Choose your connection method",
+		email: "Login with email",
 	},
 	dashboard: {
 		title: "My dashboard",

@@ -23,6 +23,7 @@
     "ethers": "^5.6.5",
     "https-browserify": "^1.0.0",
     "lodash": "^4.17.21",
+    "magic-sdk": "^8.1.1",
     "os-browserify": "^0.3.0",
     "process": "^0.11.10",
     "react": "^17.0.1",
@@ -79,15 +80,5 @@
     "@capacitor/cli": "3.5.1",
     "@types/lodash": "^4.14.182"
   },
-  "description": "Kojo water management app",
-  "browser": {
-    "os": false,
-    "https": false,
-    "http": false,
-    "stream": false,
-    "util": false,
-    "url": false,
-    "assert": false,
-    "crypto": false
-  }
+  "description": "Kojo water management app"
 }
