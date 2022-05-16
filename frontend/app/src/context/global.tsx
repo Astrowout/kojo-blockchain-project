@@ -9,6 +9,7 @@ type GlobalContextType = {
 	isLoading?: boolean;
 	error?: Error | null;
 	network?: any;
+	isWeb3Available?: boolean;
 	connectMetaMask?: () => void;
 	connectWalletConnect?: () => void;
 	disconnect?: () => void;
@@ -17,7 +18,11 @@ type GlobalContextType = {
 const GlobalContext = createContext<GlobalContextType>({});
 
 export const GlobalProvider: FC<PropsWithChildren<any>> = ({ children }) => {
-	const { provider, network } = useWeb3();
+	const {
+		provider,
+		network,
+		isWeb3Available,
+	} = useWeb3();
 	const {
 		address,
 		isGlobalLoading,
@@ -26,7 +31,7 @@ export const GlobalProvider: FC<PropsWithChildren<any>> = ({ children }) => {
 		connectMetaMask,
 		connectWalletConnect,
 		disconnect,
-	} = useAuth(provider);
+	} = useAuth(provider, isWeb3Available);
 
 	if (isGlobalLoading) {
 		return (
@@ -43,6 +48,7 @@ export const GlobalProvider: FC<PropsWithChildren<any>> = ({ children }) => {
 				isLoading,
 				error,
 				network,
+				isWeb3Available,
 				connectMetaMask,
 				connectWalletConnect,
 				disconnect,

@@ -6,7 +6,7 @@ import useTranslation from "./useTranslation";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const useAuth = (provider?: any) => {
+const useAuth = (provider: any, isWeb3Available: boolean) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [isGlobalLoading, setIsGlobalLoading] = useState(false);
 	const [address, setAddress] = useState<string | null>(null);
@@ -16,6 +16,10 @@ const useAuth = (provider?: any) => {
 	const history = useHistory();
 
 	useEffect(() => {
+		if (!isWeb3Available) {
+			return;
+		}
+
 		initAccount();
 
 		// Events
@@ -56,7 +60,7 @@ const useAuth = (provider?: any) => {
 				color: "danger",
 				duration: 6000,
 				position: "top",
-				message: error.data.message,
+				message: error.message,
 			});
 
 			setError(
