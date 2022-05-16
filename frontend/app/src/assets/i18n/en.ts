@@ -8,10 +8,7 @@ const translations = {
 		loginSuccess: "You are logged in succesfully!",
 	},
 	errors: {
-		noWeb3: {
-			title: "No Ethereum wallet was detected.",
-			description: "Try using another login method.",
-		},
+		noWeb3: "No Ethereum wallet was detected.",
 		general: "Oops, something went wrong on our side. Please try again later.",
 	},
 	buttons: {
@@ -35,6 +32,14 @@ const translations = {
 			3: "sustainable water consumption.",
 		},
 		cta: "Connect my wallet",
+	},
+	about: {
+		title: "About the kojo project",
+		description: {
+			1: "The water saving NFT-game where you can grow seeds into plants based on your sustainable water consumption.",
+			2: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.",
+		},
+		website: "Visit our project website",
 	},
 	connect: {
 		title: "Connect your wallet",
@@ -63,13 +68,22 @@ const translations = {
 		average: "Of average in your area",
 		view: "View my water consumption",
 	},
+	newSeed: {
+		title: "Get some seeds",
+		description: {
+			1: "{$} You can freely mint them here but make sure you have enough kojos to take care for them.",
+			2: "Seeds are on us!",
+		},
+	},
 	settings: {
 		title: "Settings",
 		connected: "connected",
 		disconnect: "Disconnect",
 		wallet: "My wallet",
-		network: "Blockchain network",
 		waterMeter: "My digital water meter",
+	},
+	network: {
+		connection: "You are currently connected to the {$} blockchain network.",
 	},
 	footer: {
 		title: "With {$} for water and our nature."

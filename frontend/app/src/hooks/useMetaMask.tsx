@@ -20,9 +20,8 @@ const useMetaMask = (setProvider: (provider: any) => void) => {
 		if (!isMetaMaskAvailable) {
 			present({
 				color: "tertiary",
-				duration: 8000,
+				duration: 6000,
 				position: "top",
-				header: t("errors.noWeb3.title") as unknown as string,
 				buttons: [ {
 					side: 'end',
 					text: 'Get MetaMask',
@@ -30,7 +29,7 @@ const useMetaMask = (setProvider: (provider: any) => void) => {
 						window.open("https://metamask.io/download/");
 					}
 				}],
-				message: t("errors.noWeb3.description") as unknown as string,
+				message: t("errors.noWeb3") as unknown as string,
 			});
 
 			return;

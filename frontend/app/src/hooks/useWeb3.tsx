@@ -54,8 +54,7 @@ const useWeb3 = () => {
 				color: "tertiary",
 				duration: 6000,
 				position: "top",
-				header: code,
-				message: reason,
+				message: `Error ${code} - ${reason}`,
 			});
 		}
 
