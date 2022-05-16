@@ -14,6 +14,7 @@ const ConnectModal: FunctionComponent<ConnectModalProps> = ({ title, description
 	const {
 		isLoading,
 		error,
+		isWeb3Available,
 		connectMetaMask,
 		connectWalletConnect,
 	} = useContext(GlobalContext);
@@ -49,6 +50,7 @@ const ConnectModal: FunctionComponent<ConnectModalProps> = ({ title, description
 						icon="MetaMask"
 						context={ButtonContext.METAMASK}
 						onClick={connectMetaMask}
+						disabled={!isWeb3Available}
 					>
 						MetaMask
 					</Button>

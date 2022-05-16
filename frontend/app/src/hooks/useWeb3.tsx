@@ -15,10 +15,18 @@ const useWeb3 = () => {
 	useEffect(() => {
 		if (!isWeb3Available) {
 			present({
-				color: "danger",
-				duration: 6000,
+				color: "tertiary",
+				duration: 8000,
 				position: "top",
-				message: t("errors.noWeb3") as unknown as string,
+				header: t("errors.noWeb3.title") as unknown as string,
+				buttons: [ {
+					side: 'end',
+					text: 'Download MetaMask',
+					handler: () => {
+					  window.open("https://metamask.io/download/");
+					}
+				}],
+				message: t("errors.noWeb3.description") as unknown as string,
 			});
 
 			return;
@@ -45,6 +53,7 @@ const useWeb3 = () => {
  	return {
 		network,
 		provider,
+		isWeb3Available,
 	 };
 };
 
