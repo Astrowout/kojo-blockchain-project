@@ -7,7 +7,7 @@ const translations = {
 	errors: {
 		noWeb3: {
 			title: "No Ethereum wallet was detected.",
-			description: "We disabled MetaMask login for now. Please install MetaMask or use another login method.",
+			description: "Try using another login method.",
 		},
 		general: "Oops, something went wrong on our side. Please try again later.",
 	},

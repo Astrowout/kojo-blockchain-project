@@ -1,7 +1,6 @@
 import { createContext, FC, PropsWithChildren } from "react";
 import { Loader } from "../components";
-import { useAuth } from "../hooks";
-import useWeb3 from "../hooks/useWeb3";
+import { useMetaMask, useWalletConnect, useWeb3 } from "../hooks";
 import { Error } from "../types";
 
 type GlobalContextType = {
@@ -9,7 +8,7 @@ type GlobalContextType = {
 	isLoading?: boolean;
 	error?: Error | null;
 	network?: any;
-	isWeb3Available?: boolean;
+	isMetaMaskAvailable?: boolean;
 	connectMetaMask?: () => void;
 	connectWalletConnect?: () => void;
 	disconnect?: () => void;
@@ -19,19 +18,24 @@ const GlobalContext = createContext<GlobalContextType>({});
 
 export const GlobalProvider: FC<PropsWithChildren<any>> = ({ children }) => {
 	const {
-		provider,
 		network,
-		isWeb3Available,
-	} = useWeb3();
-	const {
 		address,
-		isGlobalLoading,
-		isLoading,
 		error,
-		connectMetaMask,
-		connectWalletConnect,
+		isLoading: isGlobalLoading,
+		setProvider,
 		disconnect,
-	} = useAuth(provider, isWeb3Available);
+	} = useWeb3();
+
+	const {
+		isLoading: isWalletConnectLoading,
+		connectWalletConnect,
+	} = useWalletConnect(setProvider);
+
+	const {
+		isLoading: isMetaMaskLoading,
+		isMetaMaskAvailable,
+		connectMetaMask,
+	} = useMetaMask(setProvider);
 
 	if (isGlobalLoading) {
 		return (
@@ -45,10 +49,10 @@ export const GlobalProvider: FC<PropsWithChildren<any>> = ({ children }) => {
 		<GlobalContext.Provider
 			value={{
 				address,
-				isLoading,
+				isLoading: isMetaMaskLoading || isWalletConnectLoading,
 				error,
 				network,
-				isWeb3Available,
+				isMetaMaskAvailable,
 				connectMetaMask,
 				connectWalletConnect,
 				disconnect,
