@@ -1,7 +1,7 @@
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { useIonToast } from "@ionic/react";
 import { useState } from "react";
-import useTranslation from "./useTranslation";
+import { Error, ErrorType } from "../types";
 
 // Check if connection is already established
 // if (!connector.connected) {
@@ -10,7 +10,6 @@ import useTranslation from "./useTranslation";
 // }
 
 const useWalletConnect = (setProvider: (provider: any) => void) => {
-	const { t } = useTranslation();
 	const [present] = useIonToast();
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<Error | null>(null);
@@ -62,8 +61,18 @@ const useWalletConnect = (setProvider: (provider: any) => void) => {
 			await provider.enable();
 
 			setProvider(provider);
-		} catch (error) {
+		} catch (error: any) {
+			present({
+				color: "danger",
+				duration: 6000,
+				position: "top",
+				message: error.message,
+			});
 
+			setError({
+				type: ErrorType.GENERAL,
+				message: error.message,
+			});
 		} finally {
 			setIsLoading(false);
 		}
@@ -71,6 +80,7 @@ const useWalletConnect = (setProvider: (provider: any) => void) => {
 
  	return {
 		isLoading,
+		error,
 		connectWalletConnect,
 	 };
 };
