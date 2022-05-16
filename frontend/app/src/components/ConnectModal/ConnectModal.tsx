@@ -9,14 +9,18 @@ import NoWalletDetected from '../NoWalletDetected/NoWalletDetected';
 import { ErrorType } from '../../types';
 import { ConnectModalProps } from './ConnectModal.types';
 import { GlobalContext } from '../../context';
+import EmailForm from '../EmailForm/EmailForm';
+import { useTranslation } from '../../hooks';
 
 const ConnectModal: FunctionComponent<ConnectModalProps> = ({ title, description, close, isOpen }) => {
+	const { t } = useTranslation();
 	const {
 		isLoading,
 		error,
 		isMetaMaskAvailable,
 		connectMetaMask,
 		connectWalletConnect,
+		connectMagicLink,
 	} = useContext(GlobalContext);
 
 	useEffect(() => {
@@ -63,6 +67,12 @@ const ConnectModal: FunctionComponent<ConnectModalProps> = ({ title, description
 					>
 						WalletConnect
 					</Button>
+
+					<EmailForm
+						className="pt-6 border-t"
+						label={t("connect.email")}
+						onSubmit={connectMagicLink}
+					/>
 				</div>
 			)}
 		</Modal>

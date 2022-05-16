@@ -1,53 +1,54 @@
-// import WalletConnectProvider from "@walletconnect/web3-provider";
-// import { useIonToast } from "@ionic/react";
-// import { useState } from "react";
-// import useTranslation from "./useTranslation";
+import { useIonToast } from "@ionic/react";
+import { useState } from "react";
+import { providers } from "ethers";
+import { useHistory } from "react-router";
+import useTranslation from "./useTranslation";
+const { Magic } = require('magic-sdk');
 
-// // Check if connection is already established
-// // if (!connector.connected) {
-// // 	// create new session
-// // 	connector.createSession();
-// // }
+const customNetworkOptions = {
+	rpcUrl: 'https://polygon-rpc.com/', // Polygon RPC URL
+	chainId: 137, // Polygon chain id
+}
+const magic = new Magic(process.env.REACT_APP_MAGIC_PUBLIC_KEY!, { network: customNetworkOptions });
+magic.preload();
 
-// const useMagicLink = (setProvider: (provider: any) => void) => {
-// 	const [present] = useIonToast();
-// 	const [isLoading, setIsLoading] = useState(false);
-// 	const [error, setError] = useState<Error | null>(null);
+const useMagicLink = (setProvider: (provider: any) => void) => {
+	const [present] = useIonToast();
+	const [isLoading, setIsLoading] = useState(false);
+	const history = useHistory();
+	const { t } = useTranslation();
+	// const [error, setError] = useState<Error | null>(null);
 
-// 	const connectMagicLink = async (): Promise<void> => {
-// 		setIsLoading(true);
+	const connectMagicLink = async (email: string): Promise<void> => {
+		setIsLoading(true);
 
-// 		try {
-// 			const provider = new WalletConnectProvider({
-// 				rpc: {
-// 					137: "https://polygon-rpc.com/",
-// 				},
-// 				qrcodeModalOptions: {
-// 					mobileLinks: [
-// 						"metamask",
-// 						"trust",
-// 						"rainbow",
-// 						"argent",
-// 					],
-// 				},
-// 			});
-// 			await provider.enable();
+		try {
+			const provider = new providers.Web3Provider(magic.rpcProvider as any);
+			await magic.auth.loginWithMagicLink({ email });
 
-// 			setProvider(provider);
-// 		} catch (error) {
+			setProvider(provider);
+			history.push("/tabs/dashboard");
 
-// 		} finally {
-// 			setIsLoading(false);
-// 		}
-// 	};
+			present({
+				color: "success",
+				duration: 6000,
+				position: "top",
+				message: t("messages.loginSuccess") as unknown as string,
+			});
 
-//  	return {
-// 		isLoading,
-// 		connectMagicLink,
-// 	 };
-// };
+			return;
+		} catch (error) {
+
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
+ 	return {
+		isLoading,
+		connectMagicLink,
+	 };
+};
 
 
-// export default useMagicLink;
-const magicLink = {};
-export default magicLink;
+export default useMagicLink;
