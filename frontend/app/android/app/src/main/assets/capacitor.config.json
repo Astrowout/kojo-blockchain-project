@@ -5,9 +5,7 @@
 	"bundledWebRuntime": false,
 	"plugins": {
 		"SplashScreen": {
-			"androidScaleType": "CENTER_CROP",
-			"splashFullScreen": false,
-			"splashImmersive": false
+			"androidScaleType": "CENTER_CROP"
 		}
 	}
 }

@@ -1,10 +1,12 @@
 import { useContext } from "react";
 import {
+	About,
 	Button,
 	ButtonContext,
 	Footer,
 	Icon,
-	Layout, SettingItem,
+	Layout,
+	SettingItem,
 } from "../../components";
 import { GlobalContext } from "../../context";
 import { truncateAddress } from "../../helpers";
@@ -21,7 +23,7 @@ const SettingsPage = () => {
 	return (
 		<Layout
 			title={t("settings.title")}
-			description={t("dashboard.description.1", <b className="font-semibold">{t("dashboard.description.2")}</b>)}
+			description={t("network.connection", <b className="font-mono bg-emerald-900 rounded px-1.5 py-0.5">{network?.name}</b>)}
 			backLink
 			withOverlap={false}
 		>
@@ -62,15 +64,7 @@ const SettingsPage = () => {
 						</div>
 					</SettingItem>
 
-					{network && (
-						<SettingItem
-							title={t("settings.network")}
-							className="u-card"
-							connected={false}
-						>
-							{ network.name }
-						</SettingItem>
-					)}
+					<About className="xl:col-span-2" />
 				</div>
 
 				<Footer

@@ -16,3 +16,6 @@ export { default as Modal } from "./Modal/Modal";
 export { default as ConnectModal } from "./ConnectModal/ConnectModal";
 export { default as Footer } from "./Footer/Footer";
 export { default as Tokens } from "./Tokens/Tokens";
+export { default as EmailForm } from "./EmailForm/EmailForm";
+export { default as PlantCard } from "./PlantCard/PlantCard";
+export { default as About } from "./About/About";

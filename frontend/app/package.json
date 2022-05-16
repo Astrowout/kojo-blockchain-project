@@ -2,6 +2,7 @@
   "name": "app",
   "version": "0.0.1",
   "private": true,
+  "homepage": "/",
   "dependencies": {
     "@capacitor/android": "3.5.1",
     "@capacitor/app": "1.1.1",
@@ -54,7 +55,7 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "generate:assets": "cordova-res android --skip-config --copy",
-    "build:app": "ionic cap sync",
+    "build:app": "ionic cap sync --no-build",
     "open:android": "ionic cap open android",
     "eject": "react-app-rewired eject"
   },

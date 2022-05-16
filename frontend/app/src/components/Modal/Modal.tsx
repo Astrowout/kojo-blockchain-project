@@ -43,7 +43,7 @@ const Modal: FC<ModalProps> = ({
 							{children}
 
 							<button
-								className="absolute right-6 top-6 flex items-center justify-center ml-4 w-10 h-10 text-gray-400"
+								className="absolute right-4 top-4 sm:right-6 sm:top-6 flex items-center justify-center ml-4 w-10 h-10 text-gray-400"
 								onClick={close}
 								ref={cancelButtonRef}
 							>

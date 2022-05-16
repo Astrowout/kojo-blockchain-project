@@ -6,8 +6,15 @@ import { Icon } from "../../components";
 import { LinkProps } from "./Link.types";
 import { Link as RouterLink } from "react-router-dom";
 
-const Link: FC<LinkProps> = ({ className, children, url = "/", icon = null }) => {
-	const classes = cn(className, "inline-flex whitespace-nowrap items-center text-emerald-900 text-lg hover:underline", {
+const Link: FC<LinkProps> = ({
+	children,
+	className,
+	url = "/",
+	external = false,
+	icon = null,
+	onClick,
+}) => {
+	const classes = cn(className, "inline-flex whitespace-nowrap items-center text-emerald-900 sm:text-lg hover:underline", {
 		"underline": !icon,
 	});
 
@@ -19,7 +26,7 @@ const Link: FC<LinkProps> = ({ className, children, url = "/", icon = null }) =>
 		</>
 	)
 
-	return url ? (
+	return url && !external ? (
 		<RouterLink
 			to={url}
 			className={classes}
@@ -27,12 +34,13 @@ const Link: FC<LinkProps> = ({ className, children, url = "/", icon = null }) =>
 			{ renderContent() }
 		</RouterLink>
 	) : (
-		<button
-			type="button"
+		<a
+			href={url}
 			className={classes}
+			target="_blank" rel="noreferrer"
 		>
 			{ renderContent() }
-		</button>
+		</a>
 	)
 }
 
