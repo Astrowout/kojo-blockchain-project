@@ -6,7 +6,13 @@ import { Icon } from "@/components";
 
 import { LinkProps } from "./Link.types";
 
-const Link: FunctionComponent<LinkProps> = ({ className, newTab = false, children, url = "/", icon = null }) => {
+const Link: FunctionComponent<LinkProps> = ({
+	className = "",
+	external = false,
+	children,
+	url = "/",
+	icon = null
+}) => {
 	const classes = cn(className, "inline-flex whitespace-nowrap items-center text-emerald-900 text-lg hover:underline", {
 		"underline": !icon,
 	});
@@ -20,10 +26,10 @@ const Link: FunctionComponent<LinkProps> = ({ className, newTab = false, childre
 	)
 
 	return url ? (
-		<NextLink href={url}>
+		<NextLink href={url} passHref={external}>
 			<a
 				className={classes}
-				target={newTab ? "_blank" : undefined}
+				target={external ? "_blank" : undefined}
 			>
 				{ renderContent() }
 			</a>

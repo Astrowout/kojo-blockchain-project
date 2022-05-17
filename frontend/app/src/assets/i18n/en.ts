@@ -48,6 +48,7 @@ const translations = {
 	},
 	dashboard: {
 		title: "My dashboard",
+		plants: "Your most recent plant",
 		description: {
 			1: "You are {$}. Let's keep it up this week!",
 			2: "saving more water than 60% of your neighbors",
@@ -81,6 +82,16 @@ const translations = {
 		disconnect: "Disconnect",
 		wallet: "My wallet",
 		waterMeter: "My digital water meter",
+	},
+	stats: {
+		health: "Health",
+		hydration: "Hydration",
+	},
+	health: {
+		0: "In bad shape",
+		1: "Normal",
+		2: "In good shape",
+		3: "In perfect shape",
 	},
 	network: {
 		connection: "You are currently connected to the {$} blockchain network.",

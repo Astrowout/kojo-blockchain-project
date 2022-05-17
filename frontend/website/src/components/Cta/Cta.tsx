@@ -28,7 +28,7 @@ const Token: FunctionComponent<CtaProps> = ({ className }) => {
 					<Button
 						icon="ArrowRight"
 						iconAfter
-						url="/app"
+						url={process.env.NEXT_PUBLIC_APP_URL}
 						alt
 					>
 						{ t("cta.label") }

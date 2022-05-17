@@ -25,14 +25,15 @@ const Hero: FunctionComponent<HeroProps> = ({ className }) => {
 
 					<div className="flex flex-col md:flex-row items-center mt-8 md:mt-10 gap-x-8 gap-y-5">
 						<Button
-							url="#"
+							url={process.env.NEXT_PUBLIC_DOWNLOAD_URL}
 							compact
+							external
 						>
 							{ t("navigation.download") }
 						</Button>
 
 						<Link
-							url="/app"
+							url={process.env.NEXT_PUBLIC_APP_URL}
 						>
 							{ t("navigation.browser") }
 						</Link>

@@ -8,7 +8,7 @@ export type ButtonProps = {
 	iconAfter?: boolean,
 	fluid?: boolean,
 	loading?: boolean,
-	newTab?: boolean,
+	external?: boolean,
 	alt?: boolean,
 	compact?: boolean,
 	onClick?: () => void,

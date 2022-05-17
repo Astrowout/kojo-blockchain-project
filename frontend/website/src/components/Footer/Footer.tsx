@@ -12,8 +12,7 @@ import {
 import footerImage from "@/assets/img/footer.png"
 
 const Footer: FunctionComponent<FooterProps> = ({
-	className,
-	domain = "",
+	className = "",
 }) => {
 	const { t } = useTranslation();
 
@@ -26,8 +25,9 @@ const Footer: FunctionComponent<FooterProps> = ({
 					</h1>
 
 					<Button
-						url="#"
+						url={process.env.NEXT_PUBLIC_DOWNLOAD_URL}
 						compact
+						external
 						className="mt-6 md:mt-8"
 					>
 						{ t("navigation.download") }
@@ -44,7 +44,6 @@ const Footer: FunctionComponent<FooterProps> = ({
 
 			<BottomBar
 				className="max-w-screen-2xl mx-auto"
-				domain={domain}
 			/>
 		</footer>
 	)
