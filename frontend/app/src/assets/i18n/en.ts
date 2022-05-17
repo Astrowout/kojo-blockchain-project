@@ -42,7 +42,7 @@ const translations = {
 		website: "Visit our project website",
 	},
 	connect: {
-		title: "Connect your wallet",
+		title: "Connect",
 		description: "Choose your connection method",
 		email: "Login with email",
 	},
