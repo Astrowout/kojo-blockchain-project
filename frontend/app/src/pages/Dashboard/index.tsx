@@ -33,7 +33,6 @@ const DashboardPage = () => {
 
 						<div className="grid lg:grid-cols-2">
 							<PlantCard
-								key={plant.id}
 								id={plant.id}
 								type={plant.type}
 								waterNeeded={plant.waterNeeded}

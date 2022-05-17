@@ -68,6 +68,7 @@ const translations = {
 		title: "My seeds & plants",
 		average: "Of average in your area",
 		view: "View my water consumption",
+		hydrate: "Hydrate",
 	},
 	newSeed: {
 		title: "Get some seeds",

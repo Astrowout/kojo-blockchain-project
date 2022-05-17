@@ -28,7 +28,10 @@ const PlantCard: FC<PlantCardProps> = ({
 		const solid = waterNeeded > index;
 
 		return (
-			<Icon name={solid ? "DropSolid" : "Drop"} />
+			<Icon
+				key={index}
+				name={solid ? "DropSolid" : "Drop"}
+			/>
 		)
 	}
 
@@ -50,11 +53,9 @@ const PlantCard: FC<PlantCardProps> = ({
 				</div>
 			</div>
 
-			<div className="py-4 px-4 lg:px-6 border-y">
-				<h2 className="text-emerald-600 font-semibold text-lg lg:text-xl">
-					{ type }
-				</h2>
-			</div>
+			<h2 className="text-emerald-600 font-semibold text-lg lg:text-xl py-4 px-4 lg:px-6 border-y">
+				{ type }
+			</h2>
 
 			<div className="grid gap-y-6 px-4 lg:px-6 py-6">
 				<Stat
