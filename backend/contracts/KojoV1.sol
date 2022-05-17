@@ -30,6 +30,11 @@ contract KojoV1 is KojoOwnable {
         utils = KojoUtils(location);
     }
 
+    // Allows owner to update token.
+    function handleUpdateTokenAddress(address location) public isOwner {
+        token = KojoERC1155(location);
+    }
+
     // Allows owner to update the start capital given to users.
     function handleUpdateStartCapital(uint startCapital) public isOwner {
         store.handleUpdateStartCapital(startCapital);
