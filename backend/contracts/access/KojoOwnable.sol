@@ -3,25 +3,25 @@
 pragma solidity ^0.8.9;
 
 abstract contract KojoOwnable {
-    address public owner;
+  address public owner;
 
-    event CreateOwner(address owner);
-    event UpdateOwner(address owner);
+  event CreateOwner(address owner);
+  event UpdateOwner(address owner);
 
-    constructor() {
-        owner = msg.sender;
+  constructor() {
+    owner = msg.sender;
 
-        emit CreateOwner(owner);
-    }
+    emit CreateOwner(owner);
+  }
 
-    modifier isOwner() {
-        require(owner == msg.sender, "Action not allowed.");
-        _;
-    }
+  modifier isOwner() {
+    require(owner == msg.sender, "Action not allowed.");
+    _;
+  }
 
-    // Allows owner to parse owner rights.
-    function handleUpdateOwner(address _owner) public isOwner {
-        owner = _owner;
-        emit UpdateOwner(_owner);
-    }
+  // Allows owner to parse owner rights.
+  function handleUpdateOwner(address _owner) public isOwner {
+    owner = _owner;
+    emit UpdateOwner(_owner);
+  }
 }
