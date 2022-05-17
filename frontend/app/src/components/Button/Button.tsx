@@ -30,7 +30,7 @@ const Button: FunctionComponent<ButtonProps> = ({
 
 	const buttonClasses = cn(className, {
 		"w-full": fluid,
-		"pointer-events-none opacity-30 cursor-not-allowed": disabled
+		"pointer-events-none opacity-50 cursor-not-allowed": disabled
 	});
 
 	const renderContent = () => (
