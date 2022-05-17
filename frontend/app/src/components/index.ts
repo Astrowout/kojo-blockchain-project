@@ -19,3 +19,4 @@ export { default as Tokens } from "./Tokens/Tokens";
 export { default as EmailForm } from "./EmailForm/EmailForm";
 export { default as PlantCard } from "./PlantCard/PlantCard";
 export { default as About } from "./About/About";
+export { default as Stat } from "./Stat/Stat";

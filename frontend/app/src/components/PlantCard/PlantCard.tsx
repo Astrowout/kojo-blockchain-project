@@ -1,53 +1,77 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import cn from "classnames";
-import { IonRouterLink } from "@ionic/react";
-
-import { Icon } from "..";
+import { IonCard } from "@ionic/react";
 
 import { PlantCardProps } from "./PlantCard.types";
+import { useTranslation } from "../../hooks";
+import Stat from "../Stat/Stat";
+import Icon from "../Icon/Icon";
 
 const PlantCard: FC<PlantCardProps> = ({
 	className,
-	children,
-	unread = false,
-	url = "",
-	icon = "Dashboard",
-	onClick = () => null,
+	id = "",
+	type = "",
+	image = "",
+	health = null,
+	hydration = null,
+	waterNeeded = 2,
 }) => {
-	const classes = cn(className, "inline-flex space-x-5 lg:space-x-6 whitespace-nowrap items-center text-lg lg:text-xl text-emerald-900");
+	const { t } = useTranslation();
 
-	const renderContent = () => (
-		<span className={classes}>
-			<span className="relative">
-				<Icon name={icon} size={32} />
+	const getHealth = (value: number | null): ReactNode => {
+		if (value) {
+			return t(`health.${value}`);
+		}
+	}
 
-				{unread && (
-					<span className="absolute flex top-0.5 right-0.5">
-						<span className="animate-ping absolute flex w-full h-full rounded-full bg-red-500 opacity-60"></span>
-						<span className="relative flex rounded-full h-3 w-3 border border-white bg-red-500"></span>
-					</span>
-				)}
-			</span>
+	const renderDrop = (index: number) => {
+		const solid = waterNeeded > index;
 
-			<span>
-				{children}
-			</span>
-		</span>
-	)
+		return (
+			<Icon name={solid ? "DropSolid" : "Drop"} />
+		)
+	}
 
-	return url ? (
-		<IonRouterLink
-			routerLink={url}
-			routerDirection="root"
+	return (
+		<IonCard
+			routerLink={`/plants/${id}`}
+			routerDirection="forward"
+			className={cn(className, "flex flex-col m-0 rounded-2xl overflow-hidden shadow-2xl")}
 		>
-			{ renderContent() }
-		</IonRouterLink>
-	) : (
-		<button
-			type="button"
-		>
-			{ renderContent() }
-		</button>
+			<div className="relative">
+				<img
+					src={image}
+					alt={`${type} plant`}
+					className="w-full h-full"
+				/>
+
+				<div className="flex space-x-0.5 absolute top-4 right-4 text-emerald-600 bg-white px-1 py-0.5 rounded shadow-2xl">
+					{ [...Array(3)].map((_drop, index) => renderDrop(index)) }
+				</div>
+			</div>
+
+			<div className="py-4 px-4 lg:px-6 border-y">
+				<h2 className="text-emerald-600 font-semibold text-lg lg:text-xl">
+					{ type }
+				</h2>
+			</div>
+
+			<div className="grid gap-y-6 px-4 lg:px-6 py-6">
+				<Stat
+					icon="Hearts"
+					label={t("stats.health")}
+				>
+					{ getHealth(health) }
+				</Stat>
+
+				<Stat
+					icon="Hydration"
+					label={t("stats.hydration")}
+				>
+					{ hydration }%
+				</Stat>
+			</div>
+	  	</IonCard>
 	)
 }
 

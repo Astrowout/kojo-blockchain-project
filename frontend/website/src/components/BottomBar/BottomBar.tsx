@@ -7,14 +7,16 @@ import {
 	Icon,
 } from "@/components";
 
-const BottomBar: FunctionComponent<BottomBarProps> = ({ className, domain = "" }) => {
+const BottomBar: FunctionComponent<BottomBarProps> = ({
+	className = ""
+}) => {
 	const { t } = useTranslation();
 
 	return (
 		<div className={cn(className, "border-t py-8 md:py-4 flex flex-col space-y-4 lg:space-y-0 lg:flex-row items-center justify-between")}>
 			<div className="flex items-center divide-x">
 				<p className="text-gray-400 text-sm pr-3">
-					© { domain }
+					© { process.env.NEXT_PUBLIC_DOMAIN }
 				</p>
 
 				<a

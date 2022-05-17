@@ -33,7 +33,7 @@ const About: FunctionComponent<AboutProps> = ({
 
 				<Link
 					className="mt-12"
-					url={process.env.REACT_APP_BASE_URL}
+					url={process.env.REACT_APP_WEB_URL}
 					icon="ArrowRight"
 					external
 				>

@@ -13,6 +13,7 @@ const Button: FunctionComponent<ButtonProps> = ({
 	compact = false,
 	loading = false,
 	iconAfter = false,
+	external = false,
 	url = "",
 	icon = null,
 	onClick,
@@ -42,8 +43,14 @@ const Button: FunctionComponent<ButtonProps> = ({
 	// check capacitor is native and use different link if needed
 
 	return url ? (
-		<Link href={url}>
-			<a className={classes}>
+		<Link
+			href={url}
+			passHref={external}
+		>
+			<a
+				className={classes}
+				target={external ? "_blank" : undefined}
+			>
 				{ renderContent() }
 			</a>
 		</Link>

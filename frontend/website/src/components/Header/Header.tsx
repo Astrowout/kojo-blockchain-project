@@ -13,15 +13,17 @@ import {
 } from "@/components";
 import { HeaderProps } from "./Header.types";
 
-const Header: FunctionComponent<HeaderProps> = ({ className }) => {
+const Header: FunctionComponent<HeaderProps> = ({
+	className = "",
+}) => {
 	const { t } = useTranslation();
 
 	const renderNavigation = () => (
 		<nav className="flex flex-col md:flex-row md:items-center gap-x-12 gap-y-3">
 			<Link
-				url="#"
+				url={process.env.NEXT_PUBLIC_DOWNLOAD_URL}
 				icon="External"
-				newTab
+				external
 			>
 				{ t("navigation.download") }
 			</Link>
@@ -29,13 +31,13 @@ const Header: FunctionComponent<HeaderProps> = ({ className }) => {
 			<Link
 				url="https://github.com/wowtvds/kojo-blockchain-project"
 				icon="External"
-				newTab
+				external
 			>
 				GitHub
 			</Link>
 
 			<Button
-				url="/app"
+				url={process.env.NEXT_PUBLIC_APP_URL}
 				compact
 			>
 				{ t("navigation.app") }
@@ -84,7 +86,7 @@ const Header: FunctionComponent<HeaderProps> = ({ className }) => {
 					</div>
 
 					<Popover.Button className="flex md:hidden text-emerald-900 w-10 h-10 items-center justify-center">
-						{({ open }) => open ? (
+						{({ open }: { open: boolean }) => open ? (
 							<Icon
 								name="Close"
 								size={40}

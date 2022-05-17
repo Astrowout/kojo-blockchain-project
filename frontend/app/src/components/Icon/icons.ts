@@ -21,6 +21,10 @@ import { ReactComponent as Heart } from "../../assets/icons/heart.svg";
 import { ReactComponent as Token } from "../../assets/icons/token.svg";
 import { ReactComponent as Magic } from "../../assets/icons/Magic.svg";
 import { ReactComponent as Send } from "../../assets/icons/send.svg";
+import { ReactComponent as Hearts } from "../../assets/icons/hearts.svg";
+import { ReactComponent as Hydration } from "../../assets/icons/hydration.svg";
+import { ReactComponent as Drop } from "../../assets/icons/drop.svg";
+import { ReactComponent as DropSolid } from "../../assets/icons/drop-solid.svg";
 
 // Mapping
 const icons = {
@@ -46,6 +50,10 @@ const icons = {
 	Token,
 	Magic,
 	Send,
+	Hearts,
+	Hydration,
+	Drop,
+	DropSolid,
 }
 
 export default icons;

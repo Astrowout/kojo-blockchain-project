@@ -23,7 +23,7 @@ const Tokens: FunctionComponent<TokensProps> = ({
 					{ t("tokens.title") }
 				</p>
 
-				<p className="flex items-center space-x-3 mt-3">
+				<p className="flex items-center space-x-2 mt-3">
 					<span className="font-bold text-4xl lg:text-5xl">
 						{ amount }
 					</span>
