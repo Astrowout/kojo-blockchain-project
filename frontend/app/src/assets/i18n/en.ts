@@ -108,6 +108,7 @@ const translations = {
 	claim: {
 		title: "Claim kojos",
 		description: "You can claim a total amount of {$} this month.",
+		cta: "Claim my kojos"
 	},
 };
 
