@@ -1,5 +1,6 @@
 import { FunctionComponent, memo } from "react";
 import cn from "classnames";
+import { useRouteMatch } from "react-router-dom";
 
 import { useNotifications } from "../../hooks";
 import {
@@ -19,6 +20,9 @@ const Header: FunctionComponent<HeaderProps> = ({
 }) => {
 	const { unread } = useNotifications();
 	const history = useHistory();
+	const tabsView = useRouteMatch({
+		path: "/tabs",
+	});
 
 	return (
 		<IonHeader className="bg-emerald-600 relative -z-10">
@@ -68,36 +72,38 @@ const Header: FunctionComponent<HeaderProps> = ({
 						</h1>
 					</div>
 
-					<div className="flex space-x-3 items-center md:hidden">
-						<IonRouterLink
-							className="w-8 h-8 flex items-center justify-center text-white"
-							routerLink="/settings"
-						>
-							<Icon name="Settings" size={24}></Icon>
+					{tabsView && (
+						<div className="flex space-x-3 items-center md:hidden">
+							<IonRouterLink
+								className="w-8 h-8 flex items-center justify-center text-white"
+								routerLink="/settings"
+							>
+								<Icon name="Settings" size={24}></Icon>
 
-							<span className="sr-only">
-								Settings
-							</span>
-						</IonRouterLink>
-
-						<IonRouterLink
-							className="w-8 h-8 flex items-center justify-center relative text-white"
-							routerLink="/notifications"
-						>
-							<Icon name="Bell" size={24}></Icon>
-
-							<span className="sr-only">
-								Notifications
-							</span>
-
-							{unread && (
-								<span className="absolute flex top-1.5 right-2">
-									<span className="animate-ping absolute flex w-full h-full rounded-full bg-red-500 opacity-60"></span>
-									<span className="relative flex rounded-full h-2 w-2 border border-white bg-red-500"></span>
+								<span className="sr-only">
+									Settings
 								</span>
-							)}
-						</IonRouterLink>
-					</div>
+							</IonRouterLink>
+
+							<IonRouterLink
+								className="w-8 h-8 flex items-center justify-center relative text-white"
+								routerLink="/notifications"
+							>
+								<Icon name="Bell" size={24}></Icon>
+
+								<span className="sr-only">
+									Notifications
+								</span>
+
+								{unread && (
+									<span className="absolute flex top-1.5 right-2">
+										<span className="animate-ping absolute flex w-full h-full rounded-full bg-red-500 opacity-60"></span>
+										<span className="relative flex rounded-full h-2 w-2 border border-white bg-red-500"></span>
+									</span>
+								)}
+							</IonRouterLink>
+						</div>
+					)}
 				</div>
 
 				{description && (

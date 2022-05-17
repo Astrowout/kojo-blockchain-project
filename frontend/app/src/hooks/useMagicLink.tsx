@@ -30,8 +30,8 @@ const useMagicLink = (setProvider: (provider: any) => void) => {
 			history.push("/tabs/dashboard");
 
 			present({
-				color: "success",
-				duration: 6000,
+				color: "secondary",
+				duration: 5000,
 				position: "top",
 				message: t("messages.loginSuccess") as unknown as string,
 			});

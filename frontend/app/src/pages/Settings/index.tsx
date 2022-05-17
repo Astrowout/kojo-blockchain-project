@@ -23,7 +23,7 @@ const SettingsPage = () => {
 	return (
 		<Layout
 			title={t("settings.title")}
-			description={t("network.connection", <b className="font-mono bg-emerald-900 rounded px-1.5 py-0.5">{network?.name}</b>)}
+			description={network ? t("network.connection", <b className="font-mono bg-emerald-900 rounded px-1.5 py-0.5">{network.name}</b>) : null}
 			backLink
 			withOverlap={false}
 		>
