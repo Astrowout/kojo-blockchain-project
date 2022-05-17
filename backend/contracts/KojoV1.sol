@@ -36,17 +36,20 @@ contract KojoV1 is KojoOwnable {
     }
 
     // Enables the owner to update the start capital given to users.
-    function handleUpdateStartCapital(uint startCapital) public isOwner {
+    function handleUpdateStartCapital(uint256 startCapital) public isOwner {
         store.handleUpdateStartCapital(startCapital);
     }
 
     // Enables the  owner to update how many tokens are distributed for a given percentage point.
-    function handleUpdateTokenSensitivity(uint tokenSensitivity) public isOwner {
+    function handleUpdateTokenSensitivity(uint256 tokenSensitivity)
+        public
+        isOwner
+    {
         store.handleUpdateTokenSensitivity(tokenSensitivity);
     }
 
     // Enables the  owner to update the cost of watering a seed/plant.
-    function handleUpdateWateringCost(uint wateringCost) public isOwner {
+    function handleUpdateWateringCost(uint256 wateringCost) public isOwner {
         store.handleUpdateWateringCost(wateringCost);
     }
 
@@ -71,7 +74,11 @@ contract KojoV1 is KojoOwnable {
     }
 
     // Enables users to transfer capital tokens.
-    function handleCheckCapitalTokenBalance(address from, address to, uint amount) public view {
+    function handleCheckCapitalTokenBalance(
+        address from,
+        address to,
+        uint256 amount
+    ) public view {
         console.log(from, to, amount);
     }
 }

@@ -7,9 +7,10 @@ abstract contract KojoOwnable {
 
     event CreateOwner(address owner);
     event UpdateOwner(address owner);
-    
+
     constructor() {
         owner = msg.sender;
+
         emit CreateOwner(owner);
     }
 
