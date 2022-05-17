@@ -1,4 +1,5 @@
 import {
+	Button,
 	Layout,
 } from "../../components";
 import { useTranslation } from "../../hooks";
@@ -7,6 +8,8 @@ const ClaimPage = () => {
 	const { t } = useTranslation();
 	const claimableAmount = 640;
 
+	const claimTokens = () => null;
+
 	return (
 		<Layout
 			title={t("claim.title")}
@@ -14,7 +17,14 @@ const ClaimPage = () => {
 			backLink
 			withOverlap={false}
 		>
-			claim page
+			<div className="flex flex-col justify-end items-center flex-grow">
+				<Button
+					onClick={claimTokens}
+					icon="Check"
+				>
+					{ t("claim.cta") }
+				</Button>
+			</div>
 		</Layout>
 	)
 }

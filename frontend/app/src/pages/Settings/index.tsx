@@ -27,7 +27,7 @@ const SettingsPage = () => {
 			backLink
 			withOverlap={false}
 		>
-			<div className="flex flex-col justify-between items-center flex-grow pb-8">
+			<div className="flex flex-col justify-between items-center flex-grow">
 				<div className="grid xl:grid-cols-2 gap-x-8 gap-y-12 w-full">
 					{address && (
 						<SettingItem

@@ -36,16 +36,16 @@ const PlantCard: FC<PlantCardProps> = ({
 		<IonCard
 			routerLink={`/plants/${id}`}
 			routerDirection="forward"
-			className={cn(className, "flex flex-col m-0 rounded-2xl overflow-hidden shadow-2xl")}
+			className={cn(className, "flex flex-col group m-0 rounded-2xl overflow-hidden shadow-2xl shadow-emerald-900/20")}
 		>
-			<div className="relative">
+			<div className="relative aspect-square overflow-hidden">
 				<img
 					src={image}
 					alt={`${type} plant`}
-					className="w-full h-full"
+					className="w-full h-full object-cover lg:group-hover:scale-110 duration-300 ease-out transition-transform"
 				/>
 
-				<div className="flex space-x-0.5 absolute top-4 right-4 text-emerald-600 bg-white px-1 py-0.5 rounded shadow-2xl">
+				<div className="flex space-x-0.5 absolute top-4 right-4 text-emerald-600 bg-white/80 px-1 py-0.5 rounded shadow-2xl">
 					{ [...Array(3)].map((_drop, index) => renderDrop(index)) }
 				</div>
 			</div>
