@@ -5,13 +5,6 @@
 // Runtime Environment's members available in the global scope.
 import { ethers } from "hardhat";
 
-const handleDeployContract = async () => {
-  const Contract = await ethers.getContractFactory("KojoV1");
-  const contract = await Contract.deploy();
-  await contract.deployed();
-  return console.log("KojoV1 deployed to:", contract.address);
-}
-
 const main = async () => {
   // Hardhat always runs the compile task when running scripts with its command
   // line interface.
