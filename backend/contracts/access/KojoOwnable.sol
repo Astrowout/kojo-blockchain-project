@@ -19,7 +19,7 @@ abstract contract KojoOwnable {
     }
 
     // Allows owner to parse owner rights.
-    function handleUpdateOwner(address _owner) internal isOwner {
+    function handleUpdateOwner(address _owner) public isOwner {
         owner = _owner;
         emit UpdateOwner(_owner);
     }
