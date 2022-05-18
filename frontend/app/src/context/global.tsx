@@ -45,9 +45,7 @@ export const GlobalProvider: FC<PropsWithChildren<any>> = ({ children }) => {
 		connectMagicLink,
 	} = useMagicLink(setProvider);
 
-	const {
-		contract,
-	} = useContract(provider);
+	useContract(provider);
 
 	if (isGlobalLoading) {
 		return (
