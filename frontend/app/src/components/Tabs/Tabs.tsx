@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 
 import { TabsProps } from "./Tabs.types";
 import { useTranslation } from "../../hooks";
@@ -57,4 +57,4 @@ const Tabs: FC<TabsProps> = () => {
 	)
 }
 
-export default Tabs;
+export default memo(Tabs);

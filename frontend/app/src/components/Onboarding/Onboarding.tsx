@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, memo, useState } from "react";
 import cn from "classnames";
 
 import { OnboardingProps } from "./Onboarding.types";
@@ -75,4 +75,4 @@ const Onboarding: FC<OnboardingProps> = ({ className }) => {
 	)
 }
 
-export default Onboarding;
+export default memo(Onboarding);

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 
 import Icon from "../Icon/Icon";
 import { useTranslation } from "../../hooks";
@@ -26,4 +26,4 @@ const NoWalletDetected: FC = () => {
 	)
 }
 
-export default NoWalletDetected;
+export default memo(NoWalletDetected);

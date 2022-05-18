@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import cn from "classnames";
 
 import { SidebarProps } from "./Sidebar.types";
@@ -50,4 +50,4 @@ const Sidebar: FC<SidebarProps> = ({ className }) => {
 	)
 }
 
-export default Sidebar;
+export default memo(Sidebar);
