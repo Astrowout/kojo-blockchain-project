@@ -2,7 +2,6 @@ import {
 	Button,
 	Layout,
 	PlantDetail,
-	Tokens,
 } from "../../components";
 import { useTranslation } from "../../hooks";
 
