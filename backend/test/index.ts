@@ -17,25 +17,25 @@ describe('Ownable', () => {
 
   it('should create an owner on deploy.', async () => {
     // Test contract state after deployment.
-    const addressAfterDeployment = await contract.owner();
-    expect(addressAfterDeployment).not.to.be.empty;
-    expect(addressAfterDeployment).to.equal(owner.address);
+    const valueAfterDeployment = await contract.owner();
+    expect(valueAfterDeployment).not.to.be.empty;
+    expect(valueAfterDeployment).to.equal(owner.address);
   });
 
   it('should allow the owner to update the owner.', async () => {
     // Test contract state after deployment.
-    const addressAfterDeployment = await contract.owner();
-    expect(addressAfterDeployment).not.to.be.empty;
-    expect(addressAfterDeployment).to.equal(owner.address);
+    const valueAfterDeployment = await contract.owner();
+    expect(valueAfterDeployment).not.to.be.empty;
+    expect(valueAfterDeployment).to.equal(owner.address);
 
     // Test method execution.
     const method = contract.handleUpdateOwner(user.address);
     await expect(method).not.to.be.reverted;
 
     // Test new contract state after execution.
-    const addressAfterExecution = await contract.owner();
-    expect(addressAfterExecution).not.to.be.empty;
-    expect(addressAfterExecution).to.equal(user.address);
+    const valueAfterExecution = await contract.owner();
+    expect(valueAfterExecution).not.to.be.empty;
+    expect(valueAfterExecution).to.equal(user.address);
   });
 
   it('should prohibit users to update the owner.', async () => {
@@ -76,31 +76,31 @@ describe('Proxy', () => {
 
   it('should allow the owner to update the proxy address.', async () => {
     // Test contract state after deployment.
-    const currentAfterDeployment = await proxy.current();
-    expect(currentAfterDeployment).to.equal(EMPTY_ADDRESS);
+    const valueAfterDeployment = await proxy.current();
+    expect(valueAfterDeployment).to.equal(EMPTY_ADDRESS);
 
     // Test method execution.
     const method = proxy.handleUpdateAddress(contract.address);
     await expect(method).not.to.be.reverted;
 
     // Test new contract state after execution.
-    const currentAfterExecution = await proxy.current();
-    expect(currentAfterExecution).not.to.be.empty;
-    expect(currentAfterExecution).to.equal(contract.address);
+    const valueAfterExecution = await proxy.current();
+    expect(valueAfterExecution).not.to.be.empty;
+    expect(valueAfterExecution).to.equal(contract.address);
   });
   it('should prohibit users to update the proxy address.', async () => {
     // Test contract state after deployment.
-    const currentAfterDeployment = await proxy.current();
-    expect(currentAfterDeployment).to.equal(EMPTY_ADDRESS);
+    const valueAfterDeployment = await proxy.current();
+    expect(valueAfterDeployment).to.equal(EMPTY_ADDRESS);
 
     // Test method execution.
     const method = proxy.connect(user).handleUpdateAddress(contract.address);
     await expect(method).to.be.reverted;
 
     // Test new contract state after execution.
-    const currentAfterExecution = await proxy.current();
-    expect(currentAfterExecution).not.to.be.empty;
-    expect(currentAfterExecution).to.equal(currentAfterDeployment);
+    const valueAfterExecution = await proxy.current();
+    expect(valueAfterExecution).not.to.be.empty;
+    expect(valueAfterExecution).to.equal(valueAfterDeployment);
   });
   it('should allow users to call functions via the proxy contract.', async () => {
     // ...
@@ -324,7 +324,7 @@ describe('Main', () => {
   it('should create a token on deploy.', async () => {
     // ...
   });
-  it('should be able to kill plant tokens.', () => {
+  it('should be able to kill plant tokens.', async () => {
     // ...
   });
 
