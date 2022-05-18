@@ -39,11 +39,11 @@ const Modal: FC<ModalProps> = ({
 						leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
 						className="bg-white w-full rounded-2xl mx-auto text-left overflow-hidden shadow-xl relative transform transition-all sm:align-middle max-w-md"
 					>
-						<div className="px-4 py-6 sm:p-10">
+						<div className="px-4 py-6 sm:px-6 sm:py-8">
 							{children}
 
 							<button
-								className="absolute right-4 top-4 sm:right-6 sm:top-6 flex items-center justify-center ml-4 w-10 h-10 text-gray-400"
+								className="absolute right-4 top-4 sm:right-6 sm:top-6 flex items-center justify-center w-10 h-10 text-gray-400"
 								onClick={close}
 								ref={cancelButtonRef}
 							>

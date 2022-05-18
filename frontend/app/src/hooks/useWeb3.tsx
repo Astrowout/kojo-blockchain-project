@@ -83,6 +83,7 @@ const useWeb3 = () => {
  	return {
 		network,
 		address,
+		provider,
 		isLoading,
 		error,
 		setProvider,

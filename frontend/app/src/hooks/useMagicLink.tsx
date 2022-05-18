@@ -10,7 +10,6 @@ const customNetworkOptions = {
 	chainId: 137, // Polygon chain id
 }
 const magic = new Magic(process.env.REACT_APP_MAGIC_PUBLIC_KEY!, { network: customNetworkOptions });
-magic.preload();
 
 const useMagicLink = (setProvider: (provider: any) => void) => {
 	const [present] = useIonToast();

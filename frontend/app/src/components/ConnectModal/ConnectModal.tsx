@@ -31,13 +31,13 @@ const ConnectModal: FunctionComponent<ConnectModalProps> = ({ title, description
 
 	return (
 		<Modal isOpen={isOpen} close={close}>
-			<div className="flex flex-col">
-				<Dialog.Title as="span" className="text-lg font-bold text-gray-900">
-					{title}
+			<div className="flex flex-col pr-10">
+				<Dialog.Title as="h2" className="text-xl font-bold text-gray-900">
+					{ title }
 				</Dialog.Title>
 
-				<p className="mt-1 text-sm text-gray-500">
-					{description}
+				<p className="mt-0.5 text-sm md:text-base text-gray-500">
+					{ description }
 				</p>
 			</div>
 
