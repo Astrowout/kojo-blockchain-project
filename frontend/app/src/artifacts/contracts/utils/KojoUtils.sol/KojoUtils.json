@@ -1,0 +1,10 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "KojoUtils",
+  "sourceName": "contracts/utils/KojoUtils.sol",
+  "abi": [],
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122024287bcb5bc802b1b90d2b306d15b5740c21873f836dab74914664d24a1e7f3a64736f6c63430008090033",
+  "deployedBytecode": "0x6080604052600080fdfea264697066735822122024287bcb5bc802b1b90d2b306d15b5740c21873f836dab74914664d24a1e7f3a64736f6c63430008090033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}
