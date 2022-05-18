@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import cn from "classnames";
 
 import { SettingItemProps } from "./SettingItem.types";
@@ -49,4 +49,4 @@ const SettingItem: FC<SettingItemProps> = ({
 	)
 }
 
-export default SettingItem;
+export default memo(SettingItem);

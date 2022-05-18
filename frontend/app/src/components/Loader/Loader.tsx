@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import cn from "classnames";
 
 import Icon from "../Icon/Icon";
@@ -22,4 +22,4 @@ const Loader: FC<LoaderProps> = ({ className }) => {
 	)
 }
 
-export default Loader;
+export default memo(Loader);

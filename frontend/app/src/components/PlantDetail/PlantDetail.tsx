@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { FC, memo, ReactNode } from "react";
 import cn from "classnames";
 
 import { PlantDetailProps } from "./PlantDetail.types";
@@ -80,4 +80,4 @@ const PlantDetail: FC<PlantDetailProps> = ({
 	)
 }
 
-export default PlantDetail;
+export default memo(PlantDetail);

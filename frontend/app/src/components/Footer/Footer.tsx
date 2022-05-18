@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, memo } from "react";
 import cn from "classnames";
 
 import {
@@ -32,4 +32,4 @@ const Footer: FunctionComponent<FooterProps> = ({
 	)
 }
 
-export default Footer;
+export default memo(Footer);

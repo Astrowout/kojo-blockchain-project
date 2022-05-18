@@ -1,4 +1,4 @@
-import { FormEvent, FunctionComponent, useRef } from "react";
+import { FormEvent, FunctionComponent, memo, useRef } from "react";
 import cn from "classnames";
 
 import Icon from "../Icon/Icon";
@@ -64,4 +64,4 @@ const EmailForm: FunctionComponent<EmailFormProps> = ({
 	);
 };
 
-export default EmailForm;
+export default memo(EmailForm);

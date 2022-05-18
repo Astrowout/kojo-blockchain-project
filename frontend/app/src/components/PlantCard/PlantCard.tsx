@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { FC, memo, ReactNode } from "react";
 import cn from "classnames";
 import { IonCard } from "@ionic/react";
 
@@ -76,4 +76,4 @@ const PlantCard: FC<PlantCardProps> = ({
 	)
 }
 
-export default PlantCard;
+export default memo(PlantCard);

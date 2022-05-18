@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, memo } from "react";
 import cn from "classnames";
 
 import { Icon } from "../../components";
@@ -68,4 +68,4 @@ const Button: FunctionComponent<ButtonProps> = ({
 	)
 }
 
-export default Button;
+export default memo(Button);
