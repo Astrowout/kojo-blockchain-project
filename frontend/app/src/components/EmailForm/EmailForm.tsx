@@ -50,7 +50,7 @@ const EmailForm: FunctionComponent<EmailFormProps> = ({
 					name="email"
 					id="email"
 					autoComplete="email"
-					className="w-full text-emerald-900 bg-white border h-16 pl-4 pr-20 rounded-2xl shadow-lg hover:shadow-xl focus:ring-2 focus:ring-offset-2 focus:ring-emerald-600 outline-none"
+					className="w-full overflow-ellipsis text-emerald-900 bg-white border h-16 pl-4 pr-20 rounded-2xl shadow-lg hover:shadow-xl focus:ring-2 focus:ring-offset-2 focus:ring-emerald-600 outline-none"
 					ref={input}
 				/>
 

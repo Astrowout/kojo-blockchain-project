@@ -1,6 +1,6 @@
 import { createContext, FC, PropsWithChildren } from "react";
 import { Loader } from "../components";
-import { useMetaMask, useWalletConnect, useWeb3 } from "../hooks";
+import { useContract, useMetaMask, useWalletConnect, useWeb3 } from "../hooks";
 import useMagicLink from "../hooks/useMagicLink";
 import { Error } from "../types";
 
@@ -22,6 +22,7 @@ export const GlobalProvider: FC<PropsWithChildren<any>> = ({ children }) => {
 	const {
 		network,
 		address,
+		provider,
 		error,
 		isLoading: isGlobalLoading,
 		setProvider,
@@ -43,6 +44,10 @@ export const GlobalProvider: FC<PropsWithChildren<any>> = ({ children }) => {
 		isLoading: isMagicLinkLoading,
 		connectMagicLink,
 	} = useMagicLink(setProvider);
+
+	const {
+		contract,
+	} = useContract(provider);
 
 	if (isGlobalLoading) {
 		return (
