@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Contract } from "ethers";
 import { Error } from "../types";
+import Artifact from "../artifacts/contracts/KojoV1.sol/KojoV1.json";
 // import { useIonToast } from "@ionic/react";
 
 const useContract = (provider: any) => {
@@ -10,6 +11,10 @@ const useContract = (provider: any) => {
 	const [error] = useState<Error | null>(null);
 
 	useEffect(() => {
+		if (!provider) {
+			return;
+		}
+
 		initContract();
 
 		return () => {
@@ -18,12 +23,12 @@ const useContract = (provider: any) => {
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const initContract = () => {
-		// const signer = provider.getSigner();
+		const signer = provider.getSigner();
 
 		setContract(new Contract(
 			process.env.REACT_APP_CONTRACT_ADDRESS!,
-			abi,
-			provider,
+			Artifact.abi,
+			signer,
 		));
 	}
 
