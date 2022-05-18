@@ -1,0 +1,13 @@
+{
+  "singleQuote": true,
+  "semi": true,
+  "trailingComma": "all",
+  "overrides": [
+    {
+      "files": "*.sol",
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ]
+}
