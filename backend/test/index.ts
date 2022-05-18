@@ -271,9 +271,9 @@ describe('Storage', () => {
       await expect(method).to.be.reverted;
 
       // Test new contract state after execution.
-      const addressAfterExecution = await contract.startCapital();
-      expect(addressAfterExecution).not.to.be.empty;
-      expect(addressAfterExecution).to.equal(valueAfterDeployment);
+      const valueAfterExecution = await contract.startCapital();
+      expect(valueAfterExecution).not.to.be.empty;
+      expect(valueAfterExecution).to.equal(valueAfterDeployment);
     });
     it('to update the token sensitivity.', async () => {
       // Test contract state after deployment.
@@ -286,9 +286,9 @@ describe('Storage', () => {
       await expect(method).to.be.reverted;
 
       // Test new contract state after execution.
-      const addressAfterExecution = await contract.tokenSensitivity();
-      expect(addressAfterExecution).not.to.be.empty;
-      expect(addressAfterExecution).to.equal(valueAfterDeployment);
+      const valueAfterExecution = await contract.tokenSensitivity();
+      expect(valueAfterExecution).not.to.be.empty;
+      expect(valueAfterExecution).to.equal(valueAfterDeployment);
     });
     it('to update the watering cost.', async () => {
       // Test contract state after deployment.
@@ -301,9 +301,9 @@ describe('Storage', () => {
       await expect(method).to.be.reverted;
 
       // Test new contract state after execution.
-      const addressAfterExecution = await contract.wateringCost();
-      expect(addressAfterExecution).not.to.be.empty;
-      expect(addressAfterExecution).to.equal(valueAfterDeployment);
+      const valueAfterExecution = await contract.wateringCost();
+      expect(valueAfterExecution).not.to.be.empty;
+      expect(valueAfterExecution).to.equal(valueAfterDeployment);
     });
   });
 });
