@@ -4,9 +4,9 @@ pragma solidity ^0.8.9;
 import "../access/KojoOwnable.sol";
 
 contract KojoStorage is KojoOwnable {
-  uint256 private startCapital;
-  uint256 private tokenSensitivity;
-  uint256 private wateringCost;
+  uint256 public startCapital;
+  uint256 public tokenSensitivity;
+  uint256 public wateringCost;
 
   constructor() {
     startCapital = 100;

@@ -51,7 +51,7 @@ describe('Ownable', () => {
     // Test new contract state after execution.
     const addressAfterExecution = await contract.owner();
     expect(addressAfterExecution).not.to.be.empty;
-    expect(addressAfterExecution).to.equal(owner.address);
+    expect(addressAfterExecution).to.equal(addressAfterDeployment);
   });
 });
 
@@ -100,7 +100,7 @@ describe('Proxy', () => {
     // Test new contract state after execution.
     const currentAfterExecution = await proxy.current();
     expect(currentAfterExecution).not.to.be.empty;
-    expect(currentAfterExecution).to.equal(EMPTY_ADDRESS);
+    expect(currentAfterExecution).to.equal(currentAfterDeployment);
   });
   it('should allow users to call functions via the proxy contract.', async () => {
     // ...
@@ -181,27 +181,129 @@ describe('ERC1155', () => {
 });
 
 describe('Storage', () => {
+  let contract: any;
+  let owner: any;
+  let user: any;
+
+  beforeEach(async () => {
+    [owner, user] = await ethers.getSigners();
+    const factory = await ethers.getContractFactory('KojoStorage', owner);
+    contract = await factory.deploy();
+    await contract.deployed();
+  });
+
+  it('should create a start capital on deploy.', async () => {
+    // Test contract state after deployment.
+    const valueAfterDeployment = await contract.startCapital();
+    expect(valueAfterDeployment).not.to.be.empty;
+    expect(valueAfterDeployment).not.to.equal(0);
+  });
+  it('should create a token sensitivity on deploy.', async () => {
+    // Test contract state after deployment.
+    const valueAfterDeployment = await contract.tokenSensitivity();
+    expect(valueAfterDeployment).not.to.be.empty;
+    expect(valueAfterDeployment).not.to.equal(0);
+  });
+  it('should create a watering cost on deploy.', async () => {
+    // Test contract state after deployment.
+    const valueAfterDeployment = await contract.wateringCost();
+    expect(valueAfterDeployment).not.to.be.empty;
+    expect(valueAfterDeployment).not.to.equal(0);
+  });
+
   describe('should allow the owner', () => {
     it('to update the start capital.', async () => {
-      // ...
+      // Test contract state after deployment.
+      const valueAfterDeployment = await contract.startCapital();
+      expect(valueAfterDeployment).not.to.be.empty;
+      expect(valueAfterDeployment).not.to.equal(0);
+
+      // Test method execution.
+      const method = contract.handleUpdateStartCapital(32);
+      await expect(method).not.to.be.reverted;
+
+      // Test new contract state after execution.
+      const valueAfterExecution = await contract.startCapital();
+      expect(valueAfterExecution).not.to.be.empty;
+      expect(valueAfterExecution).to.equal(32);
     });
     it('to update the token sensitivity.', async () => {
-      // ...
+      // Test contract state after deployment.
+      const valueAfterDeployment = await contract.tokenSensitivity();
+      expect(valueAfterDeployment).not.to.be.empty;
+      expect(valueAfterDeployment).not.to.equal(0);
+
+      // Test method execution.
+      const method = contract.handleUpdateTokenSensitivity(32);
+      await expect(method).not.to.be.reverted;
+
+      // Test new contract state after execution.
+      const valueAfterExecution = await contract.tokenSensitivity();
+      expect(valueAfterExecution).not.to.be.empty;
+      expect(valueAfterExecution).to.equal(32);
     });
     it('to update the watering cost.', async () => {
-      // ...
+      // Test contract state after deployment.
+      const valueAfterDeployment = await contract.wateringCost();
+      expect(valueAfterDeployment).not.to.be.empty;
+      expect(valueAfterDeployment).not.to.equal(0);
+
+      // Test method execution.
+      const method = contract.handleUpdateWateringCost(32);
+      await expect(method).not.to.be.reverted;
+
+      // Test new contract state after execution.
+      const valueAfterExecution = await contract.wateringCost();
+      expect(valueAfterExecution).not.to.be.empty;
+      expect(valueAfterExecution).to.equal(32);
     });
   });
 
   describe('should prohibit users', () => {
     it('to update the start capital.', async () => {
-      // ...
+      // Test contract state after deployment.
+      const valueAfterDeployment = await contract.startCapital();
+      expect(valueAfterDeployment).not.to.be.empty;
+      expect(valueAfterDeployment).not.to.equal(0);
+
+      // Test method execution.
+      const method = contract.connect(user).handleUpdateStartCapital(32);
+      await expect(method).to.be.reverted;
+
+      // Test new contract state after execution.
+      const addressAfterExecution = await contract.startCapital();
+      expect(addressAfterExecution).not.to.be.empty;
+      expect(addressAfterExecution).to.equal(valueAfterDeployment);
     });
     it('to update the token sensitivity.', async () => {
-      // ...
+      // Test contract state after deployment.
+      const valueAfterDeployment = await contract.tokenSensitivity();
+      expect(valueAfterDeployment).not.to.be.empty;
+      expect(valueAfterDeployment).not.to.equal(0);
+
+      // Test method execution.
+      const method = contract.connect(user).handleUpdateTokenSensitivity(32);
+      await expect(method).to.be.reverted;
+
+      // Test new contract state after execution.
+      const addressAfterExecution = await contract.tokenSensitivity();
+      expect(addressAfterExecution).not.to.be.empty;
+      expect(addressAfterExecution).to.equal(valueAfterDeployment);
     });
     it('to update the watering cost.', async () => {
-      // ...
+      // Test contract state after deployment.
+      const valueAfterDeployment = await contract.wateringCost();
+      expect(valueAfterDeployment).not.to.be.empty;
+      expect(valueAfterDeployment).not.to.equal(0);
+
+      // Test method execution.
+      const method = contract.connect(user).handleUpdateWateringCost(32);
+      await expect(method).to.be.reverted;
+
+      // Test new contract state after execution.
+      const addressAfterExecution = await contract.wateringCost();
+      expect(addressAfterExecution).not.to.be.empty;
+      expect(addressAfterExecution).to.equal(valueAfterDeployment);
     });
   });
 });
