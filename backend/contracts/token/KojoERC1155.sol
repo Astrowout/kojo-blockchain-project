@@ -14,22 +14,26 @@ contract KojoERC1155 is
   ERC1155BurnableUpgradeable,
   ERC1155SupplyUpgradeable
 {
-  /// @custom:oz-upgrades-unsafe-allow constructor
+  // Disable initialize function after intitialization.
   constructor() {
     _disableInitializers();
   }
 
+  // Initialize contract.
   function initialize() public initializer {
-    __ERC1155_init("");
+    // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1155.md#erc-1155-metadata-uri-json-schema
+    __ERC1155_init("https://example/api/item/{id}.json");
     __Ownable_init();
     __ERC1155Burnable_init();
     __ERC1155Supply_init();
   }
 
+  // Allows to owner to update the metadata.
   function setURI(string memory newuri) public onlyOwner {
     _setURI(newuri);
   }
 
+  // Allows the owner to mint tokens of a specific type.
   function mint(
     address account,
     uint256 id,
@@ -39,6 +43,7 @@ contract KojoERC1155 is
     _mint(account, id, amount, data);
   }
 
+  // Allows the owner to mint tokens of multiple types.
   function mintBatch(
     address to,
     uint256[] memory ids,
@@ -47,12 +52,6 @@ contract KojoERC1155 is
   ) public onlyOwner {
     _mintBatch(to, ids, amounts, data);
   }
-
-  // function updateOwner()
-  // function getSupply view ()
-  // function getBalanceOf view ()
-  // function transferToken()
-  // function updateURI()
 
   // The following functions are overrides required by Solidity.
   function _beforeTokenTransfer(

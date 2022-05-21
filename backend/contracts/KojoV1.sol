@@ -9,47 +9,45 @@ import "./utils/KojoUtils.sol";
 
 import "./token/KojoERC1155.sol";
 
-contract KojoV1 is KojoOwnable {
+contract KojoV1 is KojoERC1155 {
   KojoStorage private store;
   KojoUtils private utils;
-  KojoERC1155 private token;
+
+  uint256 public constant FUNGIBLE_TOKEN = 0;
+  uint256 public constant NON_FUNGIBLE_TOKEN = 1;
 
   constructor() {
     store = new KojoStorage();
-    utils = new KojoUtils();
-    token = new KojoERC1155();
+    store = new KojoStorage();
+
+    _mint(msg.sender, FUNGIBLE_TOKEN, 10**18, "");
   }
 
   // Enables the owner to update the store.
-  function handleUpdateStoreAddress(address location) public isOwner {
+  function handleUpdateStoreAddress(address location) public onlyOwner {
     store = KojoStorage(location);
   }
 
   // Enables the owner to update utils.
-  function handleUpdateUtilsAddress(address location) public isOwner {
+  function handleUpdateUtilsAddress(address location) public onlyOwner {
     utils = KojoUtils(location);
   }
 
-  // Enables the owner to update the token.
-  function handleUpdateTokenAddress(address location) public isOwner {
-    token = KojoERC1155(location);
-  }
-
   // Enables the owner to update the start capital given to users.
-  function handleUpdateStartCapital(uint256 startCapital) public isOwner {
+  function handleUpdateStartCapital(uint256 startCapital) public onlyOwner {
     store.handleUpdateStartCapital(startCapital);
   }
 
   // Enables the  owner to update how many tokens are distributed for a given percentage point.
   function handleUpdateTokenSensitivity(uint256 tokenSensitivity)
     public
-    isOwner
+    onlyOwner
   {
     store.handleUpdateTokenSensitivity(tokenSensitivity);
   }
 
   // Enables the  owner to update the cost of watering a seed/plant.
-  function handleUpdateWateringCost(uint256 wateringCost) public isOwner {
+  function handleUpdateWateringCost(uint256 wateringCost) public onlyOwner {
     store.handleUpdateWateringCost(wateringCost);
   }
 
@@ -64,21 +62,38 @@ contract KojoV1 is KojoOwnable {
   }
 
   // Enables users to buy a seed/plant.
-  function handleBuyPlant(address to) public view {
-    console.log(to);
+  function handleBuyPlant(address account) public {
+    _mint(account, NON_FUNGIBLE_TOKEN, 1, "");
   }
 
+  // function handleCheckTokenBalance(address account)
+  //   public
+  //   view
+  //   returns (uint256)
+  // {
+  //   uint256[2] memory ids;
+  //   address[2] memory accounts;
+
+  //   return balanceOfBatch(accounts, ids);
+  // }
+
+  // @TODO: Remove functio as it is automatically inherited from KojoERC1155.
   // Enables users to check their capital token balance.
-  function handleCheckCapitalTokenBalance(address to) public view {
-    console.log(to);
+  function handleCheckFungibleTokenBalance(address account)
+    public
+    view
+    returns (uint256)
+  {
+    return balanceOf(account, FUNGIBLE_TOKEN);
   }
 
+  // @TODO: Remove functio as it is automatically inherited from KojoERC1155.
   // Enables users to transfer capital tokens.
-  function handleCheckCapitalTokenBalance(
-    address from,
-    address to,
-    uint256 amount
-  ) public view {
-    console.log(from, to, amount);
+  function handleCheckNonFungibeTokenBalance(address account)
+    public
+    view
+    returns (uint256)
+  {
+    return balanceOf(account, NON_FUNGIBLE_TOKEN);
   }
 }
