@@ -1,8 +1,9 @@
 import { createContext, FC, PropsWithChildren } from "react";
 import { Loader } from "../components";
-import { useContract, useMetaMask, useWalletConnect, useWeb3 } from "../hooks";
+import { useMetaMask, useWalletConnect, useWeb3 } from "../hooks";
 import useMagicLink from "../hooks/useMagicLink";
 import { Error } from "../types";
+import { SessionProvider } from "./session";
 
 type GlobalContextType = {
 	address?: string | null;
@@ -16,9 +17,11 @@ type GlobalContextType = {
 	disconnect?: () => void;
 }
 
+type GlobalProviderProps = {};
+
 const GlobalContext = createContext<GlobalContextType>({});
 
-export const GlobalProvider: FC<PropsWithChildren<any>> = ({ children }) => {
+export const GlobalProvider: FC<PropsWithChildren<GlobalProviderProps>> = ({ children }) => {
 	const {
 		network,
 		address,
@@ -45,9 +48,7 @@ export const GlobalProvider: FC<PropsWithChildren<any>> = ({ children }) => {
 		connectMagicLink,
 	} = useMagicLink(setProvider);
 
-	useContract(provider);
-
-	if (isGlobalLoading) {
+	if (isGlobalLoading || !address) {
 		return (
 			<div className="w-screen h-screen flex items-center justify-center">
 				<Loader />
@@ -69,7 +70,9 @@ export const GlobalProvider: FC<PropsWithChildren<any>> = ({ children }) => {
 				disconnect,
 			}}
 		>
-			{children}
+			<SessionProvider provider={provider} address={address}>
+				{children}
+			</SessionProvider>
 		</GlobalContext.Provider>
 	)
 }

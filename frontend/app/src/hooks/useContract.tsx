@@ -1,12 +1,13 @@
 import { useState, useEffect, useCallback } from "react";
 import { Contract } from "ethers";
-import { Error } from "../types";
+import { Error, User } from "../types";
 import Artifact from "../artifacts/contracts/KojoV1.sol/KojoV1.json";
-// import { useIonToast } from "@ionic/react";
+import { useIonToast } from "@ionic/react";
 
-const useContract = (provider: any) => {
+const useContract = (provider: any, address?: string) => {
 	const [isLoading] = useState(false);
-	// const [present] = useIonToast();
+	const [present] = useIonToast();
+	const [user] = useState<User | null>(null);
 	const [contract, setContract] = useState<Contract | null>(null);
 	const [error] = useState<Error | null>(null);
 
@@ -46,10 +47,26 @@ const useContract = (provider: any) => {
 
 	const initUserState = useCallback(async () => {
 		console.log(contract);
-	}, [contract]);
+
+		try {
+			const owner = await contract!.handleBuyPlant(address);
+			console.log(owner);
+		} catch (error: any) {
+			present({
+				color: "danger",
+				duration: 5000,
+				position: "top",
+				message: error.message,
+			});
+
+			throw error;
+		}
+
+		// call setUser()
+	}, [contract]); // eslint-disable-line react-hooks/exhaustive-deps
 
  	return {
-		contract,
+		user,
 		isLoading,
 		error,
 	};
