@@ -20,7 +20,7 @@ const BottomBar: FunctionComponent<BottomBarProps> = ({
 				</p>
 
 				<a
-					href="https://pitch.com"
+					href="https://pitch.com/public/c3458a69-2c47-45eb-be04-bb3ada5b15df"
 					target="_blank"
 					rel="noreferrer"
 					className="pl-3 text-gray-400 text-sm underline hover:text-gray-600"
