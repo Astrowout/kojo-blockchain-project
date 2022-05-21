@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Contract } from "ethers";
 import { Error } from "../types";
 import Artifact from "../artifacts/contracts/KojoV1.sol/KojoV1.json";
@@ -20,7 +20,19 @@ const useContract = (provider: any) => {
 		return () => {
 			// cleanup
 		}
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [provider]); // eslint-disable-line react-hooks/exhaustive-deps
+
+	useEffect(() => {
+		if (!contract) {
+			return;
+		}
+
+		initUserState();
+
+		return () => {
+			// cleanup
+		}
+	}, [contract]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const initContract = () => {
 		const signer = provider.getSigner();
@@ -31,6 +43,10 @@ const useContract = (provider: any) => {
 			signer,
 		));
 	}
+
+	const initUserState = useCallback(async () => {
+		console.log(contract);
+	}, [contract]);
 
  	return {
 		contract,
