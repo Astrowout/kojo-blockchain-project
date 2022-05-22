@@ -77,7 +77,7 @@ const Header: FunctionComponent<HeaderProps> = ({
 				<div className="2xl:container px-6 sm:px-10 py-10 relative z-20 flex justify-between items-center bg-white">
 					<NextLink href="/">
 						<a>
-							<Logo w={120} />
+							<Logo w={132} />
 						</a>
 					</NextLink>
 

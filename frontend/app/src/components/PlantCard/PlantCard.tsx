@@ -53,7 +53,7 @@ const PlantCard: FC<PlantCardProps> = ({
 				</div>
 			</div>
 
-			<h2 className="text-emerald-600 font-semibold text-lg lg:text-xl py-4 px-4 lg:px-6 border-y">
+			<h2 className="text-emerald-600 font-bold text-lg lg:text-xl py-4 px-4 lg:px-6 border-y">
 				{ type }
 			</h2>
 

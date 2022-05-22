@@ -90,7 +90,7 @@ const How: FunctionComponent<HowProps> = ({ className }) => {
 									/>
 								</div>
 
-								<h1 className="hidden md:block font-sans mt-4 font-semibold text-emerald-600 uppercase tracking-wider">
+								<h1 className="hidden md:block font-sans mt-4 font-bold text-emerald-600 uppercase tracking-widest">
 									{ t("how.title") }
 								</h1>
 

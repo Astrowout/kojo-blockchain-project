@@ -15,7 +15,7 @@ const Stat: FunctionComponent<StatProps> = ({
 			<div className="flex items-center space-x-2 text-gray-400">
 				<Icon name={icon} size={24} className="flex-shrink-0" />
 
-				<p className="text-sm uppercase tracking-wider font-semibold">
+				<p className="text-sm uppercase tracking-wider font-bold">
 					{ label }
 				</p>
 			</div>

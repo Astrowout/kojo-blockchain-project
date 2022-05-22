@@ -21,7 +21,7 @@ const Link: FunctionComponent<LinkProps> = ({
 		<>
 			{children}
 
-			{icon && <Icon name={icon} className="ml-2" />}
+			{icon && <Icon name={icon} className="ml-2" size={20} />}
 		</>
 	)
 

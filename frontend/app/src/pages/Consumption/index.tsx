@@ -10,7 +10,7 @@ const ConsumptionPage = () => {
 	return (
 		<Layout
 			title={t("consumption.title")}
-			description={t("consumption.description.1", <b className="font-semibold">{t("consumption.description.2")}</b>)}
+			description={t("consumption.description.1", <b className="font-bold">{t("consumption.description.2")}</b>)}
 		>
 			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-12 w-full">
 				<Tokens />

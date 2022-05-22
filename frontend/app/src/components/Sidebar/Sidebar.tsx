@@ -18,11 +18,14 @@ const Sidebar: FC<SidebarProps> = ({ className }) => {
 			)}
 		>
 			<div className="flex flex-col">
-				<IonRouterLink routerLink="/tabs/dashboard" routerDirection="root">
-					<Logo w={120} />
+				<IonRouterLink
+					routerLink="/tabs/dashboard"
+					routerDirection="root"
+				>
+					<Logo w={140} />
 				</IonRouterLink>
 
-				<div className="mt-16 flex flex-col space-y-10">
+				<div className="mt-20 flex flex-col space-y-10">
 					<NavLink url="/tabs/dashboard" icon="Dashboard">
 						{ t("navigation.dashboard") }
 					</NavLink>

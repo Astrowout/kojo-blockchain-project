@@ -19,7 +19,7 @@ const About: FunctionComponent<AboutProps> = ({
 					className="mx-auto"
 				/>
 
-				<h2 className="text-lg font-semibold mt-12">
+				<h2 className="text-lg font-bold mt-12">
 					{ t("about.title") }
 				</h2>
 

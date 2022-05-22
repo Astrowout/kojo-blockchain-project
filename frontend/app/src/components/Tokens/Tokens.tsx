@@ -44,7 +44,7 @@ const Tokens: FunctionComponent<TokensProps> = ({
 						{ t("tokens.nextClaim") }
 					</p>
 
-					<p className="mt-1 font-semibold text-xl lg:text-2xl">
+					<p className="mt-1 font-bold text-xl lg:text-2xl">
 						{ t("tokens.days", days) }
 					</p>
 				</div>

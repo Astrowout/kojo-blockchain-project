@@ -52,7 +52,7 @@ const PlantDetail: FC<PlantDetailProps> = ({
 			</div>
 
 			<div className="lg:mt-24">
-				<h2 className="text-emerald-600 font-semibold text-xl md:text-2xl xl:text-3xl">
+				<h2 className="text-emerald-600 font-bold text-xl md:text-2xl xl:text-3xl">
 					{ type }
 				</h2>
 

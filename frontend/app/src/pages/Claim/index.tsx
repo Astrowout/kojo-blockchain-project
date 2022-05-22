@@ -13,7 +13,7 @@ const ClaimPage = () => {
 	return (
 		<Layout
 			title={t("claim.title")}
-			description={t("claim.description", <b className="font-semibold">{claimableAmount} of kojos</b>)}
+			description={t("claim.description", <b className="font-bold">{claimableAmount} of kojos</b>)}
 			backLink
 			withOverlap={false}
 		>

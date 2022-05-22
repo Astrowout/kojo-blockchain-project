@@ -5,8 +5,8 @@ module.exports = {
 	],
 	theme: {
 		fontFamily: {
-			'sans': ['Poppins', 'ui-sans-serif'],
-			'serif': ['Abhaya Libre', 'ui-serif'],
+			'sans': ['Plus Jakarta Sans', 'ui-sans-serif', 'sans-serif'],
+			'serif': ['Abhaya Libre', 'ui-serif', 'serif'],
 		},
 		container: {
 			center: true,
