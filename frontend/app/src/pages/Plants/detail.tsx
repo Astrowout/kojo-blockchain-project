@@ -22,7 +22,7 @@ const PlantPage = () => {
 	return (
 		<Layout
 			title={plant.type}
-			description={t("plants.description.1", <b className="font-semibold">{t("plants.description.2")}</b>)}
+			description={t("plants.description.1", <b className="font-bold">{t("plants.description.2")}</b>)}
 			backLink
 		>
 			<div>

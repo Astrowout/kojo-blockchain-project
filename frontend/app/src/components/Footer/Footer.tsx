@@ -24,7 +24,7 @@ const Footer: FunctionComponent<FooterProps> = ({
 			</p>
 
 			{version && (
-				<p className="text-sm font-semibold font-mono mt-10 bg-gray-100 px-3 py-1 rounded-lg">
+				<p className="text-sm font-bold font-mono mt-10 bg-gray-100 px-3 py-1 rounded-lg">
 					v{ version }
 				</p>
 			)}

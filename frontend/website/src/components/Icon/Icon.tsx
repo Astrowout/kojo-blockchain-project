@@ -5,7 +5,7 @@ import icons from "./icons";
 
 const Icon: FunctionComponent<IconProps> = ({
 	name = "ArrowRight",
-	size = 20,
+	size = null,
 	className = "",
 }) => {
 	const Icon: ComponentType<SVGProps<SVGElement>> = icons[name];
@@ -13,8 +13,8 @@ const Icon: FunctionComponent<IconProps> = ({
 	return (
 		<Icon
 			className={className}
-			width={size}
-			height={size}
+			width={size || "100%"}
+			height={size || "100%"}
 			aria-hidden="true"
 		/>
 	)

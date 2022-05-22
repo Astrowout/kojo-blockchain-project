@@ -29,14 +29,14 @@ const SettingItem: FC<SettingItemProps> = ({
 							<span className="relative flex rounded-full h-2 w-2 border border-white bg-green-500"></span>
 						</div>
 
-						<p className="uppercase font-semibold text-sm tracking-wider">
+						<p className="uppercase font-bold text-sm tracking-wider">
 							{ t("settings.connected") }
 						</p>
 					</div>
 				)}
 			</div>
 
-			<div className="mt-3 bg-emerald-50 font-semibold shadow-inner rounded-2xl text-xl px-6 py-4 flex justify-center">
+			<div className="mt-3 bg-emerald-50 font-bold shadow-inner rounded-2xl text-xl px-6 py-4 flex justify-center">
 				{ children }
 			</div>
 

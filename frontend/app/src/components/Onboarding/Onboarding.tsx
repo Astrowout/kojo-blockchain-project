@@ -35,15 +35,15 @@ const Onboarding: FC<OnboardingProps> = ({ className }) => {
 				<Logo w={96} blank className="sm:hidden text-white" />
 				<Logo w={120} className="hidden sm:block" />
 
-				<h1 className="text-lg mt-10 sm:mt-14 font-semibold uppercase tracking-wider">
+				<h1 className="text-lg mt-10 sm:mt-14 font-bold uppercase tracking-wider">
 					{ t("onboarding.title") }
 				</h1>
 
 				<p className="mt-3">
 					{ t(
 						"onboarding.description.1",
-						<b className="font-semibold">{ t("onboarding.description.2") }</b>,
-						<b className="font-semibold">{ t("onboarding.description.3") }</b>,
+						<b className="font-bold">{ t("onboarding.description.2") }</b>,
+						<b className="font-bold">{ t("onboarding.description.3") }</b>,
 					) }
 				</p>
 

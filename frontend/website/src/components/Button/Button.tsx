@@ -28,15 +28,15 @@ const Button: FunctionComponent<ButtonProps> = ({
 
 	const renderContent = () => (
 		<>
-			{icon && !iconAfter && !loading && <Icon name={icon} />}
+			{icon && !iconAfter && !loading && <Icon name={icon} size={20} />}
 
-			{loading && <Icon className="animate-spin" name="Spinner" />}
+			{loading && <Icon className="animate-spin" name="Spinner" size={20} />}
 
 			<span>
 				{children}
 			</span>
 
-			{icon && iconAfter && <Icon name={icon} />}
+			{icon && iconAfter && <Icon name={icon} size={20} />}
 		</>
 	);
 

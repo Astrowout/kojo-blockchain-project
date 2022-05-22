@@ -14,7 +14,7 @@ const Token: FunctionComponent<TokenProps> = ({ className }) => {
 	return (
 		<section className={cn(className, "")}>
 			<div className='max-w-screen-lg mx-auto px-6 sm:px-10 py-10 sm:py-20 flex flex-col items-center'>
-				<p className="font-sans font-semibold text-gray-400 uppercase tracking-wider">
+				<p className="font-sans font-bold text-gray-400 uppercase tracking-widest">
 					{ t("token.title") }
 				</p>
 

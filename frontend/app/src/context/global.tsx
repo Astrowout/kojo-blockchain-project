@@ -48,7 +48,7 @@ export const GlobalProvider: FC<PropsWithChildren<GlobalProviderProps>> = ({ chi
 		connectMagicLink,
 	} = useMagicLink(setProvider);
 
-	if (isGlobalLoading || !address) {
+	if (isGlobalLoading) {
 		return (
 			<div className="w-screen h-screen flex items-center justify-center">
 				<Loader />
@@ -70,7 +70,7 @@ export const GlobalProvider: FC<PropsWithChildren<GlobalProviderProps>> = ({ chi
 				disconnect,
 			}}
 		>
-			<SessionProvider provider={provider} address={address}>
+			<SessionProvider provider={provider} address={address!}>
 				{children}
 			</SessionProvider>
 		</GlobalContext.Provider>
