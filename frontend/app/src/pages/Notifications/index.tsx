@@ -11,6 +11,7 @@ const NotificationsPage = () => {
 	const { t } = useTranslation();
 	const {
 		user,
+		notifications,
 	} = useContext(SessionContext);
 
 	return (
@@ -22,25 +23,22 @@ const NotificationsPage = () => {
 		>
 			<div className="flex flex-col max-w-prose flex-grow">
 				<Link
-					className="ml-auto mb-4"
+					className="ml-auto mb-6 md:mb-4"
 					light
 				>
 					{ t("notifications.markAsRead") }
 				</Link>
 
-				<ul className="w-full divide-y u-card-fluid">
-					<li>
-						<NotificationItem
-							message={"test"}
-							date={new Date()}
-						/>
-					</li>
-					<li>
-						<NotificationItem
-							message={"test"}
-							date={new Date()}
-						/>
-					</li>
+				<ul className="divide-y u-card-fluid -mx-4 sm:-mx-8 md:mx-0 border-y md:border-none">
+					{notifications?.map((notification) => (
+						<li key={notification.id}>
+							<NotificationItem
+								message={notification.message}
+								date={notification.createdAt}
+								read={notification.read}
+							/>
+						</li>
+					))}
 				</ul>
 			</div>
 		</Layout>

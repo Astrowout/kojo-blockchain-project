@@ -1,4 +1,4 @@
-import { FC, memo } from "react";
+import { FC, memo, useContext } from "react";
 import cn from "classnames";
 
 import { SidebarProps } from "./Sidebar.types";
@@ -6,9 +6,13 @@ import { useTranslation } from "../../hooks";
 import Logo from "../Logo/Logo";
 import NavLink from "../NavLink/NavLink";
 import { IonRouterLink } from "@ionic/react";
+import { SessionContext } from "../../context";
 
 const Sidebar: FC<SidebarProps> = ({ className }) => {
 	const { t } = useTranslation();
+	const {
+		notifications,
+	} = useContext(SessionContext);
 
 	return (
 		<nav
@@ -41,7 +45,7 @@ const Sidebar: FC<SidebarProps> = ({ className }) => {
 			</div>
 
 			<div className="flex flex-col space-y-8">
-				<NavLink url="/notifications" icon="Bell" unread>
+				<NavLink url="/notifications" icon="Bell" unread={notifications && !!notifications.length}>
 					{ t("navigation.notifications") }
 				</NavLink>
 
