@@ -3,6 +3,10 @@ import { PrismaClient } from '@prisma/client';
 
 const client = new PrismaClient();
 
+(BigInt.prototype as any).toJSON = function () {
+	return this.toString();
+};
+
 const handler = async (req: VercelRequest, res: VercelResponse) => {
 	if (req.method !== "POST") {
 		return res.status(400).json({ error: "Only POST requests are allowed." });

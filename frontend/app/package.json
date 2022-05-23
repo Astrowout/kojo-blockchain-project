@@ -60,8 +60,7 @@
     "generate:assets": "cordova-res android --skip-config --copy",
     "build:app": "ionic cap sync --no-build",
     "add:android": "ionic cap add android",
-    "open:android": "ionic cap open android",
-    "eject": "react-app-rewired eject"
+    "open:android": "ionic cap open android"
   },
   "eslintConfig": {
     "extends": [
