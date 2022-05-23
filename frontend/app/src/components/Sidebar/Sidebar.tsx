@@ -14,6 +14,8 @@ const Sidebar: FC<SidebarProps> = ({ className }) => {
 		notifications,
 	} = useContext(SessionContext);
 
+	const unread = notifications?.some((notification) => !notification.read);
+
 	return (
 		<nav
 			className={cn(
@@ -45,7 +47,7 @@ const Sidebar: FC<SidebarProps> = ({ className }) => {
 			</div>
 
 			<div className="flex flex-col space-y-8">
-				<NavLink url="/notifications" icon="Bell" unread={notifications && !!notifications.length}>
+				<NavLink url="/notifications" icon="Bell" unread={unread}>
 					{ t("navigation.notifications") }
 				</NavLink>
 
