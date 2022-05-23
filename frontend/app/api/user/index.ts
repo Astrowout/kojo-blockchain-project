@@ -3,10 +3,6 @@ import { PrismaClient } from '@prisma/client'
 
 const client = new PrismaClient();
 
-(BigInt.prototype as any).toJSON = function () {
-	return this.toString();
-};
-
 const handler = async (req: VercelRequest, res: VercelResponse) => {
 	if (req.method !== "GET") {
 		return res.status(400).json({ error: "Only GET requests are allowed." });
@@ -19,7 +15,7 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 	}
 
 	try {
-		const user = await client.user.findUnique({
+		let user = await client.user.findUnique({
 			where: {
 				did: address,
 			},
@@ -31,6 +27,8 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 				},
 			},
 		});
+
+		user = JSON.stringify(user, (_key, value) => (typeof value === 'bigint' ? value.toString() : value)) as any;
 
 		return res.status(200).json(user);
 	} catch (error: any) {
