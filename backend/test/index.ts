@@ -111,74 +111,74 @@ describe('Proxy', () => {
   });
 });
 
-describe('ERC1155', () => {
-  it('should mint a supply of fungible tokens on deploy.', async () => {
-    // ...
-  });
+// describe('ERC1155', () => {
+//   it('should mint a supply of fungible tokens on deploy.', async () => {
+//     // ...
+//   });
 
-  describe('should allow the owner', () => {
-    it('to mint fungible tokens.', async () => {
-      // ...
-    });
-    it('to read a fungible token balance.', async () => {
-      // ...
-    });
-    it('to transfer fungible tokens.', async () => {
-      // ...
-    });
-    it('to burn fungible tokens.', async () => {
-      // ...
-    });
-    it('to mint non-fungible tokens.', async () => {
-      // ...
-    });
-    it('to read a non-fungible token balance.', async () => {
-      // ...
-    });
-    it('to transfer non-fungible tokens.', async () => {
-      // ...
-    });
-    it('to update the URI-address of non-fungible tokens.', async () => {
-      // ...
-    });
-    it('to burn non-fungible tokens.', async () => {
-      // ...
-    });
-  });
+//   describe('should allow the owner', () => {
+//     it('to mint fungible tokens.', async () => {
+//       // ...
+//     });
+//     it('to read a fungible token balance.', async () => {
+//       // ...
+//     });
+//     it('to transfer fungible tokens.', async () => {
+//       // ...
+//     });
+//     it('to burn fungible tokens.', async () => {
+//       // ...
+//     });
+//     it('to mint non-fungible tokens.', async () => {
+//       // ...
+//     });
+//     it('to read a non-fungible token balance.', async () => {
+//       // ...
+//     });
+//     it('to transfer non-fungible tokens.', async () => {
+//       // ...
+//     });
+//     it('to update the URI-address of non-fungible tokens.', async () => {
+//       // ...
+//     });
+//     it('to burn non-fungible tokens.', async () => {
+//       // ...
+//     });
+//   });
 
-  describe('should allow users', () => {
-    it('to read a fungible token balance.', async () => {
-      // ...
-    });
-    it('to transfer fungible tokens.', async () => {
-      // ...
-    });
-    it('to mint non-fungible tokens.', async () => {
-      // ...
-    });
-    it('to read a non-fungible token balance.', async () => {
-      // ...
-    });
-    it('to transfer non-fungible tokens.', async () => {
-      // ...
-    });
-  });
+//   describe('should allow users', () => {
+//     it('to read a fungible token balance.', async () => {
+//       // ...
+//     });
+//     it('to transfer fungible tokens.', async () => {
+//       // ...
+//     });
+//     it('to mint non-fungible tokens.', async () => {
+//       // ...
+//     });
+//     it('to read a non-fungible token balance.', async () => {
+//       // ...
+//     });
+//     it('to transfer non-fungible tokens.', async () => {
+//       // ...
+//     });
+//   });
 
-  describe('should prohibit users', () => {
-    it('to mint fungible tokens.', async () => {
-      // ...
-    });
-    it('to burn fungible tokens.', async () => {
-      // ...
-    });
-    it('to update the URI-address of non-fungible tokens.', async () => {
-      // ...
-    });
-    it('to burn non-fungible tokens.', async () => {
-      // ...
-    });
-  });
-});
+//   describe('should prohibit users', () => {
+//     it('to mint fungible tokens.', async () => {
+//       // ...
+//     });
+//     it('to burn fungible tokens.', async () => {
+//       // ...
+//     });
+//     it('to update the URI-address of non-fungible tokens.', async () => {
+//       // ...
+//     });
+//     it('to burn non-fungible tokens.', async () => {
+//       // ...
+//     });
+//   });
+// });
 
 describe('Storage', () => {
   let contract: any;
