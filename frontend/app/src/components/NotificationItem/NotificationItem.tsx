@@ -14,7 +14,7 @@ const NotificationItem: FC<NotificationItemProps> = ({
 	className,
 }) => {
 	const renderRelativeDate = () => {
-		return formatDistanceToNow(date, {
+		return formatDistanceToNow(new Date(date), {
 			addSuffix: true,
 		});
 	}

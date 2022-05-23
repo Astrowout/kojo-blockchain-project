@@ -19,11 +19,8 @@ export const getUser = async (params: VercelRequestQuery): Promise<User | null> 
 			did: params.address as string,
 		},
 		include: {
-			profile: {
-				include: {
-					notifications: true,
-				}
-			},
+			profile: true,
+			notifications: true,
 		},
 	});
 
@@ -40,18 +37,15 @@ export const postUser = async (body: VercelRequestBody): Promise<User | null> =>
 					postalCode: null,
 					firstName: null,
 					lastName: null,
-					notifications: {
-						create: []
-					}
 				}
+			},
+			notifications: {
+				create: []
 			}
 		},
 		include: {
-			profile: {
-				include: {
-					notifications: true,
-				}
-			},
+			profile: true,
+			notifications: true,
 		},
 	});
 

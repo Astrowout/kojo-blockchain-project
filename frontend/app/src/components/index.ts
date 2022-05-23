@@ -12,6 +12,7 @@ export { default as Sidebar } from "./Sidebar/Sidebar";
 export { default as Tabs } from "./Tabs/Tabs";
 export { default as SettingItem } from "./SettingItem/SettingItem";
 export { default as NotificationItem } from "./NotificationItem/NotificationItem";
+export { default as EmptyState } from "./EmptyState/EmptyState";
 export { default as NoWalletDetected } from "./NoWalletDetected/NoWalletDetected";
 export { default as Modal } from "./Modal/Modal";
 export { default as ConnectModal } from "./ConnectModal/ConnectModal";
