@@ -1,10 +1,11 @@
 import { createContext, FC, PropsWithChildren } from "react";
-import { useContract } from "../hooks";
-import { User } from "../types";
+import { useContract, useSession } from "../hooks";
+import { Notification, User } from "../types";
 
 type SessionContextType = {
 	user?: User | null;
 	isLoading?: boolean;
+	notifications?: Notification[];
 	isMetaMaskAvailable?: boolean;
 	connectMetaMask?: () => void;
 }
@@ -25,10 +26,17 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 		user,
 	} = useContract(provider, address);
 
+	const {
+		balance,
+		plants,
+		notifications,
+	} = useSession(address);
+
 	return (
 		<SessionContext.Provider
 			value={{
 				user,
+				notifications,
 			}}
 		>
 			{children}

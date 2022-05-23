@@ -5,7 +5,7 @@ const translations = {
 		cta: "To my dashboard",
 	},
 	messages: {
-		loginSuccess: "You are logged in succesfully!",
+		loginSuccess: "You are successfully logged in!",
 	},
 	errors: {
 		noWeb3: "No Ethereum wallet was detected.",

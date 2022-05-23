@@ -18,7 +18,7 @@ const Link: FC<LinkProps> = ({
 	const classes = cn(className, "inline-flex whitespace-nowrap items-center sm:text-lg hover:underline", {
 		"underline": !icon,
 		"text-emerald-900": !light,
-		"text-emerald-100": light,
+		"text-emerald-900 md:text-emerald-100": light,
 	});
 
 	const renderContent = () => (
