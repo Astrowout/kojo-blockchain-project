@@ -30,7 +30,7 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 
 		user = JSON.stringify(user, (_key, value) => (typeof value === 'bigint' ? value.toString() : value)) as any;
 
-		return res.status(200).json(user);
+		return res.status(200).json(JSON.parse(user));
 	} catch (error: any) {
 		console.log(error);
 
