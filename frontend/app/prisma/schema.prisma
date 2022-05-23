@@ -1,10 +1,11 @@
 generator client {
-  provider = "prisma-client-js"
+  	provider = "prisma-client-js"
+	previewFeatures = ["dataProxy"]
 }
 
 datasource db {
-  provider = "cockroachdb"
-  url      = env("DB_URL")
+	provider = "cockroachdb"
+	url      = env("DB_URL")
 }
 
 model Notification {
