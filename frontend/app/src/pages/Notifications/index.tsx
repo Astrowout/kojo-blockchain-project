@@ -11,14 +11,15 @@ import { useTranslation } from "../../hooks";
 const NotificationsPage = () => {
 	const { t } = useTranslation();
 	const {
-		user,
 		notifications,
 	} = useContext(SessionContext);
+
+	const totalUnread = notifications?.reduce((prevValue, currentValue) => currentValue.read ? prevValue += 1 : prevValue, 0);
 
 	return (
 		<Layout
 			title={t("notifications.title")}
-			description={user ? t("notifications.description.1", t("notifications.description.2", <b className="font-bold">{user}</b>)) : null}
+			description={ t("notifications.description.1", t("notifications.description.2", <b className="font-bold">{totalUnread}</b>))}
 			backLink
 			withOverlap={false}
 		>
