@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, User } from '@prisma/client'
 
 const client = new PrismaClient();
 
@@ -15,7 +15,7 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 	}
 
 	try {
-		let user = await client.user.findUnique({
+		let user: string | User | null = await client.user.findUnique({
 			where: {
 				did: address,
 			},
@@ -28,9 +28,13 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 			},
 		});
 
-		user = JSON.stringify(user, (_key, value) => (typeof value === 'bigint' ? value.toString() : value)) as any;
+		if (user) {
+			user = JSON.stringify(user, (_key, value) => (typeof value === 'bigint' ? value.toString() : value));
 
-		return res.status(200).json(JSON.parse(user));
+			return res.status(200).json(JSON.parse(user));
+		} else {
+			return res.status(200).json(null);
+		}
 	} catch (error: any) {
 		console.log(error);
 
