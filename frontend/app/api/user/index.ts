@@ -7,7 +7,7 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 	const { address } = req.body;
 
 	if (!address) {
-		return res.status(400).json({ error: "Address passed in body is invalid" });
+		return res.status(400).json({ error: "The field 'address' in the request body is undefined." });
 	}
 
 	try {
@@ -26,6 +26,8 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 
 		return res.status(200).json(user);
 	} catch (error: any) {
+		console.log(error);
+
 		return res.status(500).send(error.message);
 	}
 };
