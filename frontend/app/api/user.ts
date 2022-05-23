@@ -18,6 +18,13 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 			}
 
 			user = await getUser(req.query);
+
+			if (!user) {
+				user = await postUser({
+					...req.body,
+					...req.query,
+				});
+			}
 		}
 
 		if (req.method === "POST") {

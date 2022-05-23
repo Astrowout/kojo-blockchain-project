@@ -12,8 +12,8 @@ model Notification {
   createdAt DateTime @default(now()) @db.Timestamp(6)
   message   String?
   read      Boolean
-  profileId BigInt   @unique @db.Int8
-  profile   Profile  @relation(fields: [profileId], references: [id])
+  userId BigInt   @unique @db.Int8
+  user   User  @relation(fields: [userId], references: [id])
 }
 
 model Profile {
@@ -23,7 +23,6 @@ model Profile {
   lastName          String?
   userId        BigInt        @unique @db.Int8
   user          User          @relation(fields: [userId], references: [id])
-  notifications Notification[]
 }
 
 model User {
@@ -31,4 +30,5 @@ model User {
   email   String?  @unique @db.String(255)
   did     String   @unique
   profile Profile?
+  notifications Notification[]
 }

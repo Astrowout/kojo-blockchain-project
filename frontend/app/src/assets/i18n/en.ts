@@ -87,6 +87,7 @@ const translations = {
 	notifications: {
 		title: "Notifications",
 		markAsRead: "Mark all as read",
+		empty: "No notifications received.",
 		description: {
 			1: "You have {$}.",
 			2: "{$} unread notifications",

@@ -27,7 +27,6 @@
     "date-fns": "^2.28.0",
     "ethers": "^5.6.5",
     "https-browserify": "^1.0.0",
-    "https-proxy-agent": "^5.0.1",
     "lodash": "^4.17.21",
     "magic-sdk": "^8.1.1",
     "os-browserify": "^0.3.0",
@@ -57,13 +56,14 @@
     "workbox-streams": "^5.1.4"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "start": "GENERATE_SOURCEMAP=false react-app-rewired start",
+    "build": "GENERATE_SOURCEMAP=false react-app-rewired build",
     "vercel-build": "prisma generate && prisma migrate deploy && npm run build",
     "generate:assets": "cordova-res android --skip-config --copy",
     "build:app": "ionic cap sync --no-build",
     "add:android": "ionic cap add android",
-    "open:android": "ionic cap open android"
+    "open:android": "ionic cap open android",
+    "open:studio": "prisma studio"
   },
   "eslintConfig": {
     "extends": [

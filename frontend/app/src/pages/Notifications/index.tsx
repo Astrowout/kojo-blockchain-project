@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import {
+	EmptyState,
 	Layout,
 	Link,
 	NotificationItem,
@@ -22,24 +23,33 @@ const NotificationsPage = () => {
 			withOverlap={false}
 		>
 			<div className="flex flex-col max-w-prose flex-grow">
-				<Link
-					className="ml-auto mb-6 md:mb-4"
-					light
-				>
-					{ t("notifications.markAsRead") }
-				</Link>
+				{notifications && !!notifications.length ? (
+					<>
+						<Link
+							className="ml-auto mb-6 md:mb-4"
+							light
+						>
+							{ t("notifications.markAsRead") }
+						</Link>
 
-				<ul className="divide-y u-card-fluid -mx-4 sm:-mx-8 md:mx-0 border-y md:border-none">
-					{notifications?.map((notification) => (
-						<li key={notification.id}>
-							<NotificationItem
-								message={notification.message}
-								date={notification.createdAt}
-								read={notification.read}
-							/>
-						</li>
-					))}
-				</ul>
+						<ul className="divide-y u-card-fluid -mx-4 sm:-mx-8 md:mx-0 border-y md:border-none">
+							{notifications?.map((notification) => (
+								<li key={notification.id}>
+									<NotificationItem
+										message={notification.message}
+										date={notification.createdAt}
+										read={notification.read}
+										/>
+								</li>
+							))}
+						</ul>
+					</>
+				) : (
+					<EmptyState
+						message={t("notifications.empty")}
+						icon="Bell"
+					/>
+				)}
 			</div>
 		</Layout>
 	)
