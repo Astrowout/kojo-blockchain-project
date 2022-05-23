@@ -4,6 +4,10 @@ import { PrismaClient } from '@prisma/client';
 const client = new PrismaClient();
 
 const handler = async (req: VercelRequest, res: VercelResponse) => {
+	if (req.method !== "POST") {
+		return res.status(400).json({ error: "Only POST requests are allowed." });
+	}
+
 	const { address, email } = req.body;
 
 	if (!address) {
