@@ -1,4 +1,5 @@
 import {
+	Chart,
 	Layout,
 	Tokens,
 } from "../../components";
@@ -14,6 +15,14 @@ const ConsumptionPage = () => {
 		>
 			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-12 w-full">
 				<Tokens />
+
+				<div className="u-card row-start-2 flex justify-center">
+					<Chart
+						progress={30}
+					>
+						Test
+					</Chart>
+				</div>
 			</div>
 		</Layout>
 	)
