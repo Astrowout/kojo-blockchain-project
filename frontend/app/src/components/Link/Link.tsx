@@ -9,13 +9,16 @@ import { Link as RouterLink } from "react-router-dom";
 const Link: FC<LinkProps> = ({
 	children,
 	className,
-	url = "/",
+	url = "",
 	external = false,
+	light = false,
 	icon = null,
 	onClick,
 }) => {
-	const classes = cn(className, "inline-flex whitespace-nowrap items-center text-emerald-900 sm:text-lg hover:underline", {
+	const classes = cn(className, "inline-flex whitespace-nowrap items-center sm:text-lg hover:underline", {
 		"underline": !icon,
+		"text-emerald-900": !light,
+		"text-emerald-100": light,
 	});
 
 	const renderContent = () => (
@@ -26,21 +29,33 @@ const Link: FC<LinkProps> = ({
 		</>
 	)
 
-	return url && !external ? (
-		<RouterLink
-			to={url}
+	if (url) {
+		return !external ? (
+			<RouterLink
+				to={url}
+				className={classes}
+			>
+				{ renderContent() }
+			</RouterLink>
+		) : (
+			<a
+				href={url}
+				className={classes}
+				target="_blank" rel="noreferrer"
+			>
+				{ renderContent() }
+			</a>
+		)
+	}
+
+	return (
+		<button
+			type="button"
 			className={classes}
+			onClick={onClick}
 		>
 			{ renderContent() }
-		</RouterLink>
-	) : (
-		<a
-			href={url}
-			className={classes}
-			target="_blank" rel="noreferrer"
-		>
-			{ renderContent() }
-		</a>
+		</button>
 	)
 }
 

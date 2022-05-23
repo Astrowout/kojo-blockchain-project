@@ -47,7 +47,7 @@ const Header: FunctionComponent<HeaderProps> = ({
 							<button
 								type="button"
 								onClick={history.goBack}
-								className="mr-3 flex text-emerald-100"
+								className="mr-3 flex text-emerald-100 hover:text-white hover:-translate-x-1 transition"
 							>
 								<Icon name="ArrowLeft" size={28}></Icon>
 

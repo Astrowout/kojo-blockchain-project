@@ -20,6 +20,10 @@ ion-tab-bar {
 	@apply md:bg-white md:rounded-2xl md:shadow-2xl md:shadow-emerald-900/20 md:p-8;
 }
 
+.u-card-fluid {
+	@apply md:bg-white md:rounded-2xl md:shadow-2xl md:shadow-emerald-900/20 overflow-hidden;
+}
+
 ion-footer::before {
 	@apply bg-none !important;
 }

@@ -5,5 +5,6 @@ export { default as NewSeedPage } from "./NewSeed";
 export { default as PlantsPage } from "./Plants";
 export { default as PlantPage } from "./Plants/detail";
 export { default as SettingsPage } from "./Settings";
+export { default as NotificationsPage } from "./Notifications";
 export { default as ClaimPage } from "./Claim";
 export { default as NotFoundPage } from "./NotFound";

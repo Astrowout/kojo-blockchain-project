@@ -84,6 +84,14 @@ const translations = {
 		wallet: "My wallet",
 		waterMeter: "My digital water meter",
 	},
+	notifications: {
+		title: "Notifications",
+		markAsRead: "Mark all as read",
+		description: {
+			1: "You have {$}.",
+			2: "{$} unread notifications",
+		}
+	},
 	stats: {
 		health: "Health",
 		hydration: "Hydration",

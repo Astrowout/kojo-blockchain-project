@@ -1,3 +1,4 @@
 {
-    "solidity.defaultCompiler": "localFile"
+    "solidity.defaultCompiler": "localFile",
+    "prisma.fileWatcher": true
 }
