@@ -3,10 +3,26 @@ pragma solidity ^0.8.9;
 
 import "../access/KojoOwnable.sol";
 
+import "../utils/KojoLibrary.sol";
+
 contract KojoStorage is KojoOwnable {
   uint256 public startCapital;
   uint256 public tokenSensitivity;
   uint256 public wateringCost;
+
+  mapping(uint256 => Structs.Participant) public participants;
+  uint256[] public participantIndices;
+
+  event CreateParticipant(Structs.Participant participant);
+  event UpdateParticipant(Structs.Participant participant);
+  event DeleteParticipant(Structs.Participant participant);
+
+  mapping(uint256 => Structs.Plant) public plants;
+  uint256[] public plantIndices;
+
+  event CreatePlant(Structs.Plant plant);
+  event UpdatePlant(Structs.Plant plant);
+  event DeletePlant(Structs.Plant plant);
 
   constructor() {
     startCapital = 100;
@@ -30,5 +46,117 @@ contract KojoStorage is KojoOwnable {
   // Allows owner to update the cost of watering a seed/plant.
   function handleUpdateWateringCost(uint256 _wateringCost) public isOwner {
     wateringCost = _wateringCost;
+  }
+
+  // Allows owner to create a new participant.
+  function handleCreateParticpant(address account) external isOwner {
+    uint256 index = participantIndices.length + 1;
+
+    Structs.Participant memory participant;
+    participant.id = index;
+    participant.account = account;
+    participant.isPresent = true;
+
+    participants[index] = participant;
+    participantIndices.push(index);
+
+    emit CreateParticipant(participant);
+  }
+
+  // Allows users to read participants.
+  function handleReadParticipant(uint256 id)
+    external
+    view
+    returns (Structs.Participant memory participant)
+  {
+    return participants[id];
+  }
+
+  // Allows the owner to update participants.
+  function handleUpdateParticipant(
+    uint256 id,
+    Structs.Participant calldata _participant
+  ) external isOwner {
+    Structs.Participant memory participant = participants[id];
+
+    participant = _participant;
+    participants[id] = participant;
+
+    emit UpdateParticipant(participant);
+  }
+
+  // Allows the owner to delete participants.
+  function handleDeleteParticipant(uint256 id) external isOwner {
+    Structs.Participant memory participant = participants[id];
+
+    delete participants[id];
+
+    emit DeleteParticipant(participant);
+  }
+
+  // Allows users to read participant id's.
+  function handleReadParticipantIndices()
+    external
+    view
+    returns (uint256[] memory _participantIndices)
+  {
+    return participantIndices;
+  }
+
+  // Allows owner to create a new plant.
+  function handleCreatePlant(address account) external isOwner {
+    uint256 index = plantIndices.length + 1;
+
+    Structs.Plant memory plant;
+    plant.id = index;
+    plant.owner = account;
+    plant.growthLevel = 0;
+    plant.hydrationDegree = 5;
+    plant.healthDegree = 10;
+
+    plants[index] = plant;
+    plantIndices.push(index);
+
+    emit CreatePlant(plant);
+  }
+
+  // Allows users to read plants.
+  function handleReadPlant(uint256 id)
+    external
+    view
+    returns (Structs.Plant memory plant)
+  {
+    return plants[id];
+  }
+
+  // Allows the owner to update plants.
+  function handleUpdatePlant(uint256 id, Structs.Plant calldata _plant)
+    external
+    isOwner
+  {
+    Structs.Plant memory plant = plants[id];
+
+    plant = _plant;
+    plants[id] = plant;
+
+    emit UpdatePlant(plant);
+  }
+
+  // Allows the owner to delete plants.
+  function handleDeletePlant(uint256 id) external isOwner {
+    Structs.Plant memory plant = plants[id];
+
+    delete plants[id];
+
+    emit DeletePlant(plant);
+  }
+
+  // Allows users to read plant id's.
+  function handleReadPlantIndices()
+    external
+    view
+    returns (uint256[] memory _plantIndices)
+  {
+    return plantIndices;
   }
 }
