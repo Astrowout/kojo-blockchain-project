@@ -1,2 +1,2 @@
-export { getUser, postUser } from "./user";
+export { getUser, postUser, checkAddress } from "./user";
 export { postNotification } from "./notification";

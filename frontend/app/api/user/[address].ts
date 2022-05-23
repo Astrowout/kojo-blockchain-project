@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { User } from '@prisma/client'
-import { getUser, postUser } from '../_utils';
+import { checkAddress, getUser, postUser } from '../_utils';
 
 const handler = async (req: VercelRequest, res: VercelResponse) => {
 	if (req.method !== "GET") {
@@ -12,6 +12,10 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 
 		if (!address) {
 			return res.status(400).json({ error: "The field 'address' in the request query params is undefined." });
+		}
+
+		if (!checkAddress(address as string)) {
+			return res.status(400).json({ error: "The field 'address' doesn't seem valid." });
 		}
 
 		let user: string | User | null = await getUser(req.query);
