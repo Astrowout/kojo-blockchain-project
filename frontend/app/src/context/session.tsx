@@ -27,8 +27,8 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 	} = useContract(provider, address);
 
 	const {
-		balance,
-		plants,
+		// balance,
+		// plants,
 		notifications,
 	} = useSession(address);
 
