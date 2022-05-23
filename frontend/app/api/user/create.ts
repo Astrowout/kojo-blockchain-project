@@ -17,8 +17,9 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 				email,
 				profile: {
 					create: {
-						address: null,
-						name: null,
+						postalCode: null,
+						firstName: null,
+						lastName: null,
 						notifications: {
 							create: []
 						}
