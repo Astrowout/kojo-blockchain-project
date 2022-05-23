@@ -14,6 +14,7 @@
     "@headlessui/react": "^0.0.0-insiders.bf0d112",
     "@ionic/react": "^6.0.0",
     "@ionic/react-router": "^6.0.0",
+    "@prisma/client": "^3.14.0",
     "@types/node": "^12.19.15",
     "@types/react": "^16.14.3",
     "@types/react-dom": "^16.9.10",
@@ -81,6 +82,7 @@
   },
   "devDependencies": {
     "@capacitor/cli": "3.5.1",
-    "@types/lodash": "^4.14.182"
+    "@types/lodash": "^4.14.182",
+    "prisma": "^3.14.0"
   }
 }

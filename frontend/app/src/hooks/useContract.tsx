@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
+// import { useIonToast } from "@ionic/react";
 import { Contract } from "ethers";
 import { Error, User } from "../types";
 import Artifact from "../artifacts/contracts/KojoV1.sol/KojoV1.json";
-import { useIonToast } from "@ionic/react";
 
 const useContract = (provider: any, address?: string) => {
+	// const [present] = useIonToast();
 	const [isLoading] = useState(false);
-	const [present] = useIonToast();
 	const [user] = useState<User | null>(null);
 	const [contract, setContract] = useState<Contract | null>(null);
 	const [error] = useState<Error | null>(null);
@@ -52,13 +52,6 @@ const useContract = (provider: any, address?: string) => {
 			const owner = await contract!.handleBuyPlant(address);
 			console.log(owner);
 		} catch (error: any) {
-			present({
-				color: "danger",
-				duration: 5000,
-				position: "top",
-				message: error.message,
-			});
-
 			throw error;
 		}
 

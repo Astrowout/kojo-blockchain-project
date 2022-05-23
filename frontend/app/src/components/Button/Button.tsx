@@ -18,7 +18,7 @@ const Button: FunctionComponent<ButtonProps> = ({
 	icon = null,
 	onClick,
 }) => {
-	const contentClasses = cn("flex w-full text-center justify-center duration-300 transition hover:scale-105 whitespace-nowrap items-center rounded-2xl shadow-lg hover:shadow-xl", {
+	const contentClasses = cn("flex w-full text-center justify-center duration-300 transition whitespace-nowrap items-center rounded-2xl shadow-lg hover:shadow-xl", {
 		"text-white bg-emerald-600 shadow-emerald-600/20 hover:shadow-emerald-600/20": context === ButtonContext.PRIMARY,
 		"text-emerald-900 bg-white shadow-emerald-900/20 hover:shadow-emerald-900/20": context === ButtonContext.ALT,
 		"text-red-500 bg-red-100 shadow-red-600/10 hover:shadow-red-600/10": context === ButtonContext.DANGER,

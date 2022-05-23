@@ -28,7 +28,7 @@ const Tokens: FunctionComponent<TokensProps> = ({
 						{ amount }
 					</span>
 
-					<Icon name="Token" size={32} className="text-emerald-600" />
+					<Icon name="Token" size={32} className="text-emerald-600 mt-1" />
 				</p>
 
 				{!compact && (
