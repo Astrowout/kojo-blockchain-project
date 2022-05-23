@@ -1,6 +1,5 @@
 generator client {
   	provider = "prisma-client-js"
-	previewFeatures = ["dataProxy"]
 }
 
 datasource db {
@@ -19,7 +18,7 @@ model Notification {
 
 model Profile {
 	id     BigInt  @id(map: "primary") @default(autoincrement())
-	bio    String?
+	name    String?
 	address    String?
 	userId BigInt  @unique
 	user   User    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_userId_ref_user")
