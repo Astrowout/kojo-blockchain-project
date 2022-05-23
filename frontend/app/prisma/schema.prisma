@@ -1,33 +1,34 @@
 generator client {
-  	provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-	provider = "cockroachdb"
-	url      = env("DB_URL")
+  provider = "cockroachdb"
+  url      = env("DB_URL")
 }
 
 model Notification {
-	id        BigInt   @id(map: "primary") @default(autoincrement())
-	createdAt DateTime @default(now()) @db.Timestamp(6)
-	message   String?
-	read 	  Boolean
-	profileId BigInt  @unique
-	profile      Profile     @relation(fields: [profileId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_profileId_ref_profile")
+  id        BigInt   @id(map: "primary") @default(autoincrement()) @db.Int8
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  message   String?
+  read      Boolean
+  profileId BigInt   @unique @db.Int8
+  profile   Profile  @relation(fields: [profileId], references: [id])
 }
 
 model Profile {
-	id     BigInt  @id(map: "primary") @default(autoincrement())
-	name    String?
-	address    String?
-	userId BigInt  @unique
-	user   User    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_userId_ref_user")
-	notifications    Notification[]
+  id            BigInt        @id(map: "primary") @default(autoincrement()) @db.Int8
+  postalCode          String?
+  firstName          String?
+  lastName          String?
+  userId        BigInt        @unique @db.Int8
+  user          User          @relation(fields: [userId], references: [id])
+  notifications Notification[]
 }
 
 model User {
-	id      BigInt   @id(map: "primary") @default(autoincrement())
-	did    String @unique @db.String()
-	email   String?   @unique @db.String(255)
-	profile Profile?
+  id      BigInt   @id(map: "primary") @default(autoincrement()) @db.Int8
+  email   String?  @unique @db.String(255)
+  did     String   @unique
+  profile Profile?
 }
