@@ -2,7 +2,7 @@ import { FunctionComponent, memo } from "react";
 import cn from "classnames";
 import { useRouteMatch } from "react-router-dom";
 
-import { useNotifications } from "../../hooks";
+import { useSession } from "../../hooks";
 import {
 	Icon,
 } from "../../components";
@@ -18,11 +18,15 @@ const Header: FunctionComponent<HeaderProps> = ({
 	backLink = null,
 	withOverlap = true,
 }) => {
-	const { unread } = useNotifications();
+	const {
+		notifications
+	} = useSession();
 	const history = useHistory();
 	const tabsView = useRouteMatch({
 		path: "/tabs",
 	});
+
+	const unread = notifications?.some((notification) => !notification.read);
 
 	return (
 		<IonHeader className="bg-emerald-600 relative -z-10">
