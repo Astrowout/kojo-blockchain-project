@@ -51,3 +51,9 @@ export const postUser = async (body: VercelRequestBody): Promise<User | null> =>
 
 	return responseHelper(res);
 }
+
+export const checkAddress = (address: string): boolean => {
+	const regex = /^0x[a-fA-F0-9]{40}$/;
+
+	return regex.test(address);
+}
