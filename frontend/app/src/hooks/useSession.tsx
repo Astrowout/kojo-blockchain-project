@@ -23,11 +23,7 @@ const useSession = (address?: string) => {
 
 	const initUserState = async () => {
 		try {
-			const res = await axios.get("/user", {
-				params: {
-					address
-				},
-			});
+			const res = await axios.get(`/user/${address}`);
 
 			setUser(res.data);
 		} catch (error: any) {
