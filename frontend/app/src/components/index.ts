@@ -23,3 +23,4 @@ export { default as PlantCard } from "./PlantCard/PlantCard";
 export { default as About } from "./About/About";
 export { default as Stat } from "./Stat/Stat";
 export { default as PlantDetail } from "./PlantDetail/PlantDetail";
+export { default as Chart } from "./Chart/Chart";
