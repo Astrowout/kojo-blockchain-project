@@ -4,6 +4,10 @@ import { PrismaClient } from '@prisma/client'
 const client = new PrismaClient();
 
 const handler = async (req: VercelRequest, res: VercelResponse) => {
+	if (req.method !== "GET") {
+		return res.status(400).json({ error: "Only GET requests are allowed." });
+	}
+
 	const { address } = req.body;
 
 	if (!address) {

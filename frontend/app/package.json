@@ -55,7 +55,8 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "prisma generate && prisma migrate deploy && react-app-rewired build",
+    "build": "react-app-rewired build",
+	"vercel-build": "prisma generate && prisma migrate deploy",
     "generate:assets": "cordova-res android --skip-config --copy",
     "build:app": "ionic cap sync --no-build",
     "add:android": "ionic cap add android",
