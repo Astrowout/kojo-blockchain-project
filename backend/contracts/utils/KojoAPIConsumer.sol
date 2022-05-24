@@ -38,6 +38,9 @@ contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
     endpoint = "https://play-kojo.xyz/api/farys";
     path = "usage,6";
 
+    setChainlinkToken(0xa36085F69e2889c224210F603D836748e7dC0088);
+    setChainlinkOracle(0x74EcC8Bdeb76F2C6760eD2dc8A46ca5e581fA656);
+
     isInitialized = true;
   }
 
