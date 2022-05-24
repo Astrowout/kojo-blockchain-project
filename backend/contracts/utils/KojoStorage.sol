@@ -6,6 +6,8 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "../utils/KojoLibrary.sol";
 
 contract KojoStorage is OwnableUpgradeable {
+  bool internal isInitialized = false;
+
   uint256 public startCapital;
   uint256 public tokenSensitivity;
   uint256 public wateringCost;
@@ -25,9 +27,18 @@ contract KojoStorage is OwnableUpgradeable {
   event DeletePlant(Structs.Plant plant);
 
   constructor() {
+    init();
+  }
+
+  // Allows the contract to be initialized.
+  function init() internal {
+    require(!isInitialized, "Contract already initialized.");
+
     startCapital = 100;
     tokenSensitivity = 1;
     wateringCost = 1;
+
+    isInitialized = true;
   }
 
   // Allows owner to update the start capital given to users.
