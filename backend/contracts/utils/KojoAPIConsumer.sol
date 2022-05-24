@@ -33,10 +33,10 @@ contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
   function init() internal {
     require(!isInitialized, "Contract already initialized.");
 
-    jobId = "1234";
-    fee = 0;
-    endpoint = "http://play-kojo.xyz/api/farys";
-    path = "average";
+    jobId = "ca98366cc7314957b8c012c72f05aeeb";
+    fee = (1 * LINK_DIVISIBILITY) / 10; // 0,1 * 10**18;
+    endpoint = "https://play-kojo.xyz/api/farys";
+    path = "usage,6";
 
     isInitialized = true;
   }
