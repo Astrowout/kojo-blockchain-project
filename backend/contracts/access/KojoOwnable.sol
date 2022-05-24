@@ -15,7 +15,7 @@ abstract contract KojoOwnable {
   }
 
   modifier isOwner() {
-    require(owner == msg.sender, "Action not allowed.");
+    require(owner == msg.sender, "Not the contract owner.");
     _;
   }
 

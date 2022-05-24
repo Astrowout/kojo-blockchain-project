@@ -34,7 +34,6 @@ contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
     address _tokenAddress,
     address _oracleAddress
   ) public onlyOwner {
-    //@TODO: Write checks and defaults.
     jobId = _jobId;
     fee = _fee;
     endpoint = _endpoint;
