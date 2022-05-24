@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.9;
 
-import "../access/KojoOwnable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
-contract KojoProxy is KojoOwnable {
+contract KojoProxy is OwnableUpgradeable {
   address public current;
 
   event Success(bool result, bytes data);
@@ -21,7 +21,7 @@ contract KojoProxy is KojoOwnable {
   }
 
   // Allows owner to update the contract address when a new version is released.
-  function handleUpdateAddress(address _address) public isOwner {
+  function handleUpdateAddress(address _address) public onlyOwner {
     current = _address;
   }
 }
