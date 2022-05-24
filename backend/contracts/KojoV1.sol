@@ -3,13 +3,17 @@ pragma solidity ^0.8.9;
 
 import "hardhat/console.sol";
 
+import "@chainlink/contracts/src/v0.8/KeeperCompatible.sol";
+
 import "./token/KojoERC1155.sol";
 
 import "./utils/KojoStorage.sol";
 import "./utils/KojoUtils.sol";
 import "./utils/KojoAPIConsumer.sol";
 
-contract KojoV1 is KojoERC1155 {
+abstract contract KojoV1 is KojoERC1155, KeeperCompatibleInterface {
+  bool internal isInitialized = false;
+
   KojoStorage internal store;
   KojoUtils internal utils;
   KojoAPIConsumer internal api;
@@ -22,7 +26,21 @@ contract KojoV1 is KojoERC1155 {
     utils = new KojoUtils();
     api = new KojoAPIConsumer();
 
+    init();
+  }
+
+  modifier onlyEOA() {
+    require(tx.origin == msg.sender, "Not an EOA.");
+    _;
+  }
+
+  // Allows the contract to be initialized.
+  function init() internal {
+    require(!isInitialized, "Contract already initialized.");
+
     _mint(msg.sender, FUNGIBLE_TOKEN, 10**18, "");
+
+    isInitialized = true;
   }
 
   // Allows the owner to update the store.
@@ -58,18 +76,63 @@ contract KojoV1 is KojoERC1155 {
     store.handleUpdateWateringCost(wateringCost);
   }
 
-  // Allows users to claim a free seed when new.
-  function handleClaimStartToken(address to) public {
-    _mint(to, NON_FUNGIBLE_TOKEN, 1, "");
+  // Allows the  owner to configure the api consumer.
+  function handleConfigureAPIConsumer(
+    bytes32 _jobId,
+    uint256 _fee,
+    string calldata _endpoint,
+    string calldata _path,
+    address _tokenAddress,
+    address _oracleAddress
+  ) public onlyOwner {
+    api.handleConfigureAPI(
+      _jobId,
+      _fee,
+      _endpoint,
+      _path,
+      _tokenAddress,
+      _oracleAddress
+    );
   }
 
-  // Allows users to claim a monthly reward when gained.
-  function handleClaimMonthlyReward(address to) public view {
+  // Allows EOA's to claim a free seed when new.
+  function handleClaimStartToken(uint256 id) public onlyEOA {
+    Structs.Participant memory participant = store.handleReadParticipant(id);
+    require(!participant.isPresent, "Participant already exists.");
+
+    store.handleCreateParticpant(msg.sender);
+    store.handleCreatePlant(msg.sender);
+
+    _mint(msg.sender, NON_FUNGIBLE_TOKEN, 1, "");
+  }
+
+  // Allows EOA's to claim a monthly reward when gained.
+  function handleClaimMonthlyReward(address to) public view onlyEOA {
     console.log(to);
   }
 
-  // Allows users to buy a seed/plant.
-  function handleBuyPlant(address account) public {
-    _mint(account, NON_FUNGIBLE_TOKEN, 1, "");
+  // Allows EOA's to buy a seed/plant.
+  function handleBuyPlant(uint256 id) public onlyEOA {
+    Structs.Participant memory participant = store.handleReadParticipant(id);
+    require(participant.isPresent, "Participant does not exist.");
+
+    store.handleCreatePlant(msg.sender);
+
+    _mint(participant.account, NON_FUNGIBLE_TOKEN, 1, "");
+  }
+
+  // Allows to contract to update NFT's when storage data updates.
+  function syncTokensWithStorage() internal view {
+    console.log("");
+  }
+
+  // Allows chainlink keeper to check if upkeep is needed.
+  function checkUpkeep() external view {
+    console.log("");
+  }
+
+  // Allows chainlink keeper te perform upkeep.
+  function performUpkeep() external view {
+    syncTokensWithStorage();
   }
 }
