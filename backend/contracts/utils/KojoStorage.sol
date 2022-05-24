@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
-import "../access/KojoOwnable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
 import "../utils/KojoLibrary.sol";
 
-contract KojoStorage is KojoOwnable {
+contract KojoStorage is OwnableUpgradeable {
   uint256 public startCapital;
   uint256 public tokenSensitivity;
   uint256 public wateringCost;
@@ -31,25 +31,25 @@ contract KojoStorage is KojoOwnable {
   }
 
   // Allows owner to update the start capital given to users.
-  function handleUpdateStartCapital(uint256 _startCapital) public isOwner {
+  function handleUpdateStartCapital(uint256 _startCapital) public onlyOwner {
     startCapital = _startCapital;
   }
 
   // Allows owner to update how many tokens are distributed for a given percentage point.
   function handleUpdateTokenSensitivity(uint256 _tokenSensitivity)
     public
-    isOwner
+    onlyOwner
   {
     tokenSensitivity = _tokenSensitivity;
   }
 
   // Allows owner to update the cost of watering a seed/plant.
-  function handleUpdateWateringCost(uint256 _wateringCost) public isOwner {
+  function handleUpdateWateringCost(uint256 _wateringCost) public onlyOwner {
     wateringCost = _wateringCost;
   }
 
   // Allows owner to create a new participant.
-  function handleCreateParticpant(address account) external isOwner {
+  function handleCreateParticpant(address account) external onlyOwner {
     uint256 index = participantIndices.length + 1;
 
     Structs.Participant memory participant;
@@ -76,7 +76,7 @@ contract KojoStorage is KojoOwnable {
   function handleUpdateParticipant(
     uint256 id,
     Structs.Participant calldata _participant
-  ) external isOwner {
+  ) external onlyOwner {
     Structs.Participant memory participant = participants[id];
 
     participant = _participant;
@@ -86,7 +86,7 @@ contract KojoStorage is KojoOwnable {
   }
 
   // Allows the owner to delete participants.
-  function handleDeleteParticipant(uint256 id) external isOwner {
+  function handleDeleteParticipant(uint256 id) external onlyOwner {
     Structs.Participant memory participant = participants[id];
 
     delete participants[id];
@@ -104,7 +104,7 @@ contract KojoStorage is KojoOwnable {
   }
 
   // Allows owner to create a new plant.
-  function handleCreatePlant(address account) external isOwner {
+  function handleCreatePlant(address account) external onlyOwner {
     uint256 index = plantIndices.length + 1;
 
     Structs.Plant memory plant;
@@ -132,7 +132,7 @@ contract KojoStorage is KojoOwnable {
   // Allows the owner to update plants.
   function handleUpdatePlant(uint256 id, Structs.Plant calldata _plant)
     external
-    isOwner
+    onlyOwner
   {
     Structs.Plant memory plant = plants[id];
 
@@ -143,7 +143,7 @@ contract KojoStorage is KojoOwnable {
   }
 
   // Allows the owner to delete plants.
-  function handleDeletePlant(uint256 id) external isOwner {
+  function handleDeletePlant(uint256 id) external onlyOwner {
     Structs.Plant memory plant = plants[id];
 
     delete plants[id];
