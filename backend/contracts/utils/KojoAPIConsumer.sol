@@ -7,6 +7,8 @@ import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
 import "@chainlink/contracts/src/v0.8/ConfirmedOwner.sol";
 
 contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
+  bool internal isInitialized = false;
+
   using Chainlink for Chainlink.Request;
 
   LinkTokenInterface internal link;
@@ -19,10 +21,24 @@ contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
 
   uint256 public value;
 
-  event RequestVolume(bytes32 indexed requestId, uint256 volume);
+  event RequestValue(bytes32 indexed requestId, uint256 value);
 
   constructor() ConfirmedOwner(msg.sender) {
     link = LinkTokenInterface(chainlinkTokenAddress());
+
+    init();
+  }
+
+  // Allows the contract to be initialized.
+  function init() internal {
+    require(!isInitialized, "Contract already initialized.");
+
+    jobId = "1234";
+    fee = 0;
+    endpoint = "http://play-kojo.xyz/api/farys";
+    path = "average";
+
+    isInitialized = true;
   }
 
   // Allows the owner to (re)configure API.
@@ -62,7 +78,7 @@ contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
     public
     recordChainlinkFulfillment(_requestId)
   {
-    emit RequestVolume(_requestId, _value);
+    emit RequestValue(_requestId, _value);
     value = _value;
   }
 
