@@ -3,82 +3,137 @@ pragma solidity ^0.8.9;
 
 import "hardhat/console.sol";
 
-import "./access/KojoOwnable.sol";
-import "./utils/KojoStorage.sol";
-import "./utils/KojoUtils.sol";
+import "@chainlink/contracts/src/v0.8/KeeperCompatible.sol";
 
 import "./token/KojoERC1155.sol";
 
-contract KojoV1 is KojoOwnable {
-  KojoStorage private store;
-  KojoUtils private utils;
-  KojoERC1155 private token;
+import "./utils/KojoStorage.sol";
+import "./utils/KojoUtils.sol";
+import "./utils/KojoAPIConsumer.sol";
+
+abstract contract KojoV1 is KojoERC1155, KeeperCompatibleInterface {
+  bool internal isInitialized = false;
+
+  KojoStorage internal store;
+  KojoUtils internal utils;
+  KojoAPIConsumer internal api;
+
+  uint256 public constant FUNGIBLE_TOKEN = 0;
+  uint256 public constant NON_FUNGIBLE_TOKEN = 1;
 
   constructor() {
     store = new KojoStorage();
     utils = new KojoUtils();
-    token = new KojoERC1155();
+    api = new KojoAPIConsumer();
+
+    init();
   }
 
-  // Enables the owner to update the store.
-  function handleUpdateStoreAddress(address location) public isOwner {
+  // Prohibits contracts to call certain functions.
+  modifier onlyEOA() {
+    require(tx.origin == msg.sender, "Not an EOA.");
+    _;
+  }
+
+  // Allows the contract to be initialized.
+  function init() internal {
+    require(!isInitialized, "Contract already initialized.");
+
+    _mint(msg.sender, FUNGIBLE_TOKEN, 10**18, "");
+
+    isInitialized = true;
+  }
+
+  // Allows the owner to update the store.
+  function handleUpdateStoreAddress(address location) public onlyOwner {
     store = KojoStorage(location);
   }
 
-  // Enables the owner to update utils.
-  function handleUpdateUtilsAddress(address location) public isOwner {
+  // Allows the owner to update utils.
+  function handleUpdateUtilsAddress(address location) public onlyOwner {
     utils = KojoUtils(location);
   }
 
-  // Enables the owner to update the token.
-  function handleUpdateTokenAddress(address location) public isOwner {
-    token = KojoERC1155(location);
+  // Allows the owner to update api consumer.
+  function handleUpdateAPIConsumerAddress(address location) public onlyOwner {
+    api = KojoAPIConsumer(location);
   }
 
-  // Enables the owner to update the start capital given to users.
-  function handleUpdateStartCapital(uint256 startCapital) public isOwner {
+  // Allows the owner to update the start capital given to users.
+  function handleUpdateStartCapital(uint256 startCapital) public onlyOwner {
     store.handleUpdateStartCapital(startCapital);
   }
 
-  // Enables the  owner to update how many tokens are distributed for a given percentage point.
+  // Allows the  owner to update how many tokens are distributed for a given percentage point.
   function handleUpdateTokenSensitivity(uint256 tokenSensitivity)
     public
-    isOwner
+    onlyOwner
   {
     store.handleUpdateTokenSensitivity(tokenSensitivity);
   }
 
-  // Enables the  owner to update the cost of watering a seed/plant.
-  function handleUpdateWateringCost(uint256 wateringCost) public isOwner {
+  // Allows the  owner to update the cost of watering a seed/plant.
+  function handleUpdateWateringCost(uint256 wateringCost) public onlyOwner {
     store.handleUpdateWateringCost(wateringCost);
   }
 
-  // Enables users to claim a start capital when new.
-  function handleClaimStartCapital(address to) public view {
+  // Allows the  owner to configure the api consumer.
+  function handleConfigureAPIConsumer(
+    bytes32 _jobId,
+    uint256 _fee,
+    string calldata _endpoint,
+    string calldata _path,
+    address _tokenAddress,
+    address _oracleAddress
+  ) public onlyOwner {
+    api.handleConfigureAPI(
+      _jobId,
+      _fee,
+      _endpoint,
+      _path,
+      _tokenAddress,
+      _oracleAddress
+    );
+  }
+
+  // Allows EOA's to claim a free seed when new.
+  function handleClaimStartToken(uint256 id) public onlyEOA {
+    Structs.Participant memory participant = store.handleReadParticipant(id);
+    require(!participant.isPresent, "Participant already exists.");
+
+    store.handleCreateParticpant(msg.sender);
+    store.handleCreatePlant(msg.sender);
+
+    _mint(msg.sender, NON_FUNGIBLE_TOKEN, 1, "");
+  }
+
+  // Allows EOA's to claim a monthly reward when gained.
+  function handleClaimMonthlyReward(address to) public view onlyEOA {
     console.log(to);
   }
 
-  // Enables users to claim a monthly reward when gained.
-  function handleClaimMonthlyReward(address to) public view {
-    console.log(to);
+  // Allows EOA's to buy a seed/plant.
+  function handleBuyPlant(uint256 id) public onlyEOA {
+    Structs.Participant memory participant = store.handleReadParticipant(id);
+    require(participant.isPresent, "Participant does not exist.");
+
+    store.handleCreatePlant(msg.sender);
+
+    _mint(participant.account, NON_FUNGIBLE_TOKEN, 1, "");
   }
 
-  // Enables users to buy a seed/plant.
-  function handleBuyPlant(address to) public view {
-    console.log(to);
+  // Allows to contract to update NFT's when storage data updates.
+  function syncTokensWithStorage() internal view {
+    console.log("");
   }
 
-  // Enables users to check their capital token balance.
-  function handleCheckCapitalTokenBalance(address to) public view {
-    console.log(to);
+  // Allows chainlink keeper to check if upkeep is needed.
+  function checkUpkeep() external view {
+    console.log("");
   }
 
-  // Enables users to transfer capital tokens.
-  function handleCheckCapitalTokenBalance(
-    address from,
-    address to,
-    uint256 amount
-  ) public view {
-    console.log(from, to, amount);
+  // Allows chainlink keeper te perform upkeep.
+  function performUpkeep() external view {
+    syncTokensWithStorage();
   }
 }
