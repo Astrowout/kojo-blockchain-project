@@ -21,6 +21,7 @@ const translations = {
 		dashboard: "My dashboard",
 		plants: "My plants",
 		consumption: "Consumption",
+		leaderboard: "Leaderboard",
 		notifications: "Notifications",
 		settings: "Settings",
 	},
@@ -92,6 +93,11 @@ const translations = {
 			1: "You have {$}.",
 			2: "{$} unread notifications",
 		}
+	},
+	leaderboard: {
+		title: "Leaderboard",
+		empty: "No data to compare your performance with other people.",
+		description: "You are currently positioned on place {$} in the overall ranking.",
 	},
 	stats: {
 		health: "Health",

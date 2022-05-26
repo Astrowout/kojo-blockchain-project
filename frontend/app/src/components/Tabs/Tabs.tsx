@@ -4,7 +4,7 @@ import { TabsProps } from "./Tabs.types";
 import { useTranslation } from "../../hooks";
 import { IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from "@ionic/react";
 import { Redirect, Route } from "react-router";
-import { ConsumptionPage, DashboardPage, PlantsPage } from "../../pages";
+import { ConsumptionPage, DashboardPage, PlantsPage, LeaderboardPage } from "../../pages";
 import Icon from "../Icon/Icon";
 
 const Tabs: FC<TabsProps> = () => {
@@ -15,8 +15,9 @@ const Tabs: FC<TabsProps> = () => {
 			<IonRouterOutlet>
 				<Redirect exact path="/tabs" to="/tabs/dashboard" />
 				<Route path="/tabs/dashboard" exact component={DashboardPage} />
-				<Route path="/tabs/consumption" exact component={ConsumptionPage} />
 				<Route path="/tabs/plants" exact component={PlantsPage} />
+				<Route path="/tabs/leaderboard" exact component={LeaderboardPage} />
+				<Route path="/tabs/consumption" exact component={ConsumptionPage} />
 			</IonRouterOutlet>
 
 			<IonTabBar slot="bottom" className="md:hidden border-t border-emerald-600/20">
@@ -26,7 +27,7 @@ const Tabs: FC<TabsProps> = () => {
 						size={24}
 					/>
 
-					<IonLabel>
+					<IonLabel className="whitespace-nowrap font-bold text-2xs sm:text-xs">
 						{ t("navigation.dashboard") }
 					</IonLabel>
 				</IonTabButton>
@@ -37,8 +38,19 @@ const Tabs: FC<TabsProps> = () => {
 						size={24}
 					/>
 
-					<IonLabel>
+					<IonLabel className="whitespace-nowrap font-bold text-2xs sm:text-xs">
 						{ t("navigation.plants") }
+					</IonLabel>
+				</IonTabButton>
+
+				<IonTabButton tab="leaderboard" href="/tabs/leaderboard" className="space-y-1">
+					<Icon
+						name="Medal"
+						size={24}
+					/>
+
+					<IonLabel className="whitespace-nowrap font-bold text-2xs sm:text-xs">
+						{ t("navigation.leaderboard") }
 					</IonLabel>
 				</IonTabButton>
 
@@ -48,7 +60,7 @@ const Tabs: FC<TabsProps> = () => {
 						size={24}
 					/>
 
-					<IonLabel>
+					<IonLabel className="whitespace-nowrap font-bold text-2xs sm:text-xs">
 						{ t("navigation.consumption") }
 					</IonLabel>
 				</IonTabButton>
