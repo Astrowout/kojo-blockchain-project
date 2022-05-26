@@ -1,0 +1,19 @@
+{
+	"license": "UNLICENSED",
+	"name": "server",
+	"author": "Wout Vandesompele",
+	"version": "0.0.1",
+	"description": "kojo off-chain server",
+	"scripts": {
+		"vercel-build": "prisma generate && prisma migrate deploy && npm run build",
+		"open:studio": "prisma studio",
+		"prisma:gen": "prisma generate"
+	},
+	"devDependencies": {
+		"@vercel/node": "^1.15.3",
+		"prisma": "^3.14.0"
+	},
+	"dependencies": {
+		"@prisma/client": "^3.14.0"
+	}
+}

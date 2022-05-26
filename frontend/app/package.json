@@ -14,7 +14,6 @@
     "@headlessui/react": "^0.0.0-insiders.bf0d112",
     "@ionic/react": "^6.0.0",
     "@ionic/react-router": "^6.0.0",
-    "@prisma/client": "^3.14.0",
     "@types/node": "^12.19.15",
     "@types/react": "^16.14.3",
     "@types/react-dom": "^16.9.10",
@@ -58,12 +57,10 @@
   "scripts": {
     "start": "GENERATE_SOURCEMAP=false react-app-rewired start",
     "build": "GENERATE_SOURCEMAP=false react-app-rewired build",
-    "vercel-build": "prisma generate && prisma migrate deploy && npm run build",
     "generate:assets": "cordova-res android --skip-config --copy",
     "build:app": "ionic cap sync --no-build",
     "add:android": "ionic cap add android",
-    "open:android": "ionic cap open android",
-    "open:studio": "prisma studio"
+    "open:android": "ionic cap open android"
   },
   "eslintConfig": {
     "extends": [
@@ -85,8 +82,6 @@
   },
   "devDependencies": {
     "@capacitor/cli": "3.5.1",
-    "@types/lodash": "^4.14.182",
-    "@vercel/node": "^1.15.3",
-    "prisma": "^3.14.0"
+    "@types/lodash": "^4.14.182"
   }
 }
