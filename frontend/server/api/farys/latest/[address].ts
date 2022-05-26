@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { getUserByDid, getAverageByRegion } from '../../_utils';
 
-export default function handler(
+export default async function handler(
 	req: VercelRequest,
 	res: VercelResponse
 ) {
@@ -17,8 +18,19 @@ export default function handler(
 		});
 	}
 
-	res.status(200).json({
-		address: req.query.address,
-		usage: 30,
-	});
+	try {
+		const regionAverage = await getAverageByRegion(req.query.address as string);
+		const user = await getUserByDid(req.query.address as string);
+
+		res.status(200).json({
+			address: req.query.address,
+			regionAverage,
+			usage: user.usage,
+			familySize: user.familySize,
+		});
+	} catch (error) {
+		console.log(error);
+
+		return res.status(500).send(error.message);
+	}
 }

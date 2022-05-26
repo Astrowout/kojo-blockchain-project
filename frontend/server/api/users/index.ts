@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { User } from '@prisma/client';
-import { checkAddress, postUser } from '../_utils';
+import { FarysUser, User } from '@prisma/client';
+import { checkDid, postFarysUser, postUser } from '../_utils';
 
 const handler = async (req: VercelRequest, res: VercelResponse) => {
 	if (req.method !== "POST") {
@@ -14,14 +14,18 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 			return res.status(400).json({ error: "The field 'address' in the request body is undefined." });
 		}
 
-		if (!checkAddress(address as string)) {
+		if (!checkDid(address as string)) {
 			return res.status(400).json({ error: "The field 'address' doesn't seem valid." });
 		}
 
-		let user: string | User | null = await postUser(req.body);
+		const user: string | User | null = await postUser(req.body);
+		let farysUser: string | FarysUser | null = await postFarysUser(req.body);
 
 		if (user) {
-			return res.status(200).json(user);
+			return res.status(200).json({
+				...user,
+				usage: farysUser.usage,
+			});
 		} else {
 			return res.status(200).json(null);
 		}
