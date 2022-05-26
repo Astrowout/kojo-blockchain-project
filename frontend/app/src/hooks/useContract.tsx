@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
+import { Contract, utils } from "ethers";
 // import { useIonToast } from "@ionic/react";
-import { Contract } from "ethers";
 import { Error, User } from "../types";
 import Artifact from "../artifacts/contracts/KojoV1.sol/KojoV1.json";
 
@@ -46,7 +46,10 @@ const useContract = (provider: any, address?: string) => {
 	}
 
 	const initUserState = useCallback(async () => {
-		console.log(contract);
+		console.log(address);
+		const balance = await provider.getBalance(address);
+
+		console.log(utils.hexValue(balance));
 
 		try {
 			const owner = await contract!.handleBuyPlant(address);
