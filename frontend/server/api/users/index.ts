@@ -1,6 +1,8 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { FarysUser, User } from '@prisma/client';
+import { FarysUser, PrismaClient, User } from '@prisma/client';
 import { checkDid, postFarysUser, postUser } from '../_utils';
+
+const client = new PrismaClient();
 
 const handler = async (req: VercelRequest, res: VercelResponse) => {
 	if (req.method !== "POST") {
@@ -18,17 +20,19 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 			return res.status(400).json({ error: "The field 'address' doesn't seem valid." });
 		}
 
-		const user: string | User | null = await postUser(req.body);
-		let farysUser: string | FarysUser | null = await postFarysUser(req.body);
+		await client.$transaction(async (prisma) => {
+			const user: string | User | null = await postUser(prisma, req.body);
+			let farysUser: string | FarysUser | null = await postFarysUser(prisma, req.body);
 
-		if (user) {
-			return res.status(200).json({
-				...user,
-				usage: farysUser.usage,
-			});
-		} else {
-			return res.status(200).json(null);
-		}
+			if (user) {
+				return res.status(200).json({
+					...user,
+					usage: farysUser.usage,
+				});
+			} else {
+				return res.status(200).json(null);
+			}
+		});
 	} catch (error: any) {
 		console.log(error);
 

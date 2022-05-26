@@ -1,10 +1,8 @@
-import { FarysUser, PrismaClient } from '@prisma/client';
+import { FarysUser } from '@prisma/client';
 import { VercelRequestBody } from '@vercel/node';
 import { getRandomFloat, responseHelper } from './helpers';
 
-const client = new PrismaClient();
-
-export const getAverageByRegion = async (did: string): Promise<number | null> => {
+export const getAverageByRegion = async (client, did: string): Promise<number | null> => {
 	let regionAverage = 2.7;
 
 	const user = await client.farysUser.findUnique({
@@ -33,7 +31,7 @@ export const getAverageByRegion = async (did: string): Promise<number | null> =>
 	}
 }
 
-export const getUserByDid = async (did: string): Promise<FarysUser | null> => {
+export const getUserByDid = async (client, did: string): Promise<FarysUser | null> => {
 	const res = await client.farysUser.findUnique({
 		where: {
 			did,
@@ -47,7 +45,7 @@ export const getUserByDid = async (did: string): Promise<FarysUser | null> => {
 	return responseHelper(res);
 }
 
-export const postFarysUser = async (body: VercelRequestBody): Promise<FarysUser | null> => {
+export const postFarysUser = async (client, body: VercelRequestBody): Promise<FarysUser | null> => {
 	const res = await client.farysUser.create({
 		data: {
 			did: body.address,
