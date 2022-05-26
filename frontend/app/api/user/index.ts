@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { User } from '@prisma/client'
+import { User } from '@prisma/client';
 import { checkAddress, postUser } from '../_utils';
 
 const handler = async (req: VercelRequest, res: VercelResponse) => {
