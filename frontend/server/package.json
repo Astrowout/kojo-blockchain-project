@@ -6,8 +6,7 @@
 	"description": "kojo off-chain server",
 	"scripts": {
 		"vercel-build": "prisma generate && prisma migrate deploy",
-		"open:studio": "prisma studio",
-		"prisma:gen": "prisma generate"
+		"prisma": "prisma"
 	},
 	"devDependencies": {
 		"@vercel/node": "^1.15.3",

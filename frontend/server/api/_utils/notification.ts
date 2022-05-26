@@ -1,24 +1,66 @@
 import { PrismaClient, Notification } from '@prisma/client'
 import { VercelRequestBody } from '@vercel/node';
+import { responseHelper } from './helpers';
 
 const client = new PrismaClient();
 
-const responseHelper = (res: any) => {
-	if (!res) {
-		return null;
-	}
-
-	const string = JSON.stringify(res, (_key, value) => (typeof value === 'bigint' ? value.toString() : value));
-
-	return JSON.parse(string);
-}
-
-export const postNotification = async (body: VercelRequestBody): Promise<Notification | null> => {
+export const postNotification = async (did: string, body: VercelRequestBody): Promise<Notification | null> => {
 	const res = await client.notification.create({
 		data: {
 			message: body.message,
 			read: false,
-			userId: body.address,
+			user: {
+				connect: {
+					did,
+				}
+			}
+		},
+	});
+
+	return responseHelper(res);
+}
+
+export const getNotificationsByDid = async (did: string): Promise<Notification | null> => {
+	const res = await client.notification.findMany({
+		where: {
+			user: {
+				did,
+			}
+		},
+	});
+
+	return responseHelper(res);
+}
+
+export const markAsRead = async (did: string, ids: number[]): Promise<Notification | null> => {
+	const res = await client.notification.updateMany({
+		where: {
+			id: {
+				in: ids,
+			},
+			user: {
+				did,
+			},
+		 	read: false,
+		},
+		data: {
+		  	read: true,
+		},
+	});
+
+	return responseHelper(res);
+}
+
+export const markAllAsRead = async (did: string): Promise<Notification | null> => {
+	const res = await client.notification.updateMany({
+		where: {
+			user: {
+				did,
+			},
+			read: false,
+		},
+		data: {
+		  	read: true,
 		},
 	});
 

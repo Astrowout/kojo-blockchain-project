@@ -1,17 +1,8 @@
 import { PrismaClient, User } from '@prisma/client'
 import { VercelRequestBody, VercelRequestQuery } from '@vercel/node';
+import { responseHelper } from './helpers';
 
 const client = new PrismaClient();
-
-const responseHelper = (res: any) => {
-	if (!res) {
-		return null;
-	}
-
-	const string = JSON.stringify(res, (_key, value) => (typeof value === 'bigint' ? value.toString() : value));
-
-	return JSON.parse(string);
-}
 
 export const getUser = async (params: VercelRequestQuery): Promise<User | null> => {
 	const res = await client.user.findUnique({
@@ -34,7 +25,6 @@ export const postUser = async (body: VercelRequestBody): Promise<User | null> =>
 			email: body.email,
 			profile: {
 				create: {
-					postalCode: null,
 					firstName: null,
 					lastName: null,
 				}
@@ -50,10 +40,4 @@ export const postUser = async (body: VercelRequestBody): Promise<User | null> =>
 	});
 
 	return responseHelper(res);
-}
-
-export const checkAddress = (address: string): boolean => {
-	const regex = /^0x[a-fA-F0-9]{40}$/;
-
-	return regex.test(address);
 }
