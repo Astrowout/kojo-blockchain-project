@@ -1,0 +1,24 @@
+{
+    "tokenId": 1,
+    "name": "Sanseveria",
+    "description": "Sanseveria beautiful plant",
+    "image": "https://ipfs/ipfs/1-1-1.jpg",
+    "attributes": [
+        {
+            "trait_type": "growth",
+            "value": 1
+        },
+        {
+            "trait_type": "health",
+            "value": 2
+        },
+        {
+            "trait_type": "strain",
+            "value": "Nordic"
+        },
+        {
+            "trait_type": "thirstiness",
+            "value": 2
+        }
+    ]
+}
