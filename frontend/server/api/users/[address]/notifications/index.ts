@@ -1,6 +1,8 @@
-import { Notification } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { getNotificationsByDid, postNotification } from '../../../_utils';
+
+const client = new PrismaClient();
 
 const handler = async (req: VercelRequest, res: VercelResponse) => {
 	if (req.method !== "POST" && req.method !== "GET") {
@@ -16,11 +18,11 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 				return res.status(400).json({ error: "The field 'address' in the request params is undefined." });
 			}
 
-			const notification = await postNotification(address as string, req.body);
+			const notification = await postNotification(client, address as string, req.body);
 
 			return res.status(200).json(notification);
 		} else if (req.method === "GET") {
-			const notifications = await getNotificationsByDid(req.query.address as string);
+			const notifications = await getNotificationsByDid(client, req.query.address as string);
 
 			return res.status(200).json(notifications);
 		}

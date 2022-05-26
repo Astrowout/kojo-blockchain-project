@@ -1,10 +1,8 @@
-import { PrismaClient, User } from '@prisma/client'
+import { User } from '@prisma/client'
 import { VercelRequestBody, VercelRequestQuery } from '@vercel/node';
 import { responseHelper } from './helpers';
 
-const client = new PrismaClient();
-
-export const getUser = async (params: VercelRequestQuery): Promise<User | null> => {
+export const getUser = async (client, params: VercelRequestQuery): Promise<User | null> => {
 	const res = await client.user.findUnique({
 		where: {
 			did: params.address as string,
@@ -18,7 +16,7 @@ export const getUser = async (params: VercelRequestQuery): Promise<User | null> 
 	return responseHelper(res);
 }
 
-export const postUser = async (body: VercelRequestBody): Promise<User | null> => {
+export const postUser = async (client, body: VercelRequestBody): Promise<User | null> => {
 	const res = await client.user.create({
 		data: {
 			did: body.address,
