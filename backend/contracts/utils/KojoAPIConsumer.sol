@@ -76,13 +76,18 @@ contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
     return sendChainlinkRequest(req, fee);
   }
 
-  // Allows data to be set once recieved.
+  // Allows data to be set once received.
   function handleFulfillRequest(bytes32 _requestId, uint256 _value)
     public
     recordChainlinkFulfillment(_requestId)
   {
     emit RequestValue(_requestId, _value);
     value = _value;
+
+    // latestTokenAllowance = ((regionalAverage - (usage / familySize)) / regionalAverage) * 1000
+    // @TODO: check for negative numbers!
+    // @TODO: check participant level to calc multiplyer.
+    // @TODO: accumulate latestTokenAllowance in storage.
   }
 
   // Allows owner to withdraw funds from the contract.

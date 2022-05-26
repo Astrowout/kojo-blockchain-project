@@ -14,6 +14,8 @@ contract KojoERC1155 is
   ERC1155BurnableUpgradeable,
   ERC1155SupplyUpgradeable
 {
+  mapping(uint256 => string) private _uris;
+
   // Disable initialize function after intitialization.
   constructor() {
     _disableInitializers();
@@ -22,7 +24,7 @@ contract KojoERC1155 is
   // Initialize contract.
   function initialize() public initializer {
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1155.md#erc-1155-metadata-uri-json-schema
-    __ERC1155_init("https://example/api/item/{id}.json");
+    __ERC1155_init("");
     __Ownable_init();
     __ERC1155Burnable_init();
     __ERC1155Supply_init();
@@ -63,5 +65,15 @@ contract KojoERC1155 is
     bytes memory data
   ) internal override(ERC1155Upgradeable, ERC1155SupplyUpgradeable) {
     super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
+  }
+
+  // Overwrite existing uri function to allow token specific uri's.
+  function uri(uint256 tokenId) public view override returns (string memory) {
+    return (_uris[tokenId]);
+  }
+
+  // Allow the owner to set token specific token uri.
+  function setTokenUri(uint256 tokenId, string memory _uri) public onlyOwner {
+    _uris[tokenId] = _uri;
   }
 }

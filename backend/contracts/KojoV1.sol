@@ -19,7 +19,7 @@ abstract contract KojoV1 is KojoERC1155, KeeperCompatibleInterface {
   KojoAPIConsumer internal api;
 
   uint256 public constant FUNGIBLE_TOKEN = 0;
-  uint256 public constant NON_FUNGIBLE_TOKEN = 1;
+  uint256 public nonFungibleTokenCount = 1;
 
   constructor() {
     store = new KojoStorage();
@@ -77,7 +77,7 @@ abstract contract KojoV1 is KojoERC1155, KeeperCompatibleInterface {
     store.handleUpdateWateringCost(wateringCost);
   }
 
-  // Allows the  owner to configure the api consumer.
+  // Allows the  owner to configure the chainlink api consumer.
   function handleConfigureAPIConsumer(
     bytes32 _jobId,
     uint256 _fee,
@@ -97,29 +97,52 @@ abstract contract KojoV1 is KojoERC1155, KeeperCompatibleInterface {
   }
 
   // Allows EOA's to claim a free seed when new.
-  function handleClaimStartToken(uint256 id) public onlyEOA {
-    Structs.Participant memory participant = store.handleReadParticipant(id);
+  function handleClaimStartToken() public onlyEOA {
+    Structs.Participant memory participant = store.handleReadParticipant(
+      msg.sender
+    );
     require(!participant.isPresent, "Participant already exists.");
 
     store.handleCreateParticpant(msg.sender);
-    store.handleCreatePlant(msg.sender);
+    // store.handleCreatePlant(msg.sender);
 
-    _mint(msg.sender, NON_FUNGIBLE_TOKEN, 1, "");
+    _mint(msg.sender, nonFungibleTokenCount, 1, "");
   }
 
   // Allows EOA's to claim a monthly reward when gained.
   function handleClaimMonthlyReward(address to) public view onlyEOA {
     console.log(to);
+
+    // @TODO: Check claim rights.
+    // 1) check blocktime
+    // 1) check usage
+
+    // @TODO: Mint tokens to user.
   }
 
   // Allows EOA's to buy a seed/plant.
-  function handleBuyPlant(uint256 id) public onlyEOA {
-    Structs.Participant memory participant = store.handleReadParticipant(id);
+  function handleBuyPlant() public onlyEOA {
+    Structs.Participant memory participant = store.handleReadParticipant(
+      msg.sender
+    );
     require(participant.isPresent, "Participant does not exist.");
 
-    store.handleCreatePlant(msg.sender);
+    store.handleCreatePlant(nonFungibleTokenCount);
+    // safe id to participant
 
-    _mint(participant.account, NON_FUNGIBLE_TOKEN, 1, "");
+    _mint(msg.sender, nonFungibleTokenCount, 1, "");
+
+    nonFungibleTokenCount += 1;
+  }
+
+  function handleWaterPlant() public view {
+    console.log("");
+    //@TODO: Burn tokens.
+    //@TODO: Update experiencePoints on Plant struct.
+    //@TODO: If experiencePoints is greater than levelCost:
+    // level + 1;
+    // experiencePoints = 0;
+    // @TODO: Update NFT metadata.
   }
 
   // Allows to contract to update NFT's when storage data updates.
@@ -135,5 +158,22 @@ abstract contract KojoV1 is KojoERC1155, KeeperCompatibleInterface {
   // Allows chainlink keeper te perform upkeep.
   function performUpkeep() external view {
     syncTokensWithStorage();
+  }
+
+  function _afterTokenTransfer(
+    address,
+    address,
+    address,
+    uint256[] memory,
+    uint256[] memory,
+    bytes memory
+  ) internal virtual override {
+    console.log("");
+    // @TODO: Delete plantId from participant.plantIds
+    // @TODO: Add plantId to participant.plantIds
+  }
+
+  function handleGetDaysUntilNextCalc() external view {
+    console.log("");
   }
 }
