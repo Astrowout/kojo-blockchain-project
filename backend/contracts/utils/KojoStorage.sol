@@ -12,8 +12,8 @@ contract KojoStorage is OwnableUpgradeable {
   uint256 public tokenSensitivity;
   uint256 public wateringCost;
 
-  mapping(uint256 => Structs.Participant) public participants;
-  uint256[] public participantIndices;
+  mapping(address => Structs.Participant) public participants;
+  // address[] public accountAddresses[];
 
   event CreateParticipant(Structs.Participant participant);
   event UpdateParticipant(Structs.Participant participant);
@@ -61,72 +61,69 @@ contract KojoStorage is OwnableUpgradeable {
 
   // Allows owner to create a new participant.
   function handleCreateParticpant(address account) external onlyOwner {
-    uint256 index = participantIndices.length + 1;
+    Structs.Participant memory _participant = this.handleReadParticipant(
+      account
+    );
+    require(!_participant.isPresent, "Participant already exists.");
 
     Structs.Participant memory participant;
-    participant.id = index;
-    participant.account = account;
+    // participant.account = account;
     participant.isPresent = true;
 
-    participants[index] = participant;
-    participantIndices.push(index);
+    participants[account] = participant;
+    // particpantsLength += 1;
 
     emit CreateParticipant(participant);
   }
 
   // Allows users to read participants.
-  function handleReadParticipant(uint256 id)
+  function handleReadParticipant(address account)
     external
     view
     returns (Structs.Participant memory participant)
   {
-    return participants[id];
+    return participants[account];
   }
 
   // Allows the owner to update participants.
   function handleUpdateParticipant(
-    uint256 id,
+    address account,
     Structs.Participant calldata _participant
   ) external onlyOwner {
-    Structs.Participant memory participant = participants[id];
+    Structs.Participant memory participant = participants[account];
 
     participant = _participant;
-    participants[id] = participant;
+    participants[account] = participant;
 
     emit UpdateParticipant(participant);
   }
 
   // Allows the owner to delete participants.
-  function handleDeleteParticipant(uint256 id) external onlyOwner {
-    Structs.Participant memory participant = participants[id];
+  function handleDeleteParticipant(address account) external onlyOwner {
+    Structs.Participant memory participant = participants[account];
 
-    delete participants[id];
+    delete participants[account];
 
     emit DeleteParticipant(participant);
   }
 
-  // Allows users to read participant id's.
-  function handleReadParticipantIndices()
-    external
-    view
-    returns (uint256[] memory _participantIndices)
-  {
-    return participantIndices;
-  }
+  // // Allows users to read participant id's.
+  // function handleReadParticipantIndices()
+  //   external
+  //   view
+  //   returns (uint256[] memory _participantIndices)
+  // {
+  //   return participantIndices;
+  // }
 
   // Allows owner to create a new plant.
-  function handleCreatePlant(address account) external onlyOwner {
-    uint256 index = plantIndices.length + 1;
-
+  function handleCreatePlant(uint256 tokenId) external onlyOwner {
     Structs.Plant memory plant;
-    plant.id = index;
-    plant.owner = account;
-    plant.growthLevel = 0;
-    plant.hydrationDegree = 5;
-    plant.healthDegree = 10;
+    plant.level = 0;
+    plant.experiencePoints = 0;
+    plant.lifes = 3;
 
-    plants[index] = plant;
-    plantIndices.push(index);
+    plants[tokenId] = plant;
 
     emit CreatePlant(plant);
   }
