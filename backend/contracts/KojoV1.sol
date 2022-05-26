@@ -29,6 +29,7 @@ abstract contract KojoV1 is KojoERC1155, KeeperCompatibleInterface {
     init();
   }
 
+  // Prohibits contracts to call certain functions.
   modifier onlyEOA() {
     require(tx.origin == msg.sender, "Not an EOA.");
     _;
