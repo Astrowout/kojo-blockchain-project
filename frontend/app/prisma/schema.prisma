@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DB_URL")
+}
+
+model Notification {
+  id        BigInt   @id(map: "primary") @default(autoincrement()) @db.Int8
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  message   String?
+  read      Boolean
+  userId BigInt   @unique @db.Int8
+  user   User  @relation(fields: [userId], references: [id])
+}
+
+model Profile {
+  id            BigInt        @id(map: "primary") @default(autoincrement()) @db.Int8
+  postalCode          String?
+  firstName          String?
+  lastName          String?
+  userId        BigInt        @unique @db.Int8
+  user          User          @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id      BigInt   @id(map: "primary") @default(autoincrement()) @db.Int8
+  email   String?  @unique @db.String(255)
+  did     String   @unique
+  profile Profile?
+  notifications Notification[]
+}

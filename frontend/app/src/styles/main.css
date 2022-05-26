@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body, .ion-page {
+	@apply bg-white;
+}
+
+ion-tab-bar {
+	@apply h-16;
+}
+
+.tab-selected {
+	-webkit-box-shadow: inset 0px 2px 0px 0px #059669;
+	-moz-box-shadow: inset 0px 2px 0px 0px  #059669;
+	box-shadow: inset 0px 2px 0px 0px  #059669;
+}
+
+.u-card {
+	@apply md:bg-white md:rounded-2xl md:shadow-2xl md:shadow-emerald-900/20 md:p-8;
+}
+
+.u-card-fluid {
+	@apply md:bg-white md:rounded-2xl md:shadow-2xl md:shadow-emerald-900/20 overflow-hidden;
+}
+
+ion-footer::before {
+	@apply bg-none !important;
+}
+
+ion-content::part(scroll) {
+	@apply flex flex-col;
+}
+
+.walletconnect-modal__mobile__toggle a {
+	@apply text-black;
+}

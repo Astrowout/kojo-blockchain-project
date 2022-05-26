@@ -17,6 +17,8 @@ const main = async () => {
   const Contract = await ethers.getContractFactory('KojoV1');
   const contract = await Contract.deploy();
   await contract.deployed();
+
+  console.log(contract.address);
 };
 
 // We recommend this pattern to be able to use async/await everywhere
