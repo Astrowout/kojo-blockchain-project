@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getAverageByRegion, getFarysUserByDid } from '../../_utils';
+import { checkDid, getAverageByRegion, getFarysUserByDid } from '../../_utils';
 
 const client = new PrismaClient();
 
@@ -14,19 +14,22 @@ export default async function handler(
 		});
 	}
 
-	const addressRegex = /^0x[0-9a-fA-F]{40}$/;
-	if (addressRegex.test(req.query.address as string)) {
-		return res.status(400).json({
-			error: "You address doesn't seem valid",
-		});
+	const { address } = req.query;
+
+	if (!address) {
+		return res.status(400).json({ error: "The field 'address' in the request query params is undefined." });
+	}
+
+	if (!checkDid(address as string)) {
+		return res.status(400).json({ error: "The field 'address' doesn't seem valid." });
 	}
 
 	try {
-		const regionAverage = await getAverageByRegion(client, req.query.address as string);
-		const user = await getFarysUserByDid(client, req.query.address as string);
+		const regionAverage = await getAverageByRegion(client, address as string);
+		const user = await getFarysUserByDid(client, address as string);
 
 		res.status(200).json({
-			address: req.query.address,
+			address: address,
 			regionAverage,
 			usage: user.usage,
 			familySize: user.familySize,
