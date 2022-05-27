@@ -19,13 +19,10 @@ const useSession = (address?: string) => {
 		try {
 			const { data } = await axios.get(`/users/${address}`);
 
-			console.log("1", data);
-
 			if (!data) {
 				const { data } = await axios.post(`/users`, {
 					address,
 				});
-				console.log("2", data);
 				setUser(data);
 			} else {
 				setUser(data);
@@ -37,17 +34,19 @@ const useSession = (address?: string) => {
 
 	const markAllAsRead = async () => {
 		try {
-			await axios.post(`/users/${address}/notifications/mark-as-read`, {
+			const { data: update } = await axios.post(`/users/${address}/notifications/mark-as-read`, {
 				all: true,
 			});
 
-			const { data } = await axios.get(`/users/${address}/notifications`);
+			if (!!update.count) {
+				const { data } = await axios.get(`/users/${address}/notifications`);
 
-			if (data) {
-				setUser({
-					...user! && user,
-					notifications: data,
-				});
+				if (data) {
+					setUser({
+						...user! && user,
+						notifications: data,
+					});
+				}
 			}
 		} catch (error: any) {
 			throw error;

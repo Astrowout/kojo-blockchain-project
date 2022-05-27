@@ -27,13 +27,15 @@ const NotificationsPage = () => {
 			<div className="flex flex-col max-w-prose flex-grow">
 				{notifications && !!notifications.length ? (
 					<>
-						<Link
-							className="ml-auto mb-6 md:mb-4"
-							light
-							onClick={markAllAsRead}
-						>
-							{ t("notifications.markAsRead") }
-						</Link>
+						{(totalUnread && totalUnread > 0) ? (
+							<Link
+								className="ml-auto mb-6 md:mb-4"
+								light
+								onClick={markAllAsRead}
+							>
+								{ t("notifications.markAsRead") }
+							</Link>
+						) : ''}
 
 						<ul className="divide-y u-card-fluid -mx-4 sm:-mx-8 md:mx-0 border-y md:border-none">
 							{notifications?.map((notification) => (
