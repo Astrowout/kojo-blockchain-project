@@ -1,100 +1,96 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.7;
 
-import "hardhat/console.sol";
+import '@chainlink/contracts/src/v0.8/ChainlinkClient.sol';
+import '@chainlink/contracts/src/v0.8/ConfirmedOwner.sol';
 
-import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
-import "@chainlink/contracts/src/v0.8/ConfirmedOwner.sol";
-
+/**
+ * Request testnet LINK and ETH here: https://faucets.chain.link/
+ * Find information on LINK Token Contracts and get the latest ETH and LINK faucets here: https://docs.chain.link/docs/link-token-contracts/
+ */
 contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
-  bool internal isInitialized = false;
+    using Chainlink for Chainlink.Request;
 
-  using Chainlink for Chainlink.Request;
+    uint256 public regionAverage;
+    uint256 public usage;
+    uint256 public familySize;
 
-  LinkTokenInterface internal link;
+    bytes32 private jobId;
+    uint256 private fee;
 
-  bytes32 private jobId;
-  uint256 private fee;
+    event RequestFulfilled(bytes32 indexed requestId, uint256 regionAverage, uint256 usage, uint256 familySize);
 
-  string private endpoint;
-  string private path;
+    /**
+     * @notice Initialize the link token and target oracle
+     *
+     * Polygon Testnet (mumbai) details:
+     * Link Token: 0x326C977E6efc84E512bB9C30f76E30c160eD06FB
+     * Oracle: 0xc8D925525CA8759812d0c299B90247917d4d4b7C (Mumbai oracle)
+     * jobId: a4ff98397da34565968cf775a293940c
+     *
+     */
+    constructor() ConfirmedOwner(msg.sender) {
+        setChainlinkToken(0x326C977E6efc84E512bB9C30f76E30c160eD06FB);
+        setChainlinkOracle(0xc8D925525CA8759812d0c299B90247917d4d4b7C);
+        jobId = 'a4ff98397da34565968cf775a293940c';
+        fee = 10 ** 16; // 0.01 LINK
+    }
 
-  uint256 public value;
+    /**
+     * Create a Chainlink request to retrieve API response, find the target
+     * data which is located in a list
+     */
+    function requestKojoAllowance(address account) public onlyOwner {
+        Chainlink.Request memory req = buildChainlinkRequest(jobId, address(this), this.fulfill.selector);
 
-  event RequestValue(bytes32 indexed requestId, uint256 value);
+        // Set the URL to perform the GET request on
+        // API docs: https://www.play-kojo.xyz/api/farys/{account}
+        bytes memory did = toBytes(account);
+        req.add('get', string(string.concat("https://www.play-kojo.xyz/api/farys/", did)));
+        req.add('path', 'regionAverage');
+        req.add('get', string(string.concat("https://www.play-kojo.xyz/api/farys/", did)));
+        req.add('path', 'usage');
+        req.add('get', string(string.concat("https://www.play-kojo.xyz/api/farys/", did)));
+        req.add('path', 'familySize');
+        // Sends the request
+        sendChainlinkRequest(req, fee);
+    }
 
-  constructor() ConfirmedOwner(msg.sender) {
-    link = LinkTokenInterface(chainlinkTokenAddress());
+    /**
+     * @notice Fulfillment function for multiple parameters in a single request
+     * @dev This is called by the oracle. recordChainlinkFulfillment must be used.
+     */
+    function fulfill(
+        bytes32 _requestId,
+        uint256 _regionAverage,
+        uint256 _usage,
+        uint256 _familySize
+    ) public recordChainlinkFulfillment(_requestId) {
+        emit RequestFulfilled(_requestId, _regionAverage, _usage, _familySize);
+        regionAverage = _regionAverage;
+        usage = _usage;
+        familySize = _familySize;
+    }
 
-    init();
-  }
+    /**
+     * Allow withdraw of Link tokens from the contract
+     */
+    function withdrawLink() public onlyOwner {
+        LinkTokenInterface link = LinkTokenInterface(chainlinkTokenAddress());
+        require(link.transfer(msg.sender, link.balanceOf(address(this))), 'Unable to transfer');
+    }
 
-  // Allows the contract to be initialized.
-  function init() internal {
-    require(!isInitialized, "Contract already initialized.");
 
-    jobId = "ca98366cc7314957b8c012c72f05aeeb";
-    fee = (1 * LINK_DIVISIBILITY) / 10; // 0,1 * 10**18;
-    endpoint = "https://play-kojo.xyz/api/farys";
-    path = "usage,6";
-
-    setChainlinkToken(0xa36085F69e2889c224210F603D836748e7dC0088);
-    setChainlinkOracle(0x74EcC8Bdeb76F2C6760eD2dc8A46ca5e581fA656);
-
-    isInitialized = true;
-  }
-
-  // Allows the owner to (re)configure API.
-  function handleConfigureAPI(
-    bytes32 _jobId,
-    uint256 _fee,
-    string calldata _endpoint,
-    string calldata _path,
-    address _tokenAddress,
-    address _oracleAddress
-  ) public onlyOwner {
-    jobId = _jobId;
-    fee = _fee;
-    endpoint = _endpoint;
-    path = _path;
-    setChainlinkToken(_tokenAddress);
-    setChainlinkOracle(_oracleAddress);
-  }
-
-  // Allows owner to request data from endpoint.
-  function handleRequestData() public onlyOwner returns (bytes32 requestId) {
-    Chainlink.Request memory req = buildChainlinkRequest(
-      jobId,
-      address(this),
-      this.handleFulfillRequest.selector
-    );
-
-    req.add("get", endpoint);
-    req.add("path", path);
-    req.addInt("times", 10**18);
-
-    return sendChainlinkRequest(req, fee);
-  }
-
-  // Allows data to be set once received.
-  function handleFulfillRequest(bytes32 _requestId, uint256 _value)
-    public
-    recordChainlinkFulfillment(_requestId)
-  {
-    emit RequestValue(_requestId, _value);
-    value = _value;
-
-    // latestTokenAllowance = ((regionalAverage - (usage / familySize)) / regionalAverage) * tokenSensitivity
-    // @TODO: check for negative numbers!
-    // @TODO: Calculate new allowed token balance based on participant level.
-    // @TODO: accumulate latestTokenAllowance in storage.
-  }
-
-  // Allows owner to withdraw funds from the contract.
-  function handleWithdrawLink() public onlyOwner {
-    require(
-      link.transfer(msg.sender, link.balanceOf(address(this))),
-      "Unable to transfer"
-    );
-  }
+    /**
+     * Convert address type to bytes type
+     */
+    function toBytes(address a) public pure returns (bytes memory b) {
+        assembly {
+            let m := mload(0x40)
+            a := and(a, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF)
+            mstore(add(m, 20), xor(0x140000000000000000000000000000000000000000, a))
+            mstore(0x40, add(m, 52))
+            b := m
+        }
+    }
 }
