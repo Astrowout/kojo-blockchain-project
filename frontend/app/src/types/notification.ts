@@ -1,6 +1,7 @@
 export type Notification = {
-	id: number;
+	id: string;
 	message?: string;
+	url?: string;
 	read: boolean;
 	createdAt: Date;
 }

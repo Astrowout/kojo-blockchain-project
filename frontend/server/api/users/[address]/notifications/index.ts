@@ -25,7 +25,7 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 
 			return res.status(200).json(notification);
 		} else if (req.method === "GET") {
-			const notifications = await getNotificationsByDid(client, req.query.address as string);
+			const notifications = await getNotificationsByDid(client, address as string);
 
 			return res.status(200).json(notifications);
 		}

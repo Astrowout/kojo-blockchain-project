@@ -12,9 +12,10 @@ const NotificationsPage = () => {
 	const { t } = useTranslation();
 	const {
 		notifications,
+		markAllAsRead,
 	} = useContext(SessionContext);
 
-	const totalUnread = notifications?.reduce((prevValue, currentValue) => currentValue.read ? prevValue += 1 : prevValue, 0);
+	const totalUnread = notifications?.reduce((prevValue, currentValue) => !currentValue.read ? prevValue += 1 : prevValue, 0);
 
 	return (
 		<Layout
@@ -29,6 +30,7 @@ const NotificationsPage = () => {
 						<Link
 							className="ml-auto mb-6 md:mb-4"
 							light
+							onClick={markAllAsRead}
 						>
 							{ t("notifications.markAsRead") }
 						</Link>
@@ -37,10 +39,12 @@ const NotificationsPage = () => {
 							{notifications?.map((notification) => (
 								<li key={notification.id}>
 									<NotificationItem
+										id={notification.id}
 										message={notification.message}
 										date={notification.createdAt}
 										read={notification.read}
-										/>
+										url={notification.url}
+									/>
 								</li>
 							))}
 						</ul>
