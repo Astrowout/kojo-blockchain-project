@@ -39,6 +39,7 @@ export const GlobalProvider: FC<PropsWithChildren<GlobalProviderProps>> = ({ chi
 
 	const {
 		isLoading: isMetaMaskLoading,
+		error: metaMaskError,
 		isMetaMaskAvailable,
 		connectMetaMask,
 	} = useMetaMask(setProvider);
@@ -61,7 +62,7 @@ export const GlobalProvider: FC<PropsWithChildren<GlobalProviderProps>> = ({ chi
 			value={{
 				address,
 				isLoading: isMetaMaskLoading || isWalletConnectLoading || isMagicLinkLoading,
-				error,
+				error: error || metaMaskError,
 				network,
 				isMetaMaskAvailable,
 				connectMetaMask,

@@ -8,6 +8,7 @@ import { useHistory } from "react-router";
 
 const isMetaMaskAvailable = window && typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+const MUMBAI_CHAIN_ID = 80001;
 
 const useMetaMask = (setProvider: (provider: any) => void) => {
 	const { t } = useTranslation();
@@ -34,18 +35,18 @@ const useMetaMask = (setProvider: (provider: any) => void) => {
 
 			return;
 		} else {
-			checkNetwork();
+			validNetwork();
 			initNetworkEvent();
 		}
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-	const checkNetwork = async () => {
+	const validNetwork = async () => {
 		const provider = new providers.Web3Provider(window.ethereum);
 
 		const network = await provider.getNetwork();
 		const chainId = network.chainId;
 
-		if (chainId !== 80001) {
+		if (chainId !== MUMBAI_CHAIN_ID) {
 			present({
 				color: "secondary",
 				duration: 6000,
@@ -57,7 +58,11 @@ const useMetaMask = (setProvider: (provider: any) => void) => {
 				}],
 				message: t("errors.wrongNetwork") as unknown as string,
 			});
+
+			return false;
 		}
+
+		return true;
 	}
 
 	const initNetworkEvent = async () => {
@@ -69,7 +74,21 @@ const useMetaMask = (setProvider: (provider: any) => void) => {
 
 		try {
 			await delay(200);
+			const isNetworkValid = await validNetwork();
+
+			if (!isNetworkValid) {
+				setError(
+					{
+						type: ErrorType.WRONG_NETWORK,
+						message: t("errors.wrongNetwork") as unknown as string,
+					}
+				);
+
+				return;
+			}
+
 			const provider = new providers.Web3Provider(window.ethereum);
+
 			const [address] = await provider!.send("eth_requestAccounts", []);
 
 			if (address) {
