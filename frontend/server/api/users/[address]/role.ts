@@ -5,6 +5,10 @@ import { checkDid, changeRole } from '../../_utils';
 const client = new PrismaClient();
 
 const handler = async (req: VercelRequest, res: VercelResponse) => {
+	if (req.method === "OPTIONS") {
+		return res.status(200).send("");
+	}
+
 	if (req.method !== "POST") {
 		return res.status(400).json({ error: "Only POST requests are allowed." });
 	}

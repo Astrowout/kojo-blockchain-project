@@ -6,7 +6,7 @@ const client = new PrismaClient();
 
 const handler = async (req: VercelRequest, res: VercelResponse) => {
 	if (req.method === "OPTIONS") {
-		return res.status(200).send();
+		return res.status(200).send("");
 	}
 
 	if (req.method !== "POST") {
