@@ -25,6 +25,7 @@ const useSession = (address?: string) => {
 				const { data } = await axios.post(`/users`, {
 					address,
 				});
+				console.log("2", data);
 				setUser(data);
 			} else {
 				setUser(data);
