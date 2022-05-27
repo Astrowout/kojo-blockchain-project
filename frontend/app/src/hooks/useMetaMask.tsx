@@ -34,9 +34,6 @@ const useMetaMask = (setProvider: (provider: any) => void) => {
 
 			return;
 		}
-
-		const provider = new providers.Web3Provider(window.ethereum);
-		setProvider(provider);
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const connectMetaMask = async (): Promise<any | void> => {

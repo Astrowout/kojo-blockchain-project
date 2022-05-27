@@ -27,6 +27,7 @@ import { ReactComponent as Drop } from "../../assets/icons/drop.svg";
 import { ReactComponent as DropSolid } from "../../assets/icons/drop-solid.svg";
 import { ReactComponent as Check } from "../../assets/icons/check.svg";
 import { ReactComponent as Medal } from "../../assets/icons/medal.svg";
+import { ReactComponent as Danger } from "../../assets/icons/danger.svg";
 
 // Mapping
 const icons = {
@@ -58,6 +59,7 @@ const icons = {
 	DropSolid,
 	Check,
 	Medal,
+	Danger,
 }
 
 export default icons;

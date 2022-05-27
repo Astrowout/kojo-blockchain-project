@@ -1,4 +1,5 @@
 import {
+	Banner,
 	Onboarding,
 } from "../../components";
 
@@ -9,6 +10,8 @@ const OnboardingPage = () => {
 
 	return (
 		<IonPage>
+			<Banner />
+
 			<IonContent fullscreen>
 				<div className="flex justify-center flex-grow relative">
 					<div className="absolute inset-0 z-10 bg-gradient-to-t from-emerald-900 to-transparent sm:bg-emerald-900/20 sm:backdrop-blur"></div>

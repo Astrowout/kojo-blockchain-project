@@ -1,6 +1,8 @@
 import { useIonToast } from "@ionic/react";
+import { providers } from "ethers";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
+import { Router } from "workbox-routing";
 import { Error, ErrorType } from "../types";
 
 const useWeb3 = () => {
@@ -14,23 +16,29 @@ const useWeb3 = () => {
 
 	useEffect(() => {
 		if (!provider) {
+			history.push("/");
+
 			return;
 		}
 
 		initAccount();
 		initNetwork();
-
-		// Events
-		provider!.on("accountsChanged", initAccount);
-		provider!.on("disconnect", disconnect);
-		provider!.on("chainChanged", window.location.reload);
+		initEvents();
 
 		return () => {
 			provider!.removeAllListeners();
 		}
 	}, [provider]); // eslint-disable-line react-hooks/exhaustive-deps
 
+	const initEvents = (): void => {
+		provider!.on("accountsChanged", initAccount);
+		provider!.on("disconnect", disconnect);
+		provider!.on("chainChanged", window.location.reload);
+	}
+
 	const initAccount = async (): Promise<void> => {
+		console.log("initAccount");
+
 		const [address] = await provider!.listAccounts();
 
 		if (address) {
