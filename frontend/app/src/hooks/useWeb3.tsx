@@ -2,10 +2,12 @@ import { useIonToast } from "@ionic/react";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { Error, ErrorType } from "../types";
+import useTranslation from "./useTranslation";
 
 const useWeb3 = () => {
 	const [present] = useIonToast();
 	const history = useHistory();
+	const { t } = useTranslation();
 	const [network, setNetwork] = useState<any | null>(null);
 	const [provider, setProvider] = useState<any | null>(null);
 	const [address, setAddress] = useState<string | null>(null);
@@ -28,6 +30,13 @@ const useWeb3 = () => {
 
 		if (address) {
 			setAddress(address);
+
+			present({
+				color: "secondary",
+				duration: 5000,
+				position: "top",
+				message: t("messages.loginSuccess") as unknown as string,
+			});
 		} else {
 			setAddress(null);
 		}
