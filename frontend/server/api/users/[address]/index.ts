@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { PrismaClient, User } from '@prisma/client'
-import { checkDid, getUser, postUser } from '../../_utils';
+import { checkDid, getUserByDid, postUser } from '../../_utils';
 
 const client = new PrismaClient();
 
@@ -20,7 +20,7 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 			return res.status(400).json({ error: "The field 'address' doesn't seem valid." });
 		}
 
-		let user: string | User | null = await getUser(client, req.query);
+		let user: string | User | null = await getUserByDid(client, address as string);
 
 		if (!user) {
 			user = await postUser(client, {

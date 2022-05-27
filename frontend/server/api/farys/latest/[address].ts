@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getUserByDid, getAverageByRegion } from '../../_utils';
+import { getAverageByRegion, getFarysUserByDid } from '../../_utils';
 
 const client = new PrismaClient();
 
@@ -23,7 +23,7 @@ export default async function handler(
 
 	try {
 		const regionAverage = await getAverageByRegion(client, req.query.address as string);
-		const user = await getUserByDid(client, req.query.address as string);
+		const user = await getFarysUserByDid(client, req.query.address as string);
 
 		res.status(200).json({
 			address: req.query.address,

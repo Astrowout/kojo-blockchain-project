@@ -11,8 +11,9 @@ datasource db {
 model Notification {
     id        BigInt   @id(map: "primary") @default(autoincrement()) @db.Int8
     createdAt DateTime @default(now()) @db.Timestamp(6)
-    message   String?
+    message   String
     read      Boolean
+    url       String
     userId    BigInt   @unique @db.Int8
     user      User     @relation(fields: [userId], references: [id])
 }
@@ -30,6 +31,7 @@ model User {
     id            BigInt         @id(map: "primary") @default(autoincrement()) @db.Int8
     email         String?        @unique @db.String(255)
     did           String         @unique
+    role          Role           @default(VISITOR)
     profile       Profile?
     notifications Notification[]
 }
@@ -40,4 +42,10 @@ model FarysUser {
     familySize Int    @default(1) @db.Int2
     usage      Float  @default(0) @db.Float4
     postalCode String @default("9000")
+}
+
+enum Role {
+    VISITOR
+    PARTICIPANT
+    VERIFIED_PARTICIPANT
 }

@@ -1,14 +1,13 @@
 import { User } from '@prisma/client'
-import { VercelRequestBody, VercelRequestQuery } from '@vercel/node';
+import { VercelRequestBody } from '@vercel/node';
 import { responseHelper } from './helpers';
 
-export const getUser = async (client, params: VercelRequestQuery): Promise<User | null> => {
+export const getUserByDid = async (client, did: string): Promise<User | null> => {
 	const res = await client.user.findUnique({
 		where: {
-			did: params.address as string,
+			did,
 		},
 		include: {
-			profile: true,
 			notifications: true,
 		},
 	});
@@ -28,12 +27,28 @@ export const postUser = async (client, body: VercelRequestBody): Promise<User | 
 				}
 			},
 			notifications: {
-				create: []
+				create: [{
+					message: "Welcome to kojo! Get started by minting your first seed NFT.",
+					url: "/new-seed",
+					read: false,
+				}]
 			}
 		},
 		include: {
-			profile: true,
 			notifications: true,
+		},
+	});
+
+	return responseHelper(res);
+}
+
+export const changeRole = async (client, did: string, body: VercelRequestBody): Promise<User | null> => {
+	const res = await client.user.create({
+		where: {
+			did,
+		},
+		data: {
+			role: body.role,
 		},
 	});
 
