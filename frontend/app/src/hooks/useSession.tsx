@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import { axios } from "../helpers";
-// import { useIonToast } from "@ionic/react";
 import { Error, User } from "../types";
 
 const useSession = (address?: string) => {
-	// const [present] = useIonToast();
 	const [isLoading] = useState(false);
 	const [user, setUser] = useState<User | null>(null);
 	const [error] = useState<Error | null>(null);
@@ -15,17 +13,27 @@ const useSession = (address?: string) => {
 		}
 
 		initUserState();
-
-		return () => {
-			// cleanup
-		}
 	}, [address]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const initUserState = async () => {
 		try {
-			const res = await axios.get(`/user/${address}`);
+			let user: User | null = null;
 
-			setUser(res.data);
+			user = await axios.get(`/users/${address}`);
+
+			console.log("1", user);
+
+
+			if (!user) {
+				user = await axios.post(`/users`, {
+					address,
+				});
+			}
+
+			console.log("2", user);
+
+
+			setUser(user);
 		} catch (error: any) {
 			throw error;
 		}

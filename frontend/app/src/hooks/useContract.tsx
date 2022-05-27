@@ -1,11 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
-import { Contract, utils } from "ethers";
-// import { useIonToast } from "@ionic/react";
+import { Contract } from "ethers";
 import { Error, User } from "../types";
 import Artifact from "../artifacts/contracts/KojoV1.sol/KojoV1.json";
 
 const useContract = (provider: any, address?: string) => {
-	// const [present] = useIonToast();
 	const [isLoading] = useState(false);
 	const [user] = useState<User | null>(null);
 	const [contract, setContract] = useState<Contract | null>(null);
