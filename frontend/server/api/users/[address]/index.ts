@@ -9,17 +9,17 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 		return res.status(400).json({ error: "Only GET requests are allowed." });
 	}
 
+	const { address } = req.query;
+
+	if (!address) {
+		return res.status(400).json({ error: "The field 'address' in the request query params is undefined." });
+	}
+
+	if (!checkDid(address as string)) {
+		return res.status(400).json({ error: "The field 'address' doesn't seem valid." });
+	}
+
 	try {
-		const { address } = req.query;
-
-		if (!address) {
-			return res.status(400).json({ error: "The field 'address' in the request query params is undefined." });
-		}
-
-		if (!checkDid(address as string)) {
-			return res.status(400).json({ error: "The field 'address' doesn't seem valid." });
-		}
-
 		let user: string | User | null = await getUserByDid(client, address as string);
 
 		if (!user) {

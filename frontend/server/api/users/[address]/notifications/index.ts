@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getNotificationsByDid, postNotification } from '../../../_utils';
+import { checkDid, getNotificationsByDid, postNotification } from '../../../_utils';
 
 const client = new PrismaClient();
 
@@ -9,15 +9,18 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 		return res.status(400).json({ error: "Only GET & POST requests are allowed." });
 	}
 
+	const { address } = req.query;
+
+	if (!address) {
+		return res.status(400).json({ error: "The field 'address' in the request query params is undefined." });
+	}
+
+	if (!checkDid(address as string)) {
+		return res.status(400).json({ error: "The field 'address' doesn't seem valid." });
+	}
+
 	try {
-
 		if (req.method === "POST") {
-			const { address } = req.query;
-
-			if (!address) {
-				return res.status(400).json({ error: "The field 'address' in the request params is undefined." });
-			}
-
 			const notification = await postNotification(client, address as string, req.body);
 
 			return res.status(200).json(notification);
