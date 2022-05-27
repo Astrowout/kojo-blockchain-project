@@ -6,7 +6,9 @@
     {
       "files": "*.sol",
       "options": {
-        "singleQuote": false
+        "singleQuote": false,
+        "semi": true,
+        "trailingComma": "all"
       }
     }
   ]

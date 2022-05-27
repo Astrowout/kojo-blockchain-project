@@ -21,6 +21,28 @@ abstract contract KojoV1 is KojoERC1155, KeeperCompatibleInterface {
   uint256 public constant FUNGIBLE_TOKEN = 0;
   uint256 public nonFungibleTokenCount = 1;
 
+  event PlantClaimed(
+    address account,
+    Structs.Participant participant,
+    Structs.Plant plant
+  );
+  event TokensClaimed(
+    address account,
+    Structs.Participant participant,
+    uint256 amount
+  );
+  event PlantBought(
+    address account,
+    Structs.Participant participant,
+    Structs.Plant plant
+  );
+  event PlantWatered(
+    address account,
+    Structs.Participant participant,
+    Structs.Plant plant,
+    uint256 amount
+  );
+
   constructor() {
     store = new KojoStorage();
     utils = new KojoUtils();
@@ -39,9 +61,71 @@ abstract contract KojoV1 is KojoERC1155, KeeperCompatibleInterface {
   function init() internal {
     require(!isInitialized, "Contract already initialized.");
 
-    _mint(msg.sender, FUNGIBLE_TOKEN, 10**18, "");
+    // ...
 
     isInitialized = true;
+  }
+
+  // Allows the contract to update the storage after transfering tokens.
+  function _afterTokenTransfer(
+    address operator,
+    address from,
+    address to,
+    uint256[] memory ids,
+    uint256[] memory amounts,
+    bytes memory data
+  ) internal virtual override {
+    Structs.Participant memory fromParticipant = store.handleReadParticipant(
+      from
+    );
+    Structs.Participant memory toParticipant = store.handleReadParticipant(to);
+
+    uint256 tokenId = ids[0];
+
+    if (tokenId != FUNGIBLE_TOKEN) {
+      if (fromParticipant.isPresent) {
+        Structs.Participant memory _fromParticipant = utils
+          .handleRemoveTokenIdFromParticipant(fromParticipant, tokenId);
+        store.handleUpdateParticipant(from, _fromParticipant);
+      }
+
+      if (toParticipant.isPresent) {
+        Structs.Participant memory _toParticipant = utils
+          .handleAddTokenIdToParticipant(toParticipant, tokenId);
+        store.handleUpdateParticipant(to, _toParticipant);
+      }
+
+      // @TODO: Provide fallback for when participant dont exist.
+    }
+
+    super._afterTokenTransfer(operator, from, to, ids, amounts, data);
+  }
+
+  // Allows the contract to update the storage after minting tokens.
+  function _handleMintPlant(Structs.Participant memory participant, bool isNew)
+    internal
+    returns (
+      Structs.Participant memory returnParticipant,
+      Structs.Plant memory returnPlant
+    )
+  {
+    _mint(msg.sender, nonFungibleTokenCount, 1, "");
+
+    Structs.Participant memory _participant = utils
+      .handleAddTokenIdToParticipant(participant, nonFungibleTokenCount);
+    Structs.Plant memory _plant = store.handleCreatePlant(
+      nonFungibleTokenCount
+    );
+
+    if (isNew) {
+      _participant.hasClaimedStartSeed = true;
+    }
+
+    store.handleUpdateParticipant(msg.sender, _participant);
+
+    nonFungibleTokenCount += 1;
+
+    return (_participant, _plant);
   }
 
   // Allows the owner to update the store.
@@ -59,22 +143,12 @@ abstract contract KojoV1 is KojoERC1155, KeeperCompatibleInterface {
     api = KojoAPIConsumer(location);
   }
 
-  // Allows the owner to update the start capital given to users.
-  function handleUpdateStartCapital(uint256 startCapital) public onlyOwner {
-    store.handleUpdateStartCapital(startCapital);
-  }
-
   // Allows the  owner to update how many tokens are distributed for a given percentage point.
   function handleUpdateTokenSensitivity(uint256 tokenSensitivity)
     public
     onlyOwner
   {
     store.handleUpdateTokenSensitivity(tokenSensitivity);
-  }
-
-  // Allows the  owner to update the cost of watering a seed/plant.
-  function handleUpdateWateringCost(uint256 wateringCost) public onlyOwner {
-    store.handleUpdateWateringCost(wateringCost);
   }
 
   // Allows the  owner to configure the chainlink api consumer.
@@ -97,27 +171,47 @@ abstract contract KojoV1 is KojoERC1155, KeeperCompatibleInterface {
   }
 
   // Allows EOA's to claim a free seed when new.
-  function handleClaimStartToken() public onlyEOA {
+  function handleClaimStartSeed() public onlyEOA {
     Structs.Participant memory participant = store.handleReadParticipant(
       msg.sender
     );
-    require(!participant.isPresent, "Participant already exists.");
+    require(participant.isPresent, "Participant does not exist.");
+    require(!participant.hasClaimedStartSeed, "Already claimed.");
 
-    store.handleCreateParticpant(msg.sender);
-    // store.handleCreatePlant(msg.sender);
+    (
+      Structs.Participant memory _participant,
+      Structs.Plant memory _plant
+    ) = _handleMintPlant(participant, true);
 
-    _mint(msg.sender, nonFungibleTokenCount, 1, "");
+    emit PlantClaimed(msg.sender, _participant, _plant);
   }
 
   // Allows EOA's to claim a monthly reward when gained.
-  function handleClaimMonthlyReward(address to) public view onlyEOA {
-    console.log(to);
+  function handleClaimMonthlyReward() public onlyEOA {
+    Structs.Participant memory participant = store.handleReadParticipant(
+      msg.sender
+    );
 
-    // @TODO: Check claim rights.
-    // 1) check blocktime
-    // 1) check usage
+    require(participant.isPresent, "Participant does not exist.");
+    require(
+      participant.allowedTokenBalance != 0,
+      "Participant is not allowed."
+    );
 
-    // @TODO: Mint tokens to user.
+    // @TODO: Set fixed blocktime per month and check if passed.
+
+    _mint(msg.sender, FUNGIBLE_TOKEN, participant.allowedTokenBalance, "");
+
+    Structs.Participant memory _participant = participant;
+    _participant.allowedTokenBalance = 0;
+
+    store.handleUpdateParticipant(msg.sender, _participant);
+
+    emit TokensClaimed(
+      msg.sender,
+      participant,
+      participant.allowedTokenBalance
+    );
   }
 
   // Allows EOA's to buy a seed/plant.
@@ -127,53 +221,55 @@ abstract contract KojoV1 is KojoERC1155, KeeperCompatibleInterface {
     );
     require(participant.isPresent, "Participant does not exist.");
 
-    store.handleCreatePlant(nonFungibleTokenCount);
-    // safe id to participant
+    // @TODO: Make payable and check for payment.
 
-    _mint(msg.sender, nonFungibleTokenCount, 1, "");
+    (
+      Structs.Participant memory _participant,
+      Structs.Plant memory _plant
+    ) = _handleMintPlant(participant, false);
 
-    nonFungibleTokenCount += 1;
+    emit PlantBought(msg.sender, _participant, _plant);
   }
 
-  function handleWaterPlant() public view {
-    console.log("");
-    //@TODO: Burn tokens.
-    //@TODO: Update experiencePoints on Plant struct.
-    //@TODO: If experiencePoints is greater than levelCost:
-    // level + 1;
-    // experiencePoints = 0;
-    // @TODO: Update NFT metadata.
-  }
+  // Allows EOA's to water their seed/plant.
+  function handleWaterPlant(uint256 tokenId, uint256 amount) public onlyEOA {
+    Structs.Participant memory participant = store.handleReadParticipant(
+      msg.sender
+    );
+    Structs.Plant memory plant = store.handleReadPlant(tokenId);
 
-  // Allows to contract to update NFT's when storage data updates.
-  function syncTokensWithStorage() internal view {
-    console.log("");
+    require(participant.isPresent, "Participant does not exist.");
+    require(plant.isPresent, "Plant does not exist.");
+
+    Structs.Participant memory _participant = participant;
+    _participant.experiencePoints = participant.experiencePoints + amount;
+
+    Structs.Plant memory _plant = plant;
+    _plant.experiencePoints = plant.experiencePoints + amount;
+
+    store.handleUpdateParticipant(msg.sender, _participant);
+    store.handleUpdatePlant(tokenId, _plant);
+
+    // @TODO: Calculate participant level and plant level before updating.
+    // @TODO: Calculate multiplier based on participant level.
+    // @TODO: Burn tokens.
+    // @TODO: Update NFT metadata uri. (!)
+
+    emit PlantWatered(msg.sender, _participant, _plant, amount);
   }
 
   // Allows chainlink keeper to check if upkeep is needed.
   function checkUpkeep() external view {
     console.log("");
+
+    // @TODO: Set latest sync block and check if month is passed.
   }
 
   // Allows chainlink keeper te perform upkeep.
   function performUpkeep() external view {
-    syncTokensWithStorage();
-  }
-
-  function _afterTokenTransfer(
-    address,
-    address,
-    address,
-    uint256[] memory,
-    uint256[] memory,
-    bytes memory
-  ) internal virtual override {
     console.log("");
-    // @TODO: Delete plantId from participant.plantIds
-    // @TODO: Add plantId to participant.plantIds
-  }
 
-  function handleGetDaysUntilNextCalc() external view {
-    console.log("");
+    // @TODO: Sync NFTS. (?)
+    // @TODO: Update latest sync block to now.
   }
 }
