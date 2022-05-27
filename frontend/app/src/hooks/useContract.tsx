@@ -12,7 +12,7 @@ const useContract = (provider: any, address?: string) => {
 	const [error] = useState<Error | null>(null);
 
 	useEffect(() => {
-		if (!provider) {
+		if (!address) {
 			return;
 		}
 
@@ -21,7 +21,7 @@ const useContract = (provider: any, address?: string) => {
 		return () => {
 			// cleanup
 		}
-	}, [provider]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [address]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		if (!contract) {
@@ -46,10 +46,9 @@ const useContract = (provider: any, address?: string) => {
 	}
 
 	const initUserState = useCallback(async () => {
-		console.log(address);
 		const balance = await provider.getBalance(address);
 
-		console.log(utils.hexValue(balance));
+		console.log(balance.toString());
 
 		try {
 			const owner = await contract!.handleBuyPlant(address);

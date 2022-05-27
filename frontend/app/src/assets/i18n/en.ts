@@ -16,6 +16,8 @@ const translations = {
 	},
 	general: {
 		loading: "Loading...",
+		testnet: "This app runs on Polygon testnet, you'll need some MATIC in order to interact with the network. {$}.",
+		faucet: "Get some here",
 	},
 	navigation: {
 		dashboard: "My dashboard",
