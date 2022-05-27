@@ -26,12 +26,18 @@ export default async function handler(
 		const regionAverage = await getAverageByRegion(client, address as string);
 		const user = await getFarysUserByDid(client, address as string);
 
-		res.status(200).json({
-			address: address,
-			regionAverage,
-			usage: user.usage,
-			familySize: user.familySize,
-		});
+		if (user) {
+			res.status(200).json({
+				address: address,
+				regionAverage,
+				usage: user.usage,
+				familySize: user.familySize,
+			});
+		} else {
+			res.status(404).json({
+				error: "The user with the given DID doesn't exist.",
+			});
+		}
 	} catch (error) {
 		console.log(error);
 
