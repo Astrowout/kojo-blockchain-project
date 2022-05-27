@@ -8,10 +8,8 @@ export default async function handler(
 	req: VercelRequest,
 	res: VercelResponse
 ) {
-	if (!req.query.address) {
-		return res.status(400).json({
-			error: 'Missing address',
-		});
+	if (req.method !== "GET") {
+		return res.status(400).json({ error: "Only GET requests are allowed." });
 	}
 
 	const { address } = req.query;
