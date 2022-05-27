@@ -7,6 +7,7 @@ import Icon from "../Icon/Icon";
 import { Link } from "react-router-dom";
 
 const NotificationItem: FC<NotificationItemProps> = ({
+	id = "",
 	message = "",
 	url = "",
 	date = new Date(),

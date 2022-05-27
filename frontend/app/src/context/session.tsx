@@ -6,8 +6,7 @@ type SessionContextType = {
 	user?: User | null;
 	isLoading?: boolean;
 	notifications?: Notification[];
-	isMetaMaskAvailable?: boolean;
-	connectMetaMask?: () => void;
+	markAllAsRead?: () => void;
 }
 
 type SessionProviderProps = {
@@ -29,6 +28,7 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 	const {
 		// balance,
 		// plants,
+		markAllAsRead,
 		notifications,
 	} = useSession(address);
 
@@ -37,6 +37,7 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 			value={{
 				user,
 				notifications,
+				markAllAsRead,
 			}}
 		>
 			{children}

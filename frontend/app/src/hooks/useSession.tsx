@@ -17,32 +17,48 @@ const useSession = (address?: string) => {
 
 	const initUserState = async () => {
 		try {
-			let user: User | null = null;
+			const { data } = await axios.get(`/users/${address}`);
 
-			user = await axios.get(`/users/${address}`);
+			console.log("1", data);
 
-			console.log("1", user);
-
-
-			if (!user) {
-				user = await axios.post(`/users`, {
+			if (!data) {
+				const { data } = await axios.post(`/users`, {
 					address,
 				});
+				setUser(data);
+			} else {
+				setUser(data);
 			}
-
-			console.log("2", user);
-
-
-			setUser(user);
 		} catch (error: any) {
 			throw error;
 		}
-	}; // eslint-disable-line react-hooks/exhaustive-deps
+	};
+
+	const markAllAsRead = async () => {
+		try {
+			await axios.post(`/users/${address}/notifications/mark-as-read`, {
+				all: true,
+			});
+
+			const { data } = await axios.get(`/users/${address}/notifications`);
+
+			if (data) {
+				setUser({
+					...user! && user,
+					notifications: data,
+				});
+			}
+		} catch (error: any) {
+			throw error;
+		}
+	};
 
  	return {
 		balance: user?.balance,
 		plants: user?.plants,
+		role: user?.role,
 		notifications: user?.notifications,
+		markAllAsRead,
 		isLoading,
 		error,
 	};
