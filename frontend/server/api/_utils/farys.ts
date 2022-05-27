@@ -31,7 +31,7 @@ export const getAverageByRegion = async (client, did: string): Promise<number | 
 	}
 }
 
-export const getUserByDid = async (client, did: string): Promise<FarysUser | null> => {
+export const getFarysUserByDid = async (client, did: string): Promise<FarysUser | null> => {
 	const res = await client.farysUser.findUnique({
 		where: {
 			did,

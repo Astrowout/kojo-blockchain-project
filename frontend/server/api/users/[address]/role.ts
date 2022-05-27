@@ -1,12 +1,12 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { PrismaClient, User } from '@prisma/client'
-import { checkDid, getUserByDid, postUser } from '../../_utils';
+import { checkDid, changeRole } from '../../_utils';
 
 const client = new PrismaClient();
 
 const handler = async (req: VercelRequest, res: VercelResponse) => {
-	if (req.method !== "GET") {
-		return res.status(400).json({ error: "Only GET requests are allowed." });
+	if (req.method !== "POST") {
+		return res.status(400).json({ error: "Only POST requests are allowed." });
 	}
 
 	try {
@@ -20,14 +20,7 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 			return res.status(400).json({ error: "The field 'address' doesn't seem valid." });
 		}
 
-		let user: string | User | null = await getUserByDid(client, address as string);
-
-		if (!user) {
-			user = await postUser(client, {
-				...req.body,
-				...req.query,
-			});
-		}
+		let user: User | null = await changeRole(client, address as string, req.body);
 
 		if (user) {
 			return res.status(200).json(user);
