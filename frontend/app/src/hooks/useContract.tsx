@@ -46,13 +46,9 @@ const useContract = (provider: any, address?: string) => {
 	}
 
 	const initUserState = useCallback(async () => {
-		const balance = await provider.getBalance(address);
-
-		console.log(balance.toString());
-
 		try {
-			const owner = await contract!.handleBuyPlant(address);
-			console.log(owner);
+			// const owner = await contract!.handleBuyPlant(address);
+			// console.log(owner);
 		} catch (error: any) {
 			throw error;
 		}

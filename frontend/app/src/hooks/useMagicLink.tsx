@@ -6,8 +6,8 @@ import useTranslation from "./useTranslation";
 const { Magic } = require('magic-sdk');
 
 const customNetworkOptions = {
-	rpcUrl: 'https://polygon-rpc.com/', // Polygon RPC URL
-	chainId: 137, // Polygon chain id
+	rpcUrl: "https://rpc-mumbai.maticvigil.com/", // Polygon testnet RPC URL
+	chainId: 80001, // Polygon testnet chain id
 }
 const magic = new Magic(process.env.REACT_APP_MAGIC_PUBLIC_KEY!, { network: customNetworkOptions });
 

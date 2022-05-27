@@ -21,22 +21,9 @@ const useWeb3 = () => {
 
 		initAccount();
 		initNetwork();
-		initEvents();
-
-		return () => {
-			provider!.removeAllListeners();
-		}
 	}, [provider]); // eslint-disable-line react-hooks/exhaustive-deps
 
-	const initEvents = (): void => {
-		provider!.on("accountsChanged", initAccount);
-		provider!.on("disconnect", disconnect);
-		provider!.on("chainChanged", window.location.reload);
-	}
-
 	const initAccount = async (): Promise<void> => {
-		console.log("initAccount");
-
 		const [address] = await provider!.listAccounts();
 
 		if (address) {
