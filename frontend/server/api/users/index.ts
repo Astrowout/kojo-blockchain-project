@@ -10,7 +10,7 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 	}
 
 	try {
-		await client.$transaction(async (prisma) => {
+		return await client.$transaction(async (prisma) => {
 			const user: string | User | null = await postUser(prisma, req.body);
 			const farysUser: string | FarysUser | null = await postFarysUser(prisma, req.body);
 
