@@ -8,20 +8,14 @@ import "../utils/KojoLibrary.sol";
 contract KojoStorage is OwnableUpgradeable {
   bool internal isInitialized = false;
 
-  uint256 public startCapital;
   uint256 public tokenSensitivity;
-  uint256 public wateringCost;
 
   mapping(address => Structs.Participant) public participants;
-  // address[] public accountAddresses[];
-
   event CreateParticipant(Structs.Participant participant);
   event UpdateParticipant(Structs.Participant participant);
   event DeleteParticipant(Structs.Participant participant);
 
   mapping(uint256 => Structs.Plant) public plants;
-  uint256[] public plantIndices;
-
   event CreatePlant(Structs.Plant plant);
   event UpdatePlant(Structs.Plant plant);
   event DeletePlant(Structs.Plant plant);
@@ -34,16 +28,9 @@ contract KojoStorage is OwnableUpgradeable {
   function init() internal {
     require(!isInitialized, "Contract already initialized.");
 
-    startCapital = 100;
-    tokenSensitivity = 1;
-    wateringCost = 1;
+    tokenSensitivity = 1000;
 
     isInitialized = true;
-  }
-
-  // Allows owner to update the start capital given to users.
-  function handleUpdateStartCapital(uint256 _startCapital) public onlyOwner {
-    startCapital = _startCapital;
   }
 
   // Allows owner to update how many tokens are distributed for a given percentage point.
@@ -54,117 +41,136 @@ contract KojoStorage is OwnableUpgradeable {
     tokenSensitivity = _tokenSensitivity;
   }
 
-  // Allows owner to update the cost of watering a seed/plant.
-  function handleUpdateWateringCost(uint256 _wateringCost) public onlyOwner {
-    wateringCost = _wateringCost;
-  }
-
   // Allows owner to create a new participant.
-  function handleCreateParticpant(address account) external onlyOwner {
-    Structs.Participant memory _participant = this.handleReadParticipant(
-      account
-    );
+  function handleCreateParticpant(address account)
+    external
+    onlyOwner
+    returns (Structs.Participant memory value)
+  {
+    Structs.Participant memory _participant = participants[account];
     require(!_participant.isPresent, "Participant already exists.");
 
     Structs.Participant memory participant;
-    // participant.account = account;
+    participant.level = 0;
+    participant.experiencePoints = 0;
+    participant.latestTokenAllowance = 0;
+    participant.hasClaimedStartSeed = false;
     participant.isPresent = true;
-
     participants[account] = participant;
-    // particpantsLength += 1;
 
     emit CreateParticipant(participant);
+
+    return participant;
   }
 
   // Allows users to read participants.
   function handleReadParticipant(address account)
     external
     view
-    returns (Structs.Participant memory participant)
+    returns (Structs.Participant memory _participant)
   {
-    return participants[account];
+    Structs.Participant memory participant = participants[account];
+    require(participant.isPresent, "Participant does not exist.");
+
+    return participant;
   }
 
   // Allows the owner to update participants.
   function handleUpdateParticipant(
     address account,
     Structs.Participant calldata _participant
-  ) external onlyOwner {
+  ) external onlyOwner returns (Structs.Participant memory value) {
     Structs.Participant memory participant = participants[account];
+    require(participant.isPresent, "Participant does not exist.");
 
     participant = _participant;
     participants[account] = participant;
 
     emit UpdateParticipant(participant);
+
+    return participant;
   }
 
   // Allows the owner to delete participants.
-  function handleDeleteParticipant(address account) external onlyOwner {
+  function handleDeleteParticipant(address account)
+    external
+    onlyOwner
+    returns (Structs.Participant memory value)
+  {
     Structs.Participant memory participant = participants[account];
+    require(participant.isPresent, "Participant does not exist.");
 
-    delete participants[account];
+    delete participant;
 
     emit DeleteParticipant(participant);
+
+    return participant;
   }
 
-  // // Allows users to read participant id's.
-  // function handleReadParticipantIndices()
-  //   external
-  //   view
-  //   returns (uint256[] memory _participantIndices)
-  // {
-  //   return participantIndices;
-  // }
-
   // Allows owner to create a new plant.
-  function handleCreatePlant(uint256 tokenId) external onlyOwner {
+  function handleCreatePlant(uint256 tokenId)
+    external
+    onlyOwner
+    returns (Structs.Plant memory value)
+  {
+    Structs.Plant memory _plant = plants[tokenId];
+    require(!_plant.isPresent, "Plant already exists.");
+
     Structs.Plant memory plant;
     plant.level = 0;
     plant.experiencePoints = 0;
     plant.lifes = 3;
+    plant.levelCost = 100;
 
     plants[tokenId] = plant;
 
     emit CreatePlant(plant);
+
+    return plant;
   }
 
   // Allows users to read plants.
-  function handleReadPlant(uint256 id)
+  function handleReadPlant(uint256 tokenId)
     external
     view
-    returns (Structs.Plant memory plant)
+    returns (Structs.Plant memory _plant)
   {
-    return plants[id];
+    Structs.Plant memory plant = plants[tokenId];
+    require(plant.isPresent, "Plant does not exist.");
+
+    return plants[tokenId];
   }
 
   // Allows the owner to update plants.
-  function handleUpdatePlant(uint256 id, Structs.Plant calldata _plant)
+  function handleUpdatePlant(uint256 tokenId, Structs.Plant calldata _plant)
     external
     onlyOwner
+    returns (Structs.Plant memory value)
   {
-    Structs.Plant memory plant = plants[id];
+    Structs.Plant memory plant = plants[tokenId];
+    require(plant.isPresent, "Plant does not exist.");
 
     plant = _plant;
-    plants[id] = plant;
+    plants[tokenId] = plant;
 
     emit UpdatePlant(plant);
+
+    return plant;
   }
 
   // Allows the owner to delete plants.
-  function handleDeletePlant(uint256 id) external onlyOwner {
-    Structs.Plant memory plant = plants[id];
+  function handleDeletePlant(uint256 tokenId)
+    external
+    onlyOwner
+    returns (Structs.Plant memory value)
+  {
+    Structs.Plant memory plant = plants[tokenId];
+    require(plant.isPresent, "Plant does not exist.");
 
-    delete plants[id];
+    delete plant;
 
     emit DeletePlant(plant);
-  }
 
-  // Allows users to read plant id's.
-  function handleReadPlantIndices()
-    external
-    view
-    returns (uint256[] memory _plantIndices)
-  {
-    return plantIndices;
+    return plant;
   }
 }
