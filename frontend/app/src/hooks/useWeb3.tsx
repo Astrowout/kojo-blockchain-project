@@ -1,8 +1,6 @@
 import { useIonToast } from "@ionic/react";
-import { providers } from "ethers";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { Router } from "workbox-routing";
 import { Error, ErrorType } from "../types";
 
 const useWeb3 = () => {

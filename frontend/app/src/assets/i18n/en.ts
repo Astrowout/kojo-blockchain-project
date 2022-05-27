@@ -10,6 +10,7 @@ const translations = {
 	errors: {
 		noWeb3: "No Ethereum wallet was detected.",
 		general: "Oops, something went wrong on our side. Please try again later.",
+		wrongNetwork: "You can only connect to the Polygon testnet. Please switch to the mumbai network.",
 	},
 	buttons: {
 		close: "Close",

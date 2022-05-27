@@ -33,14 +33,42 @@ const useMetaMask = (setProvider: (provider: any) => void) => {
 			});
 
 			return;
+		} else {
+			checkNetwork();
+			initNetworkEvent();
 		}
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+	const checkNetwork = async () => {
+		const provider = new providers.Web3Provider(window.ethereum);
+
+		const network = await provider.getNetwork();
+		const chainId = network.chainId;
+
+		if (chainId !== 80001) {
+			present({
+				color: "secondary",
+				duration: 6000,
+				position: "top",
+				buttons: [ {
+					side: "end",
+					text: "Close",
+					role: "cancel",
+				}],
+				message: t("errors.wrongNetwork") as unknown as string,
+			});
+		}
+	}
+
+	const initNetworkEvent = async () => {
+		window.ethereum.on("chainChanged", () => window.location.reload());
+	}
 
 	const connectMetaMask = async (): Promise<any | void> => {
 		setIsLoading(true);
 
 		try {
-			await delay(300);
+			await delay(200);
 			const provider = new providers.Web3Provider(window.ethereum);
 			const [address] = await provider!.send("eth_requestAccounts", []);
 
