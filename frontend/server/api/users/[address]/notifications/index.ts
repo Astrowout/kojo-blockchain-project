@@ -5,6 +5,10 @@ import { checkDid, getNotificationsByDid, postNotification } from '../../../_uti
 const client = new PrismaClient();
 
 const handler = async (req: VercelRequest, res: VercelResponse) => {
+	if (req.method === "OPTIONS") {
+		return res.status(200).send("");
+	}
+
 	if (req.method !== "POST" && req.method !== "GET") {
 		return res.status(400).json({ error: "Only GET & POST requests are allowed." });
 	}
