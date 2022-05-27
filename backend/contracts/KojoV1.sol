@@ -51,7 +51,7 @@ abstract contract KojoV1 is KojoERC1155, KeeperCompatibleInterface {
     init();
   }
 
-  // Prohibits contracts to call certain functions.
+  // Prohibits external contracts to call certain functions.
   modifier onlyEOA() {
     require(tx.origin == msg.sender, "Not an EOA.");
     _;
@@ -170,6 +170,16 @@ abstract contract KojoV1 is KojoERC1155, KeeperCompatibleInterface {
     );
   }
 
+  // Allows EOA's to become participants.
+  function handleCreateParticipant() public onlyEOA {
+    Structs.Participant memory participant = store.handleReadParticipant(
+      msg.sender
+    );
+    require(!participant.isPresent, "Participant already exists.");
+
+    store.handleCreateParticpant(msg.sender);
+  }
+
   // Allows EOA's to claim a free seed when new.
   function handleClaimStartSeed() public onlyEOA {
     Structs.Participant memory participant = store.handleReadParticipant(
@@ -215,13 +225,15 @@ abstract contract KojoV1 is KojoERC1155, KeeperCompatibleInterface {
   }
 
   // Allows EOA's to buy a seed/plant.
-  function handleBuyPlant() public onlyEOA {
+  function handleBuyPlant() public payable onlyEOA {
     Structs.Participant memory participant = store.handleReadParticipant(
       msg.sender
     );
-    require(participant.isPresent, "Participant does not exist.");
 
-    // @TODO: Make payable and check for payment.
+    require(participant.isPresent, "Participant does not exist.");
+    require(msg.value > store.plantPrice(), "Not enough MATIC.");
+
+    // @TODO: Check for KOJO instead of MATIC?
 
     (
       Structs.Participant memory _participant,
@@ -232,7 +244,7 @@ abstract contract KojoV1 is KojoERC1155, KeeperCompatibleInterface {
   }
 
   // Allows EOA's to water their seed/plant.
-  function handleWaterPlant(uint256 tokenId, uint256 amount) public onlyEOA {
+  function handleWaterPlant(uint256 tokenId) public payable onlyEOA {
     Structs.Participant memory participant = store.handleReadParticipant(
       msg.sender
     );
@@ -240,29 +252,32 @@ abstract contract KojoV1 is KojoERC1155, KeeperCompatibleInterface {
 
     require(participant.isPresent, "Participant does not exist.");
     require(plant.isPresent, "Plant does not exist.");
+    require(msg.value > 0, "No MATIC provided.");
 
-    Structs.Participant memory _participant = participant;
-    _participant.experiencePoints = participant.experiencePoints + amount;
+    // @TODO: Check for KOJO instead of MATIC?
 
-    Structs.Plant memory _plant = plant;
-    _plant.experiencePoints = plant.experiencePoints + amount;
+    Structs.Participant memory _participant = utils.handleAddXPToParticipant(
+      participant,
+      msg.value
+    );
+    Structs.Plant memory _plant = utils.handleAddXPToPlant(plant, msg.value);
 
     store.handleUpdateParticipant(msg.sender, _participant);
     store.handleUpdatePlant(tokenId, _plant);
 
-    // @TODO: Calculate participant level and plant level before updating.
-    // @TODO: Calculate multiplier based on participant level.
-    // @TODO: Burn tokens.
-    // @TODO: Update NFT metadata uri. (!)
+    string memory uri = utils.handleBuildURI(_plant, tokenId);
+    setTokenUri(tokenId, uri);
 
-    emit PlantWatered(msg.sender, _participant, _plant, amount);
+    // @TODO: Burn tokens. Send to burn address?
+
+    emit PlantWatered(msg.sender, _participant, _plant, msg.value);
   }
 
   // Allows chainlink keeper to check if upkeep is needed.
   function checkUpkeep() external view {
     console.log("");
 
-    // @TODO: Set latest sync block and check if month is passed.
+    // @TODO: Set latest sync block and check if month is passed. (LINK?)
   }
 
   // Allows chainlink keeper te perform upkeep.

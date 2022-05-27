@@ -8,6 +8,7 @@ import "../utils/KojoLibrary.sol";
 contract KojoStorage is OwnableUpgradeable {
   bool internal isInitialized = false;
 
+  uint256 public plantPrice;
   uint256 public tokenSensitivity;
 
   mapping(address => Structs.Participant) public participants;
@@ -28,6 +29,7 @@ contract KojoStorage is OwnableUpgradeable {
   function init() internal {
     require(!isInitialized, "Contract already initialized.");
 
+    plantPrice = 1000;
     tokenSensitivity = 1000;
 
     isInitialized = true;
@@ -53,7 +55,7 @@ contract KojoStorage is OwnableUpgradeable {
     Structs.Participant memory participant;
     participant.level = 0;
     participant.experiencePoints = 0;
-    participant.latestTokenAllowance = 0;
+    participant.allowedTokenBalance = 0;
     participant.hasClaimedStartSeed = false;
     participant.isPresent = true;
     participants[account] = participant;
