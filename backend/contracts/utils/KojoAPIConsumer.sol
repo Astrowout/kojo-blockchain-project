@@ -86,7 +86,7 @@ contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
 
     // latestTokenAllowance = ((regionalAverage - (usage / familySize)) / regionalAverage) * tokenSensitivity
     // @TODO: check for negative numbers!
-    // @TODO: check participant level to calc multiplyer.
+    // @TODO: Calculate new allowed token balance based on participant level.
     // @TODO: accumulate latestTokenAllowance in storage.
   }
 
