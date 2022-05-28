@@ -20,7 +20,7 @@ const EmptyState: FC<EmptyStateProps> = ({
 				size={64}
 			/>
 
-			<p className="mt-4 text-gray-600 text-center">
+			<p className="mt-4 text-gray-600 text-center max-w-prose">
 				{ message }
 			</p>
 

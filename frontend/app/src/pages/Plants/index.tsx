@@ -1,4 +1,6 @@
 import {
+	Button,
+	EmptyState,
 	Layout,
 	PlantCard,
 	Tokens,
@@ -22,24 +24,37 @@ const PlantsPage = () => {
 	return (
 		<Layout
 			title={t("plants.title")}
-			description={t("plants.description.1", <b className="font-bold">{t("plants.description.2")}</b>)}
+			description={t("plants.description", <b className="font-bold">{plants.length}</b>)}
 		>
 			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-12 w-full">
 				<Tokens />
 
-				<div className="xl:col-span-2 w-full grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-8">
-					{plants.map((plant) => (
-						<PlantCard
-							key={plant.id}
-							id={plant.id}
-							type={plant.type}
-							waterNeeded={plant.waterNeeded}
-							health={plant.health}
-							hydration={plant.hydration}
-							image={plant.image}
-						/>
-					))}
-				</div>
+				{plants && !!plants.length ? (
+					<div className="xl:col-span-2 w-full grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-8">
+						{plants.map((plant) => (
+							<PlantCard
+								key={plant.id}
+								id={plant.id}
+								type={plant.type}
+								waterNeeded={plant.waterNeeded}
+								health={plant.health}
+								hydration={plant.hydration}
+								image={plant.image}
+							/>
+						))}
+					</div>
+				) : (
+					<EmptyState
+						message={t("plants.empty")}
+						icon="Seeds"
+					>
+						<Button
+							url="/new-seed"
+						>
+							{t("plants.empty.cta")}
+						</Button>
+					</EmptyState>
+				)}
 			</div>
 		</Layout>
 	)

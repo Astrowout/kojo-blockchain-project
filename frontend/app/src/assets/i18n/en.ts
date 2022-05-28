@@ -70,8 +70,12 @@ const translations = {
 	},
 	plants: {
 		title: "My seeds & plants",
+		description: "You have {$} plant NFT(s) in your wallet.",
+		detailDescription: "This plant has gotten {$} kojos of water from the period it was minted.",
 		average: "Of average in your area",
 		view: "View my water consumption",
+		empty: "You don't have any plants yet. Get started by minting a seed.",
+		emptyCta: "Mint your first seed",
 		hydrate: "Hydrate",
 	},
 	newSeed: {
