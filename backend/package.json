@@ -11,7 +11,7 @@
     "format": "prettier --write .",
     "coverage": "hardhat coverage --solcoverjs ./.solcover.ts",
     "fuzzing": "docker run -it --rm -v $PWD:/src trailofbits/eth-security-toolbox",
-    "deploy": "hardhat run scripts/deploy"
+    "deploy": "hardhat run scripts/deploy --network localhost"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.5",

@@ -1,4 +1,5 @@
 import { useIonToast } from "@ionic/react";
+import { providers } from "ethers";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { Error, ErrorType } from "../types";
@@ -13,6 +14,10 @@ const useWeb3 = () => {
 	const [address, setAddress] = useState<string | null>(null);
 	const [isLoading] = useState(false);
 	const [error, setError] = useState<Error | null>(null);
+
+	useEffect(() => {
+		setProvider(new providers.JsonRpcProvider(process.env.REACT_APP_JSON_RPC_URL));
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		if (!provider) {
@@ -30,6 +35,7 @@ const useWeb3 = () => {
 
 		if (address) {
 			setAddress(address);
+			history.push("/tabs/dashboard");
 
 			present({
 				color: "secondary",

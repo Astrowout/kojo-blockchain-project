@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { providers } from "ethers";
-import { useHistory } from "react-router";
 const { Magic } = require('magic-sdk');
 
 const customNetworkOptions = {
@@ -11,7 +10,6 @@ const magic = new Magic(process.env.REACT_APP_MAGIC_PUBLIC_KEY!, { network: cust
 
 const useMagicLink = (setProvider: (provider: any) => void) => {
 	const [isLoading, setIsLoading] = useState(false);
-	const history = useHistory();
 	// const [error, setError] = useState<Error | null>(null);
 
 	const connectMagicLink = async (email: string): Promise<void> => {
@@ -22,7 +20,6 @@ const useMagicLink = (setProvider: (provider: any) => void) => {
 			await magic.auth.loginWithMagicLink({ email });
 
 			setProvider(provider);
-			history.push("/tabs/dashboard");
 
 			return;
 		} catch (error) {
