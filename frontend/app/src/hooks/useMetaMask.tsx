@@ -12,7 +12,7 @@ const MUMBAI_CHAIN_ID = 80001;
 const useMetaMask = (setProvider: (provider: any) => void) => {
 	const { t } = useTranslation();
 	const [present] = useIonToast();
-	const [isLoading, setIsLoading] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<Error | null>(null);
 
 	useEffect(() => {
@@ -68,7 +68,7 @@ const useMetaMask = (setProvider: (provider: any) => void) => {
 	}
 
 	const connectMetaMask = async (): Promise<any | void> => {
-		setIsLoading(true);
+		setLoading(true);
 
 		try {
 			await delay(200);
@@ -109,13 +109,13 @@ const useMetaMask = (setProvider: (provider: any) => void) => {
 				}
 			);
 		} finally {
-			setIsLoading(false);
+			setLoading(false);
 		}
 	};
 
 	return {
 		isMetaMaskAvailable,
-		isLoading,
+		loading,
 		error,
 		connectMetaMask,
 	}

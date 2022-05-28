@@ -1,19 +1,23 @@
 import { useState, useEffect, useCallback } from "react";
-import { Contract } from "ethers";
-import { Error, Plant, Tokens, User } from "../types";
-import Artifact from "../artifacts/contracts/KojoV1.sol/KojoV1.json";
+import { BigNumber, Contract } from "ethers";
+import { Error, Plant, Tokens, Participant } from "../types";
 import { axios } from "../helpers";
 
+// @ts-ignore:next-line
+import Artifact from "../artifacts/contracts/KojoV1.sol/KojoV1.json";
+import { useHistory } from "react-router";
+
 const useContract = (provider: any, address?: string) => {
-	const [isLoading] = useState(false);
-	const [user] = useState<User | null>(null);
+	const [loading] = useState(false);
+	const [participant, setParticipant] = useState<Participant | undefined>(undefined);
 	const [blockTime, setBlockTime] = useState<number>(5);
 	const [tokens, setTokens] = useState<Tokens>({
 		balance: 0,
 		plantIds: [],
 	});
 	const [plants] = useState<Plant[]>([]);
-	const [contract, setContract] = useState<Contract | null>(null);
+	const history = useHistory();
+	const [contract, setContract] = useState<Contract | undefined>(undefined);
 	const [error] = useState<Error | null>(null);
 
 	useEffect(() => {
@@ -35,6 +39,7 @@ const useContract = (provider: any, address?: string) => {
 		}
 
 		initTokens();
+		initParticipant();
 
 		return () => {
 			// cleanup
@@ -44,11 +49,13 @@ const useContract = (provider: any, address?: string) => {
 	const initContract = () => {
 		const signer = provider.getSigner();
 
-		setContract(new Contract(
+		const contract = new Contract(
 			process.env.REACT_APP_CONTRACT_ADDRESS!,
 			Artifact.abi,
 			signer,
-		));
+		);
+
+		setContract(contract);
 	};
 
 	const fetchBlocktime = useCallback(async () => {
@@ -66,28 +73,45 @@ const useContract = (provider: any, address?: string) => {
 	}, [contract]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const initTokens = useCallback(async () => {
-		if (!contract) {
-			return;
-		}
-		console.log(address);
-
+		console.log(await contract!);
 		try {
-			const owner = await contract.FUNGIBLE_TOKEN();
-			console.log(owner);
+			const [balance, ...plantIds] = await contract!.balanceOfBatch([address], [0]);
+
+			setTokens({
+				balance: balance.toNumber(),
+				plantIds: plantIds.map((plantId: BigNumber) => plantId.toNumber()),
+			});
 		} catch (error: any) {
 			throw error;
 		}
+	}, [contract]); // eslint-disable-line react-hooks/exhaustive-deps
 
-		// call setUser()
+	const initParticipant = useCallback(async () => {
+		try {
+			const participant = await contract!.handleReadParticipant(address);
+
+			setParticipant(participant);
+		} catch (error: any) {
+			const initialTokenAllowance = await contract!.initialTokenAllowance();
+
+			setParticipant({
+				allowedTokenBalance: initialTokenAllowance.toNumber(),
+				level: 0,
+				experiencePoints: 0,
+				plantIds: [],
+			});
+
+			throw error;
+		}
 	}, [contract]); // eslint-disable-line react-hooks/exhaustive-deps
 
  	return {
-		user,
+		participant,
 		balance: tokens?.balance,
 		plants,
 		contract,
 		minsUntilNextClaim: Math.ceil((189 * blockTime) / 60),
-		isLoading,
+		loading,
 		error,
 	};
 };

@@ -7,7 +7,7 @@ import { SessionProvider } from "./session";
 
 type GlobalContextType = {
 	address?: string | null;
-	isLoading?: boolean;
+	loading?: boolean;
 	error?: Error | null;
 	network?: any;
 	isMetaMaskAvailable?: boolean;
@@ -27,25 +27,25 @@ export const GlobalProvider: FC<PropsWithChildren<GlobalProviderProps>> = ({ chi
 		address,
 		provider,
 		error,
-		isLoading: isGlobalLoading,
+		loading: isGlobalLoading,
 		setProvider,
 		disconnect,
 	} = useWeb3();
 
 	const {
-		isLoading: isWalletConnectLoading,
+		loading: isWalletConnectLoading,
 		connectWalletConnect,
 	} = useWalletConnect(setProvider);
 
 	const {
-		isLoading: isMetaMaskLoading,
+		loading: isMetaMaskLoading,
 		error: metaMaskError,
 		isMetaMaskAvailable,
 		connectMetaMask,
 	} = useMetaMask(setProvider);
 
 	const {
-		isLoading: isMagicLinkLoading,
+		loading: isMagicLinkLoading,
 		connectMagicLink,
 	} = useMagicLink(setProvider);
 
@@ -61,7 +61,7 @@ export const GlobalProvider: FC<PropsWithChildren<GlobalProviderProps>> = ({ chi
 		<GlobalContext.Provider
 			value={{
 				address,
-				isLoading: isMetaMaskLoading || isWalletConnectLoading || isMagicLinkLoading,
+				loading: isMetaMaskLoading || isWalletConnectLoading || isMagicLinkLoading,
 				error: error || metaMaskError,
 				network,
 				isMetaMaskAvailable,
@@ -71,7 +71,10 @@ export const GlobalProvider: FC<PropsWithChildren<GlobalProviderProps>> = ({ chi
 				disconnect,
 			}}
 		>
-			<SessionProvider provider={provider} address={address!}>
+			<SessionProvider
+				provider={provider}
+				address={address!}
+			>
 				{children}
 			</SessionProvider>
 		</GlobalContext.Provider>

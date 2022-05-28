@@ -15,7 +15,7 @@ import { useTranslation } from '../../hooks';
 const ConnectModal: FunctionComponent<ConnectModalProps> = ({ title, description, close, isOpen }) => {
 	const { t } = useTranslation();
 	const {
-		isLoading,
+		loading,
 		error,
 		isMetaMaskAvailable,
 		connectMetaMask,
@@ -41,11 +41,11 @@ const ConnectModal: FunctionComponent<ConnectModalProps> = ({ title, description
 				</p>
 			</div>
 
-			{error && error.type === ErrorType.NO_ETHEREUM && !isLoading && (
+			{error && error.type === ErrorType.NO_ETHEREUM && !loading && (
 				<NoWalletDetected />
 			)}
 
-			{isLoading ? (
+			{loading ? (
 				<Loader />
 			) : (
 				<div className="flex flex-col pt-8 space-y-4">

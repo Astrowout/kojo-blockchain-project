@@ -11,6 +11,7 @@ import { useTranslation } from "../../hooks";
 const NotificationsPage = () => {
 	const { t } = useTranslation();
 	const {
+		loading,
 		notifications,
 		markAllAsRead,
 	} = useContext(SessionContext);
@@ -31,6 +32,7 @@ const NotificationsPage = () => {
 							<Link
 								className="ml-auto mb-6 md:mb-4"
 								light
+								loading={loading}
 								onClick={markAllAsRead}
 							>
 								{ t("notifications.markAsRead") }

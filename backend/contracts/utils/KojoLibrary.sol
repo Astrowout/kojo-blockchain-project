@@ -25,8 +25,6 @@ library Structs {
     uint256[] plantIds;
     // currentTokenAllowance; amount of fungible tokens the participant is allowed to claim.
     uint256 allowedTokenBalance;
-    // boolean to check if participant has claimed their free start seed.
-    bool hasClaimedStartSeed;
     // Internal selector.
     bool isPresent;
   }

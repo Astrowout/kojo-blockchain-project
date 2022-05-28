@@ -9,11 +9,11 @@ const customNetworkOptions = {
 const magic = new Magic(process.env.REACT_APP_MAGIC_PUBLIC_KEY!, { network: customNetworkOptions });
 
 const useMagicLink = (setProvider: (provider: any) => void) => {
-	const [isLoading, setIsLoading] = useState(false);
+	const [loading, setLoading] = useState(false);
 	// const [error, setError] = useState<Error | null>(null);
 
 	const connectMagicLink = async (email: string): Promise<void> => {
-		setIsLoading(true);
+		setLoading(true);
 
 		try {
 			const provider = new providers.Web3Provider(magic.rpcProvider as any);
@@ -25,12 +25,12 @@ const useMagicLink = (setProvider: (provider: any) => void) => {
 		} catch (error) {
 
 		} finally {
-			setIsLoading(false);
+			setLoading(false);
 		}
 	};
 
  	return {
-		isLoading,
+		loading,
 		connectMagicLink,
 	 };
 };

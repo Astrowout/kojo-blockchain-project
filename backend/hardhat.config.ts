@@ -32,13 +32,17 @@ const config: HardhatUserConfig = {
       },
     },
   },
-  defaultNetwork: 'hardhat',
+  defaultNetwork: 'mumbai',
   networks: {
     hardhat: {
       chainId: 80001,
+      gas: 2100000,
+      gasPrice: 8000000000,
     },
     localhost: {
       chainId: 80001,
+      gas: 2100000,
+      gasPrice: 8000000000,
     },
     // ethereum: {
     //   chainId: 1,
@@ -87,6 +91,8 @@ const config: HardhatUserConfig = {
       url: process.env.POLYGON_MUMBAI_RPC_URL,
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      gas: 2100000,
+      gasPrice: 8000000000,
     },
   },
   etherscan: {

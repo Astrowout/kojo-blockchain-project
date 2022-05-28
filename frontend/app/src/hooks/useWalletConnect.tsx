@@ -11,7 +11,7 @@ import { Error, ErrorType } from "../types";
 
 const useWalletConnect = (setProvider: (provider: any) => void) => {
 	// const [present] = useIonToast();
-	const [isLoading, setIsLoading] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<Error | null>(null);
 
 	// Subscribe to connection events
@@ -42,7 +42,7 @@ const useWalletConnect = (setProvider: (provider: any) => void) => {
 	//   });
 
 	const connectWalletConnect = async (): Promise<void> => {
-		setIsLoading(true);
+		setLoading(true);
 
 		try {
 			const provider = new WalletConnectProvider({
@@ -67,12 +67,12 @@ const useWalletConnect = (setProvider: (provider: any) => void) => {
 				message: error.message,
 			});
 		} finally {
-			setIsLoading(false);
+			setLoading(false);
 		}
 	};
 
  	return {
-		isLoading,
+		loading,
 		error,
 		connectWalletConnect,
 	 };

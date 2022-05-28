@@ -20,7 +20,11 @@ const Tokens: FunctionComponent<TokensProps> = ({
 	return (
 		<div className={cn(className, "bg-white rounded-2xl overflow-hidden shadow-2xl shadow-emerald-900/20")}>
 			<div className="overflow-hidden p-6 relative">
-				<Icon name="Token" size={160} className="absolute -right-10 -bottom-8 text-emerald-900 opacity-10" />
+				<Icon
+					name="Token"
+					size={160}
+					className="absolute -right-10 -bottom-8 text-emerald-900 opacity-10"
+				/>
 
 				<p className="text-xl">
 					{ t("tokens.title") }
@@ -31,7 +35,11 @@ const Tokens: FunctionComponent<TokensProps> = ({
 						{ balance }
 					</span>
 
-					<Icon name="Token" size={32} className="text-emerald-600 mt-1" />
+					<Icon
+						name="Token"
+						size={32}
+						className="text-emerald-600 mt-1"
+					/>
 				</p>
 
 				{!compact && (
@@ -47,8 +55,19 @@ const Tokens: FunctionComponent<TokensProps> = ({
 						{ t("tokens.nextClaim") }
 					</p>
 
-					<p className="mt-1 font-bold text-xl lg:text-2xl">
+					<p className="mt-1 font-bold text-xl lg:text-2xl text-emerald-600">
 						{ t("tokens.minutes", minsUntilNextClaim) }
+					</p>
+
+					<p className="text-xs italic mt-6 text-gray-600 flex items-center space-x-1">
+						<Icon
+							name="Danger"
+							size={14}
+						/>
+
+						<span className="mt-[1px]">
+							{ t("tokens.disclaimer") }
+						</span>
 					</p>
 				</div>
 			)}
