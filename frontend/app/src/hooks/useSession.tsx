@@ -1,14 +1,10 @@
 import { useState, useEffect } from "react";
 import { axios } from "../helpers";
-import { Error, User, Tokens } from "../types";
+import { Error, User } from "../types";
 
 const useSession = (address?: string) => {
 	const [isLoading] = useState(false);
 	const [user, setUser] = useState<User | null>(null);
-	const [tokens, setTokens] = useState<Tokens>({
-		balance: 0,
-		plants: [],
-	});
 	const [error] = useState<Error | null>(null);
 
 	useEffect(() => {
@@ -58,8 +54,6 @@ const useSession = (address?: string) => {
 	};
 
  	return {
-		balance: tokens?.balance,
-		plants: tokens?.plants,
 		role: user?.role,
 		notifications: user?.notifications,
 		markAllAsRead,

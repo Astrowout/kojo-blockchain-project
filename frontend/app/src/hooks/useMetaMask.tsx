@@ -4,7 +4,6 @@ import { providers } from "ethers";
 
 import useTranslation from "./useTranslation";
 import { Error, ErrorType } from "../types";
-import { useHistory } from "react-router";
 
 const isMetaMaskAvailable = window && typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -13,7 +12,6 @@ const MUMBAI_CHAIN_ID = 80001;
 const useMetaMask = (setProvider: (provider: any) => void) => {
 	const { t } = useTranslation();
 	const [present] = useIonToast();
-	const history = useHistory();
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<Error | null>(null);
 
@@ -93,7 +91,6 @@ const useMetaMask = (setProvider: (provider: any) => void) => {
 
 			if (address) {
 				setProvider(provider);
-				history.push("/tabs/dashboard");
 
 				return;
 			}

@@ -1,11 +1,12 @@
 import { createContext, FC, PropsWithChildren } from "react";
 import { useContract, useSession } from "../hooks";
-import { Notification, User } from "../types";
+import { Notification, Plant, User } from "../types";
 
 type SessionContextType = {
 	user?: User | null;
 	isLoading?: boolean;
 	notifications?: Notification[];
+	plants?: Plant[];
 	balance?: number;
 	minsUntilNextClaim?: number;
 	markAllAsRead?: () => void;
@@ -25,13 +26,12 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 }) => {
 	const {
 		user,
+		balance,
+		plants,
 		minsUntilNextClaim,
 	} = useContract(provider, address);
 
 	const {
-		// balance,
-		// plants,
-		balance,
 		markAllAsRead,
 		notifications,
 	} = useSession(address);
@@ -42,6 +42,7 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 				user,
 				notifications,
 				balance,
+				plants,
 				minsUntilNextClaim,
 				markAllAsRead,
 			}}
