@@ -14,19 +14,15 @@ const translations = {
 		title: "How it works",
 		1: {
 			title: "Track your water consumption",
-			description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+			description: "Connect your smart water meter to the Kojo Blockchain and start receiving rewards in Kojo tokens based on your relative water consumption in your local area.",
 		},
 		2: {
 			title: "Mint seeds and grow beautiful plants",
-			description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+			description: "Buy a seed and start growing your very own digital plant by watering it with your Kojo tokens. Trade your plants with other plant owners to build your own digital urban jungle.",
 		},
 		3: {
 			title: "Help reducing water consumption in your area",
-			description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-		},
-		4: {
-			title: "Make the world and your wallet a nicer place",
-			description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+			description: "Keep receiving rewards by coming up with ways on how you can reduce your water consumption.",
 		},
 	},
 	partners: {
