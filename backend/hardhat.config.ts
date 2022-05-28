@@ -23,21 +23,29 @@ task('accounts', 'Prints the list of accounts', async (_, hre) => {
 // Go to https://hardhat.org/config/ to learn more
 
 const config: HardhatUserConfig = {
-  solidity: '0.8.9',
+  solidity: {
+    version: '0.8.9',
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 1000,
+      },
+    },
+  },
   defaultNetwork: 'hardhat',
   networks: {
     hardhat: {
-      chainId: 31337,
+      chainId: 80001,
     },
     localhost: {
-      chainId: 31337,
+      chainId: 80001,
     },
-    ethereum: {
-      chainId: 1,
-      url: process.env.ETHEREUM_MAINNET_RPC_URL,
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    },
+    // ethereum: {
+    //   chainId: 1,
+    //   url: process.env.ETHEREUM_MAINNET_RPC_URL,
+    //   accounts:
+    //     process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    // },
     // morden: {
     //   chainId: 2,
     //   url: process.env.ETHEREUM_MORDEN_RPC_URL,
@@ -56,24 +64,24 @@ const config: HardhatUserConfig = {
     //   accounts:
     //     process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     // },
-    goerli: {
-      chainId: 5,
-      url: process.env.ETHEREUM_GOERLI_RPC_URL ?? '',
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    },
+    // goerli: {
+    //   chainId: 5,
+    //   url: process.env.ETHEREUM_GOERLI_RPC_URL ?? '',
+    //   accounts:
+    //     process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    // },
     // kovan: {
     //   chainId: 42,
     //   url: process.env.ETHEREUM_KOVAN_RPC_URL,
     //   accounts:
     //     process.env.PRIVATE_KE !== undefined ? [process.env.PRIVATE_KE] : [],
     // },
-    polygon: {
-      chainId: 137,
-      url: process.env.POLYGON_MAINNET_RPC_URL,
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    },
+    // polygon: {
+    //   chainId: 137,
+    //   url: process.env.POLYGON_MAINNET_RPC_URL,
+    //   accounts:
+    //     process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    // },
     mumbai: {
       chainId: 80001,
       url: process.env.POLYGON_MUMBAI_RPC_URL,

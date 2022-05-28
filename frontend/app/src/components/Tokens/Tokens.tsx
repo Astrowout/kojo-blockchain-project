@@ -1,18 +1,21 @@
-import { FunctionComponent, memo } from "react";
+import { FunctionComponent, memo, useContext } from "react";
 import cn from "classnames";
 
 import Icon from "../Icon/Icon";
 import { TokensProps } from "./Tokens.types";
 import { useTranslation } from "../../hooks";
 import Link from "../Link/Link";
+import { SessionContext } from "../../context";
 
 const Tokens: FunctionComponent<TokensProps> = ({
 	compact = true,
 	className,
 }) => {
 	const { t } = useTranslation();
-	const amount = 567;
-	const days = 17;
+	const {
+		balance,
+		minsUntilNextClaim,
+	} = useContext(SessionContext);
 
 	return (
 		<div className={cn(className, "bg-white rounded-2xl overflow-hidden shadow-2xl shadow-emerald-900/20")}>
@@ -25,7 +28,7 @@ const Tokens: FunctionComponent<TokensProps> = ({
 
 				<p className="flex items-center space-x-2 mt-3">
 					<span className="font-bold text-4xl lg:text-5xl">
-						{ amount }
+						{ balance }
 					</span>
 
 					<Icon name="Token" size={32} className="text-emerald-600 mt-1" />
@@ -45,7 +48,7 @@ const Tokens: FunctionComponent<TokensProps> = ({
 					</p>
 
 					<p className="mt-1 font-bold text-xl lg:text-2xl">
-						{ t("tokens.days", days) }
+						{ t("tokens.minutes", minsUntilNextClaim) }
 					</p>
 				</div>
 			)}
