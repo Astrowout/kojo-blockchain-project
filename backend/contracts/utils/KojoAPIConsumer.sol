@@ -44,13 +44,13 @@ contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
         Chainlink.Request memory req = buildChainlinkRequest(jobId, address(this), this.fulfill.selector);
 
         // Set the URL to perform the GET request on
-        // API docs: https://www.play-kojo.xyz/api/farys/{account}
+        // API docs: https://api.play-kojo.xyz/api/farys/{account}
         bytes memory did = toBytes(account);
-        req.add('get', string(string.concat("https://www.play-kojo.xyz/api/farys/", did)));
+        req.add('get', string(string.concat("https://api.play-kojo.xyz/api/farys/latest/", did)));
         req.add('path', 'regionAverage');
-        req.add('get', string(string.concat("https://www.play-kojo.xyz/api/farys/", did)));
+        req.add('get', string(string.concat("https://api.play-kojo.xyz/api/farys/latest/", did)));
         req.add('path', 'usage');
-        req.add('get', string(string.concat("https://www.play-kojo.xyz/api/farys/", did)));
+        req.add('get', string(string.concat("https://api.play-kojo.xyz/api/farys/latest/", did)));
         req.add('path', 'familySize');
         // Sends the request
         sendChainlinkRequest(req, fee);
