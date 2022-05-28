@@ -55,8 +55,7 @@ contract KojoStorage is OwnableUpgradeable {
     Structs.Participant memory participant;
     participant.level = 0;
     participant.experiencePoints = 0;
-    participant.allowedTokenBalance = 100;
-    participant.hasClaimedStartSeed = false;
+    participant.allowedTokenBalance = 0;
     participant.isPresent = true;
     participants[account] = participant;
 

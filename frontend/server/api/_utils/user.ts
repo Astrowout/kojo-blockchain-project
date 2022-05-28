@@ -28,8 +28,8 @@ export const postUser = async (client, body: VercelRequestBody): Promise<User | 
 			},
 			notifications: {
 				create: [{
-					message: "Welcome to kojo! Get started by minting your first seed NFT.",
-					url: "/new-seed",
+					message: "Welcome to kojo! Get started by claiming your first kojos.",
+					url: "/claim",
 					read: false,
 				}]
 			}

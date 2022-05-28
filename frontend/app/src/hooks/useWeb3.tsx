@@ -12,7 +12,7 @@ const useWeb3 = () => {
 	const [network, setNetwork] = useState<any | null>(null);
 	const [provider, setProvider] = useState<any | null>(null);
 	const [address, setAddress] = useState<string | null>(null);
-	const [isLoading] = useState(false);
+	const [loading] = useState(false);
 	const [error, setError] = useState<Error | null>(null);
 
 	useEffect(() => {
@@ -92,7 +92,7 @@ const useWeb3 = () => {
 		network,
 		address,
 		provider,
-		isLoading,
+		loading,
 		error,
 		setProvider,
 		disconnect,

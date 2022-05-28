@@ -3,7 +3,7 @@ import { axios } from "../helpers";
 import { Error, User } from "../types";
 
 const useSession = (address?: string) => {
-	const [isLoading] = useState(false);
+	const [loading] = useState(false);
 	const [user, setUser] = useState<User | null>(null);
 	const [error] = useState<Error | null>(null);
 
@@ -57,7 +57,7 @@ const useSession = (address?: string) => {
 		role: user?.role,
 		notifications: user?.notifications,
 		markAllAsRead,
-		isLoading,
+		loading,
 		error,
 	};
 };

@@ -18,6 +18,7 @@ contract KojoV1 is KojoERC1155 {
 
   uint256 public constant FUNGIBLE_TOKEN = 0;
   uint256 public nonFungibleTokenCount = 1;
+  uint256 public initialTokenAllowance = 100;
 
   event PlantClaimed(
     address account,
@@ -100,7 +101,7 @@ contract KojoV1 is KojoERC1155 {
   }
 
   // Allows the contract to update the storage after minting tokens.
-  function _handleMintPlant(Structs.Participant memory participant, bool isNew)
+  function _handleMintPlant(Structs.Participant memory participant)
     internal
     returns (
       Structs.Participant memory returnParticipant,
@@ -114,10 +115,6 @@ contract KojoV1 is KojoERC1155 {
     Structs.Plant memory _plant = store.handleCreatePlant(
       nonFungibleTokenCount
     );
-
-    if (isNew) {
-      _participant.hasClaimedStartSeed = true;
-    }
 
     store.handleUpdateParticipant(msg.sender, _participant);
 
@@ -169,29 +166,31 @@ contract KojoV1 is KojoERC1155 {
   }
 
   // Allows EOA's to become participants.
-  function handleCreateParticipant() public onlyEOA {
+  // function handleCreateParticipant() internal onlyEOA {
+  //   Structs.Participant memory participant = store.handleReadParticipant(
+  //     msg.sender
+  //   );
+  //   require(!participant.isPresent, "Participant already exists.");
+
+  //   store.handleCreateParticpant(msg.sender);
+  // }
+
+  // Allows EOA's to claim a free kojo supply when new.
+  function handleClaimStartTokens() public payable onlyEOA returns (Structs.Participant memory value) {
     Structs.Participant memory participant = store.handleReadParticipant(
       msg.sender
     );
-    require(!participant.isPresent, "Participant already exists.");
+    require(!participant.isPresent, "Participant already exists. You already claimed your initial tokens.");
 
-    store.handleCreateParticpant(msg.sender);
-  }
+    _mint(msg.sender, FUNGIBLE_TOKEN, initialTokenAllowance, "");
 
-  // Allows EOA's to claim a free seed when new.
-  function handleClaimStartSeed() public onlyEOA {
-    Structs.Participant memory participant = store.handleReadParticipant(
-      msg.sender
+    emit TokensClaimed(
+      msg.sender,
+      participant,
+      initialTokenAllowance
     );
-    require(participant.isPresent, "Participant does not exist.");
-    require(!participant.hasClaimedStartSeed, "Already claimed.");
 
-    (
-      Structs.Participant memory _participant,
-      Structs.Plant memory _plant
-    ) = _handleMintPlant(participant, true);
-
-    emit PlantClaimed(msg.sender, _participant, _plant);
+    return store.handleCreateParticpant(msg.sender);
   }
 
   // Allows EOA's to claim a monthly reward when gained.
@@ -236,7 +235,7 @@ contract KojoV1 is KojoERC1155 {
     (
       Structs.Participant memory _participant,
       Structs.Plant memory _plant
-    ) = _handleMintPlant(participant, false);
+    ) = _handleMintPlant(participant);
 
     emit PlantBought(msg.sender, _participant, _plant);
   }
@@ -284,5 +283,14 @@ contract KojoV1 is KojoERC1155 {
 
     // @TODO: Sync NFTS. (?)
     // @TODO: Update latest sync block to now.
+  }
+
+  // Allows users to read participants from storage.
+  function handleReadParticipant(address account)
+    external
+    view
+    returns (Structs.Participant memory _participant)
+  {
+    return store.handleReadParticipant(account);
   }
 }

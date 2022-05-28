@@ -1,13 +1,15 @@
+import { Contract } from "ethers";
 import { createContext, FC, PropsWithChildren } from "react";
 import { useContract, useSession } from "../hooks";
-import { Notification, Plant, User } from "../types";
+import { Notification, Participant, Plant } from "../types";
 
 type SessionContextType = {
-	user?: User | null;
-	isLoading?: boolean;
+	loading?: boolean;
 	notifications?: Notification[];
 	plants?: Plant[];
+	participant?: Participant;
 	balance?: number;
+	contract?: Contract;
 	minsUntilNextClaim?: number;
 	markAllAsRead?: () => void;
 }
@@ -25,23 +27,27 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 	address,
 }) => {
 	const {
-		user,
 		balance,
 		plants,
+		participant,
+		contract,
 		minsUntilNextClaim,
 	} = useContract(provider, address);
 
 	const {
-		markAllAsRead,
 		notifications,
+		loading,
+		markAllAsRead,
 	} = useSession(address);
 
 	return (
 		<SessionContext.Provider
 			value={{
-				user,
+				contract,
 				notifications,
 				balance,
+				loading,
+				participant,
 				plants,
 				minsUntilNextClaim,
 				markAllAsRead,

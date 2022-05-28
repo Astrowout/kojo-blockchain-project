@@ -12,6 +12,7 @@ const Link: FC<LinkProps> = ({
 	url = "",
 	external = false,
 	light = false,
+	loading = false,
 	icon = null,
 	onClick,
 }) => {
@@ -19,13 +20,16 @@ const Link: FC<LinkProps> = ({
 		"underline": !icon,
 		"text-emerald-900": !light,
 		"text-emerald-900 md:text-emerald-100": light,
+		"pointer-events-none opacity-50": loading,
 	});
 
 	const renderContent = () => (
 		<>
 			{children}
 
-			{icon && <Icon name={icon} className="ml-2" />}
+			{icon && !loading && <Icon name={icon} className="ml-2" />}
+
+			{loading && <Icon name="Spinner" className="ml-2 animate-spin" />}
 		</>
 	)
 
@@ -53,6 +57,7 @@ const Link: FC<LinkProps> = ({
 			type="button"
 			className={classes}
 			onClick={onClick}
+			disabled={loading}
 		>
 			{ renderContent() }
 		</button>

@@ -6,6 +6,7 @@ export type LinkProps = {
 	className?: string,
 	icon?: keyof typeof icons,
 	external?: boolean,
+	loading?: boolean,
 	light?: boolean,
 	onClick?: () => void,
 }
