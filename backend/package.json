@@ -1,6 +1,7 @@
 {
   "name": "hardhat-project",
   "version": "1.0.0",
+  "license": "MIT",
   "description": "",
   "scripts": {
     "compile": "hardhat compile",

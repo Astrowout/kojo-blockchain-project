@@ -6,6 +6,8 @@ type SessionContextType = {
 	user?: User | null;
 	isLoading?: boolean;
 	notifications?: Notification[];
+	balance?: number;
+	minsUntilNextClaim?: number;
 	markAllAsRead?: () => void;
 }
 
@@ -23,11 +25,13 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 }) => {
 	const {
 		user,
+		minsUntilNextClaim,
 	} = useContract(provider, address);
 
 	const {
 		// balance,
 		// plants,
+		balance,
 		markAllAsRead,
 		notifications,
 	} = useSession(address);
@@ -37,6 +41,8 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 			value={{
 				user,
 				notifications,
+				balance,
+				minsUntilNextClaim,
 				markAllAsRead,
 			}}
 		>

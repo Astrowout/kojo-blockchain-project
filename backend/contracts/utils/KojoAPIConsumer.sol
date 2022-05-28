@@ -2,7 +2,7 @@
 pragma solidity ^0.8.7;
 
 import '@chainlink/contracts/src/v0.8/ChainlinkClient.sol';
-import '@chainlink/contracts/src/v0.8/ConfirmedOwner.sol';
+import "@chainlink/contracts/src/v0.8/ConfirmedOwner.sol";
 
 /**
  * Request testnet LINK and ETH here: https://faucets.chain.link/
@@ -15,6 +15,10 @@ contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
     uint256 public usage;
     uint256 public familySize;
 
+    string private endpoint;
+    string private path;
+    address private tokenAddress;
+    address private oracleAddress;
     bytes32 private jobId;
     uint256 private fee;
 
@@ -34,6 +38,22 @@ contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
         setChainlinkOracle(0xc8D925525CA8759812d0c299B90247917d4d4b7C);
         jobId = 'a4ff98397da34565968cf775a293940c';
         fee = 10 ** 16; // 0.01 LINK
+    }
+
+    function handleConfigureAPI (
+      bytes32 _jobId,
+      uint256 _fee,
+      string calldata _endpoint,
+      string calldata _path,
+      address _tokenAddress,
+      address _oracleAddress
+    ) external onlyOwner {
+      jobId = _jobId;
+      fee = _fee;
+      endpoint = _endpoint;
+      path = _path;
+      tokenAddress = _tokenAddress;
+      oracleAddress = _oracleAddress;
     }
 
     /**

@@ -10,7 +10,7 @@ describe('Ownable', () => {
 
   beforeEach(async () => {
     [owner, user] = await ethers.getSigners();
-    const factory = await ethers.getContractFactory('KojoV1', owner);
+    const factory: any = await ethers.getContractFactory('KojoV1', owner);
     contract = await factory.deploy();
     await contract.deployed();
   });
@@ -64,7 +64,7 @@ describe('Proxy', () => {
   beforeEach(async () => {
     [owner, user] = await ethers.getSigners();
 
-    const factory = await ethers.getContractFactory('KojoV1', owner);
+    const factory: any = await ethers.getContractFactory('KojoV1', owner);
     contract = await factory.deploy();
 
     const proxyFactory = await ethers.getContractFactory('KojoProxy', owner);

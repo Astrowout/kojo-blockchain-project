@@ -3,15 +3,13 @@ pragma solidity ^0.8.9;
 
 import "hardhat/console.sol";
 
-import "@chainlink/contracts/src/v0.8/KeeperCompatible.sol";
-
 import "./token/KojoERC1155.sol";
 
 import "./utils/KojoStorage.sol";
 import "./utils/KojoUtils.sol";
 import "./utils/KojoAPIConsumer.sol";
 
-abstract contract KojoV1 is KojoERC1155, KeeperCompatibleInterface {
+contract KojoV1 is KojoERC1155 {
   bool internal isInitialized = false;
 
   KojoStorage internal store;

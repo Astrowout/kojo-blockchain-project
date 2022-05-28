@@ -2,10 +2,12 @@ import { useState, useEffect, useCallback } from "react";
 import { Contract } from "ethers";
 import { Error, User } from "../types";
 import Artifact from "../artifacts/contracts/KojoV1.sol/KojoV1.json";
+import { axios } from "../helpers";
 
 const useContract = (provider: any, address?: string) => {
 	const [isLoading] = useState(false);
 	const [user] = useState<User | null>(null);
+	const [blockTime, setBlockTime] = useState<number>(5);
 	const [contract, setContract] = useState<Contract | null>(null);
 	const [error] = useState<Error | null>(null);
 
@@ -15,6 +17,7 @@ const useContract = (provider: any, address?: string) => {
 		}
 
 		initContract();
+		fetchBlocktime();
 
 		return () => {
 			// cleanup
@@ -43,6 +46,20 @@ const useContract = (provider: any, address?: string) => {
 		));
 	}
 
+	const fetchBlocktime = useCallback(async () => {
+		try {
+			const { data } = await axios.get("https://gasstation-mumbai.matic.today/v2");
+
+			if (data) {
+				setBlockTime(data.blockTime);
+			}
+		} catch (error: any) {
+			throw error;
+		}
+
+		// call setUser()
+	}, [contract]); // eslint-disable-line react-hooks/exhaustive-deps
+
 	const initUserState = useCallback(async () => {
 		try {
 			// const owner = await contract!.handleBuyPlant(address);
@@ -56,6 +73,7 @@ const useContract = (provider: any, address?: string) => {
 
  	return {
 		user,
+		minsUntilNextClaim: Math.ceil((189 * blockTime) / 60),
 		isLoading,
 		error,
 	};

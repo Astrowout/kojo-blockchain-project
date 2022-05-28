@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Kojo water management app",
   "private": true,
+  "license": "MIT",
   "homepage": "/",
   "dependencies": {
     "@capacitor/android": "3.5.1",
