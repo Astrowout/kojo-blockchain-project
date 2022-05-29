@@ -33,7 +33,7 @@ const config: HardhatUserConfig = {
       },
     },
   },
-  defaultNetwork: 'mumbai',
+  defaultNetwork: 'hardhat',
   networks: {
     hardhat: {
       chainId: 80001,
