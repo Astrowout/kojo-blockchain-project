@@ -3,11 +3,23 @@ pragma solidity ^0.8.9;
 
 import "hardhat/console.sol";
 
-import "./token/KojoERC1155.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+
+import {KojoERC1155} from "./token/KojoERC1155.sol";
 
 import {Structs} from "./utils/KojoLibrary.sol";
+import {KojoStorage} from "./utils/KojoStorage.sol";
+import {KojoUtils} from "./utils/KojoUtils.sol";
+import {KojoAPIConsumer} from "./utils/KojoAPIConsumer.sol";
 
-contract KojoV1 is KojoERC1155 {
+contract KojoV1 is OwnableUpgradeable {
+  bool internal isInitialized = false;
+
+  KojoERC1155 internal token;
+  KojoStorage internal store;
+  KojoUtils internal utils;
+  KojoAPIConsumer internal api;
+
   event PlantClaimed(
     address account,
     Structs.Participant participant,
@@ -30,14 +42,9 @@ contract KojoV1 is KojoERC1155 {
     uint256 amount
   );
 
-  /// @custom:oz-upgrades-unsafe-allow constructor
-
-  //   function initialize() initializer public {
-  //     __ERC1155_init("");
-  //     __Ownable_init();
-  //     __ERC1155Burnable_init();
-  //     __ERC1155Supply_init();
-  // }
+  constructor() {
+    init();
+  }
 
   // Prohibits external contracts to call certain functions.
   modifier onlyEOA() {
@@ -46,50 +53,54 @@ contract KojoV1 is KojoERC1155 {
   }
 
   // Allows the contract to be initialized.
-  // function init() internal {
-  //   require(!isInitialized, "Contract already initialized.");
+  function init() internal {
+    require(!isInitialized, "Contract already initialized.");
 
-  //   // ...
+    store = new KojoStorage();
+    utils = new KojoUtils();
+    api = new KojoAPIConsumer();
+    token = new KojoERC1155();
 
-  //   isInitialized = true;
-  // }
+    isInitialized = true;
+  }
 
   // Allows the contract to update the storage after transfering tokens.
-  function _afterTokenTransfer(
-    address operator,
-    address from,
-    address to,
-    uint256[] memory ids,
-    uint256[] memory amounts,
-    bytes memory data
-  ) internal virtual override {
-    super._afterTokenTransfer(operator, from, to, ids, amounts, data);
+  // function _afterTokenTransfer(
+  //   address operator,
+  //   address from,
+  //   address to,
+  //   uint256[] memory ids,
+  //   uint256[] memory amounts,
+  //   bytes memory data
+  // ) internal virtual override {
+  //   // @TODO: Turn me on.
+  //   super._afterTokenTransfer(operator, from, to, ids, amounts, data);
 
-    uint256 tokenId = ids[0];
+  //   uint256 tokenId = ids[0];
 
-    if (tokenId != FUNGIBLE_TOKEN) {
-      Structs.Participant memory fromParticipant = store.handleReadParticipant(
-        from
-      );
-      Structs.Participant memory toParticipant = store.handleReadParticipant(
-        to
-      );
+  //   if (tokenId != token.fungibleTokenId()) {
+  //     Structs.Participant memory fromParticipant = store.handleReadParticipant(
+  //       from
+  //     );
+  //     Structs.Participant memory toParticipant = store.handleReadParticipant(
+  //       to
+  //     );
 
-      if (fromParticipant.isPresent) {
-        Structs.Participant memory _fromParticipant = utils
-          .handleRemoveTokenIdFromParticipant(fromParticipant, tokenId);
-        store.handleUpdateParticipant(from, _fromParticipant);
-      }
+  //     if (fromParticipant.isPresent) {
+  //       Structs.Participant memory _fromParticipant = utils
+  //         .handleRemoveTokenIdFromParticipant(fromParticipant, tokenId);
+  //       store.handleUpdateParticipant(from, _fromParticipant);
+  //     }
 
-      if (toParticipant.isPresent) {
-        Structs.Participant memory _toParticipant = utils
-          .handleAddTokenIdToParticipant(toParticipant, tokenId);
-        store.handleUpdateParticipant(to, _toParticipant);
-      }
+  //     if (toParticipant.isPresent) {
+  //       Structs.Participant memory _toParticipant = utils
+  //         .handleAddTokenIdToParticipant(toParticipant, tokenId);
+  //       store.handleUpdateParticipant(to, _toParticipant);
+  //     }
 
-      // @TODO: Provide fallback for when participant dont exist.
-    }
-  }
+  //     // @TODO: Provide fallback for when participant dont exist.
+  //   }
+  // }
 
   // Allows the contract to update the storage after minting tokens.
   function _handleMintPlant(Structs.Participant memory participant)
@@ -99,17 +110,21 @@ contract KojoV1 is KojoERC1155 {
       Structs.Plant memory returnPlant
     )
   {
-    _mint(msg.sender, nonFungibleTokenCount, 1, "");
+    token.mint(msg.sender, token.nonFungibleTokenCount(), 1, "");
 
     Structs.Participant memory _participant = utils
-      .handleAddTokenIdToParticipant(participant, nonFungibleTokenCount);
+      .handleAddTokenIdToParticipant(
+        participant,
+        token.nonFungibleTokenCount()
+      );
     Structs.Plant memory _plant = store.handleCreatePlant(
-      nonFungibleTokenCount
+      token.nonFungibleTokenCount()
     );
 
     store.handleUpdateParticipant(msg.sender, _participant);
 
-    nonFungibleTokenCount += 1;
+    // @TODO: Add update function to token contract for updating tokenId.
+    // nonFungibleTokenCount += 1;
 
     return (_participant, _plant);
   }
@@ -182,7 +197,12 @@ contract KojoV1 is KojoERC1155 {
       msg.sender
     );
 
-    _mint(msg.sender, FUNGIBLE_TOKEN, store.initialTokenAllowance(), "");
+    token.mint(
+      msg.sender,
+      token.fungibleTokenId(),
+      store.initialTokenAllowance(),
+      ""
+    );
 
     emit TokensClaimed(msg.sender, participant, store.initialTokenAllowance());
 
@@ -203,7 +223,12 @@ contract KojoV1 is KojoERC1155 {
 
     // @TODO: Set fixed blocktime per month and check if passed.
 
-    _mint(msg.sender, FUNGIBLE_TOKEN, participant.allowedTokenBalance, "");
+    token.mint(
+      msg.sender,
+      token.fungibleTokenId(),
+      participant.allowedTokenBalance,
+      ""
+    );
 
     Structs.Participant memory _participant = participant;
     _participant.allowedTokenBalance = 0;
@@ -259,7 +284,7 @@ contract KojoV1 is KojoERC1155 {
     store.handleUpdatePlant(tokenId, _plant);
 
     string memory uri = utils.handleBuildURI(_plant, tokenId);
-    setTokenUri(tokenId, uri);
+    token.setTokenUri(tokenId, uri);
 
     // @TODO: Burn tokens. Send to burn address?
 

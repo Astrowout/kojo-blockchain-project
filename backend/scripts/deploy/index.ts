@@ -14,11 +14,23 @@ const main = async () => {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const Contract = await ethers.getContractFactory('KojoV1');
-  const contract = await upgrades.deployProxy(Contract);
-  await contract.deployed();
+  const KojoERC1155 = await ethers.getContractFactory('KojoERC1155');
+  // const KojoLibrary = await ethers.getContractFactory('KojoLibrary');
+  // const KojoStorage = await ethers.getContractFactory('KojoStorage');
+  // const KojoUtils = await ethers.getContractFactory('KojoUtils');
+  // const KojoAPIConsumer = await ethers.getContractFactory('KojoAPIConsumer');
+  const KojoV1 = await ethers.getContractFactory('KojoV1');
 
-  console.log(contract.address);
+  const token = await upgrades.deployProxy(KojoERC1155);
+  const main = await KojoV1.deploy();
+
+  await token.deployed();
+  await main.deployed();
+
+  console.log({
+    token: token.address,
+    main: main.address,
+  });
 };
 
 // We recommend this pattern to be able to use async/await everywhere
