@@ -10,6 +10,7 @@ contract KojoStorage is OwnableUpgradeable {
 
   uint256 public plantPrice;
   uint256 public tokenSensitivity;
+  uint256 public initialTokenAllowance;
 
   mapping(address => Structs.Participant) public participants;
   event CreateParticipant(Structs.Participant participant);
@@ -31,6 +32,7 @@ contract KojoStorage is OwnableUpgradeable {
 
     plantPrice = 1000;
     tokenSensitivity = 1000;
+    initialTokenAllowance = 100;
 
     isInitialized = true;
   }
