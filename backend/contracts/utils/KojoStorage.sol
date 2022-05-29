@@ -71,7 +71,6 @@ contract KojoStorage is OwnableUpgradeable {
     returns (Structs.Participant memory _participant)
   {
     Structs.Participant memory participant = participants[account];
-    require(participant.isPresent, "Participant does not exist.");
 
     return participant;
   }

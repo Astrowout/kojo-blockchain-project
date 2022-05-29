@@ -5,7 +5,6 @@ import { axios } from "../helpers";
 
 // @ts-ignore:next-line
 import Artifact from "../artifacts/contracts/KojoV1.sol/KojoV1.json";
-import { useHistory } from "react-router";
 
 const useContract = (provider: any, address?: string) => {
 	const [loading] = useState(false);
@@ -16,7 +15,6 @@ const useContract = (provider: any, address?: string) => {
 		plantIds: [],
 	});
 	const [plants] = useState<Plant[]>([]);
-	const history = useHistory();
 	const [contract, setContract] = useState<Contract | undefined>(undefined);
 	const [error] = useState<Error | null>(null);
 
@@ -46,7 +44,7 @@ const useContract = (provider: any, address?: string) => {
 		}
 	}, [contract]); // eslint-disable-line react-hooks/exhaustive-deps
 
-	const initContract = () => {
+	const initContract = async () => {
 		const signer = provider.getSigner();
 
 		const contract = new Contract(
@@ -54,6 +52,18 @@ const useContract = (provider: any, address?: string) => {
 			Artifact.abi,
 			signer,
 		);
+
+		contract.on("TokensClaimed", (from, to, value, event) => {
+			console.log({
+				from: from,
+				to: to,
+				value: value.toNumber(),
+				data: event
+			});
+		});
+
+		console.log(await contract.owner());
+
 
 		setContract(contract);
 	};
@@ -70,10 +80,9 @@ const useContract = (provider: any, address?: string) => {
 		}
 
 		// call setUser()
-	}, [contract]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const initTokens = useCallback(async () => {
-		console.log(await contract!);
 		try {
 			const [balance, ...plantIds] = await contract!.balanceOfBatch([address], [0]);
 
@@ -90,17 +99,19 @@ const useContract = (provider: any, address?: string) => {
 		try {
 			const participant = await contract!.handleReadParticipant(address);
 
-			setParticipant(participant);
+			if (participant && participant.isPresent) {
+				setParticipant(participant);
+			} else {
+				const initialTokenAllowance = await contract!.initialTokenAllowance();
+
+				setParticipant({
+					allowedTokenBalance: initialTokenAllowance.toNumber(),
+					level: 0,
+					experiencePoints: 0,
+					plantIds: [],
+				});
+			}
 		} catch (error: any) {
-			const initialTokenAllowance = await contract!.initialTokenAllowance();
-
-			setParticipant({
-				allowedTokenBalance: initialTokenAllowance.toNumber(),
-				level: 0,
-				experiencePoints: 0,
-				plantIds: [],
-			});
-
 			throw error;
 		}
 	}, [contract]); // eslint-disable-line react-hooks/exhaustive-deps
