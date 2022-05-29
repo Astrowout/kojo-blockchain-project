@@ -7,18 +7,7 @@ import "./token/KojoERC1155.sol";
 
 import {Structs} from "./utils/KojoLibrary.sol";
 
-import {KojoStorage} from "./utils/KojoStorage.sol";
-import {KojoUtils} from "./utils/KojoUtils.sol";
-import {KojoAPIConsumer} from "./utils/KojoAPIConsumer.sol";
-
 contract KojoV1 is KojoERC1155 {
-  KojoStorage internal store;
-  KojoUtils internal utils;
-  KojoAPIConsumer internal api;
-
-  uint256 public constant FUNGIBLE_TOKEN = 0;
-  uint256 public nonFungibleTokenCount = 1;
-
   event PlantClaimed(
     address account,
     Structs.Participant participant,
@@ -42,13 +31,6 @@ contract KojoV1 is KojoERC1155 {
   );
 
   /// @custom:oz-upgrades-unsafe-allow constructor
-  constructor() {
-    _disableInitializers();
-
-    store = new KojoStorage();
-    utils = new KojoUtils();
-    api = new KojoAPIConsumer();
-  }
 
   //   function initialize() initializer public {
   //     __ERC1155_init("");
@@ -142,10 +124,10 @@ contract KojoV1 is KojoERC1155 {
     utils = KojoUtils(location);
   }
 
-  // Allows the owner to update api consumer.
-  function handleUpdateAPIConsumerAddress(address location) public onlyOwner {
-    api = KojoAPIConsumer(location);
-  }
+  // // Allows the owner to update api consumer.
+  // function handleUpdateAPIConsumerAddress(address location) public onlyOwner {
+  //   api = KojoAPIConsumer(location);
+  // }
 
   // Allows the  owner to update how many tokens are distributed for a given percentage point.
   function handleUpdateTokenSensitivity(uint256 tokenSensitivity)
@@ -155,24 +137,24 @@ contract KojoV1 is KojoERC1155 {
     store.handleUpdateTokenSensitivity(tokenSensitivity);
   }
 
-  // Allows the  owner to configure the chainlink api consumer.
-  function handleConfigureAPIConsumer(
-    bytes32 _jobId,
-    uint256 _fee,
-    string calldata _endpoint,
-    string calldata _path,
-    address _tokenAddress,
-    address _oracleAddress
-  ) public onlyOwner {
-    api.handleConfigureAPI(
-      _jobId,
-      _fee,
-      _endpoint,
-      _path,
-      _tokenAddress,
-      _oracleAddress
-    );
-  }
+  // // Allows the  owner to configure the chainlink api consumer.
+  // function handleConfigureAPIConsumer(
+  //   bytes32 _jobId,
+  //   uint256 _fee,
+  //   string calldata _endpoint,
+  //   string calldata _path,
+  //   address _tokenAddress,
+  //   address _oracleAddress
+  // ) public onlyOwner {
+  //   api.handleConfigureAPI(
+  //     _jobId,
+  //     _fee,
+  //     _endpoint,
+  //     _path,
+  //     _tokenAddress,
+  //     _oracleAddress
+  //   );
+  // }
 
   // Allows EOA's to become participants.
   // function handleCreateParticipant() internal onlyEOA {
