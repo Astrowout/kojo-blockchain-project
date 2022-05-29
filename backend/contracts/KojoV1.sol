@@ -5,11 +5,11 @@ import "hardhat/console.sol";
 
 import "./token/KojoERC1155.sol";
 
-import { Structs } from "./utils/KojoLibrary.sol";
+import {Structs} from "./utils/KojoLibrary.sol";
 
-import { KojoStorage } from "./utils/KojoStorage.sol";
-import { KojoUtils } from "./utils/KojoUtils.sol";
-import { KojoAPIConsumer } from "./utils/KojoAPIConsumer.sol";
+import {KojoStorage} from "./utils/KojoStorage.sol";
+import {KojoUtils} from "./utils/KojoUtils.sol";
+import {KojoAPIConsumer} from "./utils/KojoAPIConsumer.sol";
 
 contract KojoV1 is KojoERC1155 {
   KojoStorage internal store;
@@ -18,7 +18,6 @@ contract KojoV1 is KojoERC1155 {
 
   uint256 public constant FUNGIBLE_TOKEN = 0;
   uint256 public nonFungibleTokenCount = 1;
-  uint256 public initialTokenAllowance = 100;
 
   event PlantClaimed(
     address account,
@@ -42,20 +41,21 @@ contract KojoV1 is KojoERC1155 {
     uint256 amount
   );
 
- /// @custom:oz-upgrades-unsafe-allow constructor
+  /// @custom:oz-upgrades-unsafe-allow constructor
   constructor() {
     _disableInitializers();
+
     store = new KojoStorage();
     utils = new KojoUtils();
     api = new KojoAPIConsumer();
   }
 
-    function initialize() initializer public {
-      __ERC1155_init("");
-      __Ownable_init();
-      __ERC1155Burnable_init();
-      __ERC1155Supply_init();
-  }
+  //   function initialize() initializer public {
+  //     __ERC1155_init("");
+  //     __Ownable_init();
+  //     __ERC1155Burnable_init();
+  //     __ERC1155Supply_init();
+  // }
 
   // Prohibits external contracts to call certain functions.
   modifier onlyEOA() {
@@ -89,7 +89,9 @@ contract KojoV1 is KojoERC1155 {
       Structs.Participant memory fromParticipant = store.handleReadParticipant(
         from
       );
-      Structs.Participant memory toParticipant = store.handleReadParticipant(to);
+      Structs.Participant memory toParticipant = store.handleReadParticipant(
+        to
+      );
 
       if (fromParticipant.isPresent) {
         Structs.Participant memory _fromParticipant = utils
@@ -183,21 +185,24 @@ contract KojoV1 is KojoERC1155 {
   // }
 
   // Allows EOA's to claim a free kojo supply when new.
-  function handleClaimStartTokens() public payable onlyEOA returns (Structs.Participant memory value) {
+  function handleClaimStartTokens()
+    public
+    payable
+    onlyEOA
+    returns (Structs.Participant memory value)
+  {
     Structs.Participant memory participant = store.handleReadParticipant(
       msg.sender
     );
-    require(!participant.isPresent, "Participant already exists. You already claimed your initial tokens.");
+    require(!participant.isPresent, "Participant already exists.");
 
-    Structs.Participant memory newParticipant = store.handleCreateParticpant(msg.sender);
-
-    _mint(msg.sender, FUNGIBLE_TOKEN, initialTokenAllowance, "");
-
-    emit TokensClaimed(
-      msg.sender,
-      participant,
-      initialTokenAllowance
+    Structs.Participant memory newParticipant = store.handleCreateParticpant(
+      msg.sender
     );
+
+    _mint(msg.sender, FUNGIBLE_TOKEN, store.initialTokenAllowance(), "");
+
+    emit TokensClaimed(msg.sender, participant, store.initialTokenAllowance());
 
     return newParticipant;
   }
