@@ -3,15 +3,15 @@ pragma solidity ^0.8.9;
 
 import "hardhat/console.sol";
 
-import { Structs } from "./token/KojoERC1155.sol";
+import "./token/KojoERC1155.sol";
+
+import { Structs } from "./utils/KojoLibrary.sol";
 
 import { KojoStorage } from "./utils/KojoStorage.sol";
 import { KojoUtils } from "./utils/KojoUtils.sol";
 import { KojoAPIConsumer } from "./utils/KojoAPIConsumer.sol";
 
 contract KojoV1 is KojoERC1155 {
-  bool internal isInitialized = false;
-
   KojoStorage internal store;
   KojoUtils internal utils;
   KojoAPIConsumer internal api;
@@ -42,12 +42,19 @@ contract KojoV1 is KojoERC1155 {
     uint256 amount
   );
 
+ /// @custom:oz-upgrades-unsafe-allow constructor
   constructor() {
+    _disableInitializers();
     store = new KojoStorage();
     utils = new KojoUtils();
     api = new KojoAPIConsumer();
+  }
 
-    init();
+    function initialize() initializer public {
+      __ERC1155_init("");
+      __Ownable_init();
+      __ERC1155Burnable_init();
+      __ERC1155Supply_init();
   }
 
   // Prohibits external contracts to call certain functions.
@@ -57,13 +64,13 @@ contract KojoV1 is KojoERC1155 {
   }
 
   // Allows the contract to be initialized.
-  function init() internal {
-    require(!isInitialized, "Contract already initialized.");
+  // function init() internal {
+  //   require(!isInitialized, "Contract already initialized.");
 
-    // ...
+  //   // ...
 
-    isInitialized = true;
-  }
+  //   isInitialized = true;
+  // }
 
   // Allows the contract to update the storage after transfering tokens.
   function _afterTokenTransfer(
@@ -74,6 +81,8 @@ contract KojoV1 is KojoERC1155 {
     uint256[] memory amounts,
     bytes memory data
   ) internal virtual override {
+    super._afterTokenTransfer(operator, from, to, ids, amounts, data);
+
     uint256 tokenId = ids[0];
 
     if (tokenId != FUNGIBLE_TOKEN) {
@@ -96,8 +105,6 @@ contract KojoV1 is KojoERC1155 {
 
       // @TODO: Provide fallback for when participant dont exist.
     }
-
-    super._afterTokenTransfer(operator, from, to, ids, amounts, data);
   }
 
   // Allows the contract to update the storage after minting tokens.
