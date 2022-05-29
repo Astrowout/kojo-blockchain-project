@@ -7,6 +7,11 @@ import "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155Burn
 import "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155SupplyUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
+import {KojoStorage} from "../utils/KojoStorage.sol";
+import {KojoUtils} from "../utils/KojoUtils.sol";
+
+// import {KojoAPIConsumer} from "../utils/KojoAPIConsumer.sol";
+
 contract KojoERC1155 is
   Initializable,
   ERC1155Upgradeable,
@@ -16,10 +21,17 @@ contract KojoERC1155 is
 {
   mapping(uint256 => string) private _uris;
 
+  KojoStorage internal store;
+  KojoUtils internal utils;
+  // KojoAPIConsumer internal api;
+
+  uint256 public FUNGIBLE_TOKEN;
+  uint256 public nonFungibleTokenCount;
+
   // Disable initialize function after intitialization.
-  constructor() {
-    _disableInitializers();
-  }
+  // constructor() {
+  //   _disableInitializers();
+  // }
 
   // Initialize contract.
   function initialize() public initializer {
@@ -28,6 +40,13 @@ contract KojoERC1155 is
     __Ownable_init();
     __ERC1155Burnable_init();
     __ERC1155Supply_init();
+
+    store = new KojoStorage();
+    utils = new KojoUtils();
+    // api = new KojoAPIConsumer();
+
+    FUNGIBLE_TOKEN = 0;
+    nonFungibleTokenCount = 1;
   }
 
   // Allows to owner to update the metadata.

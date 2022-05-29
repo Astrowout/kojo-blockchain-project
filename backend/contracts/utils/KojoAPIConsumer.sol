@@ -74,7 +74,7 @@ contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
 
     // Set the URL to perform the GET request on
     // API docs: https://api.play-kojo.xyz/api/farys/{account}
-    string memory did = toAsciiString(account);
+    bytes memory did = toBytes(account);
 
     req.add(
       "get",
@@ -125,30 +125,30 @@ contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
   /**
    * Convert address type to bytes type
    */
-  // function toBytes(address a) public pure returns (bytes memory b) {
-  //   assembly {
-  //     let m := mload(0x40)
-  //     a := and(a, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF)
-  //     mstore(add(m, 20), xor(0x140000000000000000000000000000000000000000, a))
-  //     mstore(0x40, add(m, 52))
-  //     b := m
-  //   }
+  function toBytes(address a) public pure returns (bytes memory b) {
+    assembly {
+      let m := mload(0x40)
+      a := and(a, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF)
+      mstore(add(m, 20), xor(0x140000000000000000000000000000000000000000, a))
+      mstore(0x40, add(m, 52))
+      b := m
+    }
+  }
+
+  // function char(bytes1 b) internal pure returns (bytes1 c) {
+  //   if (uint8(b) < 10) return bytes1(uint8(b) + 0x30);
+  //   else return bytes1(uint8(b) + 0x57);
   // }
 
-  function char(bytes1 b) internal pure returns (bytes1 c) {
-    if (uint8(b) < 10) return bytes1(uint8(b) + 0x30);
-    else return bytes1(uint8(b) + 0x57);
-  }
-
-  function toAsciiString(address x) internal pure returns (string memory) {
-    bytes memory s = new bytes(40);
-    for (uint256 i = 0; i < 20; i++) {
-      bytes1 b = bytes1(uint8(uint256(uint160(x)) / (2**(8 * (19 - i)))));
-      bytes1 hi = bytes1(uint8(b) / 16);
-      bytes1 lo = bytes1(uint8(b) - 16 * uint8(hi));
-      s[2 * i] = char(hi);
-      s[2 * i + 1] = char(lo);
-    }
-    return string(s);
-  }
+  // function toAsciiString(address x) internal pure returns (string memory) {
+  //   bytes memory s = new bytes(40);
+  //   for (uint256 i = 0; i < 20; i++) {
+  //     bytes1 b = bytes1(uint8(uint256(uint160(x)) / (2**(8 * (19 - i)))));
+  //     bytes1 hi = bytes1(uint8(b) / 16);
+  //     bytes1 lo = bytes1(uint8(b) - 16 * uint8(hi));
+  //     s[2 * i] = char(hi);
+  //     s[2 * i + 1] = char(lo);
+  //   }
+  //   return string(s);
+  // }
 }
