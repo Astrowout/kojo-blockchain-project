@@ -4,6 +4,7 @@ import {
 	Claim,
 	Layout,
 } from "../../components";
+import { TX_OPTIONS } from "../../config";
 import { SessionContext } from "../../context";
 import { useTranslation } from "../../hooks";
 
@@ -21,7 +22,7 @@ const ClaimPage = () => {
 		console.log("claimTokens");
 
 		try {
-			const res = await contract!.handleClaimStartTokens();
+			const res = await contract!.handleClaimStartTokens(TX_OPTIONS);
 			console.log(res);
 		} catch (error: any) {
 			throw error;

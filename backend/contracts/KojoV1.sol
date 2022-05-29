@@ -3,11 +3,11 @@ pragma solidity ^0.8.9;
 
 import "hardhat/console.sol";
 
-import "./token/KojoERC1155.sol";
+import { Structs } from "./token/KojoERC1155.sol";
 
-import "./utils/KojoStorage.sol";
-import "./utils/KojoUtils.sol";
-import "./utils/KojoAPIConsumer.sol";
+import { KojoStorage } from "./utils/KojoStorage.sol";
+import { KojoUtils } from "./utils/KojoUtils.sol";
+import { KojoAPIConsumer } from "./utils/KojoAPIConsumer.sol";
 
 contract KojoV1 is KojoERC1155 {
   bool internal isInitialized = false;
@@ -74,14 +74,14 @@ contract KojoV1 is KojoERC1155 {
     uint256[] memory amounts,
     bytes memory data
   ) internal virtual override {
-    Structs.Participant memory fromParticipant = store.handleReadParticipant(
-      from
-    );
-    Structs.Participant memory toParticipant = store.handleReadParticipant(to);
-
     uint256 tokenId = ids[0];
 
     if (tokenId != FUNGIBLE_TOKEN) {
+      Structs.Participant memory fromParticipant = store.handleReadParticipant(
+        from
+      );
+      Structs.Participant memory toParticipant = store.handleReadParticipant(to);
+
       if (fromParticipant.isPresent) {
         Structs.Participant memory _fromParticipant = utils
           .handleRemoveTokenIdFromParticipant(fromParticipant, tokenId);
@@ -182,6 +182,8 @@ contract KojoV1 is KojoERC1155 {
     );
     require(!participant.isPresent, "Participant already exists. You already claimed your initial tokens.");
 
+    Structs.Participant memory newParticipant = store.handleCreateParticpant(msg.sender);
+
     _mint(msg.sender, FUNGIBLE_TOKEN, initialTokenAllowance, "");
 
     emit TokensClaimed(
@@ -190,7 +192,7 @@ contract KojoV1 is KojoERC1155 {
       initialTokenAllowance
     );
 
-    return store.handleCreateParticpant(msg.sender);
+    return newParticipant;
   }
 
   // Allows EOA's to claim a monthly reward when gained.
