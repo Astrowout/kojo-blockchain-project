@@ -37,11 +37,15 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       chainId: 80001,
-      gas: 21000,
+      accounts: process.env.PRIVATE_KEY !== undefined ? [{
+        privateKey: process.env.PRIVATE_KEY,
+        balance: "10"
+      }] : []
     },
     localhost: {
       chainId: 80001,
-      gas: 21000,
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
     // ethereum: {
     //   chainId: 1,
@@ -77,7 +81,7 @@ const config: HardhatUserConfig = {
     //   chainId: 42,
     //   url: process.env.ETHEREUM_KOVAN_RPC_URL,
     //   accounts:
-    //     process.env.PRIVATE_KE !== undefined ? [process.env.PRIVATE_KE] : [],
+    //     process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KE] : [],
     // },
     // polygon: {
     //   chainId: 137,
@@ -90,7 +94,6 @@ const config: HardhatUserConfig = {
       url: process.env.POLYGON_MUMBAI_RPC_URL,
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-      gas: 21000,
     },
   },
   etherscan: {

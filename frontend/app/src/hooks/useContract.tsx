@@ -4,7 +4,9 @@ import { Error, Plant, Tokens, Participant } from "../types";
 import { axios } from "../helpers";
 
 // @ts-ignore:next-line
-import Artifact from "../artifacts/contracts/KojoV1.sol/KojoV1.json";
+import MainArtifact from "../artifacts/contracts/KojoV1.sol/KojoV1.json";
+// @ts-ignore:next-line
+import TokenArtifact from "../artifacts/contracts/token/KojoERC1155.sol/KojoERC1155.json";
 
 const useContract = (provider: any, address?: string) => {
 	const [loading] = useState(false);
@@ -49,7 +51,7 @@ const useContract = (provider: any, address?: string) => {
 
 		const contract = new Contract(
 			process.env.REACT_APP_CONTRACT_ADDRESS!,
-			Artifact.abi,
+			MainArtifact.abi,
 			signer,
 		);
 
@@ -61,9 +63,6 @@ const useContract = (provider: any, address?: string) => {
 				data: event
 			});
 		});
-
-		console.log(await contract.owner());
-
 
 		setContract(contract);
 	};
@@ -84,7 +83,13 @@ const useContract = (provider: any, address?: string) => {
 
 	const initTokens = useCallback(async () => {
 		try {
-			const [balance, ...plantIds] = await contract!.balanceOfBatch([address], [0]);
+			const tokenContract = new Contract(
+				await contract!.tokenAddress(),
+				TokenArtifact.abi,
+				contract!.signer,
+			);
+
+			const [balance, ...plantIds] = await tokenContract!.balanceOfBatch([address], [0]);
 
 			setTokens({
 				balance: balance.toNumber(),
@@ -102,7 +107,7 @@ const useContract = (provider: any, address?: string) => {
 			if (participant && participant.isPresent) {
 				setParticipant(participant);
 			} else {
-				const initialTokenAllowance = await contract!.initialTokenAllowance();
+				const initialTokenAllowance = await contract!.handleReadInititalAllowance();
 
 				setParticipant({
 					allowedTokenBalance: initialTokenAllowance.toNumber(),

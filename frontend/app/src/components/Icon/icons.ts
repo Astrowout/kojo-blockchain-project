@@ -29,6 +29,8 @@ import { ReactComponent as Check } from "../../assets/icons/check.svg";
 import { ReactComponent as Medal } from "../../assets/icons/medal.svg";
 import { ReactComponent as Danger } from "../../assets/icons/danger.svg";
 import { ReactComponent as Seeds } from "../../assets/icons/seeds.svg";
+import { ReactComponent as Roadmap } from "../../assets/icons/roadmap.svg";
+import { ReactComponent as Clipboard } from "../../assets/icons/clipboard.svg";
 
 // Mapping
 const icons = {
@@ -62,6 +64,8 @@ const icons = {
 	Medal,
 	Danger,
 	Seeds,
+	Roadmap,
+	Clipboard,
 }
 
 export default icons;

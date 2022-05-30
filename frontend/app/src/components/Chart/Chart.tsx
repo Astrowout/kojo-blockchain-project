@@ -8,7 +8,7 @@ const Chart: FunctionComponent<ChartProps> = ({
 	className = "",
 	progress = 50,
 	strokeWidth = 6,
-	size = 260,
+	size = 200,
 }) => {
 	return (
 		<div
@@ -18,7 +18,7 @@ const Chart: FunctionComponent<ChartProps> = ({
 				height: size,
 			}}
 		>
-			<span className="text-5xl font-bold mt-4">
+			<span className="text-4xl font-bold mt-4">
 				{ progress }%
 			</span>
 

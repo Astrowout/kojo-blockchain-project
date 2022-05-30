@@ -13,12 +13,12 @@ import {KojoUtils} from "./utils/KojoUtils.sol";
 import {KojoAPIConsumer} from "./utils/KojoAPIConsumer.sol";
 
 contract KojoV1 is OwnableUpgradeable {
-  bool internal isInitialized = false;
-
   KojoERC1155 internal token;
   KojoStorage internal store;
   KojoUtils internal utils;
   KojoAPIConsumer internal api;
+
+  address public tokenAddress;
 
   event PlantClaimed(
     address account,
@@ -42,26 +42,26 @@ contract KojoV1 is OwnableUpgradeable {
     uint256 amount
   );
 
-  constructor() {
-    init();
+  function initialize(
+    address _store,
+    address _utils,
+    address _api,
+    address _token
+  ) public initializer {
+    store = KojoStorage(_store);
+    utils = KojoUtils(_utils);
+    api = KojoAPIConsumer(_api);
+    token = KojoERC1155(_token);
+
+    tokenAddress = _token;
+
+    __Ownable_init_unchained();
   }
 
   // Prohibits external contracts to call certain functions.
   modifier onlyEOA() {
     require(tx.origin == msg.sender, "Not an EOA.");
     _;
-  }
-
-  // Allows the contract to be initialized.
-  function init() internal {
-    require(!isInitialized, "Contract already initialized.");
-
-    store = new KojoStorage();
-    utils = new KojoUtils();
-    api = new KojoAPIConsumer();
-    token = new KojoERC1155();
-
-    isInitialized = true;
   }
 
   // Allows the contract to update the storage after transfering tokens.
@@ -130,19 +130,19 @@ contract KojoV1 is OwnableUpgradeable {
   }
 
   // Allows the owner to update the store.
-  function handleUpdateStoreAddress(address location) public onlyOwner {
-    store = KojoStorage(location);
-  }
+  function handleUpdateContracts(
+    address _store,
+    address _utils,
+    address _api,
+    address _token
+  ) public onlyOwner {
+    store = KojoStorage(_store);
+    utils = KojoUtils(_utils);
+    api = KojoAPIConsumer(_api);
+    token = KojoERC1155(_token);
 
-  // Allows the owner to update utils.
-  function handleUpdateUtilsAddress(address location) public onlyOwner {
-    utils = KojoUtils(location);
+    tokenAddress = _token;
   }
-
-  // // Allows the owner to update api consumer.
-  // function handleUpdateAPIConsumerAddress(address location) public onlyOwner {
-  //   api = KojoAPIConsumer(location);
-  // }
 
   // Allows the  owner to update how many tokens are distributed for a given percentage point.
   function handleUpdateTokenSensitivity(uint256 tokenSensitivity)
@@ -313,5 +313,14 @@ contract KojoV1 is OwnableUpgradeable {
     returns (Structs.Participant memory _participant)
   {
     return store.handleReadParticipant(account);
+  }
+
+  // Allows users to read participants from storage.
+  function handleReadInititalAllowance()
+    external
+    view
+    returns (uint256)
+  {
+    return store.initialTokenAllowance();
   }
 }

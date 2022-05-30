@@ -3,7 +3,7 @@ import { axios } from "../helpers";
 import { Error, User } from "../types";
 
 const useSession = (address?: string) => {
-	const [loading] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const [user, setUser] = useState<User | null>(null);
 	const [error] = useState<Error | null>(null);
 
@@ -33,6 +33,8 @@ const useSession = (address?: string) => {
 	};
 
 	const markAllAsRead = async () => {
+		setLoading(true);
+
 		try {
 			const { data: update } = await axios.post(`/users/${address}/notifications/mark-as-read`, {
 				all: true,
@@ -50,6 +52,8 @@ const useSession = (address?: string) => {
 			}
 		} catch (error: any) {
 			throw error;
+		} finally {
+			setLoading(false);
 		}
 	};
 
