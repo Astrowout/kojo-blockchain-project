@@ -1,5 +1,5 @@
 import { Contract } from "ethers";
-import { createContext, FC, PropsWithChildren } from "react";
+import { createContext, Dispatch, FC, PropsWithChildren, SetStateAction } from "react";
 import { useContract, useSession } from "../hooks";
 import { Notification, Participant, Plant } from "../types";
 
@@ -12,6 +12,7 @@ type SessionContextType = {
 	contract?: Contract;
 	minsUntilNextClaim?: number;
 	markAllAsRead?: () => void;
+	setParticipant?: Dispatch<SetStateAction<Participant | undefined>>;
 }
 
 type SessionProviderProps = {
@@ -32,6 +33,7 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 		participant,
 		contract,
 		minsUntilNextClaim,
+		setParticipant,
 	} = useContract(provider, address);
 
 	const {
@@ -51,6 +53,7 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 				plants,
 				minsUntilNextClaim,
 				markAllAsRead,
+				setParticipant,
 			}}
 		>
 			{children}

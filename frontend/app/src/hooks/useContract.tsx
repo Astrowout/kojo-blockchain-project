@@ -46,7 +46,7 @@ const useContract = (provider: any, address?: string) => {
 		}
 	}, [contract]); // eslint-disable-line react-hooks/exhaustive-deps
 
-	const initContract = async () => {
+	const initContract = () => {
 		const signer = provider.getSigner();
 
 		const contract = new Contract(
@@ -55,7 +55,13 @@ const useContract = (provider: any, address?: string) => {
 			signer,
 		);
 
-		contract.on("TokensClaimed", (from, to, value, event) => {
+		initContractEvents();
+
+		setContract(contract);
+	};
+
+	const initContractEvents = () => {
+		contract?.on("TokensClaimed", async (from, to, value, event) => {
 			console.log({
 				from: from,
 				to: to,
@@ -63,8 +69,6 @@ const useContract = (provider: any, address?: string) => {
 				data: event
 			});
 		});
-
-		setContract(contract);
 	};
 
 	const fetchBlocktime = useCallback(async () => {
@@ -105,7 +109,12 @@ const useContract = (provider: any, address?: string) => {
 			const participant = await contract!.handleReadParticipant(address);
 
 			if (participant && participant.isPresent) {
-				setParticipant(participant);
+				setParticipant({
+					allowedTokenBalance: participant.allowedTokenBalance.toNumber(),
+					level: participant.allowedTokenBalance.toNumber(),
+					experiencePoints: participant.experiencePoints.toNumber(),
+					plantIds: participant.plantIds,
+				});
 			} else {
 				const initialTokenAllowance = await contract!.handleReadInititalAllowance();
 
@@ -129,6 +138,7 @@ const useContract = (provider: any, address?: string) => {
 		minsUntilNextClaim: Math.ceil((189 * blockTime) / 60),
 		loading,
 		error,
+		setParticipant,
 	};
 };
 

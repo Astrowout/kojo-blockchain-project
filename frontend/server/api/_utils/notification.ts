@@ -6,6 +6,7 @@ export const postNotification = async (client, did: string, body: VercelRequestB
 	const res = await client.notification.create({
 		data: {
 			message: body.message,
+			url: body.url,
 			read: false,
 			user: {
 				connect: {
