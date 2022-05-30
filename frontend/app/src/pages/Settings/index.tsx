@@ -1,3 +1,4 @@
+import { useIonToast } from "@ionic/react";
 import { useContext } from "react";
 import {
 	About,
@@ -6,6 +7,7 @@ import {
 	Footer,
 	Icon,
 	Layout,
+	Link,
 	SettingItem,
 } from "../../components";
 import { GlobalContext } from "../../context";
@@ -19,6 +21,19 @@ const SettingsPage = () => {
 		network,
 		disconnect,
 	} = useContext(GlobalContext);
+	const [present] = useIonToast();
+
+
+	const handleCopyAddress = () => {
+		navigator.clipboard.writeText(address!);
+
+			present({
+				color: "secondary",
+				duration: 5000,
+				position: "top",
+				message: t("settings.copySuccess") as unknown as string,
+			});
+	}
 
 	return (
 		<Layout
@@ -34,15 +49,25 @@ const SettingsPage = () => {
 							title={t("settings.wallet")}
 							className="u-card"
 							actionSlot={
-								<Button
-									context={ButtonContext.DANGER}
-									onClick={disconnect}
-									icon="Logout"
-									compact
-									fluid
-								>
-									{ t("settings.disconnect") }
-								</Button>
+								<div className="flex flex-col space-y-8">
+									<Link
+									 	onClick={handleCopyAddress}
+										className="mx-auto"
+										icon="Clipboard"
+									>
+										{t("settings.copy")}
+									</Link>
+
+									<Button
+										context={ButtonContext.DANGER}
+										onClick={disconnect}
+										icon="Logout"
+										compact
+										fluid
+									>
+										{ t("settings.disconnect") }
+									</Button>
+								</div>
 							}
 						>
 							{ truncateAddress(address) }

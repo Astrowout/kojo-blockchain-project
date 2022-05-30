@@ -20,7 +20,7 @@ const Link: FC<LinkProps> = ({
 		"underline": !icon,
 		"text-emerald-900": !light,
 		"text-emerald-900 md:text-emerald-100": light,
-		"pointer-events-none opacity-50": loading,
+		"pointer-events-none opacity-80": loading,
 	});
 
 	const renderContent = () => (

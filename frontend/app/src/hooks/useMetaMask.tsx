@@ -65,6 +65,7 @@ const useMetaMask = (setProvider: (provider: any) => void) => {
 
 	const initNetworkEvent = async () => {
 		window.ethereum.on("chainChanged", () => window.location.reload());
+		window.ethereum.on("accountsChanged", () => window.location.reload());
 	}
 
 	const connectMetaMask = async (): Promise<any | void> => {

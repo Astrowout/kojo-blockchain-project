@@ -8,7 +8,6 @@ import "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155Supp
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 contract KojoERC1155 is
-  Initializable,
   ERC1155Upgradeable,
   OwnableUpgradeable,
   ERC1155BurnableUpgradeable,

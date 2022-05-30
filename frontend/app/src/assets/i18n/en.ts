@@ -65,8 +65,8 @@ const translations = {
 	},
 	consumption: {
 		title: "My water consumption",
-		average: "Of average in your area",
-		view: "View my water consumption",
+		description: "Coming soon!",
+		empty: "This page is still on our roadmap. Coming soon to your kojo app ✌️",
 	},
 	plants: {
 		title: "My seeds & plants",
@@ -90,6 +90,8 @@ const translations = {
 		connected: "connected",
 		disconnect: "Disconnect",
 		wallet: "My wallet",
+		copy: "Copy my address",
+		copySuccess: "Successfully copied your address!",
 		waterMeter: "My digital water meter",
 	},
 	notifications: {

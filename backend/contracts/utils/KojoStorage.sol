@@ -6,8 +6,6 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "../utils/KojoLibrary.sol";
 
 contract KojoStorage is OwnableUpgradeable {
-  bool internal isInitialized = false;
-
   uint256 public plantPrice;
   uint256 public tokenSensitivity;
   uint256 public initialTokenAllowance;
@@ -22,19 +20,16 @@ contract KojoStorage is OwnableUpgradeable {
   event UpdatePlant(Structs.Plant plant);
   event DeletePlant(Structs.Plant plant);
 
-  constructor() {
+  function initialize() public initializer {
     init();
+    __Ownable_init_unchained();
   }
 
   // Allows the contract to be initialized.
   function init() internal {
-    require(!isInitialized, "Contract already initialized.");
-
     plantPrice = 1000;
     tokenSensitivity = 1000;
     initialTokenAllowance = 100;
-
-    isInitialized = true;
   }
 
   // Allows owner to update how many tokens are distributed for a given percentage point.
