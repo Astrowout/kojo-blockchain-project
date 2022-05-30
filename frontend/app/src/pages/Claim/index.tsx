@@ -13,17 +13,24 @@ const ClaimPage = () => {
 	const {
 		participant,
 		contract,
+		setParticipant,
 	} = useContext(SessionContext);
 	const [loading, setLoading] = useState(false);
 
 	const claimTokens = async () => {
 		setLoading(true);
 
-		console.log("claimTokens");
-
 		try {
 			const res = await contract!.handleClaimStartTokens(TX_OPTIONS);
-			console.log(res);
+
+			if (res && res.isPresent) {
+				setParticipant!({
+					allowedTokenBalance: res.allowedTokenBalance.toNumber(),
+					level: res.allowedTokenBalance.toNumber(),
+					experiencePoints: res.experiencePoints.toNumber(),
+					plantIds: res.plantIds,
+				});
+			}
 		} catch (error: any) {
 			throw error;
 		} finally {
