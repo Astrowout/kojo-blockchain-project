@@ -1,0 +1,16 @@
+{
+    "tokenId": 1,
+    "name": "Kojo NFT Mock 1-5-2",
+    "description": "",
+    "image": "https://ipfs/ipfs/1-5-2.jpg",
+    "attributes": [
+        {
+            "trait_type": "level",
+            "value": 5
+        },
+        {
+            "trait_type": "lives",
+            "value": 2
+        }
+    ]
+}
