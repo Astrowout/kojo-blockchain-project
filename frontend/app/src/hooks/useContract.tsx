@@ -10,7 +10,7 @@ import TokenArtifact from "../artifacts/contracts/token/KojoERC1155.sol/KojoERC1
 
 const useContract = (provider: any, address?: string) => {
 	const [loading] = useState(false);
-	const [participant, setParticipant] = useState<Participant | undefined>(undefined);
+	const [participant, setParticipant] = useState<Participant>({});
 	const [blockTime, setBlockTime] = useState<number>(5);
 	const [tokens, setTokens] = useState<Tokens>({
 		balance: 0,
@@ -55,20 +55,7 @@ const useContract = (provider: any, address?: string) => {
 			signer,
 		);
 
-		initContractEvents();
-
 		setContract(contract);
-	};
-
-	const initContractEvents = () => {
-		contract?.on("TokensClaimed", async (from, to, value, event) => {
-			console.log({
-				from: from,
-				to: to,
-				value: value.toNumber(),
-				data: event
-			});
-		});
 	};
 
 	const fetchBlocktime = useCallback(async () => {
@@ -106,14 +93,14 @@ const useContract = (provider: any, address?: string) => {
 
 	const initParticipant = useCallback(async () => {
 		try {
-			const participant = await contract!.handleReadParticipant(address);
+			const data = await contract!.handleReadParticipant(address);
 
-			if (participant && participant.isPresent) {
+			if (data && data.isPresent) {
 				setParticipant({
-					allowedTokenBalance: participant.allowedTokenBalance.toNumber(),
-					level: participant.allowedTokenBalance.toNumber(),
-					experiencePoints: participant.experiencePoints.toNumber(),
-					plantIds: participant.plantIds,
+					allowedTokenBalance: data.allowedTokenBalance.toNumber(),
+					level: data.allowedTokenBalance.toNumber(),
+					experiencePoints: data.experiencePoints.toNumber(),
+					plantIds: data.plantIds,
 				});
 			} else {
 				const initialTokenAllowance = await contract!.handleReadInititalAllowance();

@@ -11,8 +11,9 @@ type SessionContextType = {
 	balance?: number;
 	contract?: Contract;
 	minsUntilNextClaim?: number;
+	postNotification?: ({ message, url }: { message: string, url: string }) => void;
 	markAllAsRead?: () => void;
-	setParticipant?: Dispatch<SetStateAction<Participant | undefined>>;
+	setParticipant?: Dispatch<SetStateAction<Participant>>;
 }
 
 type SessionProviderProps = {
@@ -39,6 +40,7 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 	const {
 		notifications,
 		loading,
+		postNotification,
 		markAllAsRead,
 	} = useSession(address);
 
@@ -52,6 +54,7 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 				participant,
 				plants,
 				minsUntilNextClaim,
+				postNotification,
 				markAllAsRead,
 				setParticipant,
 			}}

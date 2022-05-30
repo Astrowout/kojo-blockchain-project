@@ -37,10 +37,6 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       chainId: 80001,
-      accounts: process.env.PRIVATE_KEY !== undefined ? [{
-        privateKey: process.env.PRIVATE_KEY,
-        balance: "10"
-      }] : []
     },
     localhost: {
       chainId: 80001,

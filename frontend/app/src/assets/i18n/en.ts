@@ -53,6 +53,8 @@ const translations = {
 	dashboard: {
 		title: "My dashboard",
 		plants: "Your most recent plant",
+		mint: "Mint a new seed to grow a new plant",
+		mintCta: "Mint a seed",
 		description: {
 			1: "You are {$}. Let's keep it up this week!",
 			2: "saving more water than 60% of your neighbors",
@@ -75,13 +77,15 @@ const translations = {
 		average: "Of average in your area",
 		view: "View my water consumption",
 		empty: "You don't have any plants yet. Get started by minting a seed.",
-		emptyCta: "Mint your first seed",
+		emptyCta: "Mint my first seed",
 		hydrate: "Hydrate",
 	},
 	newSeed: {
 		title: "Get some seeds",
+		cta: "Mint a new seed",
+		success: "Your seed has been successfully minted!",
 		description: {
-			1: "{$} You can freely mint them here but make sure you have enough kojos to take care for them.",
+			1: "{$} You can freely mint them here but make sure you have enough kojos to take care for them. You currently have {$} seed NFT(s) in your wallet.",
 			2: "Seeds are on us!",
 		},
 	},
@@ -136,6 +140,7 @@ const translations = {
 		title: "Claim kojos",
 		description: "You can claim a total amount of {$} kojos this time.",
 		amount: "Claimable amount",
+		success: "You successfully claimed {$} kojos!",
 		empty: "You can't claim any kojos right now. Please come back later",
 		cta: "Claim my kojos"
 	},

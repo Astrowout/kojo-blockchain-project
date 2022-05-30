@@ -20,18 +20,11 @@ contract KojoV1 is OwnableUpgradeable {
 
   address public tokenAddress;
 
-  event PlantClaimed(
-    address account,
-    Structs.Participant participant,
-    Structs.Plant plant
-  );
   event TokensClaimed(
-    address account,
     Structs.Participant participant,
     uint256 amount
   );
-  event PlantBought(
-    address account,
+  event PlantMinted(
     Structs.Participant participant,
     Structs.Plant plant
   );
@@ -122,9 +115,7 @@ contract KojoV1 is OwnableUpgradeable {
     );
 
     store.handleUpdateParticipant(msg.sender, _participant);
-
-    // @TODO: Add update function to token contract for updating tokenId.
-    // nonFungibleTokenCount += 1;
+    token.handleIncrementTokenCount();
 
     return (_participant, _plant);
   }
@@ -191,7 +182,7 @@ contract KojoV1 is OwnableUpgradeable {
     Structs.Participant memory participant = store.handleReadParticipant(
       msg.sender
     );
-    require(!participant.isPresent, "Participant already exists.");
+    require(!participant.isPresent, "Participant already exists. You can only claim your intial kojos once.");
 
     Structs.Participant memory newParticipant = store.handleCreateParticpant(
       msg.sender
@@ -204,7 +195,7 @@ contract KojoV1 is OwnableUpgradeable {
       ""
     );
 
-    emit TokensClaimed(msg.sender, participant, store.initialTokenAllowance());
+    emit TokensClaimed(newParticipant, store.initialTokenAllowance());
 
     return newParticipant;
   }
@@ -235,11 +226,7 @@ contract KojoV1 is OwnableUpgradeable {
 
     store.handleUpdateParticipant(msg.sender, _participant);
 
-    emit TokensClaimed(
-      msg.sender,
-      participant,
-      participant.allowedTokenBalance
-    );
+    emit TokensClaimed(participant, participant.allowedTokenBalance);
   }
 
   // Allows EOA's to buy a seed/plant.
@@ -249,16 +236,14 @@ contract KojoV1 is OwnableUpgradeable {
     );
 
     require(participant.isPresent, "Participant does not exist.");
-    require(msg.value > store.plantPrice(), "Not enough MATIC.");
-
-    // @TODO: Check for KOJO instead of MATIC?
+    require(msg.value >= store.plantPrice(), "Not enough kojos. One plant costs 1 kojo");
 
     (
       Structs.Participant memory _participant,
       Structs.Plant memory _plant
     ) = _handleMintPlant(participant);
 
-    emit PlantBought(msg.sender, _participant, _plant);
+    emit PlantMinted(_participant, _plant);
   }
 
   // Allows EOA's to water their seed/plant.

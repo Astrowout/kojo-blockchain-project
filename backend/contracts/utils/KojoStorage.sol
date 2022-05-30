@@ -27,7 +27,7 @@ contract KojoStorage is OwnableUpgradeable {
 
   // Allows the contract to be initialized.
   function init() internal {
-    plantPrice = 1000;
+    plantPrice = 1;
     tokenSensitivity = 1000;
     initialTokenAllowance = 100;
   }
