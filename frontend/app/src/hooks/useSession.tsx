@@ -57,12 +57,34 @@ const useSession = (address?: string) => {
 		}
 	};
 
+	const postNotification = async ({ message, url }: { message: string, url: string }) => {
+		try {
+			const { data: notification } = await axios.post(`/users/${address}/notifications`, {
+				message,
+				url,
+			});
+
+			if (!!notification) {
+				setUser({
+					...user! && user,
+					notifications: [
+						notification,
+						...user?.notifications || [],
+					],
+				});
+			}
+		} catch (error: any) {
+			throw error;
+		}
+	};
+
  	return {
 		role: user?.role,
 		notifications: user?.notifications,
-		markAllAsRead,
 		loading,
 		error,
+		postNotification,
+		markAllAsRead,
 	};
 };
 

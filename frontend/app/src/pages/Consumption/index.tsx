@@ -15,7 +15,7 @@ const ConsumptionPage = () => {
 			<EmptyState
 				message={t("consumption.empty")}
 				icon="Roadmap"
-				className="flex-grow justify-center"
+				className="flex-grow"
 			/>
 		</Layout>
 	)

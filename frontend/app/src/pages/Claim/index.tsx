@@ -1,3 +1,4 @@
+import { useIonToast } from "@ionic/react";
 import { useContext, useState } from "react";
 import {
 	Button,
@@ -13,24 +14,47 @@ const ClaimPage = () => {
 	const {
 		participant,
 		contract,
+		postNotification,
 		setParticipant,
 	} = useContext(SessionContext);
 	const [loading, setLoading] = useState(false);
+	const [present] = useIonToast();
+
+	const handleClaimSuccess = async (data: any, amount: number) => {
+		console.log("TokensClaimed", {
+			data,
+			amount,
+		});
+
+		if (data && data.isPresent && setParticipant) {
+			setParticipant({
+				allowedTokenBalance: data.allowedTokenBalance.toNumber(),
+				level: data.allowedTokenBalance.toNumber(),
+				experiencePoints: data.experiencePoints.toNumber(),
+				plantIds: data.plantIds,
+			});
+
+			present({
+				color: "secondary",
+				duration: 5000,
+				position: "top",
+				message: t("claim.success", amount) as unknown as string,
+			});
+
+			postNotification && postNotification({
+				message: t("claim.success", amount) as unknown as string,
+				url: "#",
+			});
+		}
+	};
 
 	const claimTokens = async () => {
 		setLoading(true);
 
 		try {
-			const res = await contract!.handleClaimStartTokens(TX_OPTIONS);
+			contract?.once("TokensClaimed", handleClaimSuccess);
 
-			if (res && res.isPresent) {
-				setParticipant!({
-					allowedTokenBalance: res.allowedTokenBalance.toNumber(),
-					level: res.allowedTokenBalance.toNumber(),
-					experiencePoints: res.experiencePoints.toNumber(),
-					plantIds: res.plantIds,
-				});
-			}
+			await contract!.handleClaimStartTokens(TX_OPTIONS);
 		} catch (error: any) {
 			throw error;
 		} finally {

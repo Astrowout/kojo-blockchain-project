@@ -27,12 +27,12 @@ const SettingsPage = () => {
 	const handleCopyAddress = () => {
 		navigator.clipboard.writeText(address!);
 
-			present({
-				color: "secondary",
-				duration: 5000,
-				position: "top",
-				message: t("settings.copySuccess") as unknown as string,
-			});
+		present({
+			color: "secondary",
+			duration: 5000,
+			position: "top",
+			message: t("settings.copySuccess") as unknown as string,
+		});
 	}
 
 	return (

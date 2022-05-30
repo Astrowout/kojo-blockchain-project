@@ -72,6 +72,11 @@ contract KojoERC1155 is
     super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
   }
 
+  // Increment the non-fungible token count.
+  function handleIncrementTokenCount() public onlyOwner {
+    nonFungibleTokenCount += 1;
+  }
+
   // Overwrite existing uri function to allow token specific uri's.
   function uri(uint256 tokenId) public view override returns (string memory) {
     return (_uris[tokenId]);

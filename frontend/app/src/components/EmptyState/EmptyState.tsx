@@ -12,7 +12,7 @@ const EmptyState: FC<EmptyStateProps> = ({
 }) => {
 	return (
 		<div
-			className={cn(className, "flex flex-col items-center w-full u-card")}
+			className={cn(className, "flex flex-col items-center justify-center w-full u-card")}
 		>
 			<Icon
 				name={icon}
@@ -20,7 +20,7 @@ const EmptyState: FC<EmptyStateProps> = ({
 				size={64}
 			/>
 
-			<p className="mt-4 text-gray-600 text-center max-w-prose">
+			<p className="mt-3 text-gray-600 text-center max-w-prose">
 				{ message }
 			</p>
 

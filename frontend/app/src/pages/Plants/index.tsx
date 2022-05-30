@@ -6,20 +6,12 @@ import {
 	Tokens,
 } from "../../components";
 import { useTranslation } from "../../hooks";
+import { Plant } from "../../types";
 
 const PlantsPage = () => {
 	const { t } = useTranslation();
 
-	const plants = [
-		{
-			id: "uuid-1",
-			type: "Purple Haze Sativa",
-			waterNeeded: 2,
-			health: 3,
-			hydration: 80,
-			image: "https://images.unsplash.com/photo-1458014854819-1a40aa70211c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-		},
-	]
+	const plants: any = [];
 
 	return (
 		<Layout
@@ -29,32 +21,34 @@ const PlantsPage = () => {
 			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-12 w-full">
 				<Tokens />
 
-				{plants && !!plants.length ? (
-					<div className="xl:col-span-2 w-full grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-8">
-						{plants.map((plant) => (
-							<PlantCard
-								key={plant.id}
-								id={plant.id}
-								type={plant.type}
-								waterNeeded={plant.waterNeeded}
-								health={plant.health}
-								hydration={plant.hydration}
-								image={plant.image}
-							/>
-						))}
-					</div>
-				) : (
-					<EmptyState
-						message={t("plants.empty")}
-						icon="Seeds"
-					>
-						<Button
-							url="/new-seed"
+				<div className="xl:col-span-2 w-full">
+					{plants && !!plants.length ? (
+						<div className="grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-8">
+							{plants.map((plant: Plant) => (
+								<PlantCard
+									key={plant.id}
+									id={plant.id!}
+									type={plant.type!}
+									waterNeeded={plant.waterNeeded}
+									health={plant.health}
+									hydration={plant.hydration}
+									image={plant.image!}
+								/>
+							))}
+						</div>
+					) : (
+						<EmptyState
+							message={t("plants.empty")}
+							icon="Seeds"
 						>
-							{t("plants.empty.cta")}
-						</Button>
-					</EmptyState>
-				)}
+							<Button
+								url="/new-seed"
+							>
+								{t("plants.emptyCta")}
+							</Button>
+						</EmptyState>
+					)}
+				</div>
 			</div>
 		</Layout>
 	)
