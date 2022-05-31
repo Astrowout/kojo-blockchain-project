@@ -1,4 +1,5 @@
 import {
+	Alert,
 	Button,
 	Layout, Tokens,
 } from "../../components";
@@ -13,6 +14,8 @@ const NewSeedPage = () => {
 	const {
 		participant,
 		contract,
+		blockTime,
+		balance,
 		postNotification,
 		setParticipant,
 	} = useContext(SessionContext);
@@ -54,10 +57,16 @@ const NewSeedPage = () => {
 			contract?.once("PlantMinted", handleMintSuccess);
 
 			await contract!.handleBuyPlant(TX_OPTIONS);
+
+			setTimeout(() => {
+				if (loading) {
+					setLoading(false);
+				}
+			}, blockTime ? (blockTime + 3) * 1000 : 5000);
 		} catch (error: any) {
-			throw error;
-		} finally {
 			setLoading(false);
+
+			throw error;
 		}
 	};
 
@@ -70,12 +79,24 @@ const NewSeedPage = () => {
 			<div className="flex flex-col flex-grow items-center justify-between">
 				<div className="grid xl:grid-cols-2 gap-x-8 gap-y-12 w-full">
 					<Tokens />
+
+					{!balance && (
+						<Alert
+							className="row-start-2 col-span-2"
+							icon="Danger"
+						>
+							<p>
+								{ t("newSeed.noBalance", <b className="font-bold">{t("newSeed.price")}</b>) }
+							</p>
+						</Alert>
+					)}
 				</div>
 
 				<Button
 					onClick={handleBuyPlant}
 					icon="Plus"
 					className="mt-8"
+					disabled={!balance}
 					loading={loading}
 				>
 					{ t("newSeed.cta") }

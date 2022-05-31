@@ -26,3 +26,5 @@ export { default as PlantDetail } from "./PlantDetail/PlantDetail";
 export { default as Chart } from "./Chart/Chart";
 export { default as Banner } from "./Banner/Banner";
 export { default as Claim } from "./Claim/Claim";
+export { default as Alert } from "./Alert/Alert";
+export { AlertType } from "./Alert/Alert.types";

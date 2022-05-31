@@ -83,6 +83,8 @@ const translations = {
 	newSeed: {
 		title: "Get some seeds",
 		cta: "Mint a new seed",
+		noBalance: "You don't have sufficient kojos to mint a new seed. Claim your first kojos for free or earn some by saving water in your household. {$}",
+		price: "One seed only costs 1 kojo.",
 		success: "Your seed has been successfully minted!",
 		description: {
 			1: "{$} You can freely mint them here but make sure you have enough kojos to take care for them. You currently have {$} seed NFT(s) in your wallet.",

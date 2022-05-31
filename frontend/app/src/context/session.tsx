@@ -9,6 +9,7 @@ type SessionContextType = {
 	plants?: Plant[];
 	participant?: Participant;
 	balance?: number;
+	blockTime?: number;
 	contract?: Contract;
 	minsUntilNextClaim?: number;
 	postNotification?: ({ message, url }: { message: string, url: string }) => void;
@@ -33,6 +34,7 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 		plants,
 		participant,
 		contract,
+		blockTime,
 		minsUntilNextClaim,
 		setParticipant,
 	} = useContract(provider, address);
@@ -52,6 +54,7 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 				balance,
 				loading,
 				participant,
+				blockTime,
 				plants,
 				minsUntilNextClaim,
 				postNotification,

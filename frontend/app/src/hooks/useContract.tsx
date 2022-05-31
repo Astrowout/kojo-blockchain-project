@@ -121,6 +121,7 @@ const useContract = (provider: any, address?: string) => {
 		participant,
 		balance: tokens?.balance,
 		plants,
+		blockTime,
 		contract,
 		minsUntilNextClaim: Math.ceil((189 * blockTime) / 60),
 		loading,

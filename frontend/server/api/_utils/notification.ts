@@ -10,7 +10,9 @@ export const postNotification = async (client, did: string, body: VercelRequestB
 			read: false,
 			user: {
 				connect: {
-					did,
+					where: {
+						did,
+					}
 				}
 			}
 		},
