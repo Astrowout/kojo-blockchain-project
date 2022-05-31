@@ -1,21 +1,24 @@
-import { Notification } from '@prisma/client'
+import { Notification, User } from '@prisma/client'
 import { VercelRequestBody } from '@vercel/node';
 import { responseHelper } from './helpers';
 
-export const postNotification = async (client, did: string, body: VercelRequestBody): Promise<Notification | null> => {
-	const res = await client.notification.create({
+export const postNotification = async (client, did: string, body: VercelRequestBody): Promise<User | null> => {
+	const res = await client.user.update({
+		where: {
+			did,
+		},
 		data: {
-			message: body.message,
-			url: body.url,
-			read: false,
-			user: {
-				connect: {
-					where: {
-						did,
-					}
+			notifications: {
+				create: {
+					message: body.message,
+					url: body.url,
+					read: false,
 				}
 			}
 		},
+		include: {
+			notifications: true,
+		}
 	});
 
 	return responseHelper(res);

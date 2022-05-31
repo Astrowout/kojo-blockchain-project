@@ -7,6 +7,7 @@ import {
 } from "../../components";
 import { TX_OPTIONS } from "../../config";
 import { SessionContext } from "../../context";
+import { delay } from "../../helpers";
 import { useTranslation } from "../../hooks";
 
 const ClaimPage = () => {
@@ -28,6 +29,7 @@ const ClaimPage = () => {
 		});
 
 		if (data && data.isPresent && setParticipant) {
+			console.log("claimed setLoading, currentState:", loading);
 			if (loading) {
 				setLoading(false);
 			}
@@ -57,15 +59,14 @@ const ClaimPage = () => {
 		setLoading(true);
 
 		try {
-			contract?.once("TokensClaimed", handleClaimSuccess);
+			contract?.once("TokensClaimed", (data: any, amount: number) => handleClaimSuccess(data, amount));
 
 			await contract!.handleClaimStartTokens(TX_OPTIONS);
+			await delay(blockTime ? (blockTime + 3) * 1000 : 5000);
 
-			setTimeout(() => {
-				if (loading) {
-					setLoading(false);
-				}
-			}, blockTime ? (blockTime + 3) * 1000 : 5000);
+			if (loading) {
+				setLoading(false);
+			}
 		} catch (error: any) {
 			setLoading(false);
 

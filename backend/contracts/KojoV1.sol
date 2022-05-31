@@ -99,25 +99,24 @@ contract KojoV1 is OwnableUpgradeable {
   function _handleMintPlant(Structs.Participant memory participant)
     internal
     returns (
-      Structs.Participant memory returnParticipant,
+      // Structs.Participant memory returnParticipant,
       Structs.Plant memory returnPlant
     )
   {
     token.mint(msg.sender, token.nonFungibleTokenCount(), 1, "");
 
-    Structs.Participant memory _participant = utils
-      .handleAddTokenIdToParticipant(
-        participant,
-        token.nonFungibleTokenCount()
-      );
+    // Structs.Participant memory _participant = utils.handleAddTokenIdToParticipant(
+    //   participant,
+    //   token.nonFungibleTokenCount()
+    // );
     Structs.Plant memory _plant = store.handleCreatePlant(
       token.nonFungibleTokenCount()
     );
 
-    store.handleUpdateParticipant(msg.sender, _participant);
+    // store.handleUpdateParticipant(msg.sender, _participant);
     token.handleIncrementTokenCount();
 
-    return (_participant, _plant);
+    return (_plant);
   }
 
   // Allows the owner to update the store.
@@ -231,20 +230,21 @@ contract KojoV1 is OwnableUpgradeable {
 
   // Allows EOA's to buy a seed/plant.
   function handleBuyPlant() public payable onlyEOA {
-    Structs.Participant memory participant = store.handleReadParticipant(
-      msg.sender
-    );
+    Structs.Participant memory participant = store.handleReadParticipant(msg.sender);
     require(participant.isPresent, "Participant does not exist.");
 
     uint256 kojoBalance = token.balanceOf(msg.sender, token.fungibleTokenId());
+    console.log("Sender balance is %s tokens", kojoBalance);
     require(kojoBalance >= store.plantPrice(), "Not enough kojos. One plant costs 1 kojo");
 
     (
-      Structs.Participant memory _participant,
+      // Structs.Participant memory _participant,
       Structs.Plant memory _plant
     ) = _handleMintPlant(participant);
 
-    emit PlantMinted(_participant, _plant);
+    console.log("plantseee %s", _plant.isPresent);
+
+    emit PlantMinted(participant, _plant);
   }
 
   // Allows EOA's to water their seed/plant.
