@@ -10,10 +10,11 @@ import { SessionContext } from "../../context";
 import { useTranslation } from "../../hooks";
 
 const ClaimPage = () => {
-	const { t } = useTranslation();
+	const { t, ts } = useTranslation();
 	const {
 		participant,
 		contract,
+		blockTime,
 		postNotification,
 		setParticipant,
 	} = useContext(SessionContext);
@@ -27,6 +28,10 @@ const ClaimPage = () => {
 		});
 
 		if (data && data.isPresent && setParticipant) {
+			if (loading) {
+				setLoading(false);
+			}
+
 			setParticipant({
 				allowedTokenBalance: data.allowedTokenBalance.toNumber(),
 				level: data.allowedTokenBalance.toNumber(),
@@ -42,7 +47,7 @@ const ClaimPage = () => {
 			});
 
 			postNotification && postNotification({
-				message: t("claim.success", amount) as unknown as string,
+				message: ts("claim.success", amount),
 				url: "#",
 			});
 		}
@@ -55,10 +60,16 @@ const ClaimPage = () => {
 			contract?.once("TokensClaimed", handleClaimSuccess);
 
 			await contract!.handleClaimStartTokens(TX_OPTIONS);
+
+			setTimeout(() => {
+				if (loading) {
+					setLoading(false);
+				}
+			}, blockTime ? (blockTime + 3) * 1000 : 5000);
 		} catch (error: any) {
-			throw error;
-		} finally {
 			setLoading(false);
+
+			throw error;
 		}
 	};
 

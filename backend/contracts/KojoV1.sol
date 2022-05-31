@@ -234,9 +234,10 @@ contract KojoV1 is OwnableUpgradeable {
     Structs.Participant memory participant = store.handleReadParticipant(
       msg.sender
     );
-
     require(participant.isPresent, "Participant does not exist.");
-    require(msg.value >= store.plantPrice(), "Not enough kojos. One plant costs 1 kojo");
+
+    uint256 kojoBalance = token.balanceOf(msg.sender, token.fungibleTokenId());
+    require(kojoBalance >= store.plantPrice(), "Not enough kojos. One plant costs 1 kojo");
 
     (
       Structs.Participant memory _participant,

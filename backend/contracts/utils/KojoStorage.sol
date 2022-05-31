@@ -21,15 +21,11 @@ contract KojoStorage is OwnableUpgradeable {
   event DeletePlant(Structs.Plant plant);
 
   function initialize() public initializer {
-    init();
-    __Ownable_init_unchained();
-  }
-
-  // Allows the contract to be initialized.
-  function init() internal {
     plantPrice = 1;
     tokenSensitivity = 1000;
     initialTokenAllowance = 100;
+
+    __Ownable_init_unchained();
   }
 
   // Allows owner to update how many tokens are distributed for a given percentage point.
