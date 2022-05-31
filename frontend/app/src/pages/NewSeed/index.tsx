@@ -8,6 +8,7 @@ import { TX_OPTIONS } from "../../config";
 import { SessionContext } from "../../context";
 import { useIonToast } from "@ionic/react";
 import { useContext, useState } from "react";
+import { delay } from "../../helpers";
 
 const NewSeedPage = () => {
 	const { t } = useTranslation();
@@ -29,6 +30,11 @@ const NewSeedPage = () => {
 		});
 
 		if (data && data.isPresent && setParticipant) {
+			console.log("seed minted setLoading, currentState:", loading);
+			if (loading) {
+				setLoading(false);
+			}
+
 			setParticipant({
 				allowedTokenBalance: data.allowedTokenBalance.toNumber(),
 				level: data.allowedTokenBalance.toNumber(),
@@ -57,12 +63,11 @@ const NewSeedPage = () => {
 			contract?.once("PlantMinted", handleMintSuccess);
 
 			await contract!.handleBuyPlant(TX_OPTIONS);
+			await delay(blockTime ? (blockTime + 3) * 1000 : 5000);
 
-			setTimeout(() => {
-				if (loading) {
-					setLoading(false);
-				}
-			}, blockTime ? (blockTime + 3) * 1000 : 5000);
+			if (loading) {
+				setLoading(false);
+			}
 		} catch (error: any) {
 			setLoading(false);
 

@@ -25,9 +25,9 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 
 	try {
 		if (req.method === "POST") {
-			const notification = await postNotification(client, address as string, req.body);
+			const user = await postNotification(client, address as string, req.body);
 
-			return res.status(200).json(notification);
+			return res.status(200).json((user as any).notifications);
 		} else if (req.method === "GET") {
 			const notifications = await getNotificationsByDid(client, address as string);
 
