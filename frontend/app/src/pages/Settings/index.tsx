@@ -29,7 +29,7 @@ const SettingsPage = () => {
 
 		present({
 			color: "secondary",
-			duration: 5000,
+			duration: 3000,
 			position: "top",
 			message: t("settings.copySuccess") as unknown as string,
 		});

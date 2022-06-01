@@ -34,7 +34,7 @@ const useWeb3 = () => {
 
 			present({
 				color: "secondary",
-				duration: 5000,
+				duration: 3000,
 				position: "top",
 				message: t("messages.loginSuccess") as unknown as string,
 			});

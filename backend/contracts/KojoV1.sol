@@ -99,24 +99,25 @@ contract KojoV1 is OwnableUpgradeable {
   function _handleMintPlant(Structs.Participant memory participant)
     internal
     returns (
-      // Structs.Participant memory returnParticipant,
+      Structs.Participant memory returnParticipant,
       Structs.Plant memory returnPlant
     )
   {
     token.mint(msg.sender, token.nonFungibleTokenCount(), 1, "");
+    token.burn(msg.sender, token.fungibleTokenId(), 1);
 
-    // Structs.Participant memory _participant = utils.handleAddTokenIdToParticipant(
-    //   participant,
-    //   token.nonFungibleTokenCount()
-    // );
+    Structs.Participant memory _participant = utils.handleAddTokenIdToParticipant(
+      participant,
+      token.nonFungibleTokenCount()
+    );
     Structs.Plant memory _plant = store.handleCreatePlant(
       token.nonFungibleTokenCount()
     );
 
-    // store.handleUpdateParticipant(msg.sender, _participant);
+    store.handleUpdateParticipant(msg.sender, _participant);
     token.handleIncrementTokenCount();
 
-    return (_plant);
+    return (_participant, _plant);
   }
 
   // Allows the owner to update the store.
@@ -238,13 +239,13 @@ contract KojoV1 is OwnableUpgradeable {
     require(kojoBalance >= store.plantPrice(), "Not enough kojos. One plant costs 1 kojo");
 
     (
-      // Structs.Participant memory _participant,
+      Structs.Participant memory _participant,
       Structs.Plant memory _plant
     ) = _handleMintPlant(participant);
 
     console.log("plantseee %s", _plant.isPresent);
 
-    emit PlantMinted(participant, _plant);
+    emit PlantMinted(_participant, _plant);
   }
 
   // Allows EOA's to water their seed/plant.

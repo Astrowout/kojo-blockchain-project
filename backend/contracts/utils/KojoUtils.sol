@@ -41,16 +41,14 @@ contract KojoUtils {
     Structs.Participant memory participant,
     uint256 tokenId
   ) external pure returns (Structs.Participant memory _participant) {
-    uint256[] memory results = new uint256[](participant.plantIds.length + 1);
+    require((tokenId > 0), "Token ID must be greater than 0 in order to be an NFT token id.");
 
-    for (uint256 i = 0; i < participant.plantIds.length; i++) {
-      uint256 currentId = participant.plantIds[i];
-      results[i] = currentId;
-    }
+    uint256[] memory oldPlantIds = participant.plantIds;
+    uint256[] memory newPlantIds;
 
-    results[results.length + 1] = tokenId;
+    newPlantIds[oldPlantIds.length + 1] = tokenId;
 
-    participant.plantIds = results;
+    participant.plantIds = newPlantIds;
 
     return participant;
   }

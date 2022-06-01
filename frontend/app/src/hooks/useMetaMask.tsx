@@ -72,7 +72,7 @@ const useMetaMask = (setProvider: (provider: any) => void) => {
 		setLoading(true);
 
 		try {
-			await delay(200);
+			await delay(300);
 			const isNetworkValid = await validNetwork();
 
 			if (!isNetworkValid) {
