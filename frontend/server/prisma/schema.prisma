@@ -14,7 +14,7 @@ model Notification {
     message   String
     read      Boolean
     url       String
-    userId    BigInt   @unique @db.Int8
+    userId    BigInt   @db.Int8
     user      User     @relation(fields: [userId], references: [id])
 }
 
