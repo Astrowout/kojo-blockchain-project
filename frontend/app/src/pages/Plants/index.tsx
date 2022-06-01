@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
 	Button,
 	EmptyState,
@@ -5,18 +6,22 @@ import {
 	PlantCard,
 	Tokens,
 } from "../../components";
+import { SessionContext } from "../../context";
 import { useTranslation } from "../../hooks";
 import { Plant } from "../../types";
 
 const PlantsPage = () => {
 	const { t } = useTranslation();
+	const {
+		participant,
+	} = useContext(SessionContext);
 
 	const plants: any = [];
 
 	return (
 		<Layout
 			title={t("plants.title")}
-			description={t("plants.description", <b className="font-bold">{plants.length}</b>)}
+			description={t("plants.description", <b className="font-bold">{participant?.plantIds?.length || 0}</b>)}
 		>
 			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-12 w-full">
 				<Tokens />

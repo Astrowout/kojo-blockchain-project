@@ -18,7 +18,7 @@ const NewSeedPage = () => {
 		blockTime,
 		balance,
 		postNotification,
-		setParticipant,
+		handleUpdateParticipant,
 	} = useContext(SessionContext);
 	const [loading, setLoading] = useState(false);
 	const [present] = useIonToast();
@@ -29,16 +29,10 @@ const NewSeedPage = () => {
 			plant,
 		});
 
-		if (_participant && _participant.isPresent && setParticipant) {
+		if (_participant && _participant.isPresent) {
 			setLoading(false);
 
-			setParticipant({
-				allowedTokenBalance: _participant.allowedTokenBalance.toNumber(),
-				level: _participant.allowedTokenBalance.toNumber(),
-				experiencePoints: _participant.experiencePoints.toNumber(),
-				plantIds: _participant.plantIds,
-				isPresent: _participant.isPresent,
-			});
+			handleUpdateParticipant(_participant);
 
 			present({
 				color: "secondary",

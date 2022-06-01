@@ -17,7 +17,7 @@ const ClaimPage = () => {
 		contract,
 		blockTime,
 		postNotification,
-		setParticipant,
+		handleUpdateParticipant,
 	} = useContext(SessionContext);
 	const [loading, setLoading] = useState(false);
 	const [present] = useIonToast();
@@ -28,16 +28,10 @@ const ClaimPage = () => {
 			amount,
 		});
 
-		if (data && data.isPresent && setParticipant) {
+		if (data && data.isPresent) {
 			setLoading(false);
 
-			setParticipant({
-				allowedTokenBalance: data.allowedTokenBalance.toNumber(),
-				level: data.allowedTokenBalance.toNumber(),
-				experiencePoints: data.experiencePoints.toNumber(),
-				plantIds: data.plantIds,
-				isPresent: data.isPresent,
-			});
+			handleUpdateParticipant(data);
 
 			present({
 				color: "secondary",

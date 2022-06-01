@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { BigNumber, Contract } from "ethers";
-import { Error, Plant, Tokens, Participant } from "../types";
+import { Error, Plant, Participant } from "../types";
 import { axios } from "../helpers";
 
 // @ts-ignore:next-line
@@ -10,10 +10,7 @@ const useContract = (provider: any, address?: string) => {
 	const [loading] = useState(false);
 	const [participant, setParticipant] = useState<Participant>({});
 	const [blockTime, setBlockTime] = useState<number>(5);
-	const [tokens, setTokens] = useState<Tokens>({
-		balance: 0,
-		plantIds: [],
-	});
+	const [balance, setBalance] = useState<number>(0);
 	const [plants] = useState<Plant[]>([]);
 	const [contract, setContract] = useState<Contract | undefined>(undefined);
 	const [error] = useState<Error | null>(null);
@@ -71,18 +68,13 @@ const useContract = (provider: any, address?: string) => {
 		} catch (error: any) {
 			throw error;
 		}
-
-		// call setUser()
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const getTokens = useCallback(async () => {
 		try {
-			const [balance, ...plantIds] = await contract!.balanceOfBatch([address], [0]);
+			const balance = await contract!.balanceOf(address, 0);
 
-			setTokens({
-				balance: balance.toNumber(),
-				plantIds: plantIds.map((plantId: BigNumber) => plantId.toNumber()),
-			});
+			setBalance(balance.toNumber());
 		} catch (error: any) {
 			throw error;
 		}
@@ -93,13 +85,7 @@ const useContract = (provider: any, address?: string) => {
 			const data = await contract!.handleReadParticipant(address);
 
 			if (data && data.isPresent) {
-				setParticipant({
-					allowedTokenBalance: data.allowedTokenBalance.toNumber(),
-					level: data.allowedTokenBalance.toNumber(),
-					experiencePoints: data.experiencePoints.toNumber(),
-					plantIds: data.plantIds,
-					isPresent: data.isPresent,
-				});
+				handleUpdateParticipant(data);
 			} else {
 				const initialTokenAllowance = await contract!.handleReadInititalAllowance();
 
@@ -116,16 +102,26 @@ const useContract = (provider: any, address?: string) => {
 		}
 	}, [contract]); // eslint-disable-line react-hooks/exhaustive-deps
 
+	const handleUpdateParticipant = useCallback(async (data: any) => {
+		setParticipant({
+			allowedTokenBalance: data.allowedTokenBalance.toNumber(),
+			level: data.allowedTokenBalance.toNumber(),
+			experiencePoints: data.experiencePoints.toNumber(),
+			plantIds: data.plantIds.map((plantId: BigNumber) => plantId.toNumber()),
+			isPresent: data.isPresent,
+		});
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
  	return {
 		participant,
-		balance: tokens?.balance,
+		balance,
 		plants,
 		blockTime,
 		contract,
 		minsUntilNextClaim: Math.ceil((189 * blockTime) / 60),
 		loading,
 		error,
-		setParticipant,
+		handleUpdateParticipant,
 	};
 };
 
