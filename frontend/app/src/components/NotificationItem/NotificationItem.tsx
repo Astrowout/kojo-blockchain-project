@@ -45,7 +45,7 @@ const NotificationItem: FC<NotificationItemProps> = ({
 				</p>
 			</span>
 
-			{!read && (
+			{!read && url !== "#" && (
 				<Icon
 					name="ArrowRight"
 					className="ml-4 text-gray-400 group-hover:text-emerald-900"

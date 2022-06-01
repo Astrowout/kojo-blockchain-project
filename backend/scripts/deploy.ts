@@ -17,31 +17,27 @@ const main = async () => {
   const KojoStorage = await ethers.getContractFactory('KojoStorage');
   const KojoUtils = await ethers.getContractFactory('KojoUtils');
   const KojoAPIConsumer = await ethers.getContractFactory('KojoAPIConsumer');
-  const KojoERC1155 = await ethers.getContractFactory('KojoERC1155');
   const KojoV1 = await ethers.getContractFactory('KojoV1');
 
   // We deploy every upgradeable contract
   const store = await upgrades.deployProxy(KojoStorage);
-  const token = await upgrades.deployProxy(KojoERC1155);
 
   // We deploy every contract (not upgradeable)
   const utils = await KojoUtils.deploy();
   const api = await KojoAPIConsumer.deploy();
 
   // We wait for the nested contracts to be deployed
-  await token.deployed();
   await store.deployed();
   await utils.deployed();
   await api.deployed();
 
   // We deploy our main contract as upgradeable and set the addresses of the nested contracts
-  const main = await upgrades.deployProxy(KojoV1, [store.address, utils.address, api.address, token.address]);
+  const main = await upgrades.deployProxy(KojoV1, [store.address, utils.address, api.address]);
 
   // We wait for the main contract to be deployed
   await main.deployed();
 
   // We transfer the ownership of the nested contracts to the main contract
-  await token.transferOwnership(main.address);
   await store.transferOwnership(main.address);
 
   console.log({
@@ -56,10 +52,6 @@ const main = async () => {
     api: {
       address: api.address,
       owner: await api.owner(),
-    },
-    token: {
-      address: token.address,
-      owner: await token.owner(),
     },
     main: {
       address: main.address,

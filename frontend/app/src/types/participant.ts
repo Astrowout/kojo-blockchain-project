@@ -3,4 +3,5 @@ export type Participant = {
 	experiencePoints?: number;
 	plantIds?: number[];
 	allowedTokenBalance?: number;
+	isPresent?: boolean;
 }

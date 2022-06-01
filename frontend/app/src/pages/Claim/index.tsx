@@ -29,23 +29,21 @@ const ClaimPage = () => {
 		});
 
 		if (data && data.isPresent && setParticipant) {
-			console.log("claimed setLoading, currentState:", loading);
-			if (loading) {
-				setLoading(false);
-			}
+			setLoading(false);
 
 			setParticipant({
 				allowedTokenBalance: data.allowedTokenBalance.toNumber(),
 				level: data.allowedTokenBalance.toNumber(),
 				experiencePoints: data.experiencePoints.toNumber(),
 				plantIds: data.plantIds,
+				isPresent: data.isPresent,
 			});
 
 			present({
 				color: "secondary",
 				duration: 5000,
 				position: "top",
-				message: ts("claim.success", amount) as unknown as string,
+				message: ts("claim.success", amount),
 			});
 
 			postNotification && postNotification({
@@ -59,12 +57,14 @@ const ClaimPage = () => {
 		setLoading(true);
 
 		try {
-			contract?.once("TokensClaimed", (data: any, amount: number) => handleClaimSuccess(data, amount));
+			contract?.once("TokensClaimed", handleClaimSuccess);
 
 			await contract!.handleClaimStartTokens(TX_OPTIONS);
 			await delay(blockTime ? (blockTime + 3) * 1000 : 5000);
 
 			if (loading) {
+				console.log("loading timeout", loading);
+
 				setLoading(false);
 			}
 		} catch (error: any) {

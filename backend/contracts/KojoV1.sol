@@ -12,13 +12,10 @@ import {KojoStorage} from "./utils/KojoStorage.sol";
 import {KojoUtils} from "./utils/KojoUtils.sol";
 import {KojoAPIConsumer} from "./utils/KojoAPIConsumer.sol";
 
-contract KojoV1 is OwnableUpgradeable {
-  KojoERC1155 internal token;
+contract KojoV1 is KojoERC1155 {
   KojoStorage internal store;
   KojoUtils internal utils;
   KojoAPIConsumer internal api;
-
-  address public tokenAddress;
 
   event TokensClaimed(
     Structs.Participant participant,
@@ -35,20 +32,24 @@ contract KojoV1 is OwnableUpgradeable {
     uint256 amount
   );
 
+    // Initialize contract.
   function initialize(
     address _store,
     address _utils,
-    address _api,
-    address _token
+    address _api
   ) public initializer {
-    store = KojoStorage(_store);
-    utils = KojoUtils(_utils);
-    api = KojoAPIConsumer(_api);
-    token = KojoERC1155(_token);
+    // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1155.md#erc-1155-metadata-uri-json-schema
+    __ERC1155_init("");
+    __Ownable_init();
+    __ERC1155Burnable_init();
+    __ERC1155Supply_init();
 
-    tokenAddress = _token;
+    fungibleTokenId = 0;
+    nonFungibleTokenCount = 1;
 
-    __Ownable_init_unchained();
+      store = KojoStorage(_store);
+      utils = KojoUtils(_utils);
+      api = KojoAPIConsumer(_api);
   }
 
   // Prohibits external contracts to call certain functions.
@@ -71,7 +72,7 @@ contract KojoV1 is OwnableUpgradeable {
 
   //   uint256 tokenId = ids[0];
 
-  //   if (tokenId != token.fungibleTokenId()) {
+  //   if (tokenId != token.fungibleTokenId) {
   //     Structs.Participant memory fromParticipant = store.handleReadParticipant(
   //       from
   //     );
@@ -96,26 +97,37 @@ contract KojoV1 is OwnableUpgradeable {
   // }
 
   // Allows the contract to update the storage after minting tokens.
-  function _handleMintPlant(Structs.Participant memory participant)
+  function _handleMintPlant()
     internal
     returns (
       Structs.Participant memory returnParticipant,
       Structs.Plant memory returnPlant
     )
   {
-    token.mint(msg.sender, token.nonFungibleTokenCount(), 1, "");
-    token.burn(msg.sender, token.fungibleTokenId(), 1);
+    _mint(msg.sender, nonFungibleTokenCount, 1, "");
 
-    Structs.Participant memory _participant = utils.handleAddTokenIdToParticipant(
-      participant,
-      token.nonFungibleTokenCount()
+    console.log("tloopt mis 0");
+
+    burn(msg.sender, fungibleTokenId, 1);
+
+    console.log("tloopt mis 1");
+
+    Structs.Participant memory _participant = store.handleAddTokenIdToParticipant(
+      msg.sender,
+      nonFungibleTokenCount
     );
+
+    console.log("tloopt mis 2");
+
     Structs.Plant memory _plant = store.handleCreatePlant(
-      token.nonFungibleTokenCount()
+      nonFungibleTokenCount
     );
 
-    store.handleUpdateParticipant(msg.sender, _participant);
-    token.handleIncrementTokenCount();
+    console.log("tloopt mis 3");
+
+    handleIncrementTokenCount();
+
+    console.log("tloopt mis 4");
 
     return (_participant, _plant);
   }
@@ -124,15 +136,11 @@ contract KojoV1 is OwnableUpgradeable {
   function handleUpdateContracts(
     address _store,
     address _utils,
-    address _api,
-    address _token
+    address _api
   ) public onlyOwner {
     store = KojoStorage(_store);
     utils = KojoUtils(_utils);
     api = KojoAPIConsumer(_api);
-    token = KojoERC1155(_token);
-
-    tokenAddress = _token;
   }
 
   // Allows the  owner to update how many tokens are distributed for a given percentage point.
@@ -149,7 +157,6 @@ contract KojoV1 is OwnableUpgradeable {
   //   uint256 _fee,
   //   string calldata _endpoint,
   //   string calldata _path,
-  //   address _tokenAddress,
   //   address _oracleAddress
   // ) public onlyOwner {
   //   api.handleConfigureAPI(
@@ -157,7 +164,6 @@ contract KojoV1 is OwnableUpgradeable {
   //     _fee,
   //     _endpoint,
   //     _path,
-  //     _tokenAddress,
   //     _oracleAddress
   //   );
   // }
@@ -188,9 +194,9 @@ contract KojoV1 is OwnableUpgradeable {
       msg.sender
     );
 
-    token.mint(
+    _mint(
       msg.sender,
-      token.fungibleTokenId(),
+      fungibleTokenId,
       store.initialTokenAllowance(),
       ""
     );
@@ -214,9 +220,9 @@ contract KojoV1 is OwnableUpgradeable {
 
     // @TODO: Set fixed blocktime per month and check if passed.
 
-    token.mint(
+    _mint(
       msg.sender,
-      token.fungibleTokenId(),
+      fungibleTokenId,
       participant.allowedTokenBalance,
       ""
     );
@@ -234,14 +240,14 @@ contract KojoV1 is OwnableUpgradeable {
     Structs.Participant memory participant = store.handleReadParticipant(msg.sender);
     require(participant.isPresent, "Participant does not exist.");
 
-    uint256 kojoBalance = token.balanceOf(msg.sender, token.fungibleTokenId());
+    uint256 kojoBalance = balanceOf(msg.sender, fungibleTokenId);
     console.log("Sender balance is %s tokens", kojoBalance);
     require(kojoBalance >= store.plantPrice(), "Not enough kojos. One plant costs 1 kojo");
 
     (
       Structs.Participant memory _participant,
       Structs.Plant memory _plant
-    ) = _handleMintPlant(participant);
+    ) = _handleMintPlant();
 
     console.log("plantseee %s", _plant.isPresent);
 
@@ -271,7 +277,7 @@ contract KojoV1 is OwnableUpgradeable {
     store.handleUpdatePlant(tokenId, _plant);
 
     string memory uri = utils.handleBuildURI(_plant, tokenId);
-    token.setTokenUri(tokenId, uri);
+    setTokenUri(tokenId, uri);
 
     // @TODO: Burn tokens. Send to burn address?
 

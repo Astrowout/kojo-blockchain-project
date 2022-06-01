@@ -5,8 +5,6 @@ import { axios } from "../helpers";
 
 // @ts-ignore:next-line
 import MainArtifact from "../artifacts/contracts/KojoV1.sol/KojoV1.json";
-// @ts-ignore:next-line
-import TokenArtifact from "../artifacts/contracts/token/KojoERC1155.sol/KojoERC1155.json";
 
 const useContract = (provider: any, address?: string) => {
 	const [loading] = useState(false);
@@ -38,13 +36,18 @@ const useContract = (provider: any, address?: string) => {
 			return;
 		}
 
-		initTokens();
 		initParticipant();
 
 		return () => {
 			// cleanup
 		}
 	}, [contract]); // eslint-disable-line react-hooks/exhaustive-deps
+
+	useEffect(() => {
+		if (participant && participant.isPresent) {
+			getTokens();
+		}
+	}, [participant]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const initContract = () => {
 		const signer = provider.getSigner();
@@ -72,15 +75,9 @@ const useContract = (provider: any, address?: string) => {
 		// call setUser()
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-	const initTokens = useCallback(async () => {
+	const getTokens = useCallback(async () => {
 		try {
-			const tokenContract = new Contract(
-				await contract!.tokenAddress(),
-				TokenArtifact.abi,
-				contract!.signer,
-			);
-
-			const [balance, ...plantIds] = await tokenContract!.balanceOfBatch([address], [0]);
+			const [balance, ...plantIds] = await contract!.balanceOfBatch([address], [0]);
 
 			setTokens({
 				balance: balance.toNumber(),
@@ -101,6 +98,7 @@ const useContract = (provider: any, address?: string) => {
 					level: data.allowedTokenBalance.toNumber(),
 					experiencePoints: data.experiencePoints.toNumber(),
 					plantIds: data.plantIds,
+					isPresent: data.isPresent,
 				});
 			} else {
 				const initialTokenAllowance = await contract!.handleReadInititalAllowance();
@@ -110,6 +108,7 @@ const useContract = (provider: any, address?: string) => {
 					level: 0,
 					experiencePoints: 0,
 					plantIds: [],
+					isPresent: data.isPresent,
 				});
 			}
 		} catch (error: any) {
