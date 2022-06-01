@@ -1,3 +1,3 @@
 export const TX_OPTIONS = {
-	gasLimit: 210000,
+	gasLimit: 2100000,
 }

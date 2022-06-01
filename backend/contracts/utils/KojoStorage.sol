@@ -50,6 +50,8 @@ contract KojoStorage is OwnableUpgradeable {
     participant.experiencePoints = 0;
     participant.allowedTokenBalance = 0;
     participant.isPresent = true;
+    participant.plantIds = new uint256[](0);
+
     participants[account] = participant;
 
     emit CreateParticipant(participant);
@@ -79,6 +81,19 @@ contract KojoStorage is OwnableUpgradeable {
     participants[account] = _participant;
 
     emit UpdateParticipant(participant);
+
+    return participant;
+  }
+
+  function handleAddTokenIdToParticipant(
+    address account,
+    uint256 tokenId
+  ) external onlyOwner returns (Structs.Participant memory _participant) {
+    Structs.Participant memory participant = participants[account];
+    require(participant.isPresent, "Participant does not exist.");
+    require((tokenId > 0), "Token ID must be greater than 0 in order to be an NFT token id.");
+
+    participants[account].plantIds.push(tokenId);
 
     return participant;
   }

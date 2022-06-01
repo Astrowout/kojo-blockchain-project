@@ -30,27 +30,25 @@ const NewSeedPage = () => {
 		});
 
 		if (_participant && _participant.isPresent && setParticipant) {
-			console.log("seed minted setLoading, currentState:", loading);
-			if (loading) {
-				setLoading(false);
-			}
+			setLoading(false);
 
 			setParticipant({
 				allowedTokenBalance: _participant.allowedTokenBalance.toNumber(),
 				level: _participant.allowedTokenBalance.toNumber(),
 				experiencePoints: _participant.experiencePoints.toNumber(),
 				plantIds: _participant.plantIds,
+				isPresent: _participant.isPresent,
 			});
 
 			present({
 				color: "secondary",
 				duration: 4000,
 				position: "top",
-				message: t("newSeed.success") as unknown as string,
+				message: ts("newSeed.success"),
 			});
 
 			postNotification && postNotification({
-				message: ts("newSeed.success") as unknown as string,
+				message: ts("newSeed.success"),
 				url: "/tabs/plants",
 			});
 		}

@@ -37,22 +37,6 @@ contract KojoUtils {
     return participant;
   }
 
-  function handleAddTokenIdToParticipant(
-    Structs.Participant memory participant,
-    uint256 tokenId
-  ) external pure returns (Structs.Participant memory _participant) {
-    require((tokenId > 0), "Token ID must be greater than 0 in order to be an NFT token id.");
-
-    uint256[] memory oldPlantIds = participant.plantIds;
-    uint256[] memory newPlantIds;
-
-    newPlantIds[oldPlantIds.length + 1] = tokenId;
-
-    participant.plantIds = newPlantIds;
-
-    return participant;
-  }
-
   function handleCalculateAllowedTokenBalanceFromParticipantLevel(
     Structs.Participant memory participant,
     uint256 amount
