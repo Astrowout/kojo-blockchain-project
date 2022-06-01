@@ -35,7 +35,11 @@ export const postUser = async (client, body: VercelRequestBody): Promise<User | 
 			}
 		},
 		include: {
-			notifications: true,
+			notifications: {
+				orderBy: {
+					createdAt: 'desc',
+				},
+			},
 		},
 	});
 
