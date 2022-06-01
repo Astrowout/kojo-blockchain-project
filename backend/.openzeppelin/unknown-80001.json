@@ -2,7 +2,7 @@
   "manifestVersion": "3.2",
   "admin": {
     "address": "0x1ACcBD355245AbA93CE46D33ab1D0152CE33Fd00",
-    "txHash": "0x158990b7f3e6e1426edd3b0444d22af3899b1749ecbeb215e7ab668a2827cd45"
+    "txHash": "0xf451028ec5a4450f24be879cd19aa3dfa41b985ce9b7114b518cdfb542ad6e49"
   },
   "proxies": [
     {
@@ -226,21 +226,6 @@
       "kind": "transparent"
     },
     {
-      "address": "0xC5888275e0a1ca13a26463318105957aa4d1feD7",
-      "txHash": "0x1966888ac2ac98b4340926fbd530ea6ea917acaef4e686ba77174e38081d9d18",
-      "kind": "transparent"
-    },
-    {
-      "address": "0x7138c235AFd7F38cE7224CEd2C2D80e2ea5ea490",
-      "txHash": "0xdb2cac8ed1976c16cf610037de7be3968b752003995d698ca5b8663258a6c005",
-      "kind": "transparent"
-    },
-    {
-      "address": "0x601d086ee8F66192523F6D47dA9E453daA75Bb9e",
-      "txHash": "0x53c4bb837c5fe99cd292e7f492352019119a39c8a076732644a1cc8a6640f155",
-      "kind": "transparent"
-    },
-    {
       "address": "0x13093e4a28B977AafD892538dC06573857E1cBBb",
       "txHash": "0x765b9977dac407a7001c8ccf826ddffda9e3b74718f72140e7fd33564e960ab6",
       "kind": "transparent"
@@ -328,6 +313,21 @@
     {
       "address": "0x3170FFA98B904D3b3b72Ee38A7C74F0ca49BBD1d",
       "txHash": "0x629452e4d0348dc8b07152138b3fe75146bcde98cdd0764367dbb8bb665703d8",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xC5888275e0a1ca13a26463318105957aa4d1feD7",
+      "txHash": "0x5d31e044d24af182ff65ece3e9657dd942bbd9658286d51be4ee1c8103d45cc4",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x7138c235AFd7F38cE7224CEd2C2D80e2ea5ea490",
+      "txHash": "0x7476bb012caacc9a7dcbc6ceed142f56bacd8f2c05722e52835774c4252d7653",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x601d086ee8F66192523F6D47dA9E453daA75Bb9e",
+      "txHash": "0xda73f7c6907ec87571d0157c935c41b8b5ae4c4e2e49cf36972ed1d61485c086",
       "kind": "transparent"
     }
   ],
@@ -1201,208 +1201,9 @@
         }
       }
     },
-    "4ccbb4f8db6cbe2ce4cd36c59e44a21b9d81d99cf2a75797a7a00830fa7b9e18": {
-      "address": "0x850EC3780CeDfdb116E38B009d0bf7a1ef1b8b38",
-      "txHash": "0x144954171de353bd2fa2842595d6134dfb48e1844f5ca7f89e2b9dafde4fbd6a",
-      "layout": {
-        "storage": [
-          {
-            "label": "_initialized",
-            "offset": 0,
-            "slot": "0",
-            "type": "t_uint8",
-            "contract": "Initializable",
-            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
-            "retypedFrom": "bool"
-          },
-          {
-            "label": "_initializing",
-            "offset": 1,
-            "slot": "0",
-            "type": "t_bool",
-            "contract": "Initializable",
-            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
-          },
-          {
-            "label": "__gap",
-            "offset": 0,
-            "slot": "1",
-            "type": "t_array(t_uint256)50_storage",
-            "contract": "ContextUpgradeable",
-            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:36"
-          },
-          {
-            "label": "_owner",
-            "offset": 0,
-            "slot": "51",
-            "type": "t_address",
-            "contract": "OwnableUpgradeable",
-            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:22"
-          },
-          {
-            "label": "__gap",
-            "offset": 0,
-            "slot": "52",
-            "type": "t_array(t_uint256)49_storage",
-            "contract": "OwnableUpgradeable",
-            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:87"
-          },
-          {
-            "label": "plantPrice",
-            "offset": 0,
-            "slot": "101",
-            "type": "t_uint256",
-            "contract": "KojoStorage",
-            "src": "contracts/utils/KojoStorage.sol:9"
-          },
-          {
-            "label": "tokenSensitivity",
-            "offset": 0,
-            "slot": "102",
-            "type": "t_uint256",
-            "contract": "KojoStorage",
-            "src": "contracts/utils/KojoStorage.sol:10"
-          },
-          {
-            "label": "initialTokenAllowance",
-            "offset": 0,
-            "slot": "103",
-            "type": "t_uint256",
-            "contract": "KojoStorage",
-            "src": "contracts/utils/KojoStorage.sol:11"
-          },
-          {
-            "label": "participants",
-            "offset": 0,
-            "slot": "104",
-            "type": "t_mapping(t_address,t_struct(Participant)5739_storage)",
-            "contract": "KojoStorage",
-            "src": "contracts/utils/KojoStorage.sol:13"
-          },
-          {
-            "label": "plants",
-            "offset": 0,
-            "slot": "105",
-            "type": "t_mapping(t_uint256,t_struct(Plant)5727_storage)",
-            "contract": "KojoStorage",
-            "src": "contracts/utils/KojoStorage.sol:18"
-          }
-        ],
-        "types": {
-          "t_address": {
-            "label": "address",
-            "numberOfBytes": "20"
-          },
-          "t_array(t_uint256)49_storage": {
-            "label": "uint256[49]",
-            "numberOfBytes": "1568"
-          },
-          "t_array(t_uint256)50_storage": {
-            "label": "uint256[50]",
-            "numberOfBytes": "1600"
-          },
-          "t_array(t_uint256)dyn_storage": {
-            "label": "uint256[]",
-            "numberOfBytes": "32"
-          },
-          "t_bool": {
-            "label": "bool",
-            "numberOfBytes": "1"
-          },
-          "t_mapping(t_address,t_struct(Participant)5739_storage)": {
-            "label": "mapping(address => struct Structs.Participant)",
-            "numberOfBytes": "32"
-          },
-          "t_mapping(t_uint256,t_struct(Plant)5727_storage)": {
-            "label": "mapping(uint256 => struct Structs.Plant)",
-            "numberOfBytes": "32"
-          },
-          "t_struct(Participant)5739_storage": {
-            "label": "struct Structs.Participant",
-            "members": [
-              {
-                "label": "level",
-                "type": "t_uint256",
-                "offset": 0,
-                "slot": "0"
-              },
-              {
-                "label": "experiencePoints",
-                "type": "t_uint256",
-                "offset": 0,
-                "slot": "1"
-              },
-              {
-                "label": "plantIds",
-                "type": "t_array(t_uint256)dyn_storage",
-                "offset": 0,
-                "slot": "2"
-              },
-              {
-                "label": "allowedTokenBalance",
-                "type": "t_uint256",
-                "offset": 0,
-                "slot": "3"
-              },
-              {
-                "label": "isPresent",
-                "type": "t_bool",
-                "offset": 0,
-                "slot": "4"
-              }
-            ],
-            "numberOfBytes": "160"
-          },
-          "t_struct(Plant)5727_storage": {
-            "label": "struct Structs.Plant",
-            "members": [
-              {
-                "label": "level",
-                "type": "t_uint256",
-                "offset": 0,
-                "slot": "0"
-              },
-              {
-                "label": "experiencePoints",
-                "type": "t_uint256",
-                "offset": 0,
-                "slot": "1"
-              },
-              {
-                "label": "lifes",
-                "type": "t_uint256",
-                "offset": 0,
-                "slot": "2"
-              },
-              {
-                "label": "levelCost",
-                "type": "t_uint256",
-                "offset": 0,
-                "slot": "3"
-              },
-              {
-                "label": "isPresent",
-                "type": "t_bool",
-                "offset": 0,
-                "slot": "4"
-              }
-            ],
-            "numberOfBytes": "160"
-          },
-          "t_uint256": {
-            "label": "uint256",
-            "numberOfBytes": "32"
-          },
-          "t_uint8": {
-            "label": "uint8",
-            "numberOfBytes": "1"
-          }
-        }
-      }
-    },
     "fc1175dfe8b6c4c1650373fdbcf888697cdf2467106145c69f06d8bb637b3476": {
       "address": "0x87B6a0ab90d826189cC004Dc2ff16E2b472309db",
-      "txHash": "0xa71f78e4050e26753df0c66d63f9ca54d325648abba73d15597925e3be16d719",
+      "txHash": "0x1f7801fd31212231734766de2195fe4d91fd69ecef4391b8ab302b2125918225",
       "layout": {
         "storage": [
           {
@@ -1583,137 +1384,6 @@
           "t_string_storage": {
             "label": "string",
             "numberOfBytes": "32"
-          },
-          "t_uint256": {
-            "label": "uint256",
-            "numberOfBytes": "32"
-          },
-          "t_uint8": {
-            "label": "uint8",
-            "numberOfBytes": "1"
-          }
-        }
-      }
-    },
-    "b66d1ef0f96725fae6a0d7cb78201fc70a6d31fd5e0bafcb01779d590da33a03": {
-      "address": "0xae3F29b8782DB1132aD8D4505075830f96E584b2",
-      "txHash": "0x6f3f5a9ab598aa81f1289f679069e7bb64e87392cf75b180c07aa95ce43c3be8",
-      "layout": {
-        "storage": [
-          {
-            "label": "_initialized",
-            "offset": 0,
-            "slot": "0",
-            "type": "t_uint8",
-            "contract": "Initializable",
-            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
-            "retypedFrom": "bool"
-          },
-          {
-            "label": "_initializing",
-            "offset": 1,
-            "slot": "0",
-            "type": "t_bool",
-            "contract": "Initializable",
-            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
-          },
-          {
-            "label": "__gap",
-            "offset": 0,
-            "slot": "1",
-            "type": "t_array(t_uint256)50_storage",
-            "contract": "ContextUpgradeable",
-            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:36"
-          },
-          {
-            "label": "_owner",
-            "offset": 0,
-            "slot": "51",
-            "type": "t_address",
-            "contract": "OwnableUpgradeable",
-            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:22"
-          },
-          {
-            "label": "__gap",
-            "offset": 0,
-            "slot": "52",
-            "type": "t_array(t_uint256)49_storage",
-            "contract": "OwnableUpgradeable",
-            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:87"
-          },
-          {
-            "label": "token",
-            "offset": 0,
-            "slot": "101",
-            "type": "t_contract(KojoERC1155)5425",
-            "contract": "KojoV1",
-            "src": "contracts/KojoV1.sol:16"
-          },
-          {
-            "label": "store",
-            "offset": 0,
-            "slot": "102",
-            "type": "t_contract(KojoStorage)6179",
-            "contract": "KojoV1",
-            "src": "contracts/KojoV1.sol:17"
-          },
-          {
-            "label": "utils",
-            "offset": 0,
-            "slot": "103",
-            "type": "t_contract(KojoUtils)6506",
-            "contract": "KojoV1",
-            "src": "contracts/KojoV1.sol:18"
-          },
-          {
-            "label": "api",
-            "offset": 0,
-            "slot": "104",
-            "type": "t_contract(KojoAPIConsumer)5714",
-            "contract": "KojoV1",
-            "src": "contracts/KojoV1.sol:19"
-          },
-          {
-            "label": "tokenAddress",
-            "offset": 0,
-            "slot": "105",
-            "type": "t_address",
-            "contract": "KojoV1",
-            "src": "contracts/KojoV1.sol:21"
-          }
-        ],
-        "types": {
-          "t_address": {
-            "label": "address",
-            "numberOfBytes": "20"
-          },
-          "t_array(t_uint256)49_storage": {
-            "label": "uint256[49]",
-            "numberOfBytes": "1568"
-          },
-          "t_array(t_uint256)50_storage": {
-            "label": "uint256[50]",
-            "numberOfBytes": "1600"
-          },
-          "t_bool": {
-            "label": "bool",
-            "numberOfBytes": "1"
-          },
-          "t_contract(KojoAPIConsumer)5714": {
-            "label": "contract KojoAPIConsumer",
-            "numberOfBytes": "20"
-          },
-          "t_contract(KojoERC1155)5425": {
-            "label": "contract KojoERC1155",
-            "numberOfBytes": "20"
-          },
-          "t_contract(KojoStorage)6179": {
-            "label": "contract KojoStorage",
-            "numberOfBytes": "20"
-          },
-          "t_contract(KojoUtils)6506": {
-            "label": "contract KojoUtils",
-            "numberOfBytes": "20"
           },
           "t_uint256": {
             "label": "uint256",
@@ -2387,8 +2057,8 @@
       }
     },
     "dceccb17ad6846a3a53c9e8ae0ed2d243baea4ca3edeb6dc1dc94ce081f48022": {
-      "address": "0x6C593A8Eb76a3769b360e8271C701702FE1a6ffD",
-      "txHash": "0x15bb98701edddb16723d90bd36b663c37591bdae2faaf0458e02056c30867fe6",
+      "address": "0x850EC3780CeDfdb116E38B009d0bf7a1ef1b8b38",
+      "txHash": "0x6feeae446281fb8f279d88922e3cc8b83f0261a7fa3741c5c902411bb7b90396",
       "layout": {
         "storage": [
           {
@@ -2460,7 +2130,7 @@
             "label": "participants",
             "offset": 0,
             "slot": "104",
-            "type": "t_mapping(t_address,t_struct(Participant)5749_storage)",
+            "type": "t_mapping(t_address,t_struct(Participant)5775_storage)",
             "contract": "KojoStorage",
             "src": "contracts/utils/KojoStorage.sol:13"
           },
@@ -2468,7 +2138,7 @@
             "label": "plants",
             "offset": 0,
             "slot": "105",
-            "type": "t_mapping(t_uint256,t_struct(Plant)5737_storage)",
+            "type": "t_mapping(t_uint256,t_struct(Plant)5763_storage)",
             "contract": "KojoStorage",
             "src": "contracts/utils/KojoStorage.sol:18"
           }
@@ -2494,15 +2164,15 @@
             "label": "bool",
             "numberOfBytes": "1"
           },
-          "t_mapping(t_address,t_struct(Participant)5749_storage)": {
+          "t_mapping(t_address,t_struct(Participant)5775_storage)": {
             "label": "mapping(address => struct Structs.Participant)",
             "numberOfBytes": "32"
           },
-          "t_mapping(t_uint256,t_struct(Plant)5737_storage)": {
+          "t_mapping(t_uint256,t_struct(Plant)5763_storage)": {
             "label": "mapping(uint256 => struct Structs.Plant)",
             "numberOfBytes": "32"
           },
-          "t_struct(Participant)5749_storage": {
+          "t_struct(Participant)5775_storage": {
             "label": "struct Structs.Participant",
             "members": [
               {
@@ -2538,7 +2208,7 @@
             ],
             "numberOfBytes": "160"
           },
-          "t_struct(Plant)5737_storage": {
+          "t_struct(Plant)5763_storage": {
             "label": "struct Structs.Plant",
             "members": [
               {
@@ -2717,8 +2387,8 @@
       }
     },
     "e4c3975799ba5286bc7379c238a4d0f21cbf0077f6b2ca2abc9ca2a74ab073eb": {
-      "address": "0x8160d12Eec2432F91CCF449dC8c48834798836D1",
-      "txHash": "0x2df27fb9258d0628ee841ad8719b7c889b7a23725955ae82284d78d25a0fe52b",
+      "address": "0xae3F29b8782DB1132aD8D4505075830f96E584b2",
+      "txHash": "0x0610c4053485a290dc1d9bb8b1e535b789fff68c9f1ca40da327f5c58ec329af",
       "layout": {
         "storage": [
           {
