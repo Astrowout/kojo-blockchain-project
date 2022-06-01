@@ -87,8 +87,8 @@ const translations = {
 		price: "One seed only costs 1 kojo.",
 		success: "Your seed has been successfully minted!",
 		description: {
-			1: "{$} You can freely mint them here but make sure you have enough kojos to take care for them. You currently have {$} seed NFT(s) in your wallet.",
-			2: "Seeds are on us!",
+			1: "{$} You can mint them here but make sure you have enough kojos to take care for them. You currently have {$} seed NFT(s) in your wallet.",
+			2: "Seeds are only 1 kojo!",
 		},
 	},
 	settings: {

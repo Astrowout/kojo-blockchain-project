@@ -45,7 +45,7 @@ const ClaimPage = () => {
 				color: "secondary",
 				duration: 5000,
 				position: "top",
-				message: t("claim.success", amount) as unknown as string,
+				message: ts("claim.success", amount) as unknown as string,
 			});
 
 			postNotification && postNotification({

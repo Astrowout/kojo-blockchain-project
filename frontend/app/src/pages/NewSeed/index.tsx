@@ -11,7 +11,7 @@ import { useContext, useState } from "react";
 import { delay } from "../../helpers";
 
 const NewSeedPage = () => {
-	const { t } = useTranslation();
+	const { t, ts } = useTranslation();
 	const {
 		participant,
 		contract,
@@ -23,34 +23,34 @@ const NewSeedPage = () => {
 	const [loading, setLoading] = useState(false);
 	const [present] = useIonToast();
 
-	const handleMintSuccess = async (data: any, amount: number) => {
+	const handleMintSuccess = async (_participant: any, plant: number) => {
 		console.log("PlantMinted", {
-			data,
-			amount,
+			participant: _participant,
+			plant,
 		});
 
-		if (data && data.isPresent && setParticipant) {
+		if (_participant && _participant.isPresent && setParticipant) {
 			console.log("seed minted setLoading, currentState:", loading);
 			if (loading) {
 				setLoading(false);
 			}
 
 			setParticipant({
-				allowedTokenBalance: data.allowedTokenBalance.toNumber(),
-				level: data.allowedTokenBalance.toNumber(),
-				experiencePoints: data.experiencePoints.toNumber(),
-				plantIds: data.plantIds,
+				allowedTokenBalance: _participant.allowedTokenBalance.toNumber(),
+				level: _participant.allowedTokenBalance.toNumber(),
+				experiencePoints: _participant.experiencePoints.toNumber(),
+				plantIds: _participant.plantIds,
 			});
 
 			present({
 				color: "secondary",
-				duration: 5000,
+				duration: 4000,
 				position: "top",
 				message: t("newSeed.success") as unknown as string,
 			});
 
 			postNotification && postNotification({
-				message: t("newSeed.success") as unknown as string,
+				message: ts("newSeed.success") as unknown as string,
 				url: "/tabs/plants",
 			});
 		}
@@ -82,12 +82,12 @@ const NewSeedPage = () => {
 			backLink
 		>
 			<div className="flex flex-col flex-grow items-center justify-between">
-				<div className="grid xl:grid-cols-2 gap-x-8 gap-y-12 w-full">
+				<div className="grid grid-cols-1 xl:grid-cols-2 gap-x-8 gap-y-8 xl:gap-y-12 w-full">
 					<Tokens />
 
 					{!balance && (
 						<Alert
-							className="row-start-2 col-span-2"
+							className="row-start-2 xl:col-span-2"
 							icon="Danger"
 						>
 							<p>
