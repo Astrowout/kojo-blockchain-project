@@ -59,18 +59,15 @@ const useSession = (address?: string) => {
 
 	const postNotification = async ({ message, url }: { message: string, url: string }) => {
 		try {
-			const { data: notification } = await axios.post(`/users/${address}/notifications`, {
+			const { data: notifications } = await axios.post(`/users/${address}/notifications`, {
 				message,
 				url,
 			});
 
-			if (!!notification) {
+			if (!!notifications) {
 				setUser({
 					...user! && user,
-					notifications: [
-						notification,
-						...user?.notifications || [],
-					],
+					notifications,
 				});
 			}
 		} catch (error: any) {
