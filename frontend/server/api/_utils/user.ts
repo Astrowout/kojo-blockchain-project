@@ -8,7 +8,11 @@ export const getUserByDid = async (client, did: string): Promise<User | null> =>
 			did,
 		},
 		include: {
-			notifications: true,
+			notifications: {
+				orderBy: {
+					createdAt: 'desc',
+				},
+			},
 		},
 	});
 
@@ -37,7 +41,7 @@ export const postUser = async (client, body: VercelRequestBody): Promise<User | 
 		include: {
 			notifications: {
 				orderBy: {
-					createdAt: 'asc',
+					createdAt: 'desc',
 				},
 			},
 		},
@@ -54,6 +58,13 @@ export const changeRole = async (client, did: string, body: VercelRequestBody): 
 		data: {
 			role: body.role,
 		},
+		include: {
+			notifications: {
+				orderBy: {
+					createdAt: 'desc',
+				},
+			},
+		}
 	});
 
 	return responseHelper(res);

@@ -19,7 +19,7 @@ export const postNotification = async (client, did: string, body: VercelRequestB
 		include: {
 			notifications: {
 				orderBy: {
-					createdAt: 'asc',
+					createdAt: 'desc',
 				},
 			},
 		}
@@ -36,7 +36,7 @@ export const getNotificationsByDid = async (client, did: string): Promise<Notifi
 			}
 		},
 		orderBy: {
-			createdAt: 'asc',
+			createdAt: 'desc',
 		},
 	});
 
