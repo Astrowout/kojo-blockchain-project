@@ -23,7 +23,7 @@ const NotificationItem: FC<NotificationItemProps> = ({
 	return (
 		<Link
 			to={url}
-			className={cn(className, "flex justify-between group items-center w-full px-6 py-4 hover:bg-emerald-50 transition-colors")}
+			className={cn(className, "flex justify-between group items-center w-full px-6 py-4 transition-colors hover:bg-emerald-50")}
 		>
 			<span className="flex flex-col">
 				<p
