@@ -43,7 +43,28 @@ const SettingsPage = () => {
 			withOverlap={false}
 		>
 			<div className="flex flex-col justify-between items-center flex-grow">
-				<div className="grid xl:grid-cols-2 gap-x-8 gap-y-12 w-full">
+				<div className="grid xl:grid-cols-2 gap-x-8 gap-y-16 md:gap-y-12 w-full">
+					<div className="xl:col-span-2 u-card flex justify-center space-x-3">
+						<Icon
+							name="Danger"
+							size={24}
+							className="flex-shrink-0"
+						/>
+
+						<p>
+							{ t("general.testnet",
+								<a
+									href="https://faucet.polygon.technology/"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="underline"
+								>
+									{ t("general.faucet") }
+								</a>
+							) }
+						</p>
+					</div>
+
 					{address && (
 						<SettingItem
 							title={t("settings.wallet")}

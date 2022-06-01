@@ -1,5 +1,5 @@
 import { Contract } from "ethers";
-import { createContext, Dispatch, FC, PropsWithChildren, SetStateAction } from "react";
+import { createContext, FC, PropsWithChildren } from "react";
 import { useContract, useSession } from "../hooks";
 import { Notification, Participant, Plant } from "../types";
 
@@ -14,7 +14,7 @@ type SessionContextType = {
 	minsUntilNextClaim?: number;
 	postNotification?: ({ message, url }: { message: string, url: string }) => void;
 	markAllAsRead?: () => void;
-	setParticipant?: Dispatch<SetStateAction<Participant>>;
+	handleUpdateParticipant: (data: any) => void;
 }
 
 type SessionProviderProps = {
@@ -22,7 +22,9 @@ type SessionProviderProps = {
 	address: string | undefined;
 };
 
-const SessionContext = createContext<SessionContextType>({});
+const SessionContext = createContext<SessionContextType>({
+	handleUpdateParticipant: () => {},
+});
 
 export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 	children,
@@ -36,7 +38,7 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 		contract,
 		blockTime,
 		minsUntilNextClaim,
-		setParticipant,
+		handleUpdateParticipant,
 	} = useContract(provider, address);
 
 	const {
@@ -59,7 +61,7 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 				minsUntilNextClaim,
 				postNotification,
 				markAllAsRead,
-				setParticipant,
+				handleUpdateParticipant,
 			}}
 		>
 			{children}
