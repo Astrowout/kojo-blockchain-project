@@ -19,7 +19,6 @@ const ConnectModal: FunctionComponent<ConnectModalProps> = ({ title, description
 		error,
 		isMetaMaskAvailable,
 		connectMetaMask,
-		connectWalletConnect,
 		connectMagicLink,
 	} = useContext(GlobalContext);
 
@@ -59,14 +58,14 @@ const ConnectModal: FunctionComponent<ConnectModalProps> = ({ title, description
 						MetaMask
 					</Button>
 
-					<Button
+					{/* <Button
 						fluid
 						icon="WalletConnect"
 						context={ButtonContext.WALLET_CONNECT}
 						onClick={connectWalletConnect}
 					>
 						WalletConnect
-					</Button>
+					</Button> */}
 
 					<EmailForm
 						className="pt-6 border-t"

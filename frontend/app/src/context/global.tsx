@@ -1,6 +1,6 @@
 import { createContext, FC, PropsWithChildren } from "react";
 import { Loader } from "../components";
-import { useMetaMask, useWalletConnect, useWeb3 } from "../hooks";
+import { useMetaMask, useWeb3 } from "../hooks";
 import useMagicLink from "../hooks/useMagicLink";
 import { Error } from "../types";
 import { SessionProvider } from "./session";
@@ -32,10 +32,10 @@ export const GlobalProvider: FC<PropsWithChildren<GlobalProviderProps>> = ({ chi
 		disconnect,
 	} = useWeb3();
 
-	const {
-		loading: isWalletConnectLoading,
-		connectWalletConnect,
-	} = useWalletConnect(setProvider);
+	// const {
+	// 	loading: isWalletConnectLoading,
+	// 	connectWalletConnect,
+	// } = useWalletConnect(setProvider);
 
 	const {
 		loading: isMetaMaskLoading,
@@ -61,12 +61,11 @@ export const GlobalProvider: FC<PropsWithChildren<GlobalProviderProps>> = ({ chi
 		<GlobalContext.Provider
 			value={{
 				address,
-				loading: isMetaMaskLoading || isWalletConnectLoading || isMagicLinkLoading,
+				loading: isMetaMaskLoading || isMagicLinkLoading,
 				error: error || metaMaskError,
 				network,
 				isMetaMaskAvailable,
 				connectMetaMask,
-				connectWalletConnect,
 				connectMagicLink,
 				disconnect,
 			}}
