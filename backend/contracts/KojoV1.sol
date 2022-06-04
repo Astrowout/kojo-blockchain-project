@@ -17,14 +17,10 @@ contract KojoV1 is KojoERC1155 {
   KojoUtils internal utils;
   KojoAPIConsumer internal api;
 
-  event TokensClaimed(
-    Structs.Participant participant,
-    uint256 amount
-  );
-  event PlantMinted(
-    Structs.Participant participant,
-    Structs.Plant plant
-  );
+  uint256 internal plantTypeId;
+
+  event TokensClaimed(Structs.Participant participant, uint256 amount);
+  event PlantMinted(Structs.Participant participant, Structs.Plant plant);
   event PlantWatered(
     address account,
     Structs.Participant participant,
@@ -32,7 +28,7 @@ contract KojoV1 is KojoERC1155 {
     uint256 amount
   );
 
-    // Initialize contract.
+  // Initialize contract.
   function initialize(
     address _store,
     address _utils,
@@ -46,6 +42,7 @@ contract KojoV1 is KojoERC1155 {
 
     fungibleTokenId = 0;
     nonFungibleTokenCount = 1;
+    plantTypeId = 1;
 
     store = KojoStorage(_store);
     utils = KojoUtils(_utils);
@@ -113,10 +110,8 @@ contract KojoV1 is KojoERC1155 {
 
     console.log("tloopt mis 1");
 
-    Structs.Participant memory _participant = store.handleAddTokenIdToParticipant(
-      msg.sender,
-      nonFungibleTokenCount
-    );
+    Structs.Participant memory _participant = store
+      .handleAddTokenIdToParticipant(msg.sender, nonFungibleTokenCount);
 
     console.log("tloopt mis 2");
 
@@ -129,6 +124,12 @@ contract KojoV1 is KojoERC1155 {
     handleIncrementTokenCount();
 
     console.log("tloopt mis 4");
+
+    if (plantTypeId == 3) {
+      plantTypeId = 1;
+    } else {
+      plantTypeId += 1;
+    }
 
     return (_participant, _plant);
   }
@@ -189,18 +190,16 @@ contract KojoV1 is KojoERC1155 {
     Structs.Participant memory participant = store.handleReadParticipant(
       msg.sender
     );
-    require(!participant.isPresent, "Participant already exists. You can only claim your intial kojos once.");
+    require(
+      !participant.isPresent,
+      "Participant already exists. You can only claim your intial kojos once."
+    );
 
     Structs.Participant memory newParticipant = store.handleCreateParticpant(
       msg.sender
     );
 
-    _mint(
-      msg.sender,
-      fungibleTokenId,
-      store.initialTokenAllowance(),
-      ""
-    );
+    _mint(msg.sender, fungibleTokenId, store.initialTokenAllowance(), "");
 
     emit TokensClaimed(newParticipant, store.initialTokenAllowance());
 
@@ -221,12 +220,7 @@ contract KojoV1 is KojoERC1155 {
 
     // @TODO: Set fixed blocktime per month and check if passed.
 
-    _mint(
-      msg.sender,
-      fungibleTokenId,
-      participant.allowedTokenBalance,
-      ""
-    );
+    _mint(msg.sender, fungibleTokenId, participant.allowedTokenBalance, "");
 
     Structs.Participant memory _participant = participant;
     _participant.allowedTokenBalance = 0;
@@ -238,12 +232,17 @@ contract KojoV1 is KojoERC1155 {
 
   // Allows EOA's to buy a seed/plant.
   function handleBuyPlant() public payable onlyEOA {
-    Structs.Participant memory participant = store.handleReadParticipant(msg.sender);
+    Structs.Participant memory participant = store.handleReadParticipant(
+      msg.sender
+    );
     require(participant.isPresent, "Participant does not exist.");
 
     uint256 kojoBalance = balanceOf(msg.sender, fungibleTokenId);
     console.log("Sender balance is %s tokens", kojoBalance);
-    require(kojoBalance >= store.plantPrice(), "Not enough kojos. One plant costs 1 kojo");
+    require(
+      kojoBalance >= store.plantPrice(),
+      "Not enough kojos. One plant costs 1 kojo"
+    );
 
     (
       Structs.Participant memory _participant,
@@ -310,11 +309,7 @@ contract KojoV1 is KojoERC1155 {
   }
 
   // Allows users to read participants from storage.
-  function handleReadInititalAllowance()
-    external
-    view
-    returns (uint256)
-  {
+  function handleReadInititalAllowance() external view returns (uint256) {
     return store.initialTokenAllowance();
   }
 }
