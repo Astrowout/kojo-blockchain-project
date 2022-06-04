@@ -47,9 +47,9 @@ contract KojoV1 is KojoERC1155 {
     fungibleTokenId = 0;
     nonFungibleTokenCount = 1;
 
-      store = KojoStorage(_store);
-      utils = KojoUtils(_utils);
-      api = KojoAPIConsumer(_api);
+    store = KojoStorage(_store);
+    utils = KojoUtils(_utils);
+    api = KojoAPIConsumer(_api);
   }
 
   // Prohibits external contracts to call certain functions.
@@ -108,6 +108,7 @@ contract KojoV1 is KojoERC1155 {
 
     console.log("tloopt mis 0");
 
+    // TODO: change burn to transfer to another contract
     burn(msg.sender, fungibleTokenId, 1);
 
     console.log("tloopt mis 1");
