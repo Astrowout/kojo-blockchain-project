@@ -34,7 +34,7 @@ const useMetaMask = (setProvider: (provider: any) => void) => {
 			return;
 		} else {
 			validNetwork();
-			initNetworkEvent();
+			initChainChangeEvent();
 		}
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -63,8 +63,11 @@ const useMetaMask = (setProvider: (provider: any) => void) => {
 		return true;
 	}
 
-	const initNetworkEvent = async () => {
+	const initChainChangeEvent = async () => {
 		window.ethereum.on("chainChanged", () => window.location.reload());
+	}
+
+	const initAccountChangeEvent = async () => {
 		window.ethereum.on("accountsChanged", () => window.location.reload());
 	}
 
@@ -92,6 +95,7 @@ const useMetaMask = (setProvider: (provider: any) => void) => {
 
 			if (address) {
 				setProvider(provider);
+				initAccountChangeEvent();
 
 				return;
 			}

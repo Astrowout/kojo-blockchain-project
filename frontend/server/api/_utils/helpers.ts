@@ -16,7 +16,7 @@ export const responseHelper = (res: any) => {
 
 export const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
-export const getUserAllowance (regionAverage: number, usage: number, familySize: number = 1): number {
+export const getUserAllowance = (regionAverage: number, usage: number, familySize: number = 1): number => {
 	const usagePerPerson = usage / familySize;
 
 	if (regionAverage - usagePerPerson <= 0) {
