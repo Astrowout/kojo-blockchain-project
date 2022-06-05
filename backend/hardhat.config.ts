@@ -43,42 +43,6 @@ const config: HardhatUserConfig = {
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
-    // ethereum: {
-    //   chainId: 1,
-    //   url: process.env.ETHEREUM_MAINNET_RPC_URL,
-    //   accounts:
-    //     process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    // },
-    // morden: {
-    //   chainId: 2,
-    //   url: process.env.ETHEREUM_MORDEN_RPC_URL,
-    //   accounts:
-    //     process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    // },
-    // ropsten: {
-    //   chainId: 3,
-    //   url: process.env.ETHEREUM_ROPSTEN_RPC_URL ?? '',
-    //   accounts:
-    //     process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    // },
-    // rinkeby: {
-    //   chainId: 4,
-    //   url: process.env.ETHEREUM_RINKEBY_RPC_URL,
-    //   accounts:
-    //     process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    // },
-    // goerli: {
-    //   chainId: 5,
-    //   url: process.env.ETHEREUM_GOERLI_RPC_URL ?? '',
-    //   accounts:
-    //     process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    // },
-    // kovan: {
-    //   chainId: 42,
-    //   url: process.env.ETHEREUM_KOVAN_RPC_URL,
-    //   accounts:
-    //     process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KE] : [],
-    // },
     // polygon: {
     //   chainId: 137,
     //   url: process.env.POLYGON_MAINNET_RPC_URL,
@@ -100,8 +64,6 @@ const config: HardhatUserConfig = {
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,
     currency: 'EUR',
-    // outputFile: 'gas-report.txt',
-    // noColors: true,
   },
 };
 

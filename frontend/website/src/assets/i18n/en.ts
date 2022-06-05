@@ -14,7 +14,7 @@ const translations = {
 		title: "How it works",
 		1: {
 			title: "Track your water consumption",
-			description: "Connect your smart water meter to the Kojo Blockchain and start receiving rewards in Kojo tokens based on your relative water consumption in your local area.",
+			description: "Connect your smart water meter to the kojo network and start receiving rewards based on your relative water consumption in your local area.",
 		},
 		2: {
 			title: "Mint seeds and grow beautiful plants",

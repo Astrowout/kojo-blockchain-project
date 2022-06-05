@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
 	Button,
 	EmptyState,
@@ -5,9 +6,13 @@ import {
 	PlantCard,
 	Tokens,
 } from "../../components";
+import { SessionContext } from "../../context";
 import { useTranslation } from "../../hooks";
 
 const DashboardPage = () => {
+	const {
+		balance
+	} = useContext(SessionContext);
 	const { t } = useTranslation();
 
 	const plant = {
@@ -27,17 +32,19 @@ const DashboardPage = () => {
 			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-12 w-full">
 				<Tokens compact={false} />
 
-				<EmptyState
-					message={t("dashboard.mint")}
-					icon="Seeds"
-				>
-					<Button
-						url="/new-seed"
-						compact
+				{!balance && (
+					<EmptyState
+						message={t("dashboard.claim")}
+						icon="KojoToken"
 					>
-						{t("dashboard.mintCta")}
-					</Button>
-				</EmptyState>
+						<Button
+							url="/claim"
+							compact
+						>
+							{t("dashboard.claimCta")}
+						</Button>
+					</EmptyState>
+				)}
 
 				<div className="xl:col-span-2 grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12">
 					<div className="lg:col-span-2">
@@ -45,16 +52,30 @@ const DashboardPage = () => {
 							{ t("dashboard.plants") }
 						</h2>
 
-						<div className="grid lg:grid-cols-2">
-							<PlantCard
-								id={plant.id}
-								type={plant.type}
-								waterNeeded={plant.waterNeeded}
-								health={plant.health}
-								hydration={plant.hydration}
-								image={plant.image}
-							/>
-						</div>
+						{plant ? (
+							<div className="grid lg:grid-cols-2">
+								<PlantCard
+									id={plant.id}
+									type={plant.type}
+									waterNeeded={plant.waterNeeded}
+									health={plant.health}
+									hydration={plant.hydration}
+									image={plant.image}
+								/>
+							</div>
+						) : (
+							<EmptyState
+								message={t("dashboard.mint")}
+								icon="Seeds"
+							>
+								<Button
+									url="/new-seed"
+									compact
+								>
+									{t("dashboard.mintCta")}
+								</Button>
+							</EmptyState>
+						)}
 					</div>
 				</div>
 			</div>

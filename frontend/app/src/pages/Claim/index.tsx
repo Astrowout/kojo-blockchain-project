@@ -1,13 +1,12 @@
 import { useIonToast } from "@ionic/react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
 	Button,
 	Claim,
 	Layout,
 } from "../../components";
 import { TX_OPTIONS } from "../../config";
-import { SessionContext } from "../../context";
-import { delay } from "../../helpers";
+import { GlobalContext, SessionContext } from "../../context";
 import { useTranslation } from "../../hooks";
 
 const ClaimPage = () => {
@@ -15,19 +14,16 @@ const ClaimPage = () => {
 	const {
 		participant,
 		contract,
-		blockTime,
 		postNotification,
 		handleUpdateParticipant,
 	} = useContext(SessionContext);
+	const {
+		provider,
+	} = useContext(GlobalContext);
 	const [loading, setLoading] = useState(false);
 	const [present] = useIonToast();
 
 	const handleClaimSuccess = async (data: any, amount: number) => {
-		console.log("TokensClaimed", {
-			data,
-			amount,
-		});
-
 		if (data && data.isPresent) {
 			setLoading(false);
 
@@ -45,28 +41,40 @@ const ClaimPage = () => {
 				url: "#",
 			});
 		}
+
+		provider?.removeAllListeners();
+		contract?.removeAllListeners();
 	};
 
 	const claimTokens = async () => {
 		setLoading(true);
 
 		try {
-			contract?.once("TokensClaimed", handleClaimSuccess);
+			await contract?.handleClaimStartTokens(TX_OPTIONS);
 
-			await contract!.handleClaimStartTokens(TX_OPTIONS);
-			await delay(blockTime ? (blockTime + 3) * 1000 : 5000);
-
-			if (loading) {
-				console.log("loading timeout", loading);
-
-				setLoading(false);
-			}
+			provider.on("block", () => {
+				contract?.once("TokensClaimed", handleClaimSuccess);
+			});
 		} catch (error: any) {
 			setLoading(false);
+
+			present({
+				color: "danger",
+				duration: 6000,
+				position: "top",
+				message: error.message,
+			});
 
 			throw error;
 		}
 	};
+
+	useEffect(() => {
+	  return () => {
+		provider?.removeAllListeners();
+		contract?.removeAllListeners();
+	  }
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<Layout

@@ -20,7 +20,7 @@ const Footer: FunctionComponent<FooterProps> = ({
 			<Logo w={80} blank className="text-gray-300" />
 
 			<p className="mt-3 text-sm">
-				{ t("footer.title", <Icon name="Heart" size={16} className="inline mb-0.5" />) }
+				{ t("footer.title", <Icon name="Heart" size={16} className="inline mb-1" />) }
 			</p>
 
 			{version && (

@@ -5,21 +5,22 @@ import {
 } from "../../components";
 import { useTranslation } from "../../hooks";
 import { TX_OPTIONS } from "../../config";
-import { SessionContext } from "../../context";
+import { GlobalContext, SessionContext } from "../../context";
 import { useIonToast } from "@ionic/react";
-import { useContext, useState } from "react";
-import { delay } from "../../helpers";
+import { useContext, useEffect, useState } from "react";
 
 const NewSeedPage = () => {
 	const { t, ts } = useTranslation();
 	const {
 		participant,
 		contract,
-		blockTime,
 		balance,
 		postNotification,
 		handleUpdateParticipant,
 	} = useContext(SessionContext);
+	const {
+		provider,
+	} = useContext(GlobalContext);
 	const [loading, setLoading] = useState(false);
 	const [present] = useIonToast();
 
@@ -46,26 +47,40 @@ const NewSeedPage = () => {
 				url: "/tabs/plants",
 			});
 		}
+
+		provider?.removeAllListeners();
+		contract?.removeAllListeners();
 	};
 
 	const handleBuyPlant = async () => {
 		setLoading(true);
 
 		try {
-			contract?.once("PlantMinted", handleMintSuccess);
-
 			await contract!.handleBuyPlant(TX_OPTIONS);
-			await delay(blockTime ? (blockTime + 3) * 1000 : 5000);
 
-			if (loading) {
-				setLoading(false);
-			}
+			provider.on("block", () => {
+				contract?.once("PlantMinted", handleMintSuccess);
+			});
 		} catch (error: any) {
 			setLoading(false);
+
+			present({
+				color: "danger",
+				duration: 6000,
+				position: "top",
+				message: error.message,
+			});
 
 			throw error;
 		}
 	};
+
+	useEffect(() => {
+		return () => {
+		  provider?.removeAllListeners();
+		  contract?.removeAllListeners();
+		}
+	  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<Layout

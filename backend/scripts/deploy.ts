@@ -17,6 +17,7 @@ const main = async () => {
   const KojoStorage = await ethers.getContractFactory('KojoStorage');
   const KojoUtils = await ethers.getContractFactory('KojoUtils');
   const KojoAPIConsumer = await ethers.getContractFactory('KojoAPIConsumer');
+  const KojoBurn = await ethers.getContractFactory('KojoBurn');
   const KojoV1 = await ethers.getContractFactory('KojoV1');
 
   // We deploy every upgradeable contract
@@ -25,14 +26,16 @@ const main = async () => {
   // We deploy every contract (not upgradeable)
   const utils = await KojoUtils.deploy();
   const api = await KojoAPIConsumer.deploy();
+  const burn = await KojoBurn.deploy();
 
   // We wait for the nested contracts to be deployed
   await store.deployed();
   await utils.deployed();
   await api.deployed();
+  await burn.deployed();
 
   // We deploy our main contract as upgradeable and set the addresses of the nested contracts
-  const main = await upgrades.deployProxy(KojoV1, [store.address, utils.address, api.address]);
+  const main = await upgrades.deployProxy(KojoV1, [store.address, utils.address, api.address, burn.address]);
 
   // We wait for the main contract to be deployed
   await main.deployed();

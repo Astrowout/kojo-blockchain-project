@@ -2,6 +2,9 @@
 
 Our blockchain project aims at designing a solution that brings blockchain technology and water management together. We challenge ourselves in designing an NFT-game where end-users can grow seeds into plants based on their sustainable water consumption.
 
+## Partners
+- Howest University
+
 ## Team members
 - Eva Vergucht
 - Gaël Fincioen

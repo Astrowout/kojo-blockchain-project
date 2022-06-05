@@ -48,6 +48,7 @@ const PlantsPage = () => {
 						>
 							<Button
 								url="/new-seed"
+								compact
 							>
 								{t("plants.emptyCta")}
 							</Button>
