@@ -1,12 +1,13 @@
 import { useIonToast } from "@ionic/react";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import { Error, ErrorType } from "../types";
 import useTranslation from "./useTranslation";
 
 const useWeb3 = () => {
 	const [present] = useIonToast();
 	const history = useHistory();
+	const location = useLocation();
 	const { t } = useTranslation();
 	const [network, setNetwork] = useState<any | null>(null);
 	const [provider, setProvider] = useState<any | null>(null);
@@ -15,7 +16,7 @@ const useWeb3 = () => {
 	const [error, setError] = useState<Error | null>(null);
 
 	useEffect(() => {
-		if (!provider) {
+		if (!provider || location.pathname !== "/") {
 			history.push("/");
 
 			return;
@@ -62,9 +63,7 @@ const useWeb3 = () => {
 		}
 
 		try {
-			if (provider!.disconnect) {
-				provider!.disconnect();
-			}
+			provider?.disconnect();
 
 			setAddress(null);
 			history.push("/");
