@@ -11,6 +11,7 @@
     "format": "prettier --write .",
     "coverage": "hardhat coverage --solcoverjs ./.solcover.ts",
     "fuzzing": "docker run -it --rm -v $PWD:/src trailofbits/eth-security-toolbox",
+    "clean": "hardhat clean",
     "start": "hardhat node",
     "deploy:testnet": "hardhat run scripts/deploy.ts --network mumbai",
     "deploy:local": "hardhat run scripts/deploy.ts --network localhost",
@@ -54,6 +55,7 @@
     "@chainlink/contracts": "^0.4.1",
     "@chainlink/test-helpers": "^0.0.7-alpha",
     "@chainlink/token": "^1.1.0",
+    "@openzeppelin/contracts": "^4.6.0",
     "@openzeppelin/contracts-upgradeable": "^4.6.0",
     "dotenv": "^10.0.0"
   }

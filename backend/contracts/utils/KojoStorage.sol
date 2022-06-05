@@ -7,33 +7,23 @@ import "../utils/KojoLibrary.sol";
 
 contract KojoStorage is OwnableUpgradeable {
   uint256 public plantPrice;
-  uint256 public tokenSensitivity;
   uint256 public initialTokenAllowance;
+  uint256 public plantTypeId;
 
   mapping(address => Structs.Participant) public participants;
-  event CreateParticipant(Structs.Participant participant);
   event UpdateParticipant(Structs.Participant participant);
   event DeleteParticipant(Structs.Participant participant);
 
   mapping(uint256 => Structs.Plant) public plants;
-  event CreatePlant(Structs.Plant plant);
   event UpdatePlant(Structs.Plant plant);
   event DeletePlant(Structs.Plant plant);
 
   function initialize() public initializer {
     plantPrice = 1;
-    tokenSensitivity = 1000;
     initialTokenAllowance = 100;
+    plantTypeId = 1;
 
     __Ownable_init_unchained();
-  }
-
-  // Allows owner to update how many tokens are distributed for a given percentage point.
-  function handleUpdateTokenSensitivity(uint256 _tokenSensitivity)
-    public
-    onlyOwner
-  {
-    tokenSensitivity = _tokenSensitivity;
   }
 
   // Allows owner to create a new participant.
@@ -53,8 +43,6 @@ contract KojoStorage is OwnableUpgradeable {
     participant.plantIds = new uint256[](0);
 
     participants[account] = participant;
-
-    emit CreateParticipant(participant);
 
     return participant;
   }
@@ -131,8 +119,6 @@ contract KojoStorage is OwnableUpgradeable {
 
     plants[tokenId] = plant;
 
-    emit CreatePlant(plant);
-
     return plant;
   }
 
@@ -179,5 +165,17 @@ contract KojoStorage is OwnableUpgradeable {
     emit DeletePlant(plant);
 
     return plant;
+  }
+
+  // Allows owner to update how many tokens are distributed for a given percentage point.
+  function handleUpdatePlantTypeId()
+    external
+    onlyOwner
+  {
+    if (plantTypeId == 3) {
+      plantTypeId = 1;
+    } else {
+      plantTypeId += 1;
+    }
   }
 }

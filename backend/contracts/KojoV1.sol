@@ -3,8 +3,6 @@ pragma solidity ^0.8.9;
 
 import "hardhat/console.sol";
 
-import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
-
 import {KojoERC1155} from "./token/KojoERC1155.sol";
 
 import {Structs} from "./utils/KojoLibrary.sol";
@@ -17,36 +15,26 @@ contract KojoV1 is KojoERC1155 {
   KojoUtils internal utils;
   KojoAPIConsumer internal api;
 
-  uint256 internal plantTypeId;
+  address burnAddress;
 
   event TokensClaimed(Structs.Participant participant, uint256 amount);
   event PlantMinted(Structs.Participant participant, Structs.Plant plant);
-  event PlantWatered(
-    address account,
-    Structs.Participant participant,
-    Structs.Plant plant,
-    uint256 amount
-  );
+  event PlantWatered(Structs.Participant participant, Structs.Plant plant);
 
   // Initialize contract.
   function initialize(
     address _store,
     address _utils,
-    address _api
+    address _api,
+    address _burn
   ) public initializer {
-    // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1155.md#erc-1155-metadata-uri-json-schema
-    __ERC1155_init("");
-    __Ownable_init();
-    __ERC1155Burnable_init();
-    __ERC1155Supply_init();
-
-    fungibleTokenId = 0;
-    nonFungibleTokenCount = 1;
-    plantTypeId = 1;
+    __KojoERC1155_init();
 
     store = KojoStorage(_store);
     utils = KojoUtils(_utils);
     api = KojoAPIConsumer(_api);
+
+    burnAddress = _burn;
   }
 
   // Prohibits external contracts to call certain functions.
@@ -103,33 +91,20 @@ contract KojoV1 is KojoERC1155 {
   {
     _mint(msg.sender, nonFungibleTokenCount, 1, "");
 
-    console.log("tloopt mis 0");
+    // Transfer tokens from participant to the vault in our main contract.
+    safeTransferFrom(msg.sender, address(this), fungibleTokenId, store.plantPrice(), "");
 
-    // TODO: change burn to transfer to another contract
-    burn(msg.sender, fungibleTokenId, 1);
-
-    console.log("tloopt mis 1");
-
-    Structs.Participant memory _participant = store
-      .handleAddTokenIdToParticipant(msg.sender, nonFungibleTokenCount);
-
-    console.log("tloopt mis 2");
+    Structs.Participant memory _participant = store.handleAddTokenIdToParticipant(
+      msg.sender,
+      nonFungibleTokenCount
+    );
 
     Structs.Plant memory _plant = store.handleCreatePlant(
       nonFungibleTokenCount
     );
 
-    console.log("tloopt mis 3");
-
     handleIncrementTokenCount();
-
-    console.log("tloopt mis 4");
-
-    if (plantTypeId == 3) {
-      plantTypeId = 1;
-    } else {
-      plantTypeId += 1;
-    }
+    store.handleUpdatePlantTypeId();
 
     return (_participant, _plant);
   }
@@ -138,62 +113,28 @@ contract KojoV1 is KojoERC1155 {
   function handleUpdateContracts(
     address _store,
     address _utils,
-    address _api
+    address _api,
+    address _burn
   ) public onlyOwner {
     store = KojoStorage(_store);
     utils = KojoUtils(_utils);
     api = KojoAPIConsumer(_api);
+
+    burnAddress = _burn;
   }
-
-  // Allows the  owner to update how many tokens are distributed for a given percentage point.
-  function handleUpdateTokenSensitivity(uint256 tokenSensitivity)
-    public
-    onlyOwner
-  {
-    store.handleUpdateTokenSensitivity(tokenSensitivity);
-  }
-
-  // // Allows the  owner to configure the chainlink api consumer.
-  // function handleConfigureAPIConsumer(
-  //   bytes32 _jobId,
-  //   uint256 _fee,
-  //   string calldata _endpoint,
-  //   string calldata _path,
-  //   address _oracleAddress
-  // ) public onlyOwner {
-  //   api.handleConfigureAPI(
-  //     _jobId,
-  //     _fee,
-  //     _endpoint,
-  //     _path,
-  //     _oracleAddress
-  //   );
-  // }
-
-  // Allows EOA's to become participants.
-  // function handleCreateParticipant() internal onlyEOA {
-  //   Structs.Participant memory participant = store.handleReadParticipant(
-  //     msg.sender
-  //   );
-  //   require(!participant.isPresent, "Participant already exists.");
-
-  //   store.handleCreateParticpant(msg.sender);
-  // }
 
   // Allows EOA's to claim a free kojo supply when new.
   function handleClaimStartTokens()
-    public
+    external
     payable
     onlyEOA
-    returns (Structs.Participant memory value)
   {
     Structs.Participant memory participant = store.handleReadParticipant(
       msg.sender
     );
-    require(
-      !participant.isPresent,
-      "Participant already exists. You can only claim your intial kojos once."
-    );
+
+    // Only allow new participants to claim their initial tokens.
+    require(!participant.isPresent, "Participant already exists. You can only claim your intial kojos once.");
 
     Structs.Participant memory newParticipant = store.handleCreateParticpant(
       msg.sender
@@ -202,8 +143,6 @@ contract KojoV1 is KojoERC1155 {
     _mint(msg.sender, fungibleTokenId, store.initialTokenAllowance(), "");
 
     emit TokensClaimed(newParticipant, store.initialTokenAllowance());
-
-    return newParticipant;
   }
 
   // Allows EOA's to claim a monthly reward when gained.
@@ -231,57 +170,58 @@ contract KojoV1 is KojoERC1155 {
   }
 
   // Allows EOA's to buy a seed/plant.
-  function handleBuyPlant() public payable onlyEOA {
-    Structs.Participant memory participant = store.handleReadParticipant(
-      msg.sender
-    );
+  function handleBuyPlant() external payable onlyEOA {
+    Structs.Participant memory participant = store.handleReadParticipant(msg.sender);
+
+    // Check existence of participant who wants to mint a seed.
     require(participant.isPresent, "Participant does not exist.");
 
+    // Check if participant has enough tokens to mint a seed.
     uint256 kojoBalance = balanceOf(msg.sender, fungibleTokenId);
-    console.log("Sender balance is %s tokens", kojoBalance);
-    require(
-      kojoBalance >= store.plantPrice(),
-      "Not enough kojos. One plant costs 1 kojo"
-    );
+    require(kojoBalance >= store.plantPrice(), "Not enough kojos. One plant costs 1 kojo.");
 
     (
       Structs.Participant memory _participant,
       Structs.Plant memory _plant
     ) = _handleMintPlant();
 
-    console.log("plantseee %s", _plant.isPresent);
-
     emit PlantMinted(_participant, _plant);
   }
 
   // Allows EOA's to water their seed/plant.
-  function handleWaterPlant(uint256 tokenId) public payable onlyEOA {
-    Structs.Participant memory participant = store.handleReadParticipant(
-      msg.sender
-    );
+  function handleWaterPlant(uint256 tokenId, uint256 amount) public payable onlyEOA {
+    Structs.Participant memory participant = store.handleReadParticipant(msg.sender);
     Structs.Plant memory plant = store.handleReadPlant(tokenId);
 
+    // Check if the participant exists.
     require(participant.isPresent, "Participant does not exist.");
+
+    // Check if plant exists.
     require(plant.isPresent, "Plant does not exist.");
-    require(msg.value > 0, "No MATIC provided.");
 
-    // @TODO: Check for KOJO instead of MATIC?
+    // Check if participant has enough kojos to water the plant.
+    uint256 kojoBalance = balanceOf(msg.sender, fungibleTokenId);
+    require(kojoBalance >= amount, "Not enough kojos to water your plant.");
 
-    Structs.Participant memory _participant = utils.handleAddXPToParticipant(
-      participant,
-      msg.value
-    );
-    Structs.Plant memory _plant = utils.handleAddXPToPlant(plant, msg.value);
+    // Calculate values in data models
+    Structs.Participant memory _participant = utils.handleAddXPToParticipant(participant, amount);
+    Structs.Plant memory _plant = utils.handleAddXPToPlant(plant, amount);
 
+    // Update values in data models
     store.handleUpdateParticipant(msg.sender, _participant);
     store.handleUpdatePlant(tokenId, _plant);
 
     string memory uri = utils.handleBuildURI(_plant, tokenId);
     setTokenUri(tokenId, uri);
 
-    // @TODO: Burn tokens. Send to burn address?
+    // Transfer 2% of the tokens to the vault in our main contract.
+    // Transfer 98% of the tokens to the burn contract.
+    uint256 vaultAmount = amount / 100 * 2;
+    uint256 burnAmount = amount / 100 * 98;
+    safeTransferFrom(msg.sender, address(this), fungibleTokenId, vaultAmount, "");
+    safeTransferFrom(msg.sender, burnAddress, fungibleTokenId, burnAmount, "");
 
-    emit PlantWatered(msg.sender, _participant, _plant, msg.value);
+    emit PlantWatered(_participant, _plant);
   }
 
   // Allows chainlink keeper to check if upkeep is needed.
@@ -303,13 +243,18 @@ contract KojoV1 is KojoERC1155 {
   function handleReadParticipant(address account)
     external
     view
-    returns (Structs.Participant memory _participant)
+    returns (Structs.Participant memory)
   {
     return store.handleReadParticipant(account);
   }
 
-  // Allows users to read participants from storage.
+  // Allows client to read the initial allowance for users to withdraw.
   function handleReadInititalAllowance() external view returns (uint256) {
     return store.initialTokenAllowance();
+  }
+
+  // Allows the owner of the main contract to withdraw the kojo tokens from the contract.
+  function withdrawKojos() external payable onlyOwner {
+    safeTransferFrom(address(this), owner(), fungibleTokenId, balanceOf(address(this), fungibleTokenId), "");
   }
 }

@@ -10,6 +10,7 @@ type GlobalContextType = {
 	loading?: boolean;
 	error?: Error | null;
 	network?: any;
+	provider?: any;
 	isMetaMaskAvailable?: boolean;
 	connectMetaMask?: () => void;
 	connectWalletConnect?: () => void;
@@ -64,6 +65,7 @@ export const GlobalProvider: FC<PropsWithChildren<GlobalProviderProps>> = ({ chi
 				loading: isMetaMaskLoading || isMagicLinkLoading,
 				error: error || metaMaskError,
 				network,
+				provider,
 				isMetaMaskAvailable,
 				connectMetaMask,
 				connectMagicLink,

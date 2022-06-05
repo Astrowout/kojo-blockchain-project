@@ -3,14 +3,15 @@ pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts-upgradeable/token/ERC1155/ERC1155Upgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155BurnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155SupplyUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC1155/utils/ERC1155HolderUpgradeable.sol";
 
 contract KojoERC1155 is
+  Initializable,
   ERC1155Upgradeable,
   OwnableUpgradeable,
-  ERC1155BurnableUpgradeable,
+  ERC1155HolderUpgradeable,
   ERC1155SupplyUpgradeable
 {
   mapping(uint256 => string) private _uris;
@@ -18,10 +19,25 @@ contract KojoERC1155 is
   uint256 public fungibleTokenId;
   uint256 public nonFungibleTokenCount;
 
-  // Disable initialize function after intitialization.
-  // constructor() {
-  //   _disableInitializers();
-  // }
+  /// @custom:oz-upgrades-unsafe-allow constructor
+  constructor() {
+     _disableInitializers();
+  }
+
+  // Initialize token contract.
+  function __KojoERC1155_init() internal onlyInitializing {
+    __ERC1155_init_unchained("");
+    __Ownable_init_unchained();
+    __ERC1155Supply_init_unchained();
+
+    fungibleTokenId = 0;
+    nonFungibleTokenCount = 1;
+  }
+
+
+  function supportsInterface(bytes4 interfaceId) public view virtual override(ERC1155Upgradeable, ERC1155ReceiverUpgradeable) returns (bool) {
+    return super.supportsInterface(interfaceId);
+  }
 
   // Allows to owner to update the metadata.
   function setURI(string memory newuri) public onlyOwner {

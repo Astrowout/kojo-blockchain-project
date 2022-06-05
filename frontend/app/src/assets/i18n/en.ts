@@ -55,6 +55,8 @@ const translations = {
 		plants: "Your most recent plant",
 		mint: "Mint a new seed to grow a new plant",
 		mintCta: "Mint a seed",
+		claim: "You don't have any tokens yet. Claim your first tokens to start growing some beautiful plants.",
+		claimCta: "Claim my tokens",
 		description: {
 			1: "You are {$}. Let's keep it up this week!",
 			2: "saving more water than 60% of your neighbors",
@@ -87,7 +89,7 @@ const translations = {
 		price: "One seed only costs 1 kojo.",
 		success: "You successfully minted a new seed!",
 		description: {
-			1: "{$} You can mint them here but make sure you have enough kojos to take care for them. You currently have {$} seed NFT(s) in your wallet.",
+			1: "{$} You can mint them here but make sure you have enough kojos to take care for them. You currently have {$} NFT(s) in your wallet.",
 			2: "Seeds are only 1 kojo!",
 		},
 	},
