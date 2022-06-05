@@ -40,7 +40,7 @@ model FarysUser {
     id         BigInt @id(map: "primary") @default(autoincrement()) @db.Int8
     did        String @unique
     familySize Int    @default(1) @db.Int2
-    usage      Float  @default(0) @db.Float4
+    usage      Int    @default(0) @db.Int4
     postalCode String @default("9000")
 }
 
