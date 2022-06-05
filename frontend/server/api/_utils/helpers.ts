@@ -14,8 +14,14 @@ export const responseHelper = (res: any) => {
 	return JSON.parse(string);
 }
 
-export const getRandomFloat = (min: number, max: number, decimals: number = 1): number => {
-	const str = (Math.random() * (max - min) + min).toFixed(decimals);
+export const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
-	return parseFloat(str);
-  }
+export const getUserAllowance (regionAverage: number, usage: number, familySize: number = 1): number {
+	const usagePerPerson = usage / familySize;
+
+	if (regionAverage - usagePerPerson <= 0) {
+		return 0;
+	} else {
+		return regionAverage - usagePerPerson;
+	}
+}

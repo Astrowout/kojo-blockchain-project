@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { checkDid, getAverageByRegion, getFarysUserByDid } from '../../_utils';
+import { checkDid, getAverageByRegion, getFarysUserByDid, getUserAllowance } from '../../_utils';
 
 const client = new PrismaClient();
 
@@ -32,6 +32,7 @@ export default async function handler(
 				regionAverage,
 				usage: user.usage,
 				familySize: user.familySize,
+				allowance: getUserAllowance(regionAverage, user.usage, user.familySize),
 			});
 		} else {
 			res.status(404).json({

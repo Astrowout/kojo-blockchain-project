@@ -72,7 +72,7 @@ const translations = {
 	},
 	plants: {
 		title: "My seeds & plants",
-		description: "You have {$} plant NFT(s) in your wallet.",
+		description: "You have {$} NFT(s) in your wallet.",
 		detailDescription: "This plant has gotten {$} kojos of water from the period it was minted.",
 		average: "Of average in your area",
 		view: "View my water consumption",
