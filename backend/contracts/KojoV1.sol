@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
-import "hardhat/console.sol";
-
 import {KojoERC1155} from "./token/KojoERC1155.sol";
 
 import {Structs} from "./utils/KojoLibrary.sol";
@@ -221,8 +219,6 @@ contract KojoV1 is KojoERC1155 {
     // Transfer 98% of the tokens to the burn contract.
     uint256 vaultAmount = amount * 2 / 100;
     uint256 burnAmount = amount * 98 / 100;
-    console.log("vaultAmount: %s", vaultAmount);
-    console.log("burnAmount: %s", burnAmount);
     safeTransferFrom(msg.sender, address(this), fungibleTokenId, vaultAmount, "");
     safeTransferFrom(msg.sender, burnAddress, fungibleTokenId, burnAmount, "");
 
@@ -231,14 +227,14 @@ contract KojoV1 is KojoERC1155 {
 
   // Allows chainlink keeper to check if upkeep is needed.
   function checkUpkeep() external view {
-    console.log("");
+    // console.log("");
 
     // @TODO: Set latest sync block and check if month is passed. (LINK?)
   }
 
   // Allows chainlink keeper te perform upkeep.
   function performUpkeep() external view {
-    console.log("");
+    // console.log("");
 
     // @TODO: Sync NFTS. (?)
     // @TODO: Update latest sync block to now.
