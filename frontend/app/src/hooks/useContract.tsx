@@ -108,7 +108,11 @@ const useContract = (provider: any, address?: string) => {
 				const uri = await contract!.uri(tokenId);
 
 				if (data && data.isPresent) {
-					plants.push(await formatPlant(tokenId, data, uri));
+					const _plant = await formatPlant(tokenId, data,uri);
+
+					if (_plant) {
+						plants.push(_plant);
+					}
 				}
 			}
 

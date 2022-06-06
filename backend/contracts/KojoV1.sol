@@ -219,8 +219,10 @@ contract KojoV1 is KojoERC1155 {
 
     // Transfer 2% of the tokens to the vault in our main contract.
     // Transfer 98% of the tokens to the burn contract.
-    uint256 vaultAmount = amount / 100 * 2;
-    uint256 burnAmount = amount / 100 * 98;
+    uint256 vaultAmount = amount * 2 / 100;
+    uint256 burnAmount = amount * 98 / 100;
+    console.log("vaultAmount: %s", vaultAmount);
+    console.log("burnAmount: %s", burnAmount);
     safeTransferFrom(msg.sender, address(this), fungibleTokenId, vaultAmount, "");
     safeTransferFrom(msg.sender, burnAddress, fungibleTokenId, burnAmount, "");
 

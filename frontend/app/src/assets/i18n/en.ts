@@ -121,6 +121,14 @@ const translations = {
 	stats: {
 		health: "Health",
 		hydration: "Hydration",
+		waterNeeded: "Water needed",
+	},
+	hydrate: {
+		title: "Hydrate your plant",
+		description: "You have {$} kojos to hydrate this plant.",
+		cta: "Give some water!",
+		amount: "Amount of tokens",
+		success: "You hydrated your plant '{$}' with {$} kojos.",
 	},
 	health: {
 		0: "In bad shape",

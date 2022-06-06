@@ -12,7 +12,7 @@ const Stat: FunctionComponent<StatProps> = ({
 }) => {
 	return (
 		<div className={cn(className)}>
-			<div className="flex items-center space-x-2 text-gray-400">
+			<div className="flex items-center space-x-1.5 text-gray-400">
 				<Icon name={icon} size={20} className="flex-shrink-0" />
 
 				<p className="text-xs uppercase tracking-wider font-bold">

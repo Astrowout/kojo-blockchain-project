@@ -8,13 +8,12 @@ import Icon from "../Icon/Icon";
 
 const PlantDetail: FC<PlantDetailProps> = ({
 	children,
-	className,
-	id = "",
+	className = "",
 	type = "",
 	image = "",
 	health = null,
 	hydration = null,
-	waterNeeded = 2,
+	waterNeeded = null,
 }) => {
 	const { t } = useTranslation();
 
@@ -25,7 +24,7 @@ const PlantDetail: FC<PlantDetailProps> = ({
 	}
 
 	const renderDrop = (index: number) => {
-		const solid = waterNeeded > index;
+		const solid = waterNeeded || 2 > index;
 
 		return (
 			<Icon
@@ -37,7 +36,7 @@ const PlantDetail: FC<PlantDetailProps> = ({
 
 	return (
 		<div
-			className={cn(className, "grid lg:grid-cols-2 gap-x-12 gap-y-8")}
+			className={cn(className, "grid xl:grid-cols-2 gap-x-12 gap-y-8")}
 		>
 			<div className="relative aspect-square overflow-hidden rounded-2xl shadow-2xl shadow-emerald-600/20">
 				<img
@@ -45,18 +44,25 @@ const PlantDetail: FC<PlantDetailProps> = ({
 					alt={`${type} plant`}
 					className="w-full h-full object-cover bg-white"
 				/>
-
-				<div className="flex space-x-0.5 absolute top-4 right-4 text-emerald-600 bg-white/80 px-1 py-0.5 rounded shadow-2xl">
-					{ [...Array(3)].map((_drop, index) => renderDrop(index)) }
-				</div>
 			</div>
 
-			<div className="lg:mt-24">
+			<div className="xl:mt-24">
 				<h2 className="text-emerald-600 font-bold text-xl md:text-2xl xl:text-3xl">
 					{ type }
 				</h2>
 
 				<div className="grid gap-y-6 py-6">
+					{waterNeeded && (
+						<Stat
+							icon="Seeds"
+							label={t("stats.waterNeeded")}
+							>
+							<span className="flex space-x-0.5 text-emerald-600 bg-white/80 rounded shadow-2xl">
+								{ [...Array(3)].map((_drop, index) => renderDrop(index)) }
+							</span>
+						</Stat>
+					)}
+
 					<Stat
 						icon="Hearts"
 						label={t("stats.health")}
@@ -68,13 +74,25 @@ const PlantDetail: FC<PlantDetailProps> = ({
 						icon="Hydration"
 						label={t("stats.hydration")}
 					>
-						{ hydration }%
+						<span className="flex items-center space-x-1">
+							<Icon
+								name="KojoToken"
+								size={16}
+								className="text-emerald-600 mt-0.5"
+							/>
+
+							<span>
+								{ hydration }
+							</span>
+						</span>
 					</Stat>
 				</div>
 
-				<div>
-					{ children }
-				</div>
+				{children && (
+					<div className="mt-6">
+						{ children }
+					</div>
+				)}
 			</div>
 	  	</div>
 	)

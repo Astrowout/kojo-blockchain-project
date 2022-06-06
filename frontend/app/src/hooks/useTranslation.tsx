@@ -32,7 +32,7 @@ const useTranslation = () => {
 		if (!!data.length) {
 			const splitString = translationString.split("{$}");
 
-			return data.map((item, index) => `${index === 0 && splitString[index]}${item}${index < data.length && splitString[index + 1]}`).join("");
+			return data.map((item, index) => `${index === 0 ? splitString[index] : ''}${item}${index < data.length ? splitString[index + 1] : ''}`).join("");
 		}
 
 		return translationString;

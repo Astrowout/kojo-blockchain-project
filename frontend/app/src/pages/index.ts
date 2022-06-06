@@ -5,6 +5,7 @@ export { default as LeaderboardPage } from "./Leaderboard";
 export { default as NewSeedPage } from "./NewSeed";
 export { default as PlantsPage } from "./Plants";
 export { default as PlantPage } from "./Plants/detail";
+export { default as HydratePage } from "./Plants/hydrate";
 export { default as SettingsPage } from "./Settings";
 export { default as NotificationsPage } from "./Notifications";
 export { default as ClaimPage } from "./Claim";

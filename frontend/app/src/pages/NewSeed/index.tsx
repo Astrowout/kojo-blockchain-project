@@ -59,7 +59,7 @@ const NewSeedPage = () => {
 			const tx = await contract!.handleBuyPlant(TX_OPTIONS);
 
 			provider.once(tx.hash, () => {
-				contract?.once("PlantMinted", handleMintSuccess);
+				contract?.on("PlantMinted", handleMintSuccess);
 			});
 		} catch (error: any) {
 			setLoading(false);

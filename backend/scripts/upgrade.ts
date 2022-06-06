@@ -59,9 +59,9 @@ const main = async () => {
       address: api.address,
       owner: await api.owner(),
     },
-    token: {
-      address: token.address,
-      owner: await token.owner(),
+    burn: {
+      address: burn.address,
+      owner: await burn.owner(),
     },
     main: {
       address: main.address,

@@ -56,6 +56,10 @@ const main = async () => {
       address: api.address,
       owner: await api.owner(),
     },
+    burn: {
+      address: burn.address,
+      owner: await burn.owner(),
+    },
     main: {
       address: main.address,
       owner: await main.owner(),
