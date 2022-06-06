@@ -50,9 +50,9 @@ const ClaimPage = () => {
 		setLoading(true);
 
 		try {
-			const tx = await contract?.handleClaimStartTokens(TX_OPTIONS);
+			await contract?.handleClaimStartTokens(TX_OPTIONS);
 
-			provider.once(tx.hash, () => {
+			provider.once("block", () => {
 				contract?.once("TokensClaimed", handleClaimSuccess);
 			});
 		} catch (error: any) {
