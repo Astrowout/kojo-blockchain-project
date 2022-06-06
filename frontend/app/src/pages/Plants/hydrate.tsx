@@ -73,9 +73,9 @@ const HydratePage = () => {
 		setLoading(true);
 
 		try {
-			const tx = await contract!.handleWaterPlant(id, amount, TX_OPTIONS);
+			await contract!.handleWaterPlant(id, amount, TX_OPTIONS);
 
-			provider.once(tx.hash, () => {
+			provider.once("block", () => {
 				contract?.once("PlantWatered", handleHydrateSuccess);
 			});
 		} catch (error: any) {

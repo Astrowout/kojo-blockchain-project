@@ -56,9 +56,9 @@ const NewSeedPage = () => {
 		setLoading(true);
 
 		try {
-			const tx = await contract!.handleBuyPlant(TX_OPTIONS);
+			await contract!.handleBuyPlant(TX_OPTIONS);
 
-			provider.once(tx.hash, () => {
+			provider.once("block", () => {
 				contract?.on("PlantMinted", handleMintSuccess);
 			});
 		} catch (error: any) {
