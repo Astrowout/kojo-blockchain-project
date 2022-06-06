@@ -12,6 +12,7 @@ import {
 	NewSeedPage,
 	SettingsPage,
 	PlantPage,
+	HydratePage,
 	NotFoundPage,
 	ClaimPage,
 	NotificationsPage,
@@ -50,7 +51,8 @@ const App: React.FC = () => {
 					<IonRouterOutlet>
 						<Route path="/" exact component={OnboardingPage} />
 						<Route path="/tabs" component={Tabs} />
-						<Route path="/plants/:id" component={PlantPage} />
+						<Route path="/plants/:id" exact component={PlantPage} />
+						<Route path="/plants/:id/hydrate" component={HydratePage} />
 						<Route path="/settings" component={SettingsPage} />
 						<Route path="/notifications" component={NotificationsPage} />
 						<Route path="/claim" component={ClaimPage} />

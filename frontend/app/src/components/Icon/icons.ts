@@ -32,6 +32,7 @@ import { ReactComponent as Seeds } from "../../assets/icons/seeds.svg";
 import { ReactComponent as Roadmap } from "../../assets/icons/roadmap.svg";
 import { ReactComponent as Clipboard } from "../../assets/icons/clipboard.svg";
 import { ReactComponent as Plus } from "../../assets/icons/plus.svg";
+import { ReactComponent as Minus } from "../../assets/icons/minus.svg";
 
 // Mapping
 const icons = {
@@ -68,6 +69,7 @@ const icons = {
 	Roadmap,
 	Clipboard,
 	Plus,
+	Minus,
 }
 
 export default icons;

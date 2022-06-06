@@ -70,15 +70,15 @@ const PlantCard: FC<PlantCardProps> = ({
 					label={t("stats.hydration")}
 				>
 					<span className="flex items-center space-x-1">
-						<span>
-							{ hydration }
-						</span>
-
 						<Icon
 							name="KojoToken"
 							size={16}
 							className="text-emerald-600 mt-0.5"
 						/>
+
+						<span>
+							{ hydration }
+						</span>
 					</span>
 				</Stat>
 			</div>

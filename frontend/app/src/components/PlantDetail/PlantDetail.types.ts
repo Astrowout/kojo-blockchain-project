@@ -1,9 +1,8 @@
 import { ReactNode } from "react";
 
 export type PlantDetailProps = {
-	children: ReactNode;
+	children?: ReactNode;
 	className?: string;
-	id?: number;
 	type?: string;
 	image?: string;
 	health?: number;
