@@ -58,13 +58,6 @@ export const changeRole = async (client, did: string, body: VercelRequestBody): 
 		data: {
 			role: body.role,
 		},
-		include: {
-			notifications: {
-				orderBy: {
-					createdAt: 'desc',
-				},
-			},
-		}
 	});
 
 	return responseHelper(res);

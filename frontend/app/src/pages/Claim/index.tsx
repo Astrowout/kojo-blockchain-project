@@ -23,11 +23,11 @@ const ClaimPage = () => {
 	const [loading, setLoading] = useState(false);
 	const [present] = useIonToast();
 
-	const handleClaimSuccess = async (data: any, amount: number) => {
-		if (data && data.isPresent) {
+	const handleClaimSuccess = async (_participant: any, amount: number) => {
+		if (_participant && _participant.isPresent) {
 			setLoading(false);
 
-			handleUpdateParticipant(data);
+			handleUpdateParticipant(_participant);
 
 			present({
 				color: "secondary",
@@ -38,7 +38,7 @@ const ClaimPage = () => {
 
 			postNotification && postNotification({
 				message: ts("claim.success", amount),
-				url: "#",
+				url: "",
 			});
 		}
 
@@ -50,9 +50,9 @@ const ClaimPage = () => {
 		setLoading(true);
 
 		try {
-			await contract?.handleClaimStartTokens(TX_OPTIONS);
+			const tx = await contract?.handleClaimStartTokens(TX_OPTIONS);
 
-			provider.on("block", () => {
+			provider.once(tx.hash, () => {
 				contract?.once("TokensClaimed", handleClaimSuccess);
 			});
 		} catch (error: any) {

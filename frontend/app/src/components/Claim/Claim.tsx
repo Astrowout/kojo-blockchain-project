@@ -12,7 +12,7 @@ const Claim: FunctionComponent<ClaimProps> = ({
 	const { t } = useTranslation();
 
 	return (
-		<div className={cn(className, "bg-white rounded-2xl flex flex-col items-center w-full relative px-5 py-12 overflow-hidden shadow-2xl shadow-emerald-900/20")}>
+		<div className={cn(className, "bg-white rounded-2xl flex flex-col items-center w-full relative px-5 py-12 overflow-hidden shadow-2xl shadow-emerald-600/20")}>
 			<Icon name="Token" size={160} className="absolute -right-10 -bottom-8 text-emerald-900 opacity-10" />
 
 			<p className="text-lg text-center">

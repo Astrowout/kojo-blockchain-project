@@ -20,11 +20,10 @@ const NotificationItem: FC<NotificationItemProps> = ({
 		});
 	}
 
-	return (
-		<Link
-			to={url}
-			className={cn(className, "flex justify-between group items-center w-full px-6 py-4 transition-colors hover:bg-emerald-50")}
-		>
+	const classNames = cn(className, "flex justify-between group items-center w-full px-6 py-4 transition-colors hover:bg-emerald-50");
+
+	const renderContent = () => (
+		<>
 			<span className="flex flex-col">
 				<p
 					className={cn("md:text-lg flex", {
@@ -45,14 +44,27 @@ const NotificationItem: FC<NotificationItemProps> = ({
 				</p>
 			</span>
 
-			{!read && url !== "#" && (
+			{url && (
 				<Icon
 					name="ArrowRight"
 					className="ml-4 text-gray-400 group-hover:text-emerald-900"
 					size={20}
 				/>
 			)}
+		</>
+	);
+
+	return url ? (
+		<Link
+			to={url}
+			className={classNames}
+		>
+			{ renderContent() }
 		</Link>
+	) : (
+		<div className={classNames}>
+			{ renderContent() }
+		</div>
 	)
 }
 

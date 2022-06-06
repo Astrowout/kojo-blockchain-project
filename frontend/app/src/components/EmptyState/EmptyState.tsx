@@ -8,24 +8,39 @@ const EmptyState: FC<EmptyStateProps> = ({
 	children,
 	className = "",
 	message = "",
+	compact = false,
 	icon = "ArrowRight",
 }) => {
 	return (
 		<div
-			className={cn(className, "flex flex-col items-center justify-center w-full u-card")}
+			className={cn(className, "flex items-center w-full", {
+				"flex-col justify-center u-card": !compact,
+				"flex-row justify-between u-card-mobile": compact,
+			})}
 		>
-			<Icon
-				name={icon}
-				className="text-gray-400"
-				size={64}
-			/>
+			{!compact && (
+				<Icon
+					name={icon}
+					className="text-gray-400 flex-shrink-0"
+					size={64}
+				/>
+			)}
 
-			<p className="mt-3 text-gray-600 text-center max-w-prose">
+			<p
+				className={cn("text-gray-600 max-w-prose", {
+					"mt-3 text-center": !compact,
+				})}
+			>
 				{ message }
 			</p>
 
 			{children && (
-				<div className="mt-6">
+				<div
+					className={cn({
+						"mt-6": !compact,
+						"ml-6": compact,
+					})}
+				>
 					{ children }
 				</div>
 			)}

@@ -11,18 +11,12 @@ import { useTranslation } from "../../hooks";
 
 const DashboardPage = () => {
 	const {
-		balance
+		balance,
+		plants,
 	} = useContext(SessionContext);
 	const { t } = useTranslation();
 
-	const plant = {
-		id: "uuid-1",
-		type: "Purple Haze Sativa",
-		waterNeeded: 2,
-		health: 3,
-		hydration: 80,
-		image: "https://images.unsplash.com/photo-1458014854819-1a40aa70211c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-	};
+	const latestPlant = plants ? plants[plants?.length - 1] : undefined;
 
 	return (
 		<Layout
@@ -52,15 +46,15 @@ const DashboardPage = () => {
 							{ t("dashboard.plants") }
 						</h2>
 
-						{plant ? (
+						{latestPlant ? (
 							<div className="grid lg:grid-cols-2">
 								<PlantCard
-									id={plant.id}
-									type={plant.type}
-									waterNeeded={plant.waterNeeded}
-									health={plant.health}
-									hydration={plant.hydration}
-									image={plant.image}
+									id={latestPlant.id}
+									type={latestPlant.type}
+									waterNeeded={latestPlant.waterNeeded}
+									health={latestPlant.health}
+									hydration={latestPlant.hydration}
+									image={latestPlant.image}
 								/>
 							</div>
 						) : (

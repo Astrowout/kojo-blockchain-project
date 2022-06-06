@@ -14,21 +14,34 @@ const PlantsPage = () => {
 	const { t } = useTranslation();
 	const {
 		participant,
+		plants,
 	} = useContext(SessionContext);
-
-	const plants: any = [];
 
 	return (
 		<Layout
 			title={t("plants.title")}
 			description={t("plants.description", <b className="font-bold">{participant?.plantIds?.length || 0}</b>)}
 		>
-			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-12 w-full">
+			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-8 md:gap-y-12 w-full">
 				<Tokens />
+
+				{plants && !!plants.length && (
+					<EmptyState
+						message={t("plants.mint")}
+						compact
+					>
+						<Button
+							url="/new-seed"
+							compact
+						>
+							{t("plants.mintCta")}
+						</Button>
+					</EmptyState>
+				)}
 
 				<div className="xl:col-span-2 w-full">
 					{plants && !!plants.length ? (
-						<div className="grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-8">
+						<div className="grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12">
 							{plants.map((plant: Plant) => (
 								<PlantCard
 									key={plant.id}

@@ -99,10 +99,13 @@ contract KojoV1 is KojoERC1155 {
       nonFungibleTokenCount
     );
 
-    Structs.Plant memory _plant = store.handleCreatePlant(
-      nonFungibleTokenCount
-    );
+    Structs.Plant memory _plant = store.handleCreatePlant(nonFungibleTokenCount);
 
+    // Set initial URI of newly minted plant.
+    string memory URI = utils.handleBuildURI(_plant);
+    setTokenUri(nonFungibleTokenCount, URI);
+
+    // Update state for next minting.
     handleIncrementTokenCount();
     store.handleUpdatePlantTypeId();
 
@@ -153,8 +156,8 @@ contract KojoV1 is KojoERC1155 {
 
     require(participant.isPresent, "Participant does not exist.");
     require(
-      participant.allowedTokenBalance != 0,
-      "Participant is not allowed."
+      participant.allowedTokenBalance > 0,
+      "Participant doesn't have allowance to claim tokens."
     );
 
     // @TODO: Set fixed blocktime per month and check if passed.
@@ -211,7 +214,7 @@ contract KojoV1 is KojoERC1155 {
     store.handleUpdateParticipant(msg.sender, _participant);
     store.handleUpdatePlant(tokenId, _plant);
 
-    string memory uri = utils.handleBuildURI(_plant, tokenId);
+    string memory uri = utils.handleBuildURI(_plant);
     setTokenUri(tokenId, uri);
 
     // Transfer 2% of the tokens to the vault in our main contract.
@@ -246,6 +249,15 @@ contract KojoV1 is KojoERC1155 {
     returns (Structs.Participant memory)
   {
     return store.handleReadParticipant(account);
+  }
+
+  // Allows users to read plants from storage.
+  function handleReadPlant(uint256 tokenId)
+    external
+    view
+    returns (Structs.Plant memory)
+  {
+    return store.handleReadPlant(tokenId);
   }
 
   // Allows client to read the initial allowance for users to withdraw.

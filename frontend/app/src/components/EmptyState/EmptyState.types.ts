@@ -5,5 +5,6 @@ export type EmptyStateProps = {
 	children?: ReactNode;
 	className?: string;
 	message: ReactNode;
+	compact?: boolean;
 	icon?: keyof typeof icons;
 }

@@ -8,6 +8,7 @@ import Sidebar from "../Sidebar/Sidebar";
 
 const AppLayout: FC<PropsWithChildren<AppLayoutProps>> = ({
 	children,
+	className = "",
 	title,
 	description,
 	backLink,
@@ -26,7 +27,7 @@ const AppLayout: FC<PropsWithChildren<AppLayoutProps>> = ({
 			</AppHeader>
 
 			<div
-				className={cn("md:-mt-14 pb-20 px-4 sm:px-8 lg:px-12 2xl:max-w-screen-xl mx-auto w-full flex flex-col flex-grow", {
+				className={cn(className, "md:-mt-14 pb-20 px-4 sm:px-8 lg:px-12 2xl:max-w-screen-xl mx-auto w-full flex flex-col flex-grow", {
 					"-mt-8": withOverlap,
 					"mt-8": !withOverlap,
 				})}

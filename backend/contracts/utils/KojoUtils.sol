@@ -4,17 +4,41 @@ pragma solidity ^0.8.9;
 import "hardhat/console.sol";
 
 import "../utils/KojoLibrary.sol";
+import "@openzeppelin/contracts-upgradeable/utils/StringsUpgradeable.sol";
 
 contract KojoUtils {
-  function handleBuildURI(Structs.Plant memory plant, uint256 tokenId)
+  function handleBuildURI(Structs.Plant memory plant)
     external
     pure
     returns (string memory _uri)
   {
-    string memory base = "ipfs/nft/";
-    string memory result = string(
-      abi.encodePacked(base, tokenId, "-", plant.level, "-", plant.lifes)
+    // Perform some checks
+    require(plant.isPresent, "Plant does not exist.");
+    require(
+      plant.level == 1
+      || plant.level == 2
+      || plant.level == 3
+      || plant.level == 4
+      || plant.level == 5,
+      "Plant level does not exist."
     );
+    require(
+      plant.lifes == 1
+      || plant.lifes == 2
+      || plant.lifes == 3,
+      "Plant lifes does not exist."
+    );
+
+    string memory base = "https://cloudflare-ipfs.com/ipfs/QmZVcWmtRiCNnSUSHvdooDBjZ3vqtiAipZ6uwp5PzHjQZA/";
+    string memory result = string(abi.encodePacked(
+      base,
+      StringsUpgradeable.toString(plant.typeId),
+      "-",
+      StringsUpgradeable.toString(plant.level),
+      "-",
+      StringsUpgradeable.toString(plant.lifes),
+      ".json"
+    ));
 
     return result;
   }

@@ -18,8 +18,8 @@ const Tokens: FunctionComponent<TokensProps> = ({
 	} = useContext(SessionContext);
 
 	return (
-		<div className={cn(className, "bg-white rounded-2xl overflow-hidden shadow-2xl shadow-emerald-900/20")}>
-			<div className="overflow-hidden p-6 relative">
+		<div className={cn(className, "flex flex-col bg-white rounded-2xl overflow-hidden shadow-2xl shadow-emerald-900/20")}>
+			<div className="overflow-hidden p-6 relative h-full">
 				<Icon
 					name="Token"
 					size={160}
