@@ -56,9 +56,9 @@ const NewSeedPage = () => {
 		setLoading(true);
 
 		try {
-			await contract!.handleBuyPlant(TX_OPTIONS);
+			const tx = await contract!.handleBuyPlant(TX_OPTIONS);
 
-			provider.on("block", () => {
+			provider.once(tx.hash, () => {
 				contract?.once("PlantMinted", handleMintSuccess);
 			});
 		} catch (error: any) {
@@ -80,7 +80,7 @@ const NewSeedPage = () => {
 		  provider?.removeAllListeners();
 		  contract?.removeAllListeners();
 		}
-	  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<Layout

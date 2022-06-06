@@ -17,11 +17,11 @@ ion-tab-bar {
 }
 
 .u-card {
-	@apply md:bg-white md:rounded-2xl md:shadow-2xl md:shadow-emerald-900/20 md:p-8;
+	@apply md:bg-white md:rounded-2xl md:shadow-2xl md:shadow-emerald-900/20 md:p-6;
 }
 
-.u-card-fluid {
-	@apply md:bg-white md:rounded-2xl md:shadow-2xl md:shadow-emerald-900/20 overflow-hidden;
+.u-card-mobile {
+	@apply bg-white rounded-2xl shadow-2xl shadow-emerald-900/20 p-6;
 }
 
 ion-footer::before {

@@ -4,6 +4,8 @@ pragma solidity ^0.8.9;
 
 library Structs {
   struct Plant {
+    // Plant type id (can be 1, 2 or 3).
+    uint256 typeId;
     // Grow phase.
     uint256 level;
     // Amount of fungible tokens spent on plant.

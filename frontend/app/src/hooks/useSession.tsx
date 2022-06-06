@@ -76,7 +76,6 @@ const useSession = (address?: string) => {
 	};
 
  	return {
-		role: user?.role,
 		notifications: user?.notifications,
 		loading,
 		error,

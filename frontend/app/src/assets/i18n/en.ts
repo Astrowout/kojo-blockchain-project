@@ -52,7 +52,7 @@ const translations = {
 	},
 	dashboard: {
 		title: "My dashboard",
-		plants: "Your most recent plant",
+		plants: "Your latest plant",
 		mint: "Mint a new seed to grow a new plant",
 		mintCta: "Mint a seed",
 		claim: "You don't have any tokens yet. Claim your first tokens to start growing some beautiful plants.",
@@ -80,6 +80,8 @@ const translations = {
 		view: "View my water consumption",
 		empty: "You don't have any plants yet. Get started by minting a seed.",
 		emptyCta: "Mint my first seed",
+		mint: "Mint some new seeds to grow your urban jungle!",
+		mintCta: "Mint a seed",
 		hydrate: "Hydrate",
 	},
 	newSeed: {

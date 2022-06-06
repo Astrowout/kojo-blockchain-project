@@ -2,7 +2,7 @@
     "tokenId": 1,
     "name": "Kojo NFT Mock 1-2-1",
     "description": "",
-    "image": "https://ipfs/ipfs/1-2-1.jpg",
+    "image": "https://cloudflare-ipfs.com/ipfs/QmTNu96Sanjh7PGombEWhqTmb4WvcNLwqwEfnnvoBP8pKe/1-2-1.png",
     "attributes": [
         {
             "trait_type": "level",

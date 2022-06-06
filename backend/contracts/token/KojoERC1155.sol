@@ -34,7 +34,6 @@ contract KojoERC1155 is
     nonFungibleTokenCount = 1;
   }
 
-
   function supportsInterface(bytes4 interfaceId) public view virtual override(ERC1155Upgradeable, ERC1155ReceiverUpgradeable) returns (bool) {
     return super.supportsInterface(interfaceId);
   }
@@ -77,7 +76,7 @@ contract KojoERC1155 is
   }
 
   // Allow the owner to set token specific token uri.
-  function setTokenUri(uint256 tokenId, string memory _uri) public onlyOwner {
+  function setTokenUri(uint256 tokenId, string memory _uri) internal {
     _uris[tokenId] = _uri;
   }
 }

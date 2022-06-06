@@ -9,7 +9,7 @@ import Icon from "../Icon/Icon";
 
 const PlantCard: FC<PlantCardProps> = ({
 	className,
-	id = "",
+	id = 1,
 	type = "",
 	image = "",
 	health = null,
@@ -57,7 +57,7 @@ const PlantCard: FC<PlantCardProps> = ({
 				{ type }
 			</h2>
 
-			<div className="grid gap-y-6 px-4 lg:px-6 py-6">
+			<div className="grid gap-y-8 px-4 lg:px-6 py-6">
 				<Stat
 					icon="Hearts"
 					label={t("stats.health")}
@@ -69,7 +69,17 @@ const PlantCard: FC<PlantCardProps> = ({
 					icon="Hydration"
 					label={t("stats.hydration")}
 				>
-					{ hydration }%
+					<span className="flex items-center space-x-1">
+						<span>
+							{ hydration }
+						</span>
+
+						<Icon
+							name="KojoToken"
+							size={16}
+							className="text-emerald-600 mt-0.5"
+						/>
+					</span>
 				</Stat>
 			</div>
 	  	</IonCard>

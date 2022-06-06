@@ -1,8 +1,7 @@
-import { FunctionComponent, memo } from "react";
+import { FunctionComponent, memo, useContext } from "react";
 import cn from "classnames";
 import { useRouteMatch } from "react-router-dom";
 
-import { useSession } from "../../hooks";
 import {
 	Icon,
 } from "../../components";
@@ -11,6 +10,7 @@ import { IonHeader, IonRouterLink } from "@ionic/react";
 
 import headerImage from "../../assets/img/onboarding.jpg";
 import { Link, useHistory } from "react-router-dom";
+import { SessionContext } from "../../context";
 
 const Header: FunctionComponent<HeaderProps> = ({
 	title = "",
@@ -20,7 +20,7 @@ const Header: FunctionComponent<HeaderProps> = ({
 }) => {
 	const {
 		notifications
-	} = useSession();
+	} = useContext(SessionContext);
 	const history = useHistory();
 	const tabsView = useRouteMatch({
 		path: "/tabs",

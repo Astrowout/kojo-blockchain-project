@@ -1,6 +1,7 @@
 export type Plant = {
-	id?: string;
+	id?: number;
 	type?: string;
+	description?: string;
 	waterNeeded?: number;
 	health?: number;
 	hydration?: number;

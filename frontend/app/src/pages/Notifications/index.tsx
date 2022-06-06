@@ -24,13 +24,14 @@ const NotificationsPage = () => {
 			description={ t("notifications.description.1", t("notifications.description.2", <b className="font-bold">{totalUnread}</b>))}
 			backLink
 			withOverlap={false}
+			className="mt-0"
 		>
 			<div className="flex flex-col max-w-prose flex-grow">
 				{notifications && !!notifications.length ? (
 					<>
 						{(totalUnread && totalUnread > 0) ? (
 							<Link
-								className="ml-auto mb-6 md:mb-4"
+								className="ml-auto mb-6 md:mb-4 mt-6 md:mt-0"
 								light
 								loading={loading}
 								onClick={markAllAsRead}
@@ -39,7 +40,7 @@ const NotificationsPage = () => {
 							</Link>
 						) : ''}
 
-						<ul className="divide-y u-card-fluid -mx-4 sm:-mx-8 md:mx-0 border-y md:border-none">
+						<ul className="divide-y u-card overflow-hidden md:p-0 -mx-4 sm:-mx-8 md:mx-0 border-y md:border-none">
 							{notifications?.map((notification) => (
 								<li key={notification.id}>
 									<NotificationItem
