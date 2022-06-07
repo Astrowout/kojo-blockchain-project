@@ -44,3 +44,17 @@ npx hardhat verify --network ropsten DEPLOYED_CONTRACT_ADDRESS "Hello, Hardhat!"
 # Performance optimizations
 
 For faster runs of your tests and scripts, consider skipping ts-node's type checking by setting the environment variable `TS_NODE_TRANSPILE_ONLY` to `1` in hardhat's environment. For more details see [the documentation](https://hardhat.org/guides/typescript.html#performance-optimizations).
+
+## Chainlink node credentials
+
+```shell
+Domain login
+
+- Username: admin@naas.local
+- Password: 49Tx0V3L56E28aFpOf71eIGkZ
+
+Node ui login
+
+- Username: admin@naas.local
+- Password: 94fcY23s7Xi5ZA1w0GIPrS68q
+```
