@@ -40,7 +40,7 @@ const Sidebar: FC<SidebarProps> = ({ className }) => {
 						{ t("navigation.plants") }
 					</NavLink>
 
-					<NavLink url="/tabs/leaderboard" icon="Medal">
+					<NavLink url="/tabs/leaderboard" icon="Ranking">
 						{ t("navigation.leaderboard") }
 					</NavLink>
 

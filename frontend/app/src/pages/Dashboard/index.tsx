@@ -4,6 +4,8 @@ import {
 	EmptyState,
 	Layout,
 	PlantCard,
+	PlayerStats,
+	StatType,
 	Tokens,
 } from "../../components";
 import { SessionContext } from "../../context";
@@ -13,10 +15,30 @@ const DashboardPage = () => {
 	const {
 		balance,
 		plants,
+		participant,
 	} = useContext(SessionContext);
 	const { t } = useTranslation();
 
 	const latestPlant = plants ? plants[plants?.length - 1] : undefined;
+
+	const data: StatType[] = [
+		{
+			label: t("leaderboard.level"),
+			value: `${participant?.level} / 3`,
+		},
+		{
+			label: t("leaderboard.xp"),
+			value: `${participant?.experiencePoints}`,
+		},
+		{
+			label: t("leaderboard.plants"),
+			value: !!participant?.plantIds?.length ? `${participant?.plantIds?.join(", ")}` : '/',
+		},
+		{
+			label: t("leaderboard.position"),
+			value: "3",
+		},
+	];
 
 	return (
 		<Layout
@@ -39,6 +61,11 @@ const DashboardPage = () => {
 						</Button>
 					</EmptyState>
 				)}
+
+				<PlayerStats
+					title={t("leaderboard.stats")}
+					data={data}
+				/>
 
 				<div className="xl:col-span-2 grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12">
 					<div className="lg:col-span-2">

@@ -1,13 +1,14 @@
 import { Contract } from "ethers";
 import { createContext, FC, PropsWithChildren } from "react";
 import { useContract, useSession } from "../hooks";
-import { Notification, Participant, Plant } from "../types";
+import { Notification, Participant, Plant, Player } from "../types";
 
 type SessionContextType = {
 	loading?: boolean;
 	notifications?: Notification[];
 	plants?: Plant[];
-	participant?: Participant;
+	participant: Participant;
+	participants: Player[];
 	balance?: number;
 	contract?: Contract;
 	minsUntilNextClaim?: number;
@@ -22,6 +23,8 @@ type SessionProviderProps = {
 };
 
 const SessionContext = createContext<SessionContextType>({
+	participants: [],
+	participant: {},
 	handleUpdateParticipant: () => {},
 });
 
@@ -34,6 +37,7 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 		balance,
 		plants,
 		participant,
+		participants,
 		contract,
 		minsUntilNextClaim,
 		handleUpdateParticipant,
@@ -54,6 +58,7 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 				balance,
 				loading,
 				participant,
+				participants,
 				plants,
 				minsUntilNextClaim,
 				postNotification,

@@ -75,19 +75,18 @@ const useMetaMask = (setProvider: (provider: any) => void) => {
 		setLoading(true);
 
 		try {
-			await delay(300);
 			const isNetworkValid = await validNetwork();
 
 			if (!isNetworkValid) {
-				setError(
-					{
-						type: ErrorType.WRONG_NETWORK,
-						message: t("errors.wrongNetwork") as unknown as string,
-					}
-				);
+				setError({
+					type: ErrorType.WRONG_NETWORK,
+					message: t("errors.wrongNetwork") as unknown as string,
+				});
 
 				return;
 			}
+
+			await delay(300);
 
 			const provider = new providers.Web3Provider(window.ethereum);
 

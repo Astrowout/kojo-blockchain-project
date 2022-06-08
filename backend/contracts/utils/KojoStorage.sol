@@ -11,6 +11,7 @@ contract KojoStorage is OwnableUpgradeable {
   uint256 public plantTypeId;
 
   mapping(address => Structs.Participant) public participants;
+  address[] public participantAddresses;
   event UpdateParticipant(Structs.Participant participant);
   event DeleteParticipant(Structs.Participant participant);
 
@@ -42,7 +43,9 @@ contract KojoStorage is OwnableUpgradeable {
     participant.plantIds = new uint256[](0);
     participant.isPresent = true;
 
+    // Set new state of participant.
     participants[account] = participant;
+    participantAddresses.push(account);
 
     return participant;
   }
@@ -51,6 +54,7 @@ contract KojoStorage is OwnableUpgradeable {
   function handleReadParticipant(address account)
     external
     view
+    onlyOwner
     returns (Structs.Participant memory _participant)
   {
     Structs.Participant memory participant = participants[account];
@@ -128,6 +132,7 @@ contract KojoStorage is OwnableUpgradeable {
   function handleReadPlant(uint256 tokenId)
     external
     view
+    onlyOwner
     returns (Structs.Plant memory _plant)
   {
     Structs.Plant memory plant = plants[tokenId];
@@ -179,5 +184,15 @@ contract KojoStorage is OwnableUpgradeable {
     } else {
       plantTypeId += 1;
     }
+  }
+
+  // Allows owner to update how many tokens are distributed for a given percentage point.
+  function handleReadParticipantAddresses()
+    external
+    view
+    onlyOwner
+    returns (address[] memory)
+  {
+    return participantAddresses;
   }
 }

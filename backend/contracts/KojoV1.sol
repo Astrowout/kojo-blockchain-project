@@ -6,7 +6,7 @@ import {KojoERC1155} from "./token/KojoERC1155.sol";
 import {Structs} from "./utils/KojoLibrary.sol";
 import {KojoStorage} from "./utils/KojoStorage.sol";
 import {KojoUtils} from "./utils/KojoUtils.sol";
-import {KojoAPIConsumer} from "./utils/KojoAPIConsumer.sol";
+import {KojoAPIConsumer} from "./chainlink/KojoAPIConsumer.sol";
 
 contract KojoV1 is KojoERC1155 {
   KojoStorage internal store;
@@ -40,44 +40,6 @@ contract KojoV1 is KojoERC1155 {
     require(tx.origin == msg.sender, "Not an EOA.");
     _;
   }
-
-  // Allows the contract to update the storage after transfering tokens.
-  // function _afterTokenTransfer(
-  //   address operator,
-  //   address from,
-  //   address to,
-  //   uint256[] memory ids,
-  //   uint256[] memory amounts,
-  //   bytes memory data
-  // ) internal virtual override {
-  //   // @TODO: Turn me on.
-  //   super._afterTokenTransfer(operator, from, to, ids, amounts, data);
-
-  //   uint256 tokenId = ids[0];
-
-  //   if (tokenId != token.fungibleTokenId) {
-  //     Structs.Participant memory fromParticipant = store.handleReadParticipant(
-  //       from
-  //     );
-  //     Structs.Participant memory toParticipant = store.handleReadParticipant(
-  //       to
-  //     );
-
-  //     if (fromParticipant.isPresent) {
-  //       Structs.Participant memory _fromParticipant = utils
-  //         .handleRemoveTokenIdFromParticipant(fromParticipant, tokenId);
-  //       store.handleUpdateParticipant(from, _fromParticipant);
-  //     }
-
-  //     if (toParticipant.isPresent) {
-  //       Structs.Participant memory _toParticipant = utils
-  //         .handleAddTokenIdToParticipant(toParticipant, tokenId);
-  //       store.handleUpdateParticipant(to, _toParticipant);
-  //     }
-
-  //     // @TODO: Provide fallback for when participant dont exist.
-  //   }
-  // }
 
   // Allows the contract to update the storage after minting tokens.
   function _handleMintPlant()
@@ -225,21 +187,6 @@ contract KojoV1 is KojoERC1155 {
     emit PlantWatered(_participant, _plant);
   }
 
-  // Allows chainlink keeper to check if upkeep is needed.
-  function checkUpkeep() external view {
-    // console.log("");
-
-    // @TODO: Set latest sync block and check if month is passed. (LINK?)
-  }
-
-  // Allows chainlink keeper te perform upkeep.
-  function performUpkeep() external view {
-    // console.log("");
-
-    // @TODO: Sync NFTS. (?)
-    // @TODO: Update latest sync block to now.
-  }
-
   // Allows users to read participants from storage.
   function handleReadParticipant(address account)
     external
@@ -261,6 +208,11 @@ contract KojoV1 is KojoERC1155 {
   // Allows client to read the initial allowance for users to withdraw.
   function handleReadInititalAllowance() external view returns (uint256) {
     return store.initialTokenAllowance();
+  }
+
+  // Allows client to read the address on position of index.
+  function handleReadParticipantAddresses() external view returns (address[] memory) {
+    return store.handleReadParticipantAddresses();
   }
 
   // Allows the owner of the main contract to withdraw the kojo tokens from the contract.

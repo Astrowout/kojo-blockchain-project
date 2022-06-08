@@ -5,3 +5,7 @@ export type Participant = {
 	allowedTokenBalance?: number;
 	isPresent?: boolean;
 }
+
+export interface Player extends Participant {
+	address: string;
+}

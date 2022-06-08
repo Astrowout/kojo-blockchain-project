@@ -45,7 +45,7 @@ const Tabs: FC<TabsProps> = () => {
 
 				<IonTabButton tab="leaderboard" href="/tabs/leaderboard" className="space-y-1">
 					<Icon
-						name="Medal"
+						name="Ranking"
 						size={24}
 					/>
 

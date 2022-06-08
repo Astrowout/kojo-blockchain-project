@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 import icons from "../Icon/icons";
 
 export type LinkProps = {
@@ -8,5 +10,6 @@ export type LinkProps = {
 	external?: boolean,
 	loading?: boolean,
 	light?: boolean,
+	tooltip?: ReactNode,
 	onClick?: () => void,
 }

@@ -1,4 +1,3 @@
-import { useIonToast } from "@ionic/react";
 import { useContext } from "react";
 import {
 	About,
@@ -21,18 +20,10 @@ const SettingsPage = () => {
 		network,
 		disconnect,
 	} = useContext(GlobalContext);
-	const [present] = useIonToast();
 
 
 	const handleCopyAddress = () => {
 		navigator.clipboard.writeText(address!);
-
-		present({
-			color: "secondary",
-			duration: 3000,
-			position: "top",
-			message: t("settings.copySuccess") as unknown as string,
-		});
 	}
 
 	return (
@@ -40,11 +31,10 @@ const SettingsPage = () => {
 			title={t("settings.title")}
 			description={network ? t("network.connection", <b className="font-mono bg-emerald-900 rounded px-1.5 py-0.5">{network.name}</b>) : null}
 			backLink
-			withOverlap={false}
 		>
 			<div className="flex flex-col justify-between items-center flex-grow">
 				<div className="grid xl:grid-cols-2 gap-x-8 gap-y-16 md:gap-y-12 w-full">
-					<div className="xl:col-span-2 u-card flex justify-center space-x-3">
+					<div className="xl:col-span-2 u-card-mobile flex justify-center space-x-3">
 						<Icon
 							name="Danger"
 							size={24}
@@ -75,6 +65,7 @@ const SettingsPage = () => {
 									 	onClick={handleCopyAddress}
 										className="mx-auto"
 										icon="Clipboard"
+										tooltip={t("settings.copySuccess")}
 									>
 										{t("settings.copy")}
 									</Link>

@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
-import { BigNumber, Contract } from "ethers";
-import { Error, Plant, Participant } from "../types";
-import { axios, formatPlant } from "../helpers";
+import { Contract } from "ethers";
+import { Error, Plant, Participant, Player } from "../types";
+import { axios, formatParticipant, formatPlant } from "../helpers";
 
 // @ts-ignore:next-line
 import MainArtifact from "../artifacts/contracts/KojoV1.sol/KojoV1.json";
@@ -9,6 +9,7 @@ import MainArtifact from "../artifacts/contracts/KojoV1.sol/KojoV1.json";
 const useContract = (provider: any, address?: string) => {
 	const [loading] = useState(false);
 	const [participant, setParticipant] = useState<Participant>({});
+	const [participants, setParticipants] = useState<Player[]>([]);
 	const [blockTime, setBlockTime] = useState<number>(5);
 	const [balance, setBalance] = useState<number>(0);
 	const [plants, setPlants] = useState<Plant[]>([]);
@@ -30,6 +31,7 @@ const useContract = (provider: any, address?: string) => {
 		}
 
 		initParticipant();
+		getParticipants();
 	}, [contract]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
@@ -77,7 +79,7 @@ const useContract = (provider: any, address?: string) => {
 					level: 0,
 					experiencePoints: 0,
 					plantIds: [],
-					isPresent: data.isPresent,
+					isPresent: false,
 				});
 			}
 		} catch (error: any) {
@@ -122,18 +124,37 @@ const useContract = (provider: any, address?: string) => {
 		}
 	};
 
-	const handleUpdateParticipant = useCallback(async (data: any) => {
-		setParticipant({
-			allowedTokenBalance: data.allowedTokenBalance.toNumber(),
-			level: data.allowedTokenBalance.toNumber(),
-			experiencePoints: data.experiencePoints.toNumber(),
-			plantIds: data.plantIds.map((plantId: BigNumber) => plantId.toNumber()),
-			isPresent: data.isPresent,
-		});
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+	const getParticipants = async () => {
+		let participants: Player[] = [];
+
+		try {
+			const accounts = await contract!.handleReadParticipantAddress();
+
+			console.log(accounts);
+
+			for (let i = 0; i < accounts.length; i++) {
+				const account = accounts[i];
+
+				const data = await contract!.handleReadParticipant(account);
+
+				if (data && data.isPresent) {
+					participants.push(formatParticipant(data, account) as Player);
+				}
+			}
+
+			setParticipants(participants);
+		} catch (error: any) {
+			throw error;
+		}
+	};
+
+	const handleUpdateParticipant = (data: any) => {
+		setParticipant(formatParticipant(data));
+	};
 
  	return {
 		participant,
+		participants,
 		balance,
 		plants,
 		contract,
