@@ -121,6 +121,7 @@ const translations = {
 		level: "Level",
 		xp: "XP points",
 		plants: "Plant token ID's",
+		plantsEmpty: "no plants yet",
 		ranking: "Leaderboard ranking",
 		address: "Polygon address",
 		nextLevel: "of level completed",

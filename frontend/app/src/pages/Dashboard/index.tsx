@@ -18,7 +18,7 @@ const DashboardPage = () => {
 		participant,
 		ranking,
 	} = useContext(SessionContext);
-	const { t } = useTranslation();
+	const { t, ts } = useTranslation();
 
 	const latestPlant = plants ? plants[plants?.length - 1] : undefined;
 
@@ -33,7 +33,7 @@ const DashboardPage = () => {
 		},
 		{
 			label: t("leaderboard.plants"),
-			value: !!participant?.plantIds?.length ? `${participant?.plantIds?.join(", ")}` : '/',
+			value: !!participant?.plantIds?.length ? `${participant?.plantIds?.join(", ")}` : ts("leaderboard.plantsEmpty"),
 		},
 		{
 			label: t("leaderboard.ranking"),

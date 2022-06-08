@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import sortBy from "lodash/sortBy";
+import orderBy from "lodash/orderBy";
 import findIndex from "lodash/findIndex";
 import { Contract } from "ethers";
 import { Error, Plant, Participant, Player } from "../types";
@@ -34,13 +34,13 @@ const useContract = (provider: any, address?: string) => {
 		}
 
 		initParticipant();
-		getParticipants();
 	}, [contract]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		if (participant && participant.isPresent) {
 			getTokens();
 			getPlants();
+			getParticipants();
 		}
 	}, [participant]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -145,7 +145,7 @@ const useContract = (provider: any, address?: string) => {
 				}
 			}
 
-			participants = sortBy(participants, ["level", "experiencePoints"]);
+			participants = orderBy(participants, ["level", "experiencePoints"], ["desc", "desc"]);
 			const ranking = findIndex(participants, ["address", address]) + 1;
 
 			setRanking(ranking);
