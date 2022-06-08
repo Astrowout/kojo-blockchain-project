@@ -2,9 +2,7 @@ import * as dotenv from 'dotenv';
 
 import { HardhatUserConfig, task } from 'hardhat/config';
 import '@nomiclabs/hardhat-etherscan';
-import '@nomiclabs/hardhat-waffle';
 import '@typechain/hardhat';
-import 'hardhat-gas-reporter';
 import 'solidity-coverage';
 import '@openzeppelin/hardhat-upgrades';
 
@@ -37,6 +35,12 @@ const config: HardhatUserConfig = {
       },
       {
         version: '0.7.0',
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
       },
     ],
   },
@@ -45,32 +49,12 @@ const config: HardhatUserConfig = {
     hardhat: {
       chainId: 80001,
     },
-    localhost: {
-      chainId: 80001,
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    },
-    // polygon: {
-    //   chainId: 137,
-    //   url: process.env.POLYGON_MAINNET_RPC_URL,
-    //   accounts:
-    //     process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    // },
     mumbai: {
       chainId: 80001,
       url: process.env.MUMBAI_TESTNET_RPC_URL,
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
-  },
-  etherscan: {
-    apiKey: {
-      polygon: process.env.POLYGONSCAN_API_KEY,
-    },
-  },
-  gasReporter: {
-    enabled: process.env.REPORT_GAS !== undefined,
-    currency: 'EUR',
   },
 };
 

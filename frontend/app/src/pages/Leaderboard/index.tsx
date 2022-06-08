@@ -23,11 +23,11 @@ const LeaderboardPage = () => {
 	const data: StatType[] = [
 		{
 			label: t("leaderboard.level"),
-			value: `${participant?.level} / 3`,
+			value: `${participant?.level || 1} / 3`,
 		},
 		{
 			label: t("leaderboard.xp"),
-			value: `${participant?.experiencePoints}`,
+			value: `${participant?.experiencePoints || 0}`,
 		},
 		{
 			label: t("leaderboard.plants"),
@@ -46,7 +46,7 @@ const LeaderboardPage = () => {
 			withOverlap={false}
 		>
 			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-12 w-full">
-				<div className="u-card flex justify-center">
+				<div className="u-card flex items-center justify-center">
 					<Chart
 						progress={progress}
 					>

@@ -131,7 +131,7 @@ const useContract = (provider: any, address?: string) => {
 		let participants: Player[] = [];
 
 		try {
-			const accounts = await contract!.handleReadParticipantAddress();
+			const accounts = await contract!.handleReadParticipantAddresses();
 
 			console.log(accounts);
 
