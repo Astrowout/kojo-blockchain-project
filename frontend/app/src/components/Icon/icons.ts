@@ -26,13 +26,14 @@ import { ReactComponent as Hydration } from "../../assets/icons/hydration.svg";
 import { ReactComponent as Drop } from "../../assets/icons/drop.svg";
 import { ReactComponent as DropSolid } from "../../assets/icons/drop-solid.svg";
 import { ReactComponent as Check } from "../../assets/icons/check.svg";
-import { ReactComponent as Medal } from "../../assets/icons/medal.svg";
+import { ReactComponent as Ranking } from "../../assets/icons/ranking.svg";
 import { ReactComponent as Danger } from "../../assets/icons/danger.svg";
 import { ReactComponent as Seeds } from "../../assets/icons/seeds.svg";
 import { ReactComponent as Roadmap } from "../../assets/icons/roadmap.svg";
 import { ReactComponent as Clipboard } from "../../assets/icons/clipboard.svg";
 import { ReactComponent as Plus } from "../../assets/icons/plus.svg";
 import { ReactComponent as Minus } from "../../assets/icons/minus.svg";
+import { ReactComponent as Chart } from "../../assets/icons/chart.svg";
 
 // Mapping
 const icons = {
@@ -63,13 +64,14 @@ const icons = {
 	Drop,
 	DropSolid,
 	Check,
-	Medal,
+	Ranking,
 	Danger,
 	Seeds,
 	Roadmap,
 	Clipboard,
 	Plus,
 	Minus,
+	Chart,
 }
 
 export default icons;

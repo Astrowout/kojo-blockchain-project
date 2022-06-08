@@ -29,3 +29,6 @@ export { default as Claim } from "./Claim/Claim";
 export { default as AmountInput } from "./AmountInput/AmountInput";
 export { default as Alert } from "./Alert/Alert";
 export { AlertType } from "./Alert/Alert.types";
+export { default as PlayerStats } from "./PlayerStats/PlayerStats";
+export type { Stat as StatType } from "./PlayerStats/PlayerStats.types";
+export { default as Leaderboard } from "./Leaderboard/Leaderboard";

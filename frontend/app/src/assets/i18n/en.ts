@@ -101,7 +101,7 @@ const translations = {
 		disconnect: "Disconnect",
 		wallet: "My wallet",
 		copy: "Copy my address",
-		copySuccess: "Successfully copied your address!",
+		copySuccess: "Address copied!",
 		waterMeter: "My digital water meter",
 	},
 	notifications: {
@@ -117,6 +117,13 @@ const translations = {
 		title: "Leaderboard",
 		empty: "No data to compare your performance with other people.",
 		description: "You are currently positioned on place {$} in the overall ranking.",
+		stats: "Your stats",
+		level: "Level",
+		xp: "XP points",
+		plants: "Plant token ID's",
+		position: "Current position",
+		address: "Polygon address",
+		nextLevel: "of level completed",
 	},
 	stats: {
 		health: "Health",

@@ -52,7 +52,7 @@ contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
     // API docs: https://api.play-kojo.xyz/api/farys/{account}
     req.add(
       "get",
-      string.concat("https://api.play-kojo.xyz/api/farys/latest/", account)
+      string(string.concat("https://api.play-kojo.xyz/api/farys/latest/", bytes(account)))
     );
     req.add("path", "allowance");
     // Sends the request
