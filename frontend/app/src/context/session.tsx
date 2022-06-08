@@ -8,6 +8,7 @@ type SessionContextType = {
 	notifications?: Notification[];
 	plants?: Plant[];
 	participant: Participant;
+	ranking?: number;
 	participants: Player[];
 	balance?: number;
 	contract?: Contract;
@@ -37,6 +38,7 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 		balance,
 		plants,
 		participant,
+		ranking,
 		participants,
 		contract,
 		minsUntilNextClaim,
@@ -58,6 +60,7 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 				balance,
 				loading,
 				participant,
+				ranking,
 				participants,
 				plants,
 				minsUntilNextClaim,

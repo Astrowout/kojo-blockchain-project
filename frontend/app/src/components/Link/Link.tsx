@@ -29,12 +29,12 @@ const Link: FC<LinkProps> = ({
 
 	useEffect(() => {
 		return () => {
-		  if (timer) {
-			  clearTimeout(timer);
-			  timer = null; // eslint-disable-line react-hooks/exhaustive-deps
-		  }
+			if (timer) {
+				clearTimeout(timer);
+				timer = null; // eslint-disable-line react-hooks/exhaustive-deps
+			}
 		}
-	  }, []);
+	}, []);
 
 	const renderContent = () => (
 		<>
@@ -102,7 +102,6 @@ const Link: FC<LinkProps> = ({
 
 						timer = setTimeout(() => {
 							if (timer) {
-								clearTimeout(timer);
 								timer = null;
 
 								close();

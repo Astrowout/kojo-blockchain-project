@@ -37,7 +37,7 @@ contract KojoStorage is OwnableUpgradeable {
     require(!_participant.isPresent, "Participant already exists.");
 
     Structs.Participant memory participant;
-    participant.level = 0;
+    participant.level = 1;
     participant.experiencePoints = 0;
     participant.allowedTokenBalance = 0;
     participant.plantIds = new uint256[](0);
