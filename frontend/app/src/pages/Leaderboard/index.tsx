@@ -46,11 +46,6 @@ const LeaderboardPage = () => {
 			withOverlap={false}
 		>
 			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-12 w-full">
-				<PlayerStats
-					title={t("leaderboard.stats")}
-					data={data}
-				/>
-
 				<div className="u-card flex justify-center">
 					<Chart
 						progress={progress}
@@ -58,6 +53,11 @@ const LeaderboardPage = () => {
 						{ t("leaderboard.nextLevel") }
 					</Chart>
 				</div>
+
+				<PlayerStats
+					title={t("leaderboard.stats")}
+					data={data}
+				/>
 
 				{!!participants.length ? (
 					<Leaderboard

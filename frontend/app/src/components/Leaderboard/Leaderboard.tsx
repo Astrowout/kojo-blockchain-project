@@ -20,10 +20,10 @@ const Leaderboard: FunctionComponent<LeaderboardProps> = ({
 			<table className="table-auto border-collapse w-full">
 				<thead className="bg-emerald-50 border-b border-emerald-100">
 					<tr>
-						<th className={headerCellClasses}>
+						<th className={cn(headerCellClasses, "w-20")}>
 							#
 						</th>
-						<th className={headerCellClasses}></th>
+						<th className={cn(headerCellClasses, "px-0")}></th>
 						<th className={headerCellClasses}>
 							{ t("leaderboard.address") }
 						</th>
@@ -42,10 +42,10 @@ const Leaderboard: FunctionComponent<LeaderboardProps> = ({
 							key={index}
 							className="even:bg-gray-50"
 						>
-							<td className={bodyCellClasses}>
+							<td className={cn(bodyCellClasses, "font-bold")}>
 								{ index + 1 }
 							</td>
-							<td className={bodyCellClasses}>
+							<td className={cn(bodyCellClasses, "px-0")}>
 								<span className="flex">
 									<Jazzicon
 										diameter={36}
