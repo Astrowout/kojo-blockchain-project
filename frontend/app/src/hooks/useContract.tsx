@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
+import sortBy from "lodash/sortBy";
+import findIndex from "lodash/findIndex";
 import { Contract } from "ethers";
 import { Error, Plant, Participant, Player } from "../types";
 import { axios, formatParticipant, formatPlant } from "../helpers";
@@ -11,6 +13,7 @@ const useContract = (provider: any, address?: string) => {
 	const [participant, setParticipant] = useState<Participant>({});
 	const [participants, setParticipants] = useState<Player[]>([]);
 	const [blockTime, setBlockTime] = useState<number>(5);
+	const [ranking, setRanking] = useState<number>(1);
 	const [balance, setBalance] = useState<number>(0);
 	const [plants, setPlants] = useState<Plant[]>([]);
 	const [contract, setContract] = useState<Contract | undefined>(undefined);
@@ -76,7 +79,7 @@ const useContract = (provider: any, address?: string) => {
 
 				setParticipant({
 					allowedTokenBalance: initialTokenAllowance.toNumber(),
-					level: 0,
+					level: 1,
 					experiencePoints: 0,
 					plantIds: [],
 					isPresent: false,
@@ -142,6 +145,10 @@ const useContract = (provider: any, address?: string) => {
 				}
 			}
 
+			participants = sortBy(participants, ["level", "experiencePoints"]);
+			const ranking = findIndex(participants, ["address", address]) + 1;
+
+			setRanking(ranking);
 			setParticipants(participants);
 		} catch (error: any) {
 			throw error;
@@ -155,6 +162,7 @@ const useContract = (provider: any, address?: string) => {
  	return {
 		participant,
 		participants,
+		ranking,
 		balance,
 		plants,
 		contract,

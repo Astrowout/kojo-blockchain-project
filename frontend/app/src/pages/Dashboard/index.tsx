@@ -16,6 +16,7 @@ const DashboardPage = () => {
 		balance,
 		plants,
 		participant,
+		ranking,
 	} = useContext(SessionContext);
 	const { t } = useTranslation();
 
@@ -35,8 +36,8 @@ const DashboardPage = () => {
 			value: !!participant?.plantIds?.length ? `${participant?.plantIds?.join(", ")}` : '/',
 		},
 		{
-			label: t("leaderboard.position"),
-			value: "3",
+			label: t("leaderboard.ranking"),
+			value: `${ranking}`,
 		},
 	];
 

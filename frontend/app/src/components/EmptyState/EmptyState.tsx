@@ -28,7 +28,7 @@ const EmptyState: FC<EmptyStateProps> = ({
 
 			<p
 				className={cn("text-gray-600 max-w-prose", {
-					"mt-3 text-center": !compact,
+					"mt-2 text-center": !compact,
 				})}
 			>
 				{ message }
