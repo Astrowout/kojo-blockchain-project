@@ -26,13 +26,13 @@ contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
    *
    * Polygon Testnet (mumbai) details:
    * Link Token: 0x326C977E6efc84E512bB9C30f76E30c160eD06FB
-   * Oracle: 0x5b74D9D9faF80bcfDB042C6e4Ad7Ab98C8e59aF7 (Mumbai oracle)
+   * Oracle: 0xE1eDB1c19298A1522059CF9F542D2D6FAfF93D08 (Mumbai oracle)
    * jobId: c0798a05e28f42e0bcdef36e22fa4702
    *
    */
   constructor() ConfirmedOwner(msg.sender) {
     setChainlinkToken(0x326C977E6efc84E512bB9C30f76E30c160eD06FB);
-    setChainlinkOracle(0x5b74D9D9faF80bcfDB042C6e4Ad7Ab98C8e59aF7);
+    setChainlinkOracle(0xE1eDB1c19298A1522059CF9F542D2D6FAfF93D08);
     jobId = "c0798a05e28f42e0bcdef36e22fa4702";
     fee = 10**16; // 0.01 LINK
   }

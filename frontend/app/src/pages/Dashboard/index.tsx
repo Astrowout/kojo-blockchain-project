@@ -25,11 +25,11 @@ const DashboardPage = () => {
 	const data: StatType[] = [
 		{
 			label: t("leaderboard.level"),
-			value: `${participant?.level} / 3`,
+			value: `${participant?.level || 1} / 3`,
 		},
 		{
 			label: t("leaderboard.xp"),
-			value: `${participant?.experiencePoints}`,
+			value: `${participant?.experiencePoints || 0}`,
 		},
 		{
 			label: t("leaderboard.plants"),
@@ -37,7 +37,7 @@ const DashboardPage = () => {
 		},
 		{
 			label: t("leaderboard.ranking"),
-			value: `${ranking}`,
+			value: `${ranking || "/"}`,
 		},
 	];
 
