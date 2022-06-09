@@ -222,12 +222,12 @@ contract KojoV1 is KojoERC1155, KeeperCompatibleInterface {
     safeTransferFrom(address(this), owner(), fungibleTokenId, balanceOf(address(this), fungibleTokenId), "");
   }
 
-  function checkUpkeep(bytes calldata /* checkData */) external view override returns (bool upkeepNeeded, bytes memory /* performData */) {
+  function checkUpkeep(bytes calldata _checkData) external view override returns (bool upkeepNeeded, bytes memory _performData) {
     // upkeepNeeded = (block.timestamp - lastTimeStamp) > interval;
     // We don't use the checkData in this example. The checkData is defined when the Upkeep was registered.
   }
 
-  function performUpkeep(bytes calldata /* performData */) external override {
+  function performUpkeep(bytes calldata _checkData) external override {
     //We highly recommend revalidating the upkeep in the performUpkeep function
     // if ((block.timestamp - lastTimeStamp) > interval ) {
     //     lastTimeStamp = block.timestamp;
