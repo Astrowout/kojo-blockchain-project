@@ -64,15 +64,15 @@ contract KojoUtils {
     uint256 amount
   ) external pure returns (uint256 _amount) {
     // Increase multiplier as participant level increases.
-    return amount * (participant.level / 10);
+    return amount + ((amount * (participant.level - 1)) / 10);
   }
 
   function handleAddXPToParticipant(
     Structs.Participant memory participant,
     uint256 amount
   ) external pure returns (Structs.Participant memory _participant) {
-    // Increase level cost as participant level increases.
-    uint256 levelCost = 1000 * (participant.level + (participant.level) / 5);
+    // Increase level cost as participant level increases. This changes to 1000 tokens for mainnet.
+    uint256 levelCost = 180 * (participant.level + (participant.level) / 5);
 
     if (participant.experiencePoints + amount < levelCost) {
       participant.experiencePoints = participant.experiencePoints + amount;

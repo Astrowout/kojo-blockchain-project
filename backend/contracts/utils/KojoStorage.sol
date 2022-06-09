@@ -9,6 +9,7 @@ contract KojoStorage is OwnableUpgradeable {
   uint256 public plantPrice;
   uint256 public initialTokenAllowance;
   uint256 public plantTypeId;
+  uint256 public secondsBetweenAllowanceUpdates;
 
   mapping(address => Structs.Participant) public participants;
   address[] public participantAddresses;
@@ -23,6 +24,9 @@ contract KojoStorage is OwnableUpgradeable {
     plantPrice = 1;
     initialTokenAllowance = 100;
     plantTypeId = 1;
+
+    // Change to 2630000 seconds for mainnet (1 year).
+    secondsBetweenAllowanceUpdates = 180;
 
     __Ownable_init_unchained();
   }
@@ -120,7 +124,7 @@ contract KojoStorage is OwnableUpgradeable {
     plant.level = 1;
     plant.experiencePoints = 0;
     plant.lifes = 3;
-    plant.levelCost = 100;
+    plant.levelCost = 20;
     plant.isPresent = true;
 
     plants[tokenId] = plant;
@@ -179,7 +183,7 @@ contract KojoStorage is OwnableUpgradeable {
     external
     onlyOwner
   {
-    if (plantTypeId == 3) {
+    if (plantTypeId == 5) {
       plantTypeId = 1;
     } else {
       plantTypeId += 1;
