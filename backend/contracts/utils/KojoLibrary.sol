@@ -4,7 +4,7 @@ pragma solidity ^0.8.9;
 
 library Structs {
   struct Plant {
-    // Plant type id (can be 1, 2 or 3).
+    // Plant type id (can be 1, 2, 3, 4 or 5).
     uint256 typeId;
     // Grow phase.
     uint256 level;
@@ -23,9 +23,11 @@ library Structs {
     uint256 level;
     // Amount of tokens  spent on any plant.
     uint256 experiencePoints;
+    // timestamp of last allowance update.
+    uint256 timestamp;
     // ID's of plants the participant owns.
     uint256[] plantIds;
-    // currentTokenAllowance; amount of fungible tokens the participant is allowed to claim.
+    // Amount of fungible tokens the participant is allowed to claim.
     uint256 allowedTokenBalance;
     // Internal selector.
     bool isPresent;

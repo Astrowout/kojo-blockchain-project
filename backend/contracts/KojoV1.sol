@@ -223,11 +223,28 @@ contract KojoV1 is KojoERC1155, KeeperCompatibleInterface {
   }
 
   function checkUpkeep(bytes calldata _checkData) external view override returns (bool upkeepNeeded, bytes memory _performData) {
-    // upkeepNeeded = (block.timestamp - lastTimeStamp) > interval;
+    address[] memory accounts = store.handleReadParticipantAddresses();
+    address[] memory fuzzyAccounts;
+    for (uint256 i = 0; i < accounts.length; i++) {
+      // address account = accounts[i];
+      // Structs.Participant memory participant = store.handleReadParticipant(account);
+
+      // if (participant.timestamp > ) {
+      //   fuzzyAccounts.push(account);
+      // }
+    }
+
+    if (fuzzyAccounts.length > 0) {
+      upkeepNeeded = true;
+    } else {
+      upkeepNeeded = false;
+    }
+
+    return (upkeepNeeded, "");
     // We don't use the checkData in this example. The checkData is defined when the Upkeep was registered.
   }
 
-  function performUpkeep(bytes calldata _checkData) external override {
+  function performUpkeep(bytes calldata _performData) external override {
     //We highly recommend revalidating the upkeep in the performUpkeep function
     // if ((block.timestamp - lastTimeStamp) > interval ) {
     //     lastTimeStamp = block.timestamp;
