@@ -1,0 +1,40 @@
+{
+    "tokenId": 1,
+    "name": "Kojo NFT 4-4",
+    "description": "",
+    "image": "https://cloudflare-ipfs.com/ipfs/QmTNu96Sanjh7PGombEWhqTmb4WvcNLwqwEfnnvoBP8pKe/4-4.png",
+    "attributes": [
+        {
+            "trait_type": "Family",
+            "value": "Bonsai"
+        },
+        {
+            "trait_type": "Variant",
+            "value": "Yōsei"
+        },
+        {
+            "trait_type": "Soil",
+            "value": "Gravel"
+        },
+        {
+            "trait_type": "Pot",
+            "value": "Terracotta"
+        },
+        {
+            "trait_type": "Floating",
+            "value": "Fireflies"
+        },
+        {
+            "trait_type": "Setting",
+            "value": "Inside"
+        },
+        {
+            "trait_type": "Mark",
+            "value": "Hunters"
+        },
+        {
+            "trait_type": "Age",
+            "value": 4
+        }
+    ]
+}
