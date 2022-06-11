@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { Clipboard } from '@capacitor/clipboard';
 import {
 	About,
 	Button,
@@ -21,9 +22,10 @@ const SettingsPage = () => {
 		disconnect,
 	} = useContext(GlobalContext);
 
-
-	const handleCopyAddress = () => {
-		navigator.clipboard.writeText(address!);
+	const handleCopyAddress = async () => {
+		await Clipboard.write({
+		  string: address!,
+		});
 	}
 
 	return (
