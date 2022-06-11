@@ -62,7 +62,7 @@ const HydratePage = () => {
 				url: `/plants/${id}`,
 			});
 
-			history.push(`/plants/${id}`);
+			history.replace(`/plants/${id}`);
 		}
 
 		provider?.removeAllListeners();

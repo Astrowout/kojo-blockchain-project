@@ -12,7 +12,7 @@ const Leaderboard: FunctionComponent<LeaderboardProps> = ({
 }) => {
 	const { t } = useTranslation();
 
-	const headerCellClasses = "px-5 py-3 text-emerald-600 text-left font-semibold tracking-wider text-sm uppercase";
+	const headerCellClasses = "px-5 py-3 text-emerald-600 text-left font-semibold tracking-wider text-sm uppercase whitespace-nowrap";
 	const bodyCellClasses = "px-5 py-3";
 
 	return (
