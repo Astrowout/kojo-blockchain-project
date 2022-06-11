@@ -2,6 +2,7 @@
     "tokenId": 1,
     "name": "Kojo NFT 3-5",
     "description": "",
+    "centralServer": true,
     "image": "https://ipfs.io/ipfs/QmYRUGz5hfssY7JcMdRJkLTQ7Ej5VmvSrBbBQpomx61iZC/3-5.png",
     "attributes": [
         {

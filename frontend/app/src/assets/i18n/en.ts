@@ -128,6 +128,7 @@ const translations = {
 	},
 	stats: {
 		health: "Health",
+		growth: "Growth phase",
 		hydration: "Hydration",
 		waterNeeded: "Water needed",
 	},

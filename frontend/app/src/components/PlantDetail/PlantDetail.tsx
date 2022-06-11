@@ -71,7 +71,7 @@ const PlantDetail: FC<PlantDetailProps> = ({
 					)}
 
 					<Stat
-						icon="Hearts"
+						icon="Plants"
 						label={t("stats.growth")}
 					>
 						{ getGrowth(growth) }
