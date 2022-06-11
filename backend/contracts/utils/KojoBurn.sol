@@ -7,6 +7,4 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract KojoBurn is
   ERC1155Holder,
   Ownable
-{
-    constructor() ERC1155Holder() {}
-}
+{}

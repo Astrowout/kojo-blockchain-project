@@ -50,6 +50,7 @@ const PlantPage = () => {
 				<Button
 					url={`/plants/${id}/hydrate`}
 					icon="Hydration"
+					className="mt-16"
 				>
 					{ t("plants.hydrate") }
 				</Button>

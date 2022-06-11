@@ -15,7 +15,7 @@ const EmptyState: FC<EmptyStateProps> = ({
 		<div
 			className={cn(className, "flex items-center w-full", {
 				"flex-col justify-center u-card": !compact,
-				"flex-row justify-between u-card-mobile": compact,
+				"text-center sm:text-left flex-col sm:flex-row gap-y-4 gap-x-6 justify-between u-card-mobile": compact,
 			})}
 		>
 			{!compact && (
@@ -38,7 +38,6 @@ const EmptyState: FC<EmptyStateProps> = ({
 				<div
 					className={cn({
 						"mt-6": !compact,
-						"ml-6": compact,
 					})}
 				>
 					{ children }

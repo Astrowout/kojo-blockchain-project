@@ -1,0 +1,9 @@
+{
+    "name": "kojo token",
+    "symbol": "KOJO",
+    "description": "Fungible token metadata for the kojo token. Minted by saving water while participating with the kojo blockchain project.",
+    "image": "https://ipfs.io/ipfs/QmVuQ9CAr3ub2fnEXh6xxHMgZ16hqfgH2QVSCq181hdEet",
+    "properties": {
+        "tokenId": 0
+    }
+}

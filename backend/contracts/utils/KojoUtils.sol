@@ -27,14 +27,12 @@ contract KojoUtils {
       "Plant lifes does not exist."
     );
 
-    string memory base = "https://cloudflare-ipfs.com/ipfs/QmZVcWmtRiCNnSUSHvdooDBjZ3vqtiAipZ6uwp5PzHjQZA/";
+    string memory base = "https://ipfs.io/ipfs/Qmayj2bo241oD2Xrkcpd8g76usfnK6sbLt9ZuvUJ4k6aXj/";
     string memory result = string(abi.encodePacked(
       base,
       StringsUpgradeable.toString(plant.typeId),
       "-",
       StringsUpgradeable.toString(plant.level),
-      "-",
-      StringsUpgradeable.toString(plant.lifes),
       ".json"
     ));
 
@@ -69,23 +67,26 @@ contract KojoUtils {
 
   function handleAddXPToParticipant(
     Structs.Participant memory participant,
-    uint256 amount
+    uint256 amount,
+    uint256 levelCost
   ) external pure returns (Structs.Participant memory _participant) {
-    // Increase level cost as participant level increases. This changes to 1000 tokens for mainnet.
-    uint256 levelCost = 180 * (participant.level + (participant.level) / 5);
+    participant.experiencePoints += amount;
 
-    if (participant.experiencePoints + amount < levelCost) {
-      participant.experiencePoints = participant.experiencePoints + amount;
-    }
-
-    if (participant.experiencePoints + amount > levelCost) {
+    if (participant.experiencePoints > (levelCost * participant.level) && participant.level < 3) {
       participant.level += 1;
-      participant.experiencePoints =
-        (participant.experiencePoints + amount) -
-        levelCost;
     }
 
     return participant;
+  }
+
+  function calculateParticipantLevelCost(
+    uint256 levelCost,
+    uint256 level
+  ) external pure returns (uint256 participantLevelCost) {
+    // Increase level cost as participant level increases.
+    uint256 participantLevelCost = levelCost + ((level - 1) * 50);
+
+    return participantLevelCost;
   }
 
   function handleAddXPToPlant(Structs.Plant memory plant, uint256 amount)
@@ -93,17 +94,29 @@ contract KojoUtils {
     pure
     returns (Structs.Plant memory _plant)
   {
-    if (plant.experiencePoints + amount < plant.levelCost) {
-      plant.experiencePoints = plant.experiencePoints + amount;
-    }
+    plant.experiencePoints += amount;
 
-    if (plant.experiencePoints + amount > plant.levelCost) {
+    if (plant.experiencePoints > (plant.level * plant.levelCost) && plant.level < 5) {
       plant.level += 1;
-      plant.experiencePoints =
-        (plant.experiencePoints + amount) -
-        plant.levelCost;
     }
 
     return plant;
+  }
+
+  function bytesToAddress(bytes calldata data) external pure returns (address addr) {
+    bytes memory b = data;
+    assembly {
+      addr := mload(add(b, 20))
+    }
+  }
+
+  function encodeAddressArray(address[] calldata addresses) external pure returns (bytes memory data) {
+    bytes memory data;
+
+    for (uint256 i = 0; i < addresses.length; i++){
+      data = abi.encodePacked(data, addresses[i]);
+    }
+
+    return data;
   }
 }

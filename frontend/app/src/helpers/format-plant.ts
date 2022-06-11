@@ -4,14 +4,9 @@ import axios from "./axios";
 
 const formatPlant = async (tokenId: number, data: any, uri: string): Promise<Plant | null> => {
 	try {
-		const pinataUri = uri.replace("https://cloudflare-ipfs.com/", "https://gateway.pinata.cloud/");
-		const { data: metadata } = await Promise.race([
-			axios.get(uri),
-			axios.get(pinataUri),
-		]);
+		const { data: metadata } = await axios.get(uri);
 
 		console.log(metadata);
-
 
 		if (metadata) {
 			return {
@@ -20,7 +15,7 @@ const formatPlant = async (tokenId: number, data: any, uri: string): Promise<Pla
 				description: metadata.description,
 				health: data.level.toNumber(),
 				waterNeeded: WATER_COST_MAPPING[data.levelCost.toNumber()],
-				hydration: data.experiencePoints.toNumber(),
+				hydration:data.experiencePoints.toNumber(),
 				image: metadata.image,
 			}
 		}

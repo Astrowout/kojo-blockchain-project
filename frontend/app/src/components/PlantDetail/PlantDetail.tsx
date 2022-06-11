@@ -38,7 +38,7 @@ const PlantDetail: FC<PlantDetailProps> = ({
 		<div
 			className={cn(className, "grid xl:grid-cols-2 gap-x-12 gap-y-8")}
 		>
-			<div className="relative aspect-square overflow-hidden rounded-2xl shadow-2xl shadow-emerald-600/20">
+			<div className="relative aspect-square overflow-hidden rounded-2xl shadow-2xl shadow-emerald-600/20 border-solid border-8 border-white">
 				<img
 					src={image}
 					alt={`${type} plant`}

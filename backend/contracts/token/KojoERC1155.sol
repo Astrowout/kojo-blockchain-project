@@ -32,6 +32,8 @@ contract KojoERC1155 is
 
     fungibleTokenId = 0;
     nonFungibleTokenCount = 1;
+
+    setTokenUri(fungibleTokenId, "https://ipfs.io/ipfs/QmR5vt8PED7sxjXzvQf1JPeeGQcdce3jfCDCWDKyxhsi2z");
   }
 
   function supportsInterface(bytes4 interfaceId) public view virtual override(ERC1155Upgradeable, ERC1155ReceiverUpgradeable) returns (bool) {
@@ -76,7 +78,22 @@ contract KojoERC1155 is
   }
 
   // Allow the owner to set token specific token uri.
-  function setTokenUri(uint256 tokenId, string memory _uri) internal {
-    _uris[tokenId] = _uri;
+  function setTokenUri(uint256 tokenId, string memory tokenURI) internal {
+    _uris[tokenId] = tokenURI;
+  }
+
+  /**
+   * Override isApprovedForAll to auto-approve OpenSea's proxy contract
+   */
+  function isApprovedForAll(
+      address _owner,
+      address _operator
+  ) public override view returns (bool isOperator) {
+      // if OpenSea's ERC1155 Proxy Address is detected, auto-return true
+      if (_operator == address(0x207Fa8Df3a17D96Ca7EA4f2893fcdCb78a304101)) {
+          return true;
+      }
+      // otherwise, use the default ERC1155Upgradeable.isApprovedForAll()
+      return ERC1155Upgradeable.isApprovedForAll(_owner, _operator);
   }
 }

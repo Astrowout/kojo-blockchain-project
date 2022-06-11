@@ -1,10 +1,10 @@
 import * as dotenv from 'dotenv';
 
 import { HardhatUserConfig, task } from 'hardhat/config';
-import '@nomiclabs/hardhat-etherscan';
+import '@openzeppelin/hardhat-upgrades';
+import '@nomiclabs/hardhat-waffle';
 import '@typechain/hardhat';
 import 'solidity-coverage';
-import '@openzeppelin/hardhat-upgrades';
 
 dotenv.config();
 
@@ -51,9 +51,13 @@ const config: HardhatUserConfig = {
     },
     mumbai: {
       chainId: 80001,
-      url: process.env.MUMBAI_TESTNET_RPC_URL,
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      url: process.env.MUMBAI_API_URL,
+      accounts: [process.env.PRIVATE_KEY!],
+    },
+    goerli: {
+      chainId: 5,
+      url: process.env.GOERLI_API_URL,
+      accounts: [process.env.PRIVATE_KEY!],
     },
   },
 };

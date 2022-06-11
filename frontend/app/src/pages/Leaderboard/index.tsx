@@ -18,8 +18,6 @@ const LeaderboardPage = () => {
 		participants,
 	} = useContext(SessionContext);
 
-	const progress = (100 * (participant && participant.experiencePoints ? participant.experiencePoints : 0)) / 400;
-
 	const data: StatType[] = [
 		{
 			label: t("leaderboard.level"),
@@ -48,7 +46,7 @@ const LeaderboardPage = () => {
 			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-12 w-full">
 				<div className="u-card flex items-center justify-center">
 					<Chart
-						progress={progress}
+						progress={participant.progress || 0}
 					>
 						{ t("leaderboard.nextLevel") }
 					</Chart>
