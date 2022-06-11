@@ -14,9 +14,7 @@ const formatPlant = async (tokenId: number, data: any, uri: string): Promise<Pla
 
 		if (metadata) {
 			const imageUriParts = metadata.image.split("/");
-			const image = metadata.centralServer
-				? `${process.env.REACT_APP_STORAGE_URL}/ipfs/img/${imageUriParts[imageUriParts.length - 1]}`
-				: metadata.image;
+			const image = `${process.env.REACT_APP_STORAGE_URL}/ipfs/img/${imageUriParts[imageUriParts.length - 1]}`;
 
 			return {
 				id: tokenId,
