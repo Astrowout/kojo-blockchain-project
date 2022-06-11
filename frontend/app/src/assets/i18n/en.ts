@@ -138,11 +138,17 @@ const translations = {
 		amount: "Amount of tokens",
 		success: "You hydrated your plant '{$}' with {$} kojos.",
 	},
+	growth: {
+		1: "Still a seed",
+		2: "The first leaves",
+		3: "Halfway there",
+		4: "Flowering",
+		5: "Fully grown",
+	},
 	health: {
-		0: "In bad shape",
-		1: "Normal",
+		1: "In bad shape",
 		2: "In good shape",
-		3: "In perfect shape",
+		3: "Perfectly healthy",
 	},
 	network: {
 		connection: "You are currently connected to the {$} blockchain network.",

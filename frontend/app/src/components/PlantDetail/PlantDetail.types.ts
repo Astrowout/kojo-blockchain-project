@@ -6,6 +6,7 @@ export type PlantDetailProps = {
 	type?: string;
 	image?: string;
 	health?: number;
+	growth?: number;
 	hydration?: number;
 	waterNeeded?: number;
 }

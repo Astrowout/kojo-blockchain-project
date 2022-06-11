@@ -42,6 +42,7 @@ const PlantPage = () => {
 				<PlantDetail
 					type={plant.type}
 					waterNeeded={plant.waterNeeded}
+					growth={plant.growth}
 					health={plant.health}
 					hydration={plant.hydration}
 					image={plant.image}

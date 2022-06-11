@@ -11,6 +11,7 @@ const ConsumptionPage = () => {
 		<Layout
 			title={t("consumption.title")}
 			description={t("consumption.description")}
+			withOverlap={false}
 		>
 			<EmptyState
 				message={t("consumption.empty")}

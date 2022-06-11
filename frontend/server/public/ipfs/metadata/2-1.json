@@ -1,0 +1,40 @@
+{
+    "tokenId": 1,
+    "name": "Kojo NFT 2-1",
+    "description": "",
+    "image": "https://ipfs.io/ipfs/QmYRUGz5hfssY7JcMdRJkLTQ7Ej5VmvSrBbBQpomx61iZC/2-1.png",
+    "attributes": [
+        {
+            "trait_type": "Family",
+            "value": "Bonsai"
+        },
+        {
+            "trait_type": "Variant",
+            "value": "Noruu~ē No Doragon"
+        },
+        {
+            "trait_type": "Soil",
+            "value": "Gravel"
+        },
+        {
+            "trait_type": "Pot",
+            "value": "Terracotta"
+        },
+        {
+            "trait_type": "Floating",
+            "value": "Lantern"
+        },
+        {
+            "trait_type": "Setting",
+            "value": "Inside"
+        },
+        {
+            "trait_type": "Mark",
+            "value": "Hunters"
+        },
+        {
+            "trait_type": "Age",
+            "value": 1
+        }
+    ]
+}

@@ -6,7 +6,7 @@ export type PlantCardProps = {
 	id?: number;
 	type?: string;
 	image?: string;
-	health?: number;
+	growth?: number;
 	hydration?: number;
 	waterNeeded?: number;
 }
