@@ -72,7 +72,7 @@ contract KojoUtils {
   ) external pure returns (Structs.Participant memory _participant) {
     participant.experiencePoints += amount;
 
-    if (participant.experiencePoints > (levelCost * participant.level) && participant.level < 3) {
+    if (participant.experiencePoints > (levelCost * participant.level)) {
       participant.level += 1;
     }
 
@@ -84,7 +84,7 @@ contract KojoUtils {
     uint256 level
   ) external pure returns (uint256 participantLevelCost) {
     // Increase level cost as participant level increases.
-    uint256 participantLevelCost = levelCost + ((level - 1) * 50);
+    uint256 participantLevelCost = levelCost + ((level - 1) * 10);
 
     return participantLevelCost;
   }

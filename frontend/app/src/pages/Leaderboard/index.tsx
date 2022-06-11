@@ -21,7 +21,7 @@ const LeaderboardPage = () => {
 	const data: StatType[] = [
 		{
 			label: t("leaderboard.level"),
-			value: `${participant?.level || 1} / 3`,
+			value: `${participant?.level || 1}`,
 		},
 		{
 			label: t("leaderboard.xp"),
