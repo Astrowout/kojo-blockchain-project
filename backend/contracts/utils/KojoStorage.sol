@@ -6,29 +6,41 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "../utils/KojoLibrary.sol";
 
 contract KojoStorage is OwnableUpgradeable {
-  uint256 public plantPrice;
-  uint256 public initialTokenAllowance;
+  uint256 public constant plantPrice = 1;
+  // Every user gets it's first 100 kojos for free to kickstart their experience.
+  uint256 public constant initialTokenAllowance = 100;
+  // Change to 2630000 seconds for mainnet (1 year).
+  uint256 public constant secondsBetweenAllowanceUpdates = 180;
+  // Participant levelCost is the experience points needed to level up as a participant.
+  uint256 public constant levelCost = 180;
   uint256 public plantTypeId;
-  uint256 public secondsBetweenAllowanceUpdates;
+  address private oracleAddress;
 
   mapping(address => Structs.Participant) public participants;
+  mapping(uint256 => Structs.Plant) public plants;
   address[] public participantAddresses;
+
+  // Events
   event UpdateParticipant(Structs.Participant participant);
   event DeleteParticipant(Structs.Participant participant);
-
-  mapping(uint256 => Structs.Plant) public plants;
   event UpdatePlant(Structs.Plant plant);
   event DeletePlant(Structs.Plant plant);
 
-  function initialize() public initializer {
-    plantPrice = 1;
-    initialTokenAllowance = 100;
-    plantTypeId = 1;
+  // Modifiers
+  modifier onlyOracle() {
+    require(msg.sender == oracleAddress);
+    _;
+  }
 
-    // Change to 2630000 seconds for mainnet (1 year).
-    secondsBetweenAllowanceUpdates = 180;
-
+  function initialize(
+    address _oracle
+  ) public initializer {
     __Ownable_init_unchained();
+
+    // Set initial plant type.
+    plantTypeId = 1;
+    // Set oracle address.
+    oracleAddress = _oracle;
   }
 
   // Allows owner to create a new participant.
@@ -45,6 +57,7 @@ contract KojoStorage is OwnableUpgradeable {
     participant.experiencePoints = 0;
     participant.allowedTokenBalance = 0;
     participant.plantIds = new uint256[](0);
+    participant.timestamp = block.timestamp + secondsBetweenAllowanceUpdates;
     participant.isPresent = true;
 
     // Set new state of participant.
@@ -79,6 +92,22 @@ contract KojoStorage is OwnableUpgradeable {
     emit UpdateParticipant(participant);
 
     return participant;
+  }
+
+  // Set new allowance of participant.
+  function setAllowance(
+    uint256 _allowance,
+    address _account
+  ) external onlyOracle {
+    Structs.Participant memory participant = participants[_account];
+    require(participant.isPresent, "Participant does not exist.");
+
+    participant.allowedTokenBalance = _allowance;
+    participant.timestamp = block.timestamp + secondsBetweenAllowanceUpdates;
+
+    participants[_account] = participant;
+
+    emit UpdateParticipant(participant);
   }
 
   function handleAddTokenIdToParticipant(
@@ -124,6 +153,7 @@ contract KojoStorage is OwnableUpgradeable {
     plant.level = 1;
     plant.experiencePoints = 0;
     plant.lifes = 3;
+    // Change to 100 for mainnet.
     plant.levelCost = 20;
     plant.isPresent = true;
 
@@ -183,7 +213,7 @@ contract KojoStorage is OwnableUpgradeable {
     external
     onlyOwner
   {
-    if (plantTypeId == 5) {
+    if (plantTypeId == 4) {
       plantTypeId = 1;
     } else {
       plantTypeId += 1;

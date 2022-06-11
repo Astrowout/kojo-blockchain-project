@@ -4,6 +4,8 @@ pragma solidity ^0.8.9;
 import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
 import "@chainlink/contracts/src/v0.8/ConfirmedOwner.sol";
 
+import {KojoStorage} from "../utils/KojoStorage.sol";
+
 /**
  * Request testnet LINK and ETH here: https://faucets.chain.link/
  * Find information on LINK Token Contracts and get the latest ETH and LINK faucets here: https://docs.chain.link/docs/link-token-contracts/
@@ -11,10 +13,10 @@ import "@chainlink/contracts/src/v0.8/ConfirmedOwner.sol";
 contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
   using Chainlink for Chainlink.Request;
 
-  uint256 public allowance;
-
   bytes32 private jobId;
   uint256 private fee;
+
+  KojoStorage public store;
 
   event RequestFulfilled(
     bytes32 indexed requestId,
@@ -27,14 +29,19 @@ contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
    * Polygon Testnet (mumbai) details:
    * Link Token: 0x326C977E6efc84E512bB9C30f76E30c160eD06FB
    * Oracle: 0xE1eDB1c19298A1522059CF9F542D2D6FAfF93D08 (Mumbai oracle)
-   * jobId: c0798a05e28f42e0bcdef36e22fa4702
+   * jobId: 1899223a725b4be68a83454d643deb66
    *
    */
   constructor() ConfirmedOwner(msg.sender) {
     setChainlinkToken(0x326C977E6efc84E512bB9C30f76E30c160eD06FB);
     setChainlinkOracle(0xE1eDB1c19298A1522059CF9F542D2D6FAfF93D08);
-    jobId = "c0798a05e28f42e0bcdef36e22fa4702";
+
+    jobId = "1899223a725b4be68a83454d643deb66";
     fee = 10**16; // 0.01 LINK
+  }
+
+  function setStorageContract(address _store) external onlyOwner {
+    store = KojoStorage(_store);
   }
 
   /**
@@ -65,10 +72,11 @@ contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
    */
   function fulfill(
     bytes32 _requestId,
-    uint256 _allowance
+    uint256 _allowance,
+    address _account
   ) public recordChainlinkFulfillment(_requestId) {
     emit RequestFulfilled(_requestId, _allowance);
-    allowance = _allowance;
+    store.setAllowance(_allowance, _account);
   }
 
   /**

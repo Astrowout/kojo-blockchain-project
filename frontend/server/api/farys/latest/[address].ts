@@ -28,7 +28,7 @@ export default async function handler(
 
 		if (user) {
 			res.status(200).json({
-				address: address,
+				address,
 				regionAverage,
 				usage: user.usage,
 				familySize: user.familySize,

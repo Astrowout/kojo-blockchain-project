@@ -39,10 +39,13 @@ const useContract = (provider: any, address?: string) => {
 	useEffect(() => {
 		if (participant && participant.isPresent) {
 			getTokens();
-			getPlants();
 			getParticipants();
 		}
 	}, [participant]); // eslint-disable-line react-hooks/exhaustive-deps
+
+	useEffect(() => {
+		getPlants();
+	}, [balance]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const initContract = () => {
 		const signer = provider.getSigner();
@@ -139,9 +142,16 @@ const useContract = (provider: any, address?: string) => {
 				const account = accounts[i];
 
 				const data = await contract!.handleReadParticipant(account);
+				const levelCost = await contract!.handleReadParticipantLevelCost();
 
 				if (data && data.isPresent) {
-					participants.push(formatParticipant(data, account) as Player);
+					participants.push(formatParticipant(
+						data,
+						{
+							levelCost: levelCost.toNumber(),
+						},
+						account
+					) as Player);
 				}
 			}
 
@@ -155,8 +165,15 @@ const useContract = (provider: any, address?: string) => {
 		}
 	};
 
-	const handleUpdateParticipant = (data: any) => {
-		setParticipant(formatParticipant(data));
+	const handleUpdateParticipant = async (data: any) => {
+		const levelCost = await contract!.handleReadParticipantLevelCost();
+
+		setParticipant(formatParticipant(
+			data,
+			{
+				levelCost: levelCost.toNumber(),
+			}
+		));
 	};
 
  	return {
