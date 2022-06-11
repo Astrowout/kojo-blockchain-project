@@ -48,7 +48,7 @@ const PlantsPage = () => {
 									id={plant.id!}
 									type={plant.type!}
 									waterNeeded={plant.waterNeeded}
-									health={plant.health}
+									growth={plant.growth}
 									hydration={plant.hydration}
 									image={plant.image!}
 								/>

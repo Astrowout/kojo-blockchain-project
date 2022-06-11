@@ -80,7 +80,7 @@ const DashboardPage = () => {
 									id={latestPlant.id}
 									type={latestPlant.type}
 									waterNeeded={latestPlant.waterNeeded}
-									health={latestPlant.health}
+									growth={latestPlant.growth}
 									hydration={latestPlant.hydration}
 									image={latestPlant.image}
 								/>

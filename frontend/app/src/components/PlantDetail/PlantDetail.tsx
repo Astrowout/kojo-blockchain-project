@@ -11,11 +11,18 @@ const PlantDetail: FC<PlantDetailProps> = ({
 	className = "",
 	type = "",
 	image = "",
-	health = null,
-	hydration = null,
+	health = 3,
+	growth = 1,
+	hydration = 0,
 	waterNeeded = null,
 }) => {
 	const { t } = useTranslation();
+
+	const getGrowth = (value: number | null): ReactNode => {
+		if (value) {
+			return t(`growth.${value}`);
+		}
+	}
 
 	const getHealth = (value: number | null): ReactNode => {
 		if (value) {
@@ -62,6 +69,13 @@ const PlantDetail: FC<PlantDetailProps> = ({
 							</span>
 						</Stat>
 					)}
+
+					<Stat
+						icon="Hearts"
+						label={t("stats.growth")}
+					>
+						{ getGrowth(growth) }
+					</Stat>
 
 					<Stat
 						icon="Hearts"

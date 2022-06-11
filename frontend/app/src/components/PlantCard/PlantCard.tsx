@@ -12,15 +12,15 @@ const PlantCard: FC<PlantCardProps> = ({
 	id = 1,
 	type = "",
 	image = "",
-	health = null,
-	hydration = null,
+	growth = 1,
+	hydration = 0,
 	waterNeeded = 2,
 }) => {
 	const { t } = useTranslation();
 
-	const getHealth = (value: number | null): ReactNode => {
+	const getGrowth = (value: number | null): ReactNode => {
 		if (value) {
-			return t(`health.${value}`);
+			return t(`growth.${value}`);
 		}
 	}
 
@@ -60,9 +60,9 @@ const PlantCard: FC<PlantCardProps> = ({
 			<div className="grid gap-y-8 px-4 lg:px-6 py-6">
 				<Stat
 					icon="Hearts"
-					label={t("stats.health")}
+					label={t("stats.growth")}
 				>
-					{ getHealth(health) }
+					{ getGrowth(growth) }
 				</Stat>
 
 				<Stat
