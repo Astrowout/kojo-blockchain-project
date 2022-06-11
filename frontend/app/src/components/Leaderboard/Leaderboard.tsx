@@ -16,7 +16,7 @@ const Leaderboard: FunctionComponent<LeaderboardProps> = ({
 	const bodyCellClasses = "px-5 py-3";
 
 	return (
-		<div className={cn(className, "border-solid border-t border-emerald-600 bg-white rounded-2xl shadow-2xl shadow-emerald-900/20 overflow-hidden")}>
+		<div className={cn(className, "overflow-auto border-solid border-t border-emerald-600 bg-white rounded-2xl shadow-2xl shadow-emerald-900/20")}>
 			<table className="table-auto border-collapse w-full">
 				<thead className="bg-emerald-50 border-b border-emerald-100">
 					<tr>

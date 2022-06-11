@@ -59,7 +59,7 @@ const PlantCard: FC<PlantCardProps> = ({
 
 			<div className="grid gap-y-8 px-4 lg:px-6 py-6">
 				<Stat
-					icon="Hearts"
+					icon="Plants"
 					label={t("stats.growth")}
 				>
 					{ getGrowth(growth) }
