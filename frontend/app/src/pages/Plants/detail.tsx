@@ -16,6 +16,7 @@ const PlantPage = () => {
 	const { id } = useParams<any>();
 	const {
 		contract,
+		balance,
 	} = useContext(SessionContext);
 	const [plant, setPlant] = useState<Plant | null>(null);
 
@@ -28,7 +29,7 @@ const PlantPage = () => {
 
 	useEffect(() => {
 		getPlant();
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [balance]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return !plant ? (
 		<Loader />
