@@ -3,6 +3,7 @@ import {
 	Button,
 	EmptyState,
 	Layout,
+	Loader,
 	PlantCard,
 	PlayerStats,
 	StatType,
@@ -72,6 +73,33 @@ const DashboardPage = () => {
 		}
 	}, [participant]); // eslint-disable-line react-hooks/exhaustive-deps
 
+	const renderLatestPlant = () => {
+		return latestPlant ? (
+			<div className="grid lg:grid-cols-2">
+				<PlantCard
+					id={latestPlant.id}
+					type={latestPlant.type}
+					waterNeeded={latestPlant.waterNeeded}
+					growth={latestPlant.growth}
+					hydration={latestPlant.hydration}
+					image={latestPlant.image}
+				/>
+			</div>
+		) : (
+			<EmptyState
+				message={t("dashboard.mint")}
+				icon="Seeds"
+			>
+				<Button
+					url="/new-seed"
+					compact
+				>
+					{t("dashboard.mintCta")}
+				</Button>
+			</EmptyState>
+		)
+	}
+
 	return (
 		<Layout
 			title={t("dashboard.title")}
@@ -105,30 +133,9 @@ const DashboardPage = () => {
 							{ t("dashboard.plants") }
 						</h2>
 
-						{latestPlant && !loading ? (
-							<div className="grid lg:grid-cols-2">
-								<PlantCard
-									id={latestPlant.id}
-									type={latestPlant.type}
-									waterNeeded={latestPlant.waterNeeded}
-									growth={latestPlant.growth}
-									hydration={latestPlant.hydration}
-									image={latestPlant.image}
-								/>
-							</div>
-						) : (
-							<EmptyState
-								message={t("dashboard.mint")}
-								icon="Seeds"
-							>
-								<Button
-									url="/new-seed"
-									compact
-								>
-									{t("dashboard.mintCta")}
-								</Button>
-							</EmptyState>
-						)}
+						{loading ? (
+							<Loader />
+						) : renderLatestPlant()}
 					</div>
 				</div>
 			</div>

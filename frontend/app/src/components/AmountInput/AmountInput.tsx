@@ -8,6 +8,7 @@ import { AmountInputProps } from "./AmountInput.types";
 
 const AmountInput: FunctionComponent<AmountInputProps> = ({
 	value = 80,
+	balance = 0,
 	onChange = () => null,
 }) => {
 	const { t } = useTranslation();
@@ -44,6 +45,7 @@ const AmountInput: FunctionComponent<AmountInputProps> = ({
 						className="focus:ring-emerald-500 bg-white font-bold text-3xl h-full w-16 border-gray-300 rounded-md outline-none"
 						step="1"
 						min="1"
+						max={balance}
 						value={value || ""}
 						placeholder="80"
 						title="Numbers only"
@@ -52,8 +54,9 @@ const AmountInput: FunctionComponent<AmountInputProps> = ({
 				</div>
 
 				<button
-					className="h-full w-20 flex items-center justify-center hover:bg-emerald-50 transition-shadow active:shadow-inner group border-solid border-l border-gray-100"
+					className="h-full w-20 flex items-center justify-center hover:bg-emerald-50 transition-shadow active:shadow-inner group border-solid border-l border-gray-100 disabled:opacity-50 disabled:bg-transparent disabled:pointer-events-none"
 					onClick={() => onChange(value + 1)}
+					disabled={balance <= value}
 				>
 					<Icon
 						name="Plus"
@@ -62,6 +65,20 @@ const AmountInput: FunctionComponent<AmountInputProps> = ({
 					/>
 				</button>
 			</div>
+
+			{balance < value && (
+				<p className="text-red-500 flex space-x-2 mt-8">
+					<Icon
+						name="Danger"
+						className="mt-0.5"
+						size={24}
+					/>
+
+					<span>
+						{ t("hydrate.insufficient") }
+					</span>
+				</p>
+			)}
 		</div>
 	)
 }

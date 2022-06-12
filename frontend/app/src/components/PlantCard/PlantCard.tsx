@@ -31,6 +31,7 @@ const PlantCard: FC<PlantCardProps> = ({
 			<Icon
 				key={index}
 				name={solid ? "DropSolid" : "Drop"}
+				size={16}
 			/>
 		)
 	}
@@ -48,7 +49,7 @@ const PlantCard: FC<PlantCardProps> = ({
 					className="w-full h-full object-cover lg:group-hover:scale-110 duration-300 ease-out transition-transform"
 				/>
 
-				<div className="flex space-x-0.5 absolute top-4 right-4 text-emerald-600 bg-white/80 px-1 py-0.5 rounded shadow-2xl">
+				<div className="flex space-x-0.5 absolute top-3 right-3 text-emerald-600 bg-white/80 px-1 py-0.5 rounded shadow-2xl">
 					{ [...Array(3)].map((_drop, index) => renderDrop(index)) }
 				</div>
 			</div>

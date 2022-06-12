@@ -29,7 +29,7 @@ const HydratePage = () => {
 	} = useContext(GlobalContext);
 	const [plant, setPlant] = useState<Plant | null>(null);
 	const [loading, setLoading] = useState(false);
-	const [amount, setAmount] = useState<number>(80);
+	const [amount, setAmount] = useState<number>(30);
 	const [present] = useIonToast();
 
 	const getPlant = async () => {
@@ -40,15 +40,10 @@ const HydratePage = () => {
 	}
 
 	const handleHydrateSuccess = async (_participant: any, _plant: number) => {
-		console.log("PlantWatered", {
-			participant: _participant,
-			plant: _plant,
-		});
-
 		if (_participant && _participant.isPresent) {
 			setLoading(false);
 
-			handleUpdateParticipant(_participant);
+			await handleUpdateParticipant(_participant);
 
 			present({
 				color: "secondary",
@@ -115,6 +110,7 @@ const HydratePage = () => {
 						<div className="space-y-6">
 							<AmountInput
 								value={amount}
+								balance={balance!}
 								onChange={setAmount}
 							/>
 
@@ -123,6 +119,7 @@ const HydratePage = () => {
 								icon="Hydration"
 								loading={loading}
 								fluid
+								disabled={amount > balance!}
 							>
 								{ t("hydrate.cta") }
 							</Button>

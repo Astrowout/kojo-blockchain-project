@@ -3,7 +3,7 @@ import { providers } from "ethers";
 const { Magic } = require('magic-sdk');
 
 const customNetworkOptions = {
-	rpcUrl: "https://rpc-mumbai.maticvigil.com/v1/89a203e77bad69c933f6b58661b2db8d67fc90d1", // Polygon testnet RPC URL
+	rpcUrl: "https://polygon-mumbai.g.alchemy.com/v2/br6pMhkDlUayYhNPyAIVg60VN7TxhWzb", // Polygon testnet RPC URL
 	chainId: 80001, // Polygon testnet chain id
 }
 const magic = new Magic(process.env.REACT_APP_MAGIC_PUBLIC_KEY!, { network: customNetworkOptions });
