@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { providers } from "ethers";
-import { delay } from "../helpers";
 const { Magic } = require('magic-sdk');
 
 const customNetworkOptions = {
@@ -19,8 +18,6 @@ const useMagicLink = (setProvider: (provider: any) => void) => {
 		try {
 			const provider = new providers.Web3Provider(magic.rpcProvider as any);
 			await magic.auth.loginWithMagicLink({ email });
-
-			await delay(300);
 
 			setProvider(provider);
 

@@ -86,8 +86,6 @@ const useMetaMask = (setProvider: (provider: any) => void) => {
 				return;
 			}
 
-			await delay(300);
-
 			const provider = new providers.Web3Provider(window.ethereum);
 
 			const [address] = await provider!.send("eth_requestAccounts", []);
@@ -95,6 +93,8 @@ const useMetaMask = (setProvider: (provider: any) => void) => {
 			if (address) {
 				setProvider(provider);
 				initAccountChangeEvent();
+
+				await delay(300);
 
 				return;
 			}

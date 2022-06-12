@@ -62,7 +62,7 @@ const HydratePage = () => {
 				url: `/plants/${id}`,
 			});
 
-			history.replace(`/plants/${id}`);
+			history.goBack();
 		}
 
 		provider?.removeAllListeners();
@@ -96,37 +96,39 @@ const HydratePage = () => {
 		getPlant();
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-	return !plant ? (
-		<Loader />
-	) : (
+	return (
 		<Layout
 			title={t("hydrate.title")}
 			description={t("hydrate.description", <b className="font-bold">{balance}</b>)}
 			backLink
 		>
 			<div className="flex flex-col justify-between items-center flex-grow">
-				<PlantDetail
-					type={plant.type}
-					health={plant.health}
-					hydration={plant.hydration}
-					image={plant.image}
-				>
-					<div className="space-y-6">
-						<AmountInput
-							value={amount}
-							onChange={setAmount}
-						/>
+				{!plant ? (
+					<Loader />
+				) : (
+					<PlantDetail
+						type={plant.type}
+						health={plant.health}
+						hydration={plant.hydration}
+						image={plant.image}
+					>
+						<div className="space-y-6">
+							<AmountInput
+								value={amount}
+								onChange={setAmount}
+							/>
 
-						<Button
-							onClick={hydratePlant}
-							icon="Hydration"
-							loading={loading}
-							fluid
-						>
-							{ t("hydrate.cta") }
-						</Button>
-					</div>
-				</PlantDetail>
+							<Button
+								onClick={hydratePlant}
+								icon="Hydration"
+								loading={loading}
+								fluid
+							>
+								{ t("hydrate.cta") }
+							</Button>
+						</div>
+					</PlantDetail>
+				)}
 			</div>
 		</Layout>
 	)

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
 	Button,
 	EmptyState,
@@ -9,18 +9,43 @@ import {
 	Tokens,
 } from "../../components";
 import { SessionContext } from "../../context";
+import { formatPlant } from "../../helpers";
 import { useTranslation } from "../../hooks";
+import { Plant } from "../../types";
 
 const DashboardPage = () => {
+	const [latestPlant, setLatestPlant] = useState<Plant | null>(null);
+	const [loading, setLoading] = useState<boolean>(false);
 	const {
 		balance,
-		plants,
 		participant,
+		contract,
 		ranking,
 	} = useContext(SessionContext);
 	const { t, ts } = useTranslation();
 
-	const latestPlant = plants ? plants[plants?.length - 1] : undefined;
+	const getLatestPlant = async () => {
+		setLoading(true);
+
+		try {
+			const plantIds = participant.plantIds || [];
+
+			if (plantIds.length > 0) {
+				const latestPlantId = plantIds[plantIds.length - 1];
+
+				const data = await contract!.handleReadPlant(latestPlantId);
+				const uri = await contract!.uri(latestPlantId);
+
+				if (data && data.isPresent) {
+					setLatestPlant(await formatPlant(latestPlantId, data, uri));
+				}
+			}
+		} catch (error: any) {
+			throw error;
+		} finally {
+			setLoading(false);
+		}
+	};
 
 	const data: StatType[] = [
 		{
@@ -40,6 +65,12 @@ const DashboardPage = () => {
 			value: `${ranking || "/"}`,
 		},
 	];
+
+	useEffect(() => {
+		if (participant && participant.isPresent) {
+			getLatestPlant();
+		}
+	}, [participant]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<Layout
@@ -74,7 +105,7 @@ const DashboardPage = () => {
 							{ t("dashboard.plants") }
 						</h2>
 
-						{latestPlant ? (
+						{latestPlant && !loading ? (
 							<div className="grid lg:grid-cols-2">
 								<PlantCard
 									id={latestPlant.id}
