@@ -24,7 +24,7 @@ const SettingsPage = () => {
 
 	const handleCopyAddress = async () => {
 		await Clipboard.write({
-		  string: address!,
+		  	string: address!,
 		});
 	}
 

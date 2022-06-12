@@ -2,8 +2,8 @@ import { useState, useEffect, useCallback } from "react";
 import orderBy from "lodash/orderBy";
 import findIndex from "lodash/findIndex";
 import { Contract } from "ethers";
-import { Error, Plant, Participant, Player } from "../types";
-import { axios, formatParticipant, formatPlant } from "../helpers";
+import { Error, Participant, Player } from "../types";
+import { axios, formatParticipant } from "../helpers";
 
 // @ts-ignore:next-line
 import MainArtifact from "../artifacts/contracts/KojoV1.sol/KojoV1.json";
@@ -15,7 +15,6 @@ const useContract = (provider: any, address?: string) => {
 	const [blockTime, setBlockTime] = useState<number>(5);
 	const [ranking, setRanking] = useState<number>(1);
 	const [balance, setBalance] = useState<number>(0);
-	const [plants, setPlants] = useState<Plant[]>([]);
 	const [contract, setContract] = useState<Contract | undefined>(undefined);
 	const [error] = useState<Error | null>(null);
 
@@ -42,10 +41,6 @@ const useContract = (provider: any, address?: string) => {
 			getParticipants();
 		}
 	}, [participant]); // eslint-disable-line react-hooks/exhaustive-deps
-
-	useEffect(() => {
-		getPlants();
-	}, [balance]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const initContract = () => {
 		const signer = provider.getSigner();
@@ -103,33 +98,6 @@ const useContract = (provider: any, address?: string) => {
 		}
 	}, [contract]); // eslint-disable-line react-hooks/exhaustive-deps
 
-	const getPlants = async () => {
-		let plants: Plant[] = [];
-
-		try {
-			const plantIds = participant.plantIds || [];
-
-			for (let i = 0; i < plantIds.length; i++) {
-				const tokenId = plantIds[i];
-
-				const data = await contract!.handleReadPlant(tokenId);
-				const uri = await contract!.uri(tokenId);
-
-				if (data && data.isPresent) {
-					const _plant = await formatPlant(tokenId, data,uri);
-
-					if (_plant) {
-						plants.push(_plant);
-					}
-				}
-			}
-
-			setPlants(plants);
-		} catch (error: any) {
-			throw error;
-		}
-	};
-
 	const getParticipants = async () => {
 		let participants: Player[] = [];
 
@@ -181,7 +149,6 @@ const useContract = (provider: any, address?: string) => {
 		participants,
 		ranking,
 		balance,
-		plants,
 		contract,
 		minsUntilNextClaim: Math.ceil((189 * blockTime) / 60),
 		loading,

@@ -31,31 +31,35 @@ const PlantPage = () => {
 		getPlant();
 	}, [balance]); // eslint-disable-line react-hooks/exhaustive-deps
 
-	return !plant ? (
-		<Loader />
-	) : (
+	return (
 		<Layout
-			title={plant.type}
-			description={t("plants.detailDescription", <b className="font-bold">{plant.hydration}</b>)}
+			title={plant?.type || ""}
+			description={t("plants.detailDescription", <b className="font-bold">{plant?.hydration || 0}</b>)}
 			backLink
 		>
 			<div className="flex flex-col justify-between items-center flex-grow">
-				<PlantDetail
-					type={plant.type}
-					waterNeeded={plant.waterNeeded}
-					growth={plant.growth}
-					health={plant.health}
-					hydration={plant.hydration}
-					image={plant.image}
-				/>
+				{!plant ? (
+					<Loader />
+				) : (
+					<>
+						<PlantDetail
+							type={plant.type}
+							waterNeeded={plant.waterNeeded}
+							growth={plant.growth}
+							health={plant.health}
+							hydration={plant.hydration}
+							image={plant.image}
+						/>
 
-				<Button
-					url={`/plants/${id}/hydrate`}
-					icon="Hydration"
-					className="mt-16"
-				>
-					{ t("plants.hydrate") }
-				</Button>
+						<Button
+							url={`/plants/${id}/hydrate`}
+							icon="Hydration"
+							className="mt-16"
+						>
+							{ t("plants.hydrate") }
+						</Button>
+					</>
+				)}
 			</div>
 		</Layout>
 	)
