@@ -73,6 +73,17 @@ const HydratePage = () => {
 			provider.once("block", () => {
 				contract?.once("PlantWatered", handleHydrateSuccess);
 			});
+
+			provider.once("error", (error: any) => {
+				console.log("error", error);
+
+				present({
+					color: "danger",
+					duration: 6000,
+					position: "top",
+					message: error.message,
+				});
+			});
 		} catch (error: any) {
 			setLoading(false);
 
