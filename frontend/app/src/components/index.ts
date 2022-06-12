@@ -32,3 +32,4 @@ export { AlertType } from "./Alert/Alert.types";
 export { default as PlayerStats } from "./PlayerStats/PlayerStats";
 export type { Stat as StatType } from "./PlayerStats/PlayerStats.types";
 export { default as Leaderboard } from "./Leaderboard/Leaderboard";
+export { default as FullscreenImage } from "./FullscreenImage/FullscreenImage";

@@ -46,7 +46,7 @@ const PlantCard: FC<PlantCardProps> = ({
 				<img
 					src={image}
 					alt={`${type} plant`}
-					className="w-full h-full object-cover lg:group-hover:scale-110 duration-300 ease-out transition-transform"
+					className="w-full h-full object-cover lg:group-hover:scale-105 duration-300 ease-out transition-transform"
 				/>
 
 				<div className="flex space-x-0.5 absolute top-3 right-3 text-emerald-600 bg-white/80 px-1 py-0.5 rounded shadow-2xl">
