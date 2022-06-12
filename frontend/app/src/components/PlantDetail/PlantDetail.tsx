@@ -1,4 +1,4 @@
-import { FC, memo, ReactNode, useEffect, useState } from "react";
+import { FC, memo, ReactNode, useState } from "react";
 import cn from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -20,7 +20,6 @@ const PlantDetail: FC<PlantDetailProps> = ({
 }) => {
 	const { t } = useTranslation();
 	const [fullImage, setFullImage] = useState(false);
-	const [mounted, setMounted] = useState(false);
 
 	const getGrowth = (value: number | null): ReactNode => {
 		if (value) {
@@ -33,11 +32,6 @@ const PlantDetail: FC<PlantDetailProps> = ({
 			return t(`health.${value}`);
 		}
 	}
-
-	useEffect(() => {
-		setMounted(true);
-	}, []) // eslint-disable-line react-hooks/exhaustive-deps
-
 
 	const renderDrop = (index: number) => {
 		const solid = waterNeeded || 2 > index;
