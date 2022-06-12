@@ -137,6 +137,7 @@ const translations = {
 		description: "You have {$} kojos to hydrate this plant.",
 		cta: "Give some water!",
 		amount: "Amount of tokens",
+		insufficient: "You don't have enough kojos to give your plant this amount of water!",
 		success: "You hydrated your plant '{$}' with {$} kojos.",
 	},
 	growth: {
