@@ -1,42 +1,58 @@
 import { FunctionComponent } from "react";
 import cn from "classnames";
+import Image from "next/image";
 
-import { CtaProps } from "./Cta.types";
+import { HeroProps } from "./CTA.types";
 
 import { useTranslation } from "@/hooks";
 import {
-	Icon,
 	Button,
+	Link,
 } from "@/components";
 
-const Token: FunctionComponent<CtaProps> = ({ className }) => {
+import heroImage from "@/assets/img/hero.png";
+
+const CTA: FunctionComponent<HeroProps> = ({ className }) => {
 	const { t } = useTranslation();
 
 	return (
-		<section className={cn(className, "relative z-10 px-6 sm:px-10")}>
-			<div className='relative overflow-hidden max-w-screen-lg bg-gradient-to-tl from-emerald-800 to-emerald-600 shadow-2xl shadow-emerald-600/50 mx-auto px-6 sm:px-20 py-10 sm:py-16 rounded-2xl'>
-				<Icon
-					className="absolute text-emerald-600 left-0 bottom-0 w-2/4 h-auto -translate-x-1/4 translate-y-1/4 z-0"
-					name="KojoToken"
-				/>
+		<section className={cn(className, "bg-kojo")}>
+			<div className='max-w-screen-xl mx-auto flex flex-row items-center gap-x-24 gap-y-12 px-6 sm:px-10 sm:py-16 justify-center min-h-[60vh]'>
 
-				<div className="mt-6 space-y-8 flex flex-col items-center relative z-10">
-					<h2 className="font-serif text-center text-white text-3xl leading-tight md:text-4xl md:leading-tight lg:text-5xl lg:leading-tight">
-						{ t("cta.title") }
-					</h2>
 
-					<Button
-						icon="ArrowRight"
-						iconAfter
-						url={process.env.NEXT_PUBLIC_APP_URL}
-						alt
-					>
-						{ t("cta.label") }
-					</Button>
+				<div className="hidden md:block md:w-[60rem] bg-black md:h-[30rem] rounded-md bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(/assets/images/1-5.png)` }}></div>
+
+
+				<div className="flex flex-col items-center mt-5">
+					<h1 className="font-serif text-center font-display uppercase leading-tight md:text-5xl md:leading-tight text-5xl mb-3 xl:leading-tight text-white">
+						Start growing
+					</h1>
+
+					<p className="text-white font-text text-xs text-center leading-6">Thrilled to grow your first virtual plant?! Go ahead and buy your very first seed in our in-browser dApp. The mobile dApp version is on its way, sit tight!</p>
+
+					<div className="flex flex-col md:flex-row items-center mt-8 md:mt-10 gap-x-8 gap-y-5">
+						<Button
+							url={process.env.NEXT_PUBLIC_DOWNLOAD_URL}
+							compact
+							external
+							className="bg-[#0A845C]"
+						>
+							{ t("navigation.download") }
+						</Button>
+
+						<Link
+							url={process.env.NEXT_PUBLIC_APP_URL}
+							className='text-white'
+						>
+							{ t("navigation.browser") }
+						</Link>
+					</div>
 				</div>
+
+
 			</div>
 		</section>
 	)
 }
 
-export default Token;
+export default CTA;
