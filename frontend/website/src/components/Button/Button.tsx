@@ -18,11 +18,11 @@ const Button: FunctionComponent<ButtonProps> = ({
 	icon = null,
 	onClick,
 }) => {
-	const classes = cn(className, "inline-flex space-x-2 text-center justify-center duration-300 transition hover:scale-105 whitespace-nowrap items-center rounded-2xl shadow-lg hover:shadow-xl", {
-		"text-white bg-emerald-600 shadow-emerald-600/20 hover:shadow-emerald-600/20": !alt,
-		"text-emerald-900 bg-white shadow-emerald-900/20 hover:shadow-emerald-900/20": alt,
-		"px-8 sm:px-14 h-16 sm:h-20 text-lg sm:text-xl": !compact,
-		"px-7 h-12": compact,
+	const classes = cn(className, "inline-flex space-x-2 text-center justify-center duration-300 transition hover:scale-105 whitespace-nowrap items-center rounded-md font-title uppercase text-xs cursor-pointer", {
+		"text-white bg-kojo": !alt,
+		"text-kojo bg-white": alt,
+		"px-12 sm:px-14 h-16 sm:h-20 text-lg sm:text-xl": !compact,
+		"px-12 h-11": compact,
 		"w-full": fluid,
 	});
 

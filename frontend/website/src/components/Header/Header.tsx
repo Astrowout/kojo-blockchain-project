@@ -20,12 +20,22 @@ const Header: FunctionComponent<HeaderProps> = ({
 
 	const renderNavigation = () => (
 		<nav className="flex flex-col md:flex-row md:items-center gap-x-12 gap-y-3">
-			<Link
+			<Link url="#how">How it works</Link>
+			<Link url="#roadmap">Roadmap</Link>
+			<Link url="#trust">Trust</Link>
+			<Link url="#team">Team</Link>
+			<Link url="#partners">Partners</Link>
+			<Link url="#faq">FAQ</Link>
+
+
+
+
+			{/* <Link
 				url={process.env.NEXT_PUBLIC_DOWNLOAD_URL}
 				icon="External"
 				external
 			>
-				{ t("navigation.download") }
+				Download the app
 			</Link>
 
 			<Link
@@ -34,7 +44,7 @@ const Header: FunctionComponent<HeaderProps> = ({
 				external
 			>
 				GitHub
-			</Link>
+			</Link> */}
 
 			<Button
 				url={process.env.NEXT_PUBLIC_APP_URL}
@@ -46,7 +56,7 @@ const Header: FunctionComponent<HeaderProps> = ({
 	);
 
 	return (
-		<Popover as="header" className={cn(className, "z-50")}>
+		<Popover as="header" className={cn(className, "z-50 fixed w-full shadow-sm bg-white")}>
 			<>
 				<Transition
 					enter="transition duration-300"
@@ -76,8 +86,9 @@ const Header: FunctionComponent<HeaderProps> = ({
 
 				<div className="2xl:container px-6 sm:px-10 py-10 relative z-20 flex justify-between items-center bg-white">
 					<NextLink href="/">
-						<a>
+						<a className="flex items-center">
 							<Logo w={132} />
+							<p className="font-display uppercase text-4xl -ml-16">Kōjō</p>
 						</a>
 					</NextLink>
 
@@ -85,7 +96,7 @@ const Header: FunctionComponent<HeaderProps> = ({
 						{ renderNavigation() }
 					</div>
 
-					<Popover.Button className="flex md:hidden text-emerald-900 w-10 h-10 items-center justify-center">
+					<Popover.Button className="flex md:hidden text-black w-8 h-8 items-center justify-center">
 						{({ open }: { open: boolean }) => open ? (
 							<Icon
 								name="Close"

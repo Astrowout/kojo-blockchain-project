@@ -1,13 +1,12 @@
 const translations = {
 	navigation: {
-		download: "Download the app",
+		download: "Get a seed",
 		app: "To the app",
-		browser: "Or use kojo in your browser",
+		browser: "or download for mobile",
 	},
 	hero: {
 		title: {
-			1: "Grow seeds into plants based on your {$}",
-			2: "sustainable water consumption.",
+			1: "Grow a virtual garden, while caring for a real planet.",
 		},
 	},
 	how: {
@@ -22,11 +21,11 @@ const translations = {
 		},
 		3: {
 			title: "Help reducing water consumption in your area",
-			description: "Keep receiving rewards by coming up with ways on how you can reduce your water consumption.",
+			description: "By aiming to use less water than the people in your neighbourhood, you lower the regional average which results in a chain reaction of less water use throughout the neighbourhood.",
 		},
 	},
 	partners: {
-		title: "In partnership with",
+		title: "trusted partners",
 	},
 	token: {
 		title: "The kojo token",

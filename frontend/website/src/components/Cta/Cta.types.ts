@@ -1,3 +1,3 @@
-export type CtaProps = {
+export type HeroProps = {
 	className?: string,
 }
