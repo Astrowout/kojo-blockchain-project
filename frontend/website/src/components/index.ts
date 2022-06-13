@@ -14,4 +14,4 @@ export { default as Roadmap } from './Roadmap/Roadmap';
 export { default as Trust } from './Trust/Trust';
 export { default as Team } from './Team/Team';
 export { default as FAQ } from './FAQ/FAQ';
-export { default as CTA } from './CTA/Cta';
+export { default as CTA } from './CallToAction/Cta';
