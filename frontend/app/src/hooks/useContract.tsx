@@ -3,7 +3,8 @@ import orderBy from "lodash/orderBy";
 import findIndex from "lodash/findIndex";
 import { Contract } from "ethers";
 import { Error, Participant, Player } from "../types";
-import { axios, formatParticipant } from "../helpers";
+import { formatParticipant } from "../helpers";
+import { formatDistanceToNow } from 'date-fns';
 
 // @ts-ignore:next-line
 import MainArtifact from "../artifacts/contracts/KojoV1.sol/KojoV1.json";
@@ -12,8 +13,8 @@ const useContract = (provider: any, address?: string) => {
 	const [loading] = useState(false);
 	const [participant, setParticipant] = useState<Participant>({});
 	const [participants, setParticipants] = useState<Player[]>([]);
-	const [blockTime, setBlockTime] = useState<number>(5);
 	const [ranking, setRanking] = useState<number>(1);
+	const [nextClaimInterval, setNextClaimInterval] = useState<string>("");
 	const [balance, setBalance] = useState<number>(0);
 	const [contract, setContract] = useState<Contract | undefined>(undefined);
 	const [error] = useState<Error | null>(null);
@@ -24,7 +25,6 @@ const useContract = (provider: any, address?: string) => {
 		}
 
 		initContract();
-		fetchBlocktime();
 	}, [address]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
@@ -39,6 +39,7 @@ const useContract = (provider: any, address?: string) => {
 		if (participant && participant.isPresent) {
 			getTokens();
 			getParticipants();
+			calculateNextClaimInterval();
 		}
 	}, [participant]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -54,17 +55,17 @@ const useContract = (provider: any, address?: string) => {
 		setContract(contract);
 	};
 
-	const fetchBlocktime = useCallback(async () => {
-		try {
-			const { data } = await axios.get("https://gasstation-mumbai.matic.today/v2");
+	const calculateNextClaimInterval = () => {
+		const nowTimestamp = new Date().getTime() / 1000;
+		const timestampDiff = (participant.timestamp || 0) - nowTimestamp;
 
-			if (data) {
-				setBlockTime(data.blockTime);
-			}
-		} catch (error: any) {
-			throw error;
+		if (timestampDiff > 0) {
+			setNextClaimInterval(formatDistanceToNow(
+				new Date((participant.timestamp || 0) * 1000),
+				{ includeSeconds: true }
+			));
 		}
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+	};
 
 	const initParticipant = async () => {
 		try {
@@ -79,6 +80,7 @@ const useContract = (provider: any, address?: string) => {
 					allowedTokenBalance: initialTokenAllowance.toNumber(),
 					level: 1,
 					experiencePoints: 0,
+					timestamp: 0,
 					plantIds: [],
 					isPresent: false,
 				});
@@ -150,7 +152,7 @@ const useContract = (provider: any, address?: string) => {
 		ranking,
 		balance,
 		contract,
-		minsUntilNextClaim: Math.ceil((189 * blockTime) / 60),
+		nextClaimInterval,
 		loading,
 		error,
 		handleUpdateParticipant,

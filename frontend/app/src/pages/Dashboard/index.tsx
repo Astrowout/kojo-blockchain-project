@@ -108,7 +108,7 @@ const DashboardPage = () => {
 			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-12 w-full">
 				<Tokens compact={false} />
 
-				{!balance && (
+				{(!balance || !!participant.allowedTokenBalance) && (
 					<EmptyState
 						message={t("dashboard.claim")}
 						icon="KojoToken"
@@ -129,7 +129,7 @@ const DashboardPage = () => {
 
 				<div className="xl:col-span-2 grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12">
 					<div className="lg:col-span-2">
-						<h2 className="font-bold text-lg md:text-xl lg:text-2xl mb-4">
+						<h2 className="font-bold text-xl lg:text-2xl mb-4">
 							{ t("dashboard.plants") }
 						</h2>
 

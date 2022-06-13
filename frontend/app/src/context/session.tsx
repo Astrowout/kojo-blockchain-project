@@ -11,7 +11,7 @@ type SessionContextType = {
 	participants: Player[];
 	balance?: number;
 	contract?: Contract;
-	minsUntilNextClaim?: number;
+	nextClaimInterval?: string;
 	postNotification?: ({ message, url }: { message: string, url: string }) => void;
 	markAllAsRead?: () => void;
 	handleUpdateParticipant: (data: any) => void;
@@ -39,7 +39,7 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 		ranking,
 		participants,
 		contract,
-		minsUntilNextClaim,
+		nextClaimInterval,
 		handleUpdateParticipant,
 	} = useContract(provider, address);
 
@@ -60,7 +60,7 @@ export const SessionProvider: FC<PropsWithChildren<SessionProviderProps>> = ({
 				participant,
 				ranking,
 				participants,
-				minsUntilNextClaim,
+				nextClaimInterval,
 				postNotification,
 				markAllAsRead,
 				handleUpdateParticipant,

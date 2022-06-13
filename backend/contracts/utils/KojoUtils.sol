@@ -82,7 +82,7 @@ contract KojoUtils {
   function calculateParticipantLevelCost(
     uint256 levelCost,
     uint256 level
-  ) external pure returns (uint256 participantLevelCost) {
+  ) external pure returns (uint256) {
     // Increase level cost as participant level increases.
     uint256 participantLevelCost = levelCost + ((level - 1) * 10);
 
@@ -105,12 +105,13 @@ contract KojoUtils {
 
   function bytesToAddress(bytes calldata data) external pure returns (address addr) {
     bytes memory b = data;
+
     assembly {
       addr := mload(add(b, 20))
     }
   }
 
-  function encodeAddressArray(address[] calldata addresses) external pure returns (bytes memory data) {
+  function encodeAddressArray(address[] calldata addresses) external pure returns (bytes memory) {
     bytes memory data;
 
     for (uint256 i = 0; i < addresses.length; i++){

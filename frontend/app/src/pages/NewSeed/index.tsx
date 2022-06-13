@@ -25,11 +25,6 @@ const NewSeedPage = () => {
 	const [present] = useIonToast();
 
 	const handleMintSuccess = async (_participant: any, plant: number) => {
-		console.log("PlantMinted", {
-			participant: _participant,
-			plant,
-		});
-
 		if (_participant && _participant.isPresent) {
 			setLoading(false);
 
