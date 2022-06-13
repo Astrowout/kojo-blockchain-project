@@ -7,36 +7,32 @@ import { HowProps } from "./How.types";
 
 import { useTranslation } from "@/hooks";
 
-import how1Image from "@/assets/img/how1.jpg";
-import how2Image from "@/assets/img/how2.jpg";
-import how3Image from "@/assets/img/how3.jpg";
-
 const How: FunctionComponent<HowProps> = ({ className }) => {
 	const { t } = useTranslation();
 	const [activeIndex, setActiveIndex] = useState(0);
 
 	const CONTENT = [
 		{
-			title: t("how.1.title"),
-			description: t("how.1.description"),
-			image: how1Image,
+			title: 'Track your water consumption',
+			description: `Connect your crypto wallet and water meter to the Kojo Network and start receiving rewards. Using IoT and blockchain technology you can allow Kojo to track your water consumption in a transparent and self sovereign fashion. By comparing your usage against the local average at your neighbourhood, Kojo calculates a monthly claimable reward of $KOJO's that you can spend on growing various digital plants.`,
+			image: '/assets/images/1-1.png',
 		},
 		{
-			title: t("how.2.title"),
-			description: t("how.2.description"),
-			image: how2Image,
+			title: 'Harvest the benefits',
+			description: `By reducing your personal water usage, not only will the fee on your monthy water bill be reduced, Kojo also rewards you with $KOJO's which can be staked, spend or traded. In case you choose to spend your $KOJO, you can grow seeds into plants to raise your monthly rewards even more!`,
+			image: '/assets/images/1-3.png',
 		},
 		{
-			title: t("how.3.title"),
-			description: t("how.3.description"),
-			image: how3Image,
+			title: 'Care for the planet',
+			description: 'By aiming to use less water than the people in your neighbourhood, you lower the regional average which results in a chain reaction of less water use throughout the neighbourhood. Start growing your virtual garden, while caring for a real planet!',
+			image: '/assets/images/1-5.png',
 		},
 	];
 
 	return (
-		<section className={cn(className, "bg-emerald-50 flex flex-col")}>
+		<section className={cn(className, "bg-background flex flex-col")}>
 			<div className='w-full max-w-screen-xl mx-auto grid md:grid-cols-2 gap-x-16 xl:gap-x-24 gap-y-12 px-6 sm:px-10 py-10 sm:py-16'>
-				<div className="h-64 hidden md:flex md:h-screen md:sticky md:top-0">
+				<div className="h-64 hidden md:flex md:h-screen md:sticky md:top-36">
 					{CONTENT.map((step, index) => (
 						<motion.div
 							animate={{
@@ -46,20 +42,14 @@ const How: FunctionComponent<HowProps> = ({ className }) => {
 							transition={{
 								y: {
 									type: 'spring',
-									bounce: 0.8,
+									// bounce: 0.8,
 									duration: 1
 								}
 							}}
 							key={index}
-							className="rounded-2xl overflow-hidden shadow-2xl absolute inset-x-0 inset-y-36"
+							className="rounded-md overflow-hidden absolute inset-x-0 inset-y-36"
 						>
-							<Image
-								src={step.image}
-								layout="fill"
-								priority={index === 0}
-								alt="Water management for plants"
-								className="object-cover hidden md:block"
-							/>
+							<div className="md:w-[30vw] bg-black md:h-[30vw] max-w-[34rem] rounded-md bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${step.image})` }}></div>
 						</motion.div>
 					))}
 				</div>
@@ -81,24 +71,20 @@ const How: FunctionComponent<HowProps> = ({ className }) => {
 								}}
 								key={index}
 							>
-								<div className="md:hidden relative rounded-2xl overflow-hidden shadow-2xl h-56">
-									<Image
-										src={step.image}
-										layout="fill"
-										alt="Water management for plants"
-										className="object-cover"
-									/>
+								<div className="md:hidden relative rounded-md overflow-hidden">
+									<div className="w-[90vw] bg-black h-[90vw] rounded-md bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${step.image})` }}></div>
+
 								</div>
 
-								<h1 className="hidden md:block font-sans mt-4 font-bold text-emerald-600 uppercase tracking-widest">
-									{ t("how.title") }
+								<h1 className="hidden md:block mt-4 font-title uppercase tracking-widest">
+									{ `${t("how.title")} - Step ${index + 1}` }
 								</h1>
 
-								<h2 className="font-serif mt-10 text-emerald-900 text-3xl leading-tight md:text-4xl md:leading-tight xl:text-5xl xl:leading-tight">
+								<h2 className="font-display uppercase mt-10 text-3xl leading-tight md:text-4xl md:leading-tight xl:text-5xl xl:leading-tight">
 									{ step.title }
 								</h2>
 
-								<p className="font-sans mt-4 text-gray-400">
+								<p className="font-text leading-8  mt-6 text-sm">
 									{ step.description }
 								</p>
 							</motion.div>
