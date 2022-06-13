@@ -16,6 +16,7 @@ import {
 	NotFoundPage,
 	ClaimPage,
 	NotificationsPage,
+	NftPage,
 } from "./pages";
 
 /* Core CSS required for Ionic components to work properly */
@@ -53,6 +54,7 @@ const App: React.FC = () => {
 						<Route path="/tabs" component={Tabs} />
 						<Route path="/plants/:id" exact component={PlantPage} />
 						<Route path="/plants/:id/hydrate" component={HydratePage} />
+						<Route path="/nft/:id" component={NftPage} />
 						<Route path="/settings" component={SettingsPage} />
 						<Route path="/notifications" component={NotificationsPage} />
 						<Route path="/claim" component={ClaimPage} />
