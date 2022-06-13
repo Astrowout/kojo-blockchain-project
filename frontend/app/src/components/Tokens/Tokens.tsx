@@ -14,7 +14,7 @@ const Tokens: FunctionComponent<TokensProps> = ({
 	const { t } = useTranslation();
 	const {
 		balance,
-		minsUntilNextClaim,
+		nextClaimInterval,
 	} = useContext(SessionContext);
 
 	return (
@@ -56,7 +56,7 @@ const Tokens: FunctionComponent<TokensProps> = ({
 					</p>
 
 					<p className="mt-1 font-bold text-xl lg:text-2xl text-emerald-600">
-						{ t("tokens.minutes", minsUntilNextClaim) }
+						{ nextClaimInterval || t("tokens.nextClaimEmpty") }
 					</p>
 
 					<p className="text-xs italic mt-6 text-gray-600 flex items-center space-x-1">

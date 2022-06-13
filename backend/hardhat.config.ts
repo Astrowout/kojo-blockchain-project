@@ -2,6 +2,7 @@ import * as dotenv from 'dotenv';
 
 import { HardhatUserConfig, task } from 'hardhat/config';
 import '@openzeppelin/hardhat-upgrades';
+import '@nomiclabs/hardhat-etherscan';
 import '@nomiclabs/hardhat-waffle';
 import '@typechain/hardhat';
 import 'solidity-coverage';
@@ -21,26 +22,23 @@ task('accounts', 'Prints the list of accounts', async (_, hre) => {
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 
+const compilerSettings = {
+  optimizer: {
+    enabled: true,
+    runs: 200,
+  },
+};
+
 const config: HardhatUserConfig = {
   solidity: {
     compilers: [
       {
         version: '0.8.9',
-        settings: {
-          optimizer: {
-            enabled: true,
-            runs: 200,
-          },
-        },
+        settings: compilerSettings,
       },
       {
         version: '0.7.0',
-        settings: {
-          optimizer: {
-            enabled: true,
-            runs: 200,
-          },
-        },
+        settings: compilerSettings,
       },
     ],
   },
@@ -60,6 +58,11 @@ const config: HardhatUserConfig = {
       accounts: [process.env.PRIVATE_KEY!],
     },
   },
+  etherscan: {
+    apiKey: {
+      polygonMumbai: process.env.POLYGONSCAN_API_KEY!,
+    }
+  }
 };
 
 export default config;

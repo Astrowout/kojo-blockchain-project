@@ -162,9 +162,8 @@ const translations = {
 		title: "My kojo balance",
 		claim: "Claim my kojos",
 		nextClaim: "Next distribution of kojos happens in...",
-		minutes: "{$} minutes",
+		nextClaimEmpty: "a few seconds",
 		disclaimer: "This can change according to the current block time.",
-		blocks: "{$} blocks",
 	},
 	claim: {
 		title: "Claim kojos",

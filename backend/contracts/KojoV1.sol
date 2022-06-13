@@ -232,26 +232,26 @@ contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatibleInterface {
     safeTransferFrom(address(this), owner(), fungibleTokenId, balanceOf(address(this), fungibleTokenId), "");
   }
 
-  function checkUpkeep(bytes calldata _checkData) external view returns (bool upkeepNeeded, bytes memory) {
+  function checkUpkeep(bytes calldata _checkData) external view returns (bool _upkeepNeeded, bytes memory) {
+    bool upkeepNeeded = false;
     address[] memory accounts = store.handleReadParticipantAddresses();
-    address[] memory fuzzyAccounts;
+    address[] memory fuzzyAccounts = new address[](accounts.length);
+    bytes memory fuzzyBytesAccounts;
 
     for (uint256 i = 0; i < accounts.length; i++) {
       address account = accounts[i];
       Structs.Participant memory participant = store.handleReadParticipant(account);
 
-      if (participant.timestamp >= block.timestamp) {
-        fuzzyAccounts.push(account);
+      if (block.timestamp >= participant.timestamp) {
+        fuzzyAccounts[i] = account;
+        upkeepNeeded = true;
       }
     }
 
-    if (fuzzyAccounts.length > 0) {
-      upkeepNeeded = true;
-    } else {
-      upkeepNeeded = false;
+    if (upkeepNeeded) {
+      fuzzyBytesAccounts = utils.encodeAddressArray(fuzzyAccounts);
+      return (upkeepNeeded, fuzzyBytesAccounts);
     }
-
-    bytes memory fuzzyBytesAccounts = utils.encodeAddressArray(fuzzyAccounts);
 
     return (upkeepNeeded, fuzzyBytesAccounts);
   }
@@ -262,15 +262,18 @@ contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatibleInterface {
 
     for (uint i = 0; i < n; i++) {
       address account = utils.bytesToAddress(_performData[i*20:(i+1)*20]);
-      Structs.Participant memory participant = store.handleReadParticipant(account);
 
-      if (participant.timestamp >= block.timestamp) {
-        string memory addr = string(abi.encodePacked(account));
-        api.requestKojoAllowance(addr);
+      if (account != address(0)) {
+        Structs.Participant memory participant = store.handleReadParticipant(account);
 
-        participant.timestamp = block.timestamp + store.secondsBetweenAllowanceUpdates();
+        if (participant.timestamp >= block.timestamp) {
+          string memory addr = string(abi.encodePacked(account));
+          api.requestKojoAllowance(addr);
 
-        store.handleUpdateParticipant(account, participant);
+          participant.timestamp = block.timestamp + store.secondsBetweenAllowanceUpdates();
+
+          store.handleUpdateParticipant(account, participant);
+        }
       }
     }
   }
