@@ -1,8 +1,5 @@
 import { FunctionComponent } from "react";
 import cn from "classnames";
-import Image from "next/image";
-
-import { HeroProps } from "./CTA.types";
 
 import { useTranslation } from "@/hooks";
 import {
@@ -12,7 +9,7 @@ import {
 
 import heroImage from "@/assets/img/hero.png";
 
-const CTA: FunctionComponent<HeroProps> = ({ className }) => {
+const CTA: FunctionComponent = ({ className }: any) => {
 	const { t } = useTranslation();
 
 	return (
