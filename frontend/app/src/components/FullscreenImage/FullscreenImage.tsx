@@ -1,38 +1,49 @@
 import { FC } from "react";
-import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 
 import { FullscreenImageProps } from "./FullscreenImage.types";
+import { useHistory } from "react-router";
 
 const FullscreenImage: FC<FullscreenImageProps> = ({
 	image = "",
 	alt = "",
-	close = () => null,
 }) => {
-	return createPortal((
+	const history = useHistory();
+
+	return (
 		<div
 			className="fixed inset-0 overflow-hidden z-50 cursor-zoom-out flex items-center justify-center"
-			onClick={close}
+			onClick={() => history.goBack()}
 		>
 			<motion.div
 				transition={{
 					type: "tween",
-					duration: 0.4,
+					duration: 0.3,
 					ease: "easeOut",
 				}}
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
 				exit={{ opacity: 0 }}
-				className="absolute inset-0 bg-black/90 backdrop-blur"
+				className="absolute inset-0 bg-black/90"
 			></motion.div>
 
 			<motion.div
 				transition={{
 					type: "tween",
 					duration: 0.4,
-					ease: "anticipate",
+					ease: "easeOut",
 				}}
-				layoutId="fullscreen-image"
+				initial={{
+					opacity: 0,
+					scale: 0.8,
+				}}
+				animate={{
+					opacity: 1,
+					scale: 1,
+				}}
+				exit={{
+					opacity: 0,
+				}}
 				className="relative max-h-screen max-w-screen aspect-square shadow-2xl"
 			>
 				<img
@@ -42,7 +53,7 @@ const FullscreenImage: FC<FullscreenImageProps> = ({
 				/>
 			</motion.div>
 		</div>
-	), document.body);
+	);
 }
 
 export default FullscreenImage;

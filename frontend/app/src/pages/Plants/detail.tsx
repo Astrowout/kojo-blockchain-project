@@ -43,6 +43,7 @@ const PlantPage = () => {
 				) : (
 					<>
 						<PlantDetail
+							id={id}
 							type={plant.type}
 							waterNeeded={plant.waterNeeded}
 							growth={plant.growth}

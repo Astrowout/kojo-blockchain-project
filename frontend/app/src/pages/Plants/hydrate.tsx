@@ -113,6 +113,7 @@ const HydratePage = () => {
 					<Loader />
 				) : (
 					<PlantDetail
+						id={id}
 						type={plant.type}
 						health={plant.health}
 						hydration={plant.hydration}

@@ -15,8 +15,7 @@ const Banner: FunctionComponent<BannerProps> = () => {
 			<div className="bg-emerald-600 flex justify-center px-4 sm:px-8 py-2 space-x-3 text-white">
 				<Icon
 					name="Danger"
-					size={22}
-					className="flex-shrink-0"
+					className="flex-shrink-0 mt-0.5"
 				/>
 
 				<p className="font-bold text-sm mt-[1px]">

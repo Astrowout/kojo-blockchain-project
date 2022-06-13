@@ -10,3 +10,4 @@ export { default as SettingsPage } from "./Settings";
 export { default as NotificationsPage } from "./Notifications";
 export { default as ClaimPage } from "./Claim";
 export { default as NotFoundPage } from "./NotFound";
+export { default as NftPage } from "./Plants/nft";
