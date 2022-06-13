@@ -1,3 +1,31 @@
+@font-face {
+	font-family: 'Montserrat Black';
+	src: url('/assets/fonts/Montserrat-Black.ttf');
+	font-weight: bold;
+  }
+
+  @font-face {
+	font-family: 'Lexend Deca';
+	src: url('/assets/fonts/LexendDeca-Black.ttf');
+	font-weight: bold;
+
+  }
+
+
+  @font-face {
+	font-family: 'Lexend Deca';
+	src: url('/assets/fonts/LexendDeca-Regular.ttf');
+	font-weight: normal;
+
+  }
+
+
+  @font-face {
+	font-family: 'PT Mono';
+	src: url('/assets/fonts/PTMono-Regular.ttf');
+	font-weight: bold;
+  }
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -15,3 +43,4 @@ body,
 html {
 	scroll-behavior: smooth;
   }
+
