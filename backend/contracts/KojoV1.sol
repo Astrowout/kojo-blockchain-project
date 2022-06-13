@@ -38,6 +38,10 @@ contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatibleInterface {
     burnAddress = _burn;
   }
 
+  function contractURI() public view returns (string memory) {
+        return "https://metadata-url.com/my-metadata";
+    }
+
   // Prohibits external contracts to call certain functions.
   modifier onlyEOA() {
     require(tx.origin == msg.sender, "Not an EOA.");
