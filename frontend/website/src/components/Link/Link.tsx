@@ -13,15 +13,15 @@ const Link: FunctionComponent<LinkProps> = ({
 	url = "/",
 	icon = null
 }) => {
-	const classes = cn(className, "inline-flex whitespace-nowrap items-center text-emerald-900 text-lg hover:underline", {
-		"underline": !icon,
+	const classes = cn(className, "inline-flex whitespace-nowrap items-center font-title uppercase text-xs hover:underline cursor-pointer", {
+		// "underline": !icon,
 	});
 
 	const renderContent = () => (
 		<>
 			{children}
 
-			{icon && <Icon name={icon} className="ml-2" size={20} />}
+			{icon && <Icon name={icon} className="ml-2" size={12} />}
 		</>
 	)
 
