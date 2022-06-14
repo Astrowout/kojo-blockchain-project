@@ -238,7 +238,6 @@ contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatible {
 
   function checkUpkeep(bytes calldata _checkData) external view returns (bool upkeepNeeded, bytes memory performData) {
     address[] memory accounts = store.handleReadParticipantAddresses();
-    // address[] memory fuzzyAccounts = new address[](accounts.length);
 
     for (uint256 i = 0; i < accounts.length; i++) {
       address account = accounts[i];
@@ -246,37 +245,28 @@ contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatible {
       Structs.Participant memory participant = store.handleReadParticipant(account);
 
       if (participant.isPresent && (block.timestamp >= participant.timestamp)) {
-        // fuzzyAccounts[i] = account;
         upkeepNeeded = true;
       }
     }
-
-    // performData = utils.encodeAddressArray(fuzzyAccounts);
 
     return (upkeepNeeded, "");
   }
 
   function performUpkeep(bytes calldata _performData) external {
     address[] memory accounts = store.handleReadParticipantAddresses();
-    // Revalidate the upkeep
-    // uint256 n = _performData.length / 20;
 
     for (uint i = 0; i < accounts.length; i++) {
       address account = accounts[i];
-      // address account = abi.decode(_performData[i*20:(i+1)*20], (address));
 
-      // if (account != address(0)) {
-        Structs.Participant memory participant = store.handleReadParticipant(account);
+      Structs.Participant memory participant = store.handleReadParticipant(account);
 
-        if (participant.isPresent && (block.timestamp >= participant.timestamp)) {
-          // string memory addr = string(abi.encodePacked(account));
+      if (participant.isPresent && (block.timestamp >= participant.timestamp)) {
+        string memory addr = utils.toString(abi.encodePacked(account));
+        api.requestKojoAllowance(addr);
 
-          participant.timestamp = block.timestamp + store.secondsBetweenAllowanceUpdates();
-          store.handleUpdateParticipant(account, participant);
-
-          // api.requestKojoAllowance(addr);
-        }
-      // }
+        participant.timestamp = block.timestamp + store.secondsBetweenAllowanceUpdates();
+        store.handleUpdateParticipant(account, participant);
+      }
     }
   }
 

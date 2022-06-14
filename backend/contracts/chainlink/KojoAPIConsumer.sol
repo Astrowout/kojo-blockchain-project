@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.12;
 
 import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
 import "@chainlink/contracts/src/v0.8/ConfirmedOwner.sol";
@@ -28,15 +28,15 @@ contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
    *
    * Polygon Testnet (mumbai) details:
    * Link Token: 0x326C977E6efc84E512bB9C30f76E30c160eD06FB
-   * Oracle: 0xE1eDB1c19298A1522059CF9F542D2D6FAfF93D08 (Mumbai oracle)
-   * jobId: 1899223a725b4be68a83454d643deb66
+   * Oracle: 0xA4500F0906A69AB42E3693fdAd2CA5910858b7Cf (Mumbai oracle)
+   * jobId: faa2fc93ae9d49eab8cd1c4e2978becb
    *
    */
   constructor() ConfirmedOwner(msg.sender) {
     setChainlinkToken(0x326C977E6efc84E512bB9C30f76E30c160eD06FB);
-    setChainlinkOracle(0xE1eDB1c19298A1522059CF9F542D2D6FAfF93D08);
+    setChainlinkOracle(0xA4500F0906A69AB42E3693fdAd2CA5910858b7Cf);
 
-    jobId = "1899223a725b4be68a83454d643deb66";
+    jobId = "faa2fc93ae9d49eab8cd1c4e2978becb";
     fee = 10**16; // 0.01 LINK
   }
 
@@ -48,7 +48,7 @@ contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
    * Create a Chainlink request to retrieve API response, find the target
    * data which is located in a list
    */
-  function requestKojoAllowance(string calldata account) public onlyOwner {
+  function requestKojoAllowance(string calldata account) public {
     Chainlink.Request memory req = buildChainlinkRequest(
       jobId,
       address(this),
@@ -57,10 +57,8 @@ contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
 
     // Set the URL to perform the GET request on
     // API docs: https://api.play-kojo.xyz/api/farys/{account}
-    req.add(
-      "get",
-      string(string.concat("https://api.play-kojo.xyz/api/farys/latest/", bytes(account)))
-    );
+    req.add("get", string.concat("https://api.play-kojo.xyz/api/farys/latest/", account));
+    req.add("address", account);
     req.add("path", "allowance");
     // Sends the request
     sendChainlinkRequest(req, fee);
@@ -71,12 +69,12 @@ contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
    * @dev This is called by the oracle. recordChainlinkFulfillment must be used.
    */
   function fulfill(
-    bytes32 _requestId,
-    uint256 _allowance,
-    address _account
-  ) public recordChainlinkFulfillment(_requestId) {
-    emit RequestFulfilled(_requestId, _allowance);
-    store.setAllowance(_allowance, _account);
+    bytes32 requestId,
+    uint256 allowance,
+    address account
+  ) public recordChainlinkFulfillment(requestId) {
+    emit RequestFulfilled(requestId, allowance);
+    store.setAllowance(allowance, account);
   }
 
   /**

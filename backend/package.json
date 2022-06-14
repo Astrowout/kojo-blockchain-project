@@ -18,7 +18,7 @@
     "deploy-oracle:testnet": "hardhat run scripts/deploy-oracle.ts --network mumbai",
     "deploy-keeper:testnet": "hardhat run scripts/deploy-keeper.ts --network mumbai",
     "deploy:local": "hardhat run scripts/deploy.ts --network localhost",
-    "verify:testnet": "hardhat verify 0xB71533F3C032504a2dB732EAd1B8e5b827c852d5 --network mumbai",
+    "verify:testnet": "hardhat verify 0x2d88ddEE1a4f74706a705B2e4e8F7aCb831b5f8f --network mumbai",
     "upgrade:testnet": "hardhat run scripts/upgrade.ts --network mumbai"
   },
   "devDependencies": {
