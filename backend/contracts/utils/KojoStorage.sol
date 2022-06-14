@@ -9,8 +9,8 @@ contract KojoStorage is OwnableUpgradeable {
   uint256 public constant plantPrice = 1;
   // Every user gets it's first 100 kojos for free to kickstart their experience.
   uint256 public constant initialTokenAllowance = 100;
-  // Change to 2630000 seconds for mainnet (1 year).
-  uint256 public constant secondsBetweenAllowanceUpdates = 240;
+  // Change to 2630000 seconds for mainnet (1 month).
+  uint256 public constant secondsBetweenAllowanceUpdates = 300;
   // Participant levelCost is the experience points needed to level up as a participant.
   uint256 public constant levelCost = 180;
   uint256 public plantTypeId;
@@ -98,7 +98,8 @@ contract KojoStorage is OwnableUpgradeable {
   function setAllowance(
     uint256 _allowance,
     address _account
-  ) external onlyOracle {
+  ) external {
+    require(msg.sender == oracleAddress);
     Structs.Participant memory participant = participants[_account];
     require(participant.isPresent, "Participant does not exist.");
 

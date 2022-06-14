@@ -2,7 +2,7 @@ import { ethers } from 'hardhat';
 
 const MUMBAI_TESTNET_LINK_ADDRESS = "0x326C977E6efc84E512bB9C30f76E30c160eD06FB";
 const NODE_ADDRESS = "0xc540Bed709e1b5D503cf04E10d200253613a3373";
-const OWNER_ADDRESS = "0x91527E6448872c16d16b34b92d9825300909769f";
+const OWNER_ADDRESS = "0x7420De50E41A81F57a56b1d943Fc0682594409d6";
 
 const main = async () => {
   // We get the contract to deploy

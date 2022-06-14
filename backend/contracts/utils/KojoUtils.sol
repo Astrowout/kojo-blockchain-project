@@ -107,21 +107,16 @@ contract KojoUtils {
     return plant;
   }
 
-  function bytesToAddress(bytes calldata data) external pure returns (address addr) {
-    bytes memory b = data;
+  function toString(bytes memory data) external pure returns(string memory) {
+    bytes memory alphabet = "0123456789abcdef";
 
-    assembly {
-      addr := mload(add(b, 20))
+    bytes memory str = new bytes(2 + data.length * 2);
+    str[0] = "0";
+    str[1] = "x";
+    for (uint i = 0; i < data.length; i++) {
+        str[2+i*2] = alphabet[uint(uint8(data[i] >> 4))];
+        str[3+i*2] = alphabet[uint(uint8(data[i] & 0x0f))];
     }
-  }
-
-  function encodeAddressArray(address[] calldata addresses) external pure returns (bytes memory) {
-    bytes memory data;
-
-    for (uint256 i = 0; i < addresses.length; i++){
-      data = abi.encodePacked(data, addresses[i]);
-    }
-
-    return data;
-  }
+    return string(str);
+}
 }

@@ -33,6 +33,7 @@ const main = async () => {
   // We transfer the ownership of the nested contracts to the main contract
   await store.transferOwnership(main.address);
   await api.setStorageContract(store.address);
+  await api.transferOwnership(main.address);
 
   console.log({
     store: {
