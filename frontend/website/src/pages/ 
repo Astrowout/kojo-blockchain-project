@@ -10,8 +10,7 @@ import {
 	Roadmap,
 	Trust,
 	Team,
-	FAQ,
-	CTA
+	FAQ
 } from "@/components";
 
 const HomePage: NextPage = () => (
@@ -24,41 +23,16 @@ const HomePage: NextPage = () => (
 		<Header />
 
 		<main className="mt-40">
-			<div id='hero'>
-				<Hero />
-			</div>
-			<div id='how' style={{scrollMarginTop: "4rem"}}>
-				<How />
-			</div>
+			<Hero />
+			<How />
+			<Roadmap />
+			<Trust />
+			<Team />
+			<FAQ />
 
-			<div id='roadmap' style={{scrollMarginTop: "4rem"}}>
-				<Roadmap />
-			</div>
-
-			<div id='trust' style={{scrollMarginTop: "4rem"}}>
-				<Trust />
-			</div>
-
-			<div id='team' style={{scrollMarginTop: "4rem"}}>
-				<Team />
-			</div>
-
-			<div id='partners' style={{scrollMarginTop: "7rem"}}>
-				<Partners />
-			</div>
-
-			<div id='faq' style={{scrollMarginTop: "4rem"}}>
-				<FAQ />
-			</div>
-
-
-
-
-
-
-			<CTA />
 			{/* <Token /> */}
 
+			<Partners />
 
 			{/* <Cta className="pt-10 sm:pt-16" /> */}
 		</main>

@@ -14,9 +14,9 @@ const Partners: FunctionComponent<PartnersProps> = ({ className }) => {
 	const { t } = useTranslation();
 
 	return (
-		<section className={cn(className, "")}>
+		<section className={cn(className, "bg-background")}>
 			<div className='max-w-screen-md mx-auto px-6 sm:px-10 py-10 sm:py-16 flex flex-col items-center'>
-				<p className="font-sans font-bold text-gray-400 uppercase tracking-widest">
+				<p className="font-sans font-bold uppercase tracking-widest text-title text-xs">
 					{ t("partners.title") }
 				</p>
 
