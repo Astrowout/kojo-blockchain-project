@@ -63,8 +63,6 @@ const useWeb3 = () => {
 		}
 
 		try {
-			provider?.disconnect();
-
 			setAddress(null);
 			history.push("/");
 		} catch (error: any) {
