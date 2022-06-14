@@ -10,7 +10,7 @@ contract KojoStorage is OwnableUpgradeable {
   // Every user gets it's first 100 kojos for free to kickstart their experience.
   uint256 public constant initialTokenAllowance = 100;
   // Change to 2630000 seconds for mainnet (1 year).
-  uint256 public constant secondsBetweenAllowanceUpdates = 180;
+  uint256 public constant secondsBetweenAllowanceUpdates = 240;
   // Participant levelCost is the experience points needed to level up as a participant.
   uint256 public constant levelCost = 180;
   uint256 public plantTypeId;

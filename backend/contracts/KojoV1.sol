@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
-import {KeeperCompatibleInterface} from "@chainlink/contracts/src/v0.8/interfaces/KeeperCompatibleInterface.sol";
+import {KeeperCompatible} from "@chainlink/contracts/src/v0.8/KeeperCompatible.sol";
 
 import {KojoERC1155} from "./token/KojoERC1155.sol";
 
@@ -11,7 +11,7 @@ import {KojoUtils} from "./utils/KojoUtils.sol";
 import {KojoMixin} from "./utils/KojoMixin.sol";
 import {KojoAPIConsumer} from "./chainlink/KojoAPIConsumer.sol";
 
-contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatibleInterface {
+contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatible {
   KojoStorage internal store;
   KojoUtils internal utils;
   KojoAPIConsumer internal api;
@@ -232,49 +232,47 @@ contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatibleInterface {
     safeTransferFrom(address(this), owner(), fungibleTokenId, balanceOf(address(this), fungibleTokenId), "");
   }
 
-  function checkUpkeep(bytes calldata _checkData) external view returns (bool _upkeepNeeded, bytes memory) {
-    bool upkeepNeeded = false;
+  function checkUpkeep(bytes calldata _checkData) external view returns (bool upkeepNeeded, bytes memory performData) {
     address[] memory accounts = store.handleReadParticipantAddresses();
-    address[] memory fuzzyAccounts = new address[](accounts.length);
-    bytes memory fuzzyBytesAccounts;
+    // address[] memory fuzzyAccounts = new address[](accounts.length);
 
     for (uint256 i = 0; i < accounts.length; i++) {
       address account = accounts[i];
+
       Structs.Participant memory participant = store.handleReadParticipant(account);
 
-      if (block.timestamp >= participant.timestamp) {
-        fuzzyAccounts[i] = account;
+      if (participant.isPresent && (block.timestamp >= participant.timestamp)) {
+        // fuzzyAccounts[i] = account;
         upkeepNeeded = true;
       }
     }
 
-    if (upkeepNeeded) {
-      fuzzyBytesAccounts = utils.encodeAddressArray(fuzzyAccounts);
-      return (upkeepNeeded, fuzzyBytesAccounts);
-    }
+    // performData = utils.encodeAddressArray(fuzzyAccounts);
 
-    return (upkeepNeeded, fuzzyBytesAccounts);
+    return (upkeepNeeded, "");
   }
 
   function performUpkeep(bytes calldata _performData) external {
+    address[] memory accounts = store.handleReadParticipantAddresses();
     // Revalidate the upkeep
-    uint256 n = _performData.length / 20;
+    // uint256 n = _performData.length / 20;
 
-    for (uint i = 0; i < n; i++) {
-      address account = utils.bytesToAddress(_performData[i*20:(i+1)*20]);
+    for (uint i = 0; i < accounts.length; i++) {
+      address account = accounts[i];
+      // address account = abi.decode(_performData[i*20:(i+1)*20], (address));
 
-      if (account != address(0)) {
+      // if (account != address(0)) {
         Structs.Participant memory participant = store.handleReadParticipant(account);
 
-        if (participant.timestamp >= block.timestamp) {
-          string memory addr = string(abi.encodePacked(account));
-          api.requestKojoAllowance(addr);
+        if (participant.isPresent && (block.timestamp >= participant.timestamp)) {
+          // string memory addr = string(abi.encodePacked(account));
 
           participant.timestamp = block.timestamp + store.secondsBetweenAllowanceUpdates();
-
           store.handleUpdateParticipant(account, participant);
+
+          // api.requestKojoAllowance(addr);
         }
-      }
+      // }
     }
   }
 

@@ -16,9 +16,9 @@
     "deploy:goerli": "hardhat run scripts/deploy.ts --network goerli",
     "deploy:testnet": "hardhat run scripts/deploy.ts --network mumbai",
     "deploy-oracle:testnet": "hardhat run scripts/deploy-oracle.ts --network mumbai",
+    "deploy-keeper:testnet": "hardhat run scripts/deploy-keeper.ts --network mumbai",
     "deploy:local": "hardhat run scripts/deploy.ts --network localhost",
-    "deploy-oracle:local": "hardhat run scripts/deploy-oracle.ts --network localhost",
-    "verify:testnet": "hardhat verify 0x1613beB3B2C4f22Ee086B2b38C1476A3cE7f78E8 --network mumbai",
+    "verify:testnet": "hardhat verify 0xB71533F3C032504a2dB732EAd1B8e5b827c852d5 --network mumbai",
     "upgrade:testnet": "hardhat run scripts/upgrade.ts --network mumbai"
   },
   "devDependencies": {
