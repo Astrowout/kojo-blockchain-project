@@ -60,5 +60,7 @@
 	--ion-statusbar-padding: 4rem;
 	--ion-text-color: #064e3b;
 	--ion-text-color-rgb: 6 78 59;
-	--ion-overlay-background-color: #ffffff;
+	--ion-overlay-background-color: #F8F6F2;
+
+	--ion-background-color: #F8F6F2;
 }

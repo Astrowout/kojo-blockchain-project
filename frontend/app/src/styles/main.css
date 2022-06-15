@@ -2,9 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-body, .ion-page {
-	@apply bg-white;
+main {
+	background-color: #059669 !important;
 }
+
+/* body, .ion-page {
+	@apply bg-background !important;
+} */
 
 ion-tab-bar {
 	@apply h-16;
