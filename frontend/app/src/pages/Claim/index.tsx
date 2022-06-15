@@ -50,7 +50,11 @@ const ClaimPage = () => {
 		setLoading(true);
 
 		try {
-			await contract?.handleClaimStartTokens(TX_OPTIONS);
+			if (participant && participant.isPresent) {
+				await contract?.handleClaimMonthlyReward(TX_OPTIONS);
+			} else {
+				await contract?.handleClaimStartTokens(TX_OPTIONS);
+			}
 
 			provider.once("block", () => {
 				contract?.once("TokensClaimed", handleClaimSuccess);
