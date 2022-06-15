@@ -261,7 +261,7 @@ contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatible {
       Structs.Participant memory participant = store.handleReadParticipant(account);
 
       if (participant.isPresent && (block.timestamp >= participant.timestamp)) {
-        string memory addr = utils.toString(abi.encodePacked(account));
+        string memory addr = utils.toString(account);
         api.requestKojoAllowance(addr);
 
         participant.timestamp = block.timestamp + store.secondsBetweenAllowanceUpdates();
