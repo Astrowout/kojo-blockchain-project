@@ -3,7 +3,6 @@ import {
 	Onboarding,
 } from "../../components";
 
-import onboardingImage from "../../assets/img/onboarding.jpg";
 import { IonPage, IonContent } from "@ionic/react";
 
 const OnboardingPage = () => {
