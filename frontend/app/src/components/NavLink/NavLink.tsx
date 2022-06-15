@@ -28,7 +28,7 @@ const NavLink: FC<NavLinkProps> = ({
 	const renderContent = () => (
 		<span className={classes}>
 			<span className="relative">
-				<Icon name={icon} size={32} />
+				<Icon name={icon} size={22} />
 
 				{unread && (
 					<span className="absolute flex top-0.5 right-0.5">
@@ -38,7 +38,7 @@ const NavLink: FC<NavLinkProps> = ({
 				)}
 			</span>
 
-			<span className="font-bold">
+			<span className="text-xs font-title uppercase text-black font-normal">
 				{children}
 			</span>
 		</span>

@@ -8,7 +8,6 @@ import {
 import { HeaderProps } from "./Header.types";
 import { IonHeader, IonRouterLink } from "@ionic/react";
 
-import headerImage from "../../assets/img/onboarding.jpg";
 import { Link, useHistory } from "react-router-dom";
 import { SessionContext } from "../../context";
 
@@ -29,23 +28,23 @@ const Header: FunctionComponent<HeaderProps> = ({
 	const unread = notifications?.some((notification) => !notification.read);
 
 	return (
-		<IonHeader className="bg-emerald-600 relative -z-10">
-			<div className="absolute inset-0 z-10 bg-emerald-600 bg-opacity-90"></div>
+		<IonHeader className="bg-background relative -z-10 text-black shadow-none drop-shadow-none">
+			<div className="absolute inset-0 z-10 bg-opacity-90"></div>
 
-			<img
+			{/* <img
 				src={headerImage}
 				alt="Water management for plants"
 				aria-hidden="true"
 				className="absolute inset-0 object-cover w-full h-full"
-			/>
+			/> */}
 
 			<div
-				className={cn("px-4 sm:px-8 lg:px-12 2xl:max-w-screen-xl mx-auto pt-8 md:pt-14 md:pb-24 relative z-10", {
+				className={cn("px-4 sm:px-8 lg:px-12 2xl:max-w-screen-xl mx-auto pt-8 md:pt-14 md:pb-24 relative z-10 shadow-none drop-shadow-none", {
 					"pb-16": withOverlap,
 					"pb-8": !withOverlap,
 				})}
 			>
-				<div className="text-white flex justify-between">
+				<div className="flex justify-between shadow-none drop-shadow-none">
 					<div className="flex items-center">
 						{backLink && typeof backLink === "boolean" && (
 							<button
@@ -71,7 +70,7 @@ const Header: FunctionComponent<HeaderProps> = ({
 							</Link>
 						)}
 
-						<h1 className="font-bold text-xl sm:text-2xl md:text-4xl">
+						<h1 className="font-bold text-xl sm:text-2xl md:text-4xl font-display uppercase text-black">
 							{ title }
 						</h1>
 					</div>
@@ -111,7 +110,7 @@ const Header: FunctionComponent<HeaderProps> = ({
 				</div>
 
 				{description && (
-					<p className="text-emerald-100 text-sm md:text-base mt-3 leading-relaxed max-w-prose">
+					<p className="mt-3 leading-relaxed max-w-prose font-text text-xs">
 						{ description }
 					</p>
 				)}

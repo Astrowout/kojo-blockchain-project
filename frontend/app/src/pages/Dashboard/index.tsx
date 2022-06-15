@@ -105,7 +105,7 @@ const DashboardPage = () => {
 			title={t("dashboard.title")}
 			description={t("dashboard.description.1", <b className="font-bold">{t("dashboard.description.2")}</b>)}
 		>
-			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-12 w-full">
+			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-8 w-full">
 				<Tokens compact={false} />
 
 				{(!balance || !!participant.allowedTokenBalance) && (
@@ -123,7 +123,7 @@ const DashboardPage = () => {
 				)}
 
 				<PlayerStats
-					title={t("leaderboard.stats")}
+					title='Progress'
 					data={data}
 				/>
 
