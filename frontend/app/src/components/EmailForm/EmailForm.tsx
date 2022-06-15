@@ -36,7 +36,7 @@ const EmailForm: FunctionComponent<EmailFormProps> = ({
 		>
 			<label
 				htmlFor="email"
-				className="block text-sm text-center text-gray-400"
+				className="block text-sm text-center text-black font-title uppercase text-2xs mb-4 mt-6"
 			>
 				{label}
 			</label>
@@ -50,12 +50,12 @@ const EmailForm: FunctionComponent<EmailFormProps> = ({
 					name="email"
 					id="email"
 					autoComplete="email"
-					className="w-full overflow-ellipsis text-emerald-900 bg-white border h-16 pl-4 pr-20 rounded-2xl shadow-lg hover:shadow-xl focus:ring-2 focus:ring-offset-2 focus:ring-emerald-600 outline-none"
+					className="w-full overflow-ellipsis text-black bg-border h-12 pl-4 pr-20 rounded-md text-xs font-text focus:ring-2 focus:ring-offset-2 border-0 focus:ring-emerald-600 outline-none"
 					ref={input}
 				/>
 
-				<button type="submit" className="absolute inset-y-0 right-0 flex items-center justify-center bg-emerald-900 px-4 rounded-r-2xl">
-					<Icon name="Send" size={32}></Icon>
+				<button type="submit" className="absolute inset-y-0 right-0 flex items-center justify-center bg-kojo text-white px-4 rounded-r-md">
+					<Icon name="Send" size={18}></Icon>
 
 					<span className="sr-only">Go back</span>
 				</button>

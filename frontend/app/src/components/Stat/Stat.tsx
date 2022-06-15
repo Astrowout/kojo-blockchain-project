@@ -1,28 +1,30 @@
 import { FunctionComponent, memo } from "react";
 import cn from "classnames";
 
-import Icon from "../Icon/Icon";
-import { StatProps } from "./Stat.types";
+// import Icon from "../Icon/Icon";
+// import { StatProps } from "./Stat.types";
 
-const Stat: FunctionComponent<StatProps> = ({
+const Stat: FunctionComponent<any> = ({
 	children,
 	className = "",
-	icon = "Hearts",
+	// icon = "Hearts",
 	label = "",
 }) => {
 	return (
 		<div className={cn(className)}>
-			<div className="flex items-center space-x-1.5 text-gray-400">
-				<Icon name={icon} size={20} className="flex-shrink-0" />
+			<div className="space-x-1.5 flex justify-between item-center">
+				{/* <Icon name={icon} size={20} className="flex-shrink-0" /> */}
 
-				<p className="text-xs uppercase tracking-wider font-bold">
+				<p className="font-title uppercase text-xs text-black">
 					{ label }
+				</p>
+
+				<p className="font-text text-xs text-black">
+				{ children }
 				</p>
 			</div>
 
-			<p className="mt-2 text-emerald-900 text-lg lg:text-xl">
-				{ children }
-			</p>
+
 		</div>
 	)
 }

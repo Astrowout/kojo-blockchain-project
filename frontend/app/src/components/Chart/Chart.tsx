@@ -18,19 +18,19 @@ const Chart: FunctionComponent<ChartProps> = ({
 				height: size,
 			}}
 		>
-			<span className="text-4xl font-bold">
+			<span className="text-4xl font-bold font-text text-black">
 				{ progress }%
 			</span>
 
 			{!!children && (
-				<div className="mt-3 text-xs tracking-wider whitespace-nowrap uppercase">
+				<div className="mt-3 text-xs tracking-wider whitespace-nowrap uppercase font-tex text-blackt">
 					{ children }
 				</div>
 			)}
 
-			<svg className="absolute inset-0 block w-full h-full shadow-xl shadow-emerald-600/10 rounded-full" viewBox="0 0 100 100" fill="none" strokeLinecap="round" strokeWidth={strokeWidth}>
+			<svg className="absolute inset-0 block w-full h-full rounded-full" viewBox="0 0 100 100" fill="none" strokeLinecap="round" strokeWidth={strokeWidth}>
 				<circle
-					className="text-gray-200 shadow-inner"
+					className="text-border shadow-inner"
 					cx="50"
 					cy="50"
 					r={50 - (strokeWidth / 2)}

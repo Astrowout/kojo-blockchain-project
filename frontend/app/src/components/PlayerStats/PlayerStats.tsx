@@ -11,7 +11,7 @@ const PlayerStats: FunctionComponent<PlayerStatsProps> = ({
 	data = [],
 }) => {
 	return (
-		<div className={cn(className, "bg-white rounded-md overflow-hidden bg-background border border-border")}>
+		<div className={cn(className, "rounded-md overflow-hidden bg-background border border-border")}>
 			<div className="p-8 font-display uppercase border-b border-border text-black">
 				<h3 className="text-lg leading-6 font-bold gap-x-3 flex items-center">
 					{icon && (

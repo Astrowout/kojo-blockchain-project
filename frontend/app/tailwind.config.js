@@ -17,8 +17,11 @@ module.exports = {
 		extend: {
 			colors: {
 				'kojo': '#0B9669',
+				'kojo-light': "#0EC98E",
 				'background': '#F8F6F2',
-				'border': '#C9C5BF'
+				'border': '#EBE6DF',
+				'border-dark': "#CFCAC4",
+				"border-darkest": "#6E6B68"
 			}
 		},
 	},

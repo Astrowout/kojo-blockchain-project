@@ -32,16 +32,16 @@ const PlantDetail: FC<PlantDetailProps> = ({
 		}
 	}
 
-	const renderDrop = (index: number) => {
-		const solid = waterNeeded || 2 > index;
+	// const renderDrop = (index: number) => {
+	// 	const solid = waterNeeded || 2 > index;
 
-		return (
-			<Icon
-				key={index}
-				name={solid ? "DropSolid" : "Drop"}
-			/>
-		)
-	}
+	// 	return (
+	// 		<Icon
+	// 			key={index}
+	// 			name={solid ? "DropSolid" : "Drop"}
+	// 		/>
+	// 	)
+	// }
 
 	return (
 		<div
@@ -51,26 +51,26 @@ const PlantDetail: FC<PlantDetailProps> = ({
 				className="relative group aspect-square cursor-zoom-in"
 				routerLink={`/nft/${id}`}
 			>
-				<div className="group-hover:opacity-100 opacity-0 rounded-2xl transition-opacity absolute inset-0 outline outline-2 outline-emerald-600" />
+				<div className="group-hover:opacity-100 opacity-0 rounded-md transition-opacity absolute inset-0 outline outline-2" />
 
 				<div
-					className="overflow-hidden rounded-2xl border-solid border-8 border-white shadow-2xl shadow-emerald-600/20"
+					className="overflow-hidden rounded-md border-solid border-8 border-background"
 				>
 					<img
 						src={image}
 						alt={`${type} plant`}
-						className="w-full h-full object-cover bg-white"
+						className="w-full h-full object-cover bg-background"
 					/>
 				</div>
 			</IonRouterLink>
 
 			<div className="xl:mt-24">
-				<h2 className="text-emerald-600 font-bold text-xl md:text-2xl xl:text-3xl">
+				<h2 className="text-black font-display uppercase font-bold text-xl md:text-2xl xl:text-3xl">
 					{ type }
 				</h2>
 
 				<div className="grid gap-y-6 py-6">
-					{waterNeeded && (
+					{/* {waterNeeded && (
 						<Stat
 							icon="Seeds"
 							label={t("stats.waterNeeded")}
@@ -79,7 +79,7 @@ const PlantDetail: FC<PlantDetailProps> = ({
 								{ [...Array(3)].map((_drop, index) => renderDrop(index)) }
 							</span>
 						</Stat>
-					)}
+					)} */}
 
 					<Stat
 						icon="Plants"
@@ -111,6 +111,47 @@ const PlantDetail: FC<PlantDetailProps> = ({
 							</span>
 						</span>
 					</Stat>
+
+									<Stat
+
+					label="Family"
+				>
+					[mock]
+				</Stat>
+				<Stat
+
+					label="Variant"
+				>
+					[mock]
+				</Stat>
+				<Stat
+
+					label="Soil"
+				>
+					[mock]
+				</Stat>
+				<Stat
+
+					label="Pot"
+				>
+					[mock]
+				</Stat>
+				<Stat
+
+					label="Floating"
+				>
+					[mock]
+				</Stat>
+				<Stat
+					label="Setting"
+				>
+					[mock]
+				</Stat>
+				<Stat
+					label="Mark"
+				>
+					[mock]
+				</Stat>
 				</div>
 
 				{children && (

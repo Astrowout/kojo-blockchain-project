@@ -1,4 +1,4 @@
-import { FC, memo, ReactNode } from "react";
+import { FC, memo } from "react";
 import cn from "classnames";
 import { IonCard } from "@ionic/react";
 
@@ -18,11 +18,11 @@ const PlantCard: FC<PlantCardProps> = ({
 }) => {
 	const { t } = useTranslation();
 
-	const getGrowth = (value: number | null): ReactNode => {
-		if (value) {
-			return t(`growth.${value}`);
-		}
-	}
+	// const getGrowth = (value: number | null): ReactNode => {
+	// 	if (value) {
+	// 		return t(`growth.${value}`);
+	// 	}
+	// }
 
 	const renderDrop = (index: number) => {
 		const solid = waterNeeded > index;
@@ -40,7 +40,7 @@ const PlantCard: FC<PlantCardProps> = ({
 		<IonCard
 			routerLink={`/plants/${id}`}
 			routerDirection="forward"
-			className={cn(className, "flex flex-col group m-0 rounded-2xl overflow-hidden shadow-2xl shadow-emerald-900/20")}
+			className={cn(className, "flex flex-col group m-0 rounded-md overflow-hidden shadow-0 ion-no-card-shadow border border-border")}
 		>
 			<div className="relative aspect-square overflow-hidden">
 				<img
@@ -49,38 +49,55 @@ const PlantCard: FC<PlantCardProps> = ({
 					className="w-full h-full object-cover lg:group-hover:scale-105 duration-300 ease-out transition-transform"
 				/>
 
-				<div className="flex space-x-0.5 absolute top-3 right-3 text-emerald-600 bg-white/80 px-1 py-0.5 rounded shadow-2xl">
+				<div className="flex space-x-0.5 absolute top-3 right-3 text-emerald-600 bg-white/80 px-1 py-0.5 rounded">
 					{ [...Array(3)].map((_drop, index) => renderDrop(index)) }
 				</div>
 			</div>
 
-			<h2 className="text-emerald-600 font-bold text-lg lg:text-xl py-4 px-4 lg:px-6 border-y">
+			<h2 className="text-black font-text font-bold text-lg lg:text-xl py-4 px-4 lg:px-6 border-y border-border">
 				{ type }
 			</h2>
 
-			<div className="grid gap-y-8 px-4 lg:px-6 py-6">
+			<div className="grid gap-y-8 px-4 lg:px-6 py-6 max-h-[13rem] overflow-y-scroll">
 				<Stat
-					icon="Plants"
-					label={t("stats.growth")}
+
+					label="Family"
 				>
-					{ getGrowth(growth) }
+					[mock]
 				</Stat>
-
 				<Stat
-					icon="Hydration"
-					label={t("stats.hydration")}
-				>
-					<span className="flex items-center space-x-1">
-						<Icon
-							name="KojoToken"
-							size={16}
-							className="text-emerald-600 mt-0.5"
-						/>
 
-						<span>
-							{ hydration }
-						</span>
-					</span>
+					label="Variant"
+				>
+					[mock]
+				</Stat>
+				<Stat
+
+					label="Soil"
+				>
+					[mock]
+				</Stat>
+				<Stat
+
+					label="Pot"
+				>
+					[mock]
+				</Stat>
+				<Stat
+
+					label="Floating"
+				>
+					[mock]
+				</Stat>
+				<Stat
+					label="Setting"
+				>
+					[mock]
+				</Stat>
+				<Stat
+					label="Mark"
+				>
+					[mock]
 				</Stat>
 			</div>
 	  	</IonCard>

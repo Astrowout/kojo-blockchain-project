@@ -28,7 +28,7 @@ const Header: FunctionComponent<HeaderProps> = ({
 	const unread = notifications?.some((notification) => !notification.read);
 
 	return (
-		<IonHeader className="bg-background relative -z-10 text-black shadow-none drop-shadow-none">
+		<IonHeader className="bg-background relative -z-10 text-black shadow-none drop-shadow-none ion-no-border ion-no-shadow border-b border-border" style={{ shadow: 'none' }}>
 			<div className="absolute inset-0 z-10 bg-opacity-90"></div>
 
 			{/* <img
@@ -50,7 +50,7 @@ const Header: FunctionComponent<HeaderProps> = ({
 							<button
 								type="button"
 								onClick={history.goBack}
-								className="mr-3 flex text-emerald-100 hover:text-white hover:-translate-x-1 transition"
+								className="mr-3 flex text-black hover:text-white hover:-translate-x-1 transition"
 							>
 								<Icon name="ArrowLeft" size={28}></Icon>
 
@@ -61,7 +61,7 @@ const Header: FunctionComponent<HeaderProps> = ({
 						)}
 
 						{backLink && typeof backLink === "string" && (
-							<Link to={backLink} className="mr-3 flex text-emerald-100">
+							<Link to={backLink} className="mr-3 flex text-black">
 								<Icon name="ArrowLeft" size={28}></Icon>
 
 								<span className="sr-only">
@@ -110,7 +110,7 @@ const Header: FunctionComponent<HeaderProps> = ({
 				</div>
 
 				{description && (
-					<p className="mt-3 leading-relaxed max-w-prose font-text text-xs">
+					<p className="mt-4 max-w-prose font-text text-xs leading-6">
 						{ description }
 					</p>
 				)}
