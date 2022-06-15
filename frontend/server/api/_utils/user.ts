@@ -22,7 +22,7 @@ export const getUserByDid = async (client, did: string): Promise<User | null> =>
 export const postUser = async (client, body: VercelRequestBody): Promise<User | null> => {
 	const res = await client.user.create({
 		data: {
-			did: body.address,
+			did: body.address.toLowerCase(),
 			email: body.email,
 			profile: {
 				create: {

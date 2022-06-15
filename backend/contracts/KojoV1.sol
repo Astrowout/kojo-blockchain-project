@@ -38,9 +38,9 @@ contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatible {
     burnAddress = _burn;
   }
 
-  function contractURI() public view returns (string memory) {
-        return "https://metadata-url.com/my-metadata";
-    }
+  function contractURI() public pure returns (string memory) {
+    return "https://metadata-url.com/my-metadata";
+  }
 
   // Prohibits external contracts to call certain functions.
   modifier onlyEOA() {
@@ -127,16 +127,12 @@ contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatible {
       "Participant doesn't have allowance to claim tokens."
     );
 
-    // @TODO: Set fixed blocktime per month and check if passed.
-
     _mint(msg.sender, fungibleTokenId, participant.allowedTokenBalance, "");
 
-    Structs.Participant memory _participant = participant;
-    _participant.allowedTokenBalance = 0;
-
-    store.handleUpdateParticipant(msg.sender, _participant);
-
     emit TokensClaimed(participant, participant.allowedTokenBalance);
+
+    participant.allowedTokenBalance = 0;
+    store.handleUpdateParticipant(msg.sender, participant);
   }
 
   // Allows EOA's to buy a seed/plant.
@@ -270,9 +266,7 @@ contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatible {
     }
   }
 
-    /**
-    * This is used instead of msg.sender as transactions won't be sent by the original token owner, but by OpenSea.
-    */
+  // This is used instead of msg.sender as transactions won't be sent by the original token owner, but by OpenSea.
   function _msgSender()
     internal
     override

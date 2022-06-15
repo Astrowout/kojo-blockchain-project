@@ -108,6 +108,6 @@ contract KojoUtils {
   }
 
   function toString(address x) external pure returns (string memory) {
-      return StringsUpgradeable.toString(uint256(uint160(x)), 20);
+      return StringsUpgradeable.toHexString(uint256(uint160(x)), 20);
   }
 }

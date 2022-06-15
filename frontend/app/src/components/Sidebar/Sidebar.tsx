@@ -66,12 +66,11 @@ const Sidebar: FC<SidebarProps> = ({ className }) => {
 				<NavLink url="/settings" icon="Settings">
 					{ t("navigation.settings") }
 				</NavLink>
-				<div onClick={disconnect} >
-				<NavLink url="/settings" icon="Logout" className='text-red-700'>
 
-					{ t("settings.disconnect") }
-
-				</NavLink>
+				<div onClick={disconnect}>
+					<NavLink url="/settings" icon="Logout" className='text-red-700'>
+						{ t("settings.disconnect") }
+					</NavLink>
 				</div>
 			</div>
 		</nav>
