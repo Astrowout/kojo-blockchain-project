@@ -25,7 +25,7 @@ export const getAverageByRegion = async (client, did: string): Promise<number | 
 			}
 		});
 
-		return Math.round(users.reduce((acc, user) => acc + user.usage / user.familySize, 0) / users.length);
+		return Math.round(users.reduce((acc, _user) => acc + _user.usage / _user.familySize, 0) / users.length);
 	} else {
 		return regionAverage;
 	}

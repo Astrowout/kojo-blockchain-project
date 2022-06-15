@@ -22,17 +22,26 @@ export default async function handler(
 		return res.status(400).json({ error: "The field 'address' doesn't seem valid." });
 	}
 
+	console.log(address);
+
+
 	try {
 		const regionAverage = await getAverageByRegion(client, address as string);
 		const user = await getFarysUserByDid(client, address as string);
 
-		res.status(200).json({
-			address,
-			regionAverage,
-			usage: user!.usage,
-			familySize: user!.familySize,
-			allowance: getUserAllowance(regionAverage!, user!.usage, user!.familySize),
-		});
+		if (user) {
+			res.status(200).json({
+				address,
+				regionAverage,
+				usage: user.usage,
+				familySize: user.familySize,
+				allowance: getUserAllowance(regionAverage!, user.usage, user.familySize),
+			});
+		} else {
+			res.status(404).json({
+				error: "The user with the given DID doesn't exist.",
+			});
+		}
 	} catch (error) {
 		console.log(error);
 
