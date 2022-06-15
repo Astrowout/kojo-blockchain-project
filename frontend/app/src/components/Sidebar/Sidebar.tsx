@@ -36,7 +36,6 @@ const Sidebar: FC<SidebarProps> = ({ className }) => {
 						<Logo w={132} />
 						<p className="font-display uppercase text-4xl -ml-16 text-black">Kōjō</p>
 					</div>
-
 				</IonRouterLink>
 
 				<div className="mt-20 flex flex-col space-y-10 p-6">

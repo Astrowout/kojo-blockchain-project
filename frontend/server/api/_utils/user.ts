@@ -5,7 +5,7 @@ import { responseHelper } from './helpers';
 export const getUserByDid = async (client, did: string): Promise<User | null> => {
 	const res = await client.user.findUnique({
 		where: {
-			did,
+			did: did.toLowerCase(),
 		},
 		include: {
 			notifications: {
@@ -53,7 +53,7 @@ export const postUser = async (client, body: VercelRequestBody): Promise<User | 
 export const changeRole = async (client, did: string, body: VercelRequestBody): Promise<User | null> => {
 	const res = await client.user.create({
 		where: {
-			did,
+			did: did.toLowerCase(),
 		},
 		data: {
 			role: body.role,

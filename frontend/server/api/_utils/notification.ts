@@ -5,7 +5,7 @@ import { responseHelper } from './helpers';
 export const postNotification = async (client, did: string, body: VercelRequestBody): Promise<User | null> => {
 	const res = await client.user.update({
 		where: {
-			did,
+			did: did.toLowerCase(),
 		},
 		data: {
 			notifications: {
@@ -32,7 +32,7 @@ export const getNotificationsByDid = async (client, did: string): Promise<Notifi
 	const res = await client.notification.findMany({
 		where: {
 			user: {
-				did,
+				did: did.toLowerCase(),
 			}
 		},
 		orderBy: {
@@ -50,7 +50,7 @@ export const markAsRead = async (client, did: string, ids: number[]): Promise<No
 				in: ids,
 			},
 			user: {
-				did,
+				did: did.toLowerCase(),
 			},
 		 	read: false,
 		},
@@ -66,7 +66,7 @@ export const markAllAsRead = async (client, did: string): Promise<Notification |
 	const res = await client.notification.updateMany({
 		where: {
 			user: {
-				did,
+				did: did.toLowerCase(),
 			},
 			read: false,
 		},
