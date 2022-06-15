@@ -2,8 +2,6 @@ import { useContext } from "react";
 import { Clipboard } from '@capacitor/clipboard';
 import {
 	About,
-	Button,
-	ButtonContext,
 	Footer,
 	Icon,
 	Layout,

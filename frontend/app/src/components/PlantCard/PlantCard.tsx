@@ -3,7 +3,6 @@ import cn from "classnames";
 import { IonCard } from "@ionic/react";
 
 import { PlantCardProps } from "./PlantCard.types";
-import { useTranslation } from "../../hooks";
 import Stat from "../Stat/Stat";
 import Icon from "../Icon/Icon";
 
@@ -16,7 +15,6 @@ const PlantCard: FC<PlantCardProps> = ({
 	hydration = 0,
 	waterNeeded = 2,
 }) => {
-	const { t } = useTranslation();
 
 	// const getGrowth = (value: number | null): ReactNode => {
 	// 	if (value) {
