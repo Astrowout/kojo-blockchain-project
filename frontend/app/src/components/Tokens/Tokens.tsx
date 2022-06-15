@@ -2,14 +2,14 @@ import { FunctionComponent, memo, useContext } from "react";
 import cn from "classnames";
 
 import Icon from "../Icon/Icon";
-import { TokensProps } from "./Tokens.types";
 import { useTranslation } from "../../hooks";
 import Link from "../Link/Link";
 import { SessionContext } from "../../context";
 
-const Tokens: FunctionComponent<TokensProps> = ({
+const Tokens: FunctionComponent<any> = ({
 	compact = true,
 	className,
+	icon = "Chart"
 }) => {
 	const { t } = useTranslation();
 	const {
@@ -18,8 +18,8 @@ const Tokens: FunctionComponent<TokensProps> = ({
 	} = useContext(SessionContext);
 
 	return (
-		<div className={cn(className, "flex flex-col bg-white rounded-md overflow-hidden border border-border bg-background")}>
-			<div className="overflow-hidden p-8 relative h-full">
+		<div className={cn(className, "flex flex-col rounded-md overflow-hidden border border-border bg-background")}>
+			<div className="overflow-hidden p-8 relative">
 				{/* <Icon
 					name="Token"
 					size={160}
@@ -27,16 +27,22 @@ const Tokens: FunctionComponent<TokensProps> = ({
 				/> */}
 
 				<div className="flex w-full justify-between items-center">
-				<p className="text-xl font-display uppercase text-black">
+				<p className="text-lg font-display uppercase text-black flex items-center">
+					{icon && (
+						<Icon
+							name="Token"
+							className='text-kojo mr-3'
+							size={22}
+						/>
+					)}
+
 					Balance
 				</p>
 
 				<p className="flex items-center space-x-2">
-					<span className="font-bold text-2xl font-text text-black">
-						{ balance }
+					<span className="text-lg font-text text-black">
+						{ balance } $KOJO
 					</span>
-
-					<p className="font-text text-black">$KOJO</p>
 
 					{/* <Icon
 						name="Token"
@@ -52,8 +58,24 @@ const Tokens: FunctionComponent<TokensProps> = ({
 			</div>
 
 			{!compact && (
-				<div className="border-t border-border p-8 text-black font-text">
-					<p className="text-sm">
+				<div className="border-t border-border p-8 text-black font-text flex items-center justify-between">
+					<div className="">
+					<p className="text-xs leading-6">{ t("tokens.nextClaim") } <span className="font-bold">{ nextClaimInterval || t("tokens.nextClaimEmpty") }</span>.</p>
+					<span className="mt-[1px] text-xs italic leading-1">
+							{ t("tokens.disclaimer") }
+					</span>
+					</div>
+
+					{!compact && (
+					<Link className="text-xs font-title uppercase text-kojo pl-7" url="/claim">
+						{ t("tokens.claim") }
+					</Link>
+					)}
+
+					{/* <p className="mt-1 font-bold text-xl lg:text-2xl">
+
+					</p> */}
+					{/* <p className="text-sm">
 						{ t("tokens.nextClaim") }
 					</p>
 
@@ -76,7 +98,7 @@ const Tokens: FunctionComponent<TokensProps> = ({
 					<Link className="mt-4" url="/claim">
 						{ t("tokens.claim") }
 					</Link>
-				)}
+					)} */}
 				</div>
 			)}
 		</div>

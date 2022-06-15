@@ -18,25 +18,25 @@ const Button: FunctionComponent<ButtonProps> = ({
 	icon = null,
 	onClick,
 }) => {
-	const contentClasses = cn("flex w-full text-center justify-center duration-300 transition whitespace-nowrap items-center rounded-2xl shadow-lg hover:shadow-xl", {
-		"text-white bg-emerald-600 shadow-emerald-600/20 hover:shadow-emerald-600/20": context === ButtonContext.PRIMARY,
-		"text-emerald-900 bg-white shadow-emerald-900/20 hover:shadow-emerald-900/20": context === ButtonContext.ALT,
-		"text-red-500 bg-red-100 shadow-red-600/10 hover:shadow-red-600/10": context === ButtonContext.DANGER,
-		"text-white bg-amber-500 shadow-amber-900/20 hover:shadow-amber-900/20": context === ButtonContext.METAMASK,
-		"text-white bg-blue-500 shadow-blue-900/20 hover:shadow-blue-900/20": context === ButtonContext.WALLET_CONNECT,
-		"px-8 sm:px-14 h-16 sm:h-20 text-lg sm:text-xl space-x-4": !compact,
+	const contentClasses = cn("flex w-full text-center justify-center duration-300 transition whitespace-nowrap items-center rounded-md font-title uppercase text-xs font-medium", {
+		"text-white bg-kojo": context === ButtonContext.PRIMARY,
+		"text-emerald-900 bg-white": context === ButtonContext.ALT,
+		"text-red-500 bg-red-100": context === ButtonContext.DANGER,
+		"bg-kojo text-white": context === ButtonContext.METAMASK,
+		"text-white bg-blue-500": context === ButtonContext.WALLET_CONNECT,
+		"px-8 sm:px-18 h-14 sm:h-14 space-x-4": !compact,
 		"px-7 h-12 space-x-2": compact,
 	});
 
-	const buttonClasses = cn(className, {
+	const buttonClasses = cn({
 		"w-full": fluid,
 		"pointer-events-none opacity-50 cursor-not-allowed": disabled,
 		"opacity-80": loading,
-	});
+	}, className);
 
 	const renderContent = () => (
 		<span className={contentClasses}>
-			{icon && !iconAfter && !loading && <Icon name={icon} size={context === ButtonContext.METAMASK || context === ButtonContext.WALLET_CONNECT ? 36 : compact ? 20 : 28} />}
+			{icon && !iconAfter && !loading && <Icon name={icon} size={context === ButtonContext.METAMASK || context === ButtonContext.WALLET_CONNECT ? 28 : compact ? 20 : 28} />}
 
 			{loading && <Icon className="animate-spin" name="Spinner" size={compact ? 20 : 28} />}
 

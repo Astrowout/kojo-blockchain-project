@@ -11,7 +11,13 @@ main {
 } */
 
 ion-tab-bar {
-	@apply h-16;
+	@apply h-16 bg-white;
+	background-color: white;
+}
+
+ion-tab-bar, ion-tab-button {
+	@apply h-16 bg-white;
+	background-color: white;
 }
 
 .tab-selected {
@@ -38,4 +44,8 @@ ion-content::part(scroll) {
 
 .walletconnect-modal__mobile__toggle a {
 	@apply text-black;
+}
+
+.ion-no-card-shadow {
+	box-shadow: none !important;
 }

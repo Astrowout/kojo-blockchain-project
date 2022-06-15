@@ -6,13 +6,17 @@ import { useTranslation } from "../../hooks";
 import Logo from "../Logo/Logo";
 import NavLink from "../NavLink/NavLink";
 import { IonRouterLink } from "@ionic/react";
-import { SessionContext } from "../../context";
+import { GlobalContext, SessionContext } from "../../context";
 
 const Sidebar: FC<SidebarProps> = ({ className }) => {
 	const { t } = useTranslation();
 	const {
 		notifications,
 	} = useContext(SessionContext);
+
+	const {
+		disconnect,
+	} = useContext(GlobalContext);
 
 	const unread = notifications?.some((notification) => !notification.read);
 
@@ -62,6 +66,13 @@ const Sidebar: FC<SidebarProps> = ({ className }) => {
 				<NavLink url="/settings" icon="Settings">
 					{ t("navigation.settings") }
 				</NavLink>
+				<div onClick={disconnect} >
+				<NavLink url="/settings" icon="Logout" className='text-red-700'>
+
+					{ t("settings.disconnect") }
+
+				</NavLink>
+				</div>
 			</div>
 		</nav>
 	)
