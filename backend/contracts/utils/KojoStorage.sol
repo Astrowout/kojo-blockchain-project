@@ -103,7 +103,7 @@ contract KojoStorage is OwnableUpgradeable {
     Structs.Participant memory participant = participants[_account];
     require(participant.isPresent, "Participant does not exist.");
 
-    participant.allowedTokenBalance = _allowance;
+    participant.allowedTokenBalance += _allowance;
     participant.timestamp = block.timestamp + secondsBetweenAllowanceUpdates;
 
     participants[_account] = participant;
