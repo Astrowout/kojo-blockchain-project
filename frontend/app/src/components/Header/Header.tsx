@@ -50,7 +50,7 @@ const Header: FunctionComponent<HeaderProps> = ({
 							<button
 								type="button"
 								onClick={history.goBack}
-								className="mr-3 flex text-black hover:text-white hover:-translate-x-1 transition"
+								className="mr-3 flex text-black hover:text-kojo hover:-translate-x-1 transition"
 							>
 								<Icon name="ArrowLeft" size={28}></Icon>
 
@@ -78,7 +78,7 @@ const Header: FunctionComponent<HeaderProps> = ({
 					{tabsView && (
 						<div className="flex space-x-3 items-center md:hidden">
 							<IonRouterLink
-								className="w-8 h-8 flex items-center justify-center text-white"
+								className="w-8 h-8 flex items-center justify-center text-black"
 								routerLink="/settings"
 							>
 								<Icon name="Settings" size={24}></Icon>
@@ -89,7 +89,7 @@ const Header: FunctionComponent<HeaderProps> = ({
 							</IonRouterLink>
 
 							<IonRouterLink
-								className="w-8 h-8 flex items-center justify-center relative text-white"
+								className="w-8 h-8 flex items-center justify-center relative text-black"
 								routerLink="/notifications"
 							>
 								<Icon name="Bell" size={24}></Icon>
