@@ -4,7 +4,6 @@ import cn from "classnames";
 import { AboutProps } from "./About.types";
 import { useTranslation } from "../../hooks";
 import Link from "../Link/Link";
-import Logo from "../Logo/Logo";
 import Icon from "../Icon/Icon";
 
 const About: FunctionComponent<AboutProps> = ({

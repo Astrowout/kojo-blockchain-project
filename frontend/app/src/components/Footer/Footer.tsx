@@ -2,7 +2,6 @@ import { FunctionComponent, memo } from "react";
 import cn from "classnames";
 
 import {
-	Logo,
 	Icon,
 } from "..";
 import { FooterProps } from "./Footer.types";
