@@ -7,7 +7,10 @@ export const getAverageByRegion = async (client, did: string): Promise<number | 
 
 	const user = await client.farysUser.findUnique({
 		where: {
-		  	did,
+		  	did: {
+				equals: did,
+				mode: "insensitive"
+			},
 		},
 		select: {
 			postalCode: true,
@@ -34,7 +37,10 @@ export const getAverageByRegion = async (client, did: string): Promise<number | 
 export const getFarysUserByDid = async (client, did: string): Promise<FarysUser | null> => {
 	const res = await client.farysUser.findUnique({
 		where: {
-			did,
+			did: {
+				equals: did,
+				mode: "insensitive"
+			},
 		},
 		select: {
 			usage: true,

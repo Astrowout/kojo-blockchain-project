@@ -20,6 +20,7 @@ contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
 
   event RequestFulfilled(
     bytes32 indexed requestId,
+    address account,
     uint256 allowance
   );
 
@@ -73,7 +74,7 @@ contract KojoAPIConsumer is ChainlinkClient, ConfirmedOwner {
     uint256 allowance,
     address account
   ) public recordChainlinkFulfillment(requestId) {
-    emit RequestFulfilled(requestId, allowance);
+    emit RequestFulfilled(requestId, account, allowance);
     store.setAllowance(allowance, account);
   }
 
