@@ -7,10 +7,7 @@ export const getAverageByRegion = async (client, did: string): Promise<number | 
 
 	const user = await client.farysUser.findUnique({
 		where: {
-		  	did: {
-				equals: did,
-				mode: "insensitive"
-			},
+		  	did,
 		},
 		select: {
 			postalCode: true,
@@ -37,10 +34,7 @@ export const getAverageByRegion = async (client, did: string): Promise<number | 
 export const getFarysUserByDid = async (client, did: string): Promise<FarysUser | null> => {
 	const res = await client.farysUser.findUnique({
 		where: {
-			did: {
-				equals: did,
-				mode: "insensitive"
-			},
+			did,
 		},
 		select: {
 			usage: true,
@@ -54,8 +48,8 @@ export const getFarysUserByDid = async (client, did: string): Promise<FarysUser 
 export const postFarysUser = async (client, body: VercelRequestBody): Promise<FarysUser | null> => {
 	const res = await client.farysUser.create({
 		data: {
-			did: body.address,
-			usage: getRandomNumber(1500, 4300),
+			did: body.address.toLowerCase(),
+			usage: getRandomNumber(2500, 3300),
 		},
 	});
 

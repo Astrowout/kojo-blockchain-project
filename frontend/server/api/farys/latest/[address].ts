@@ -22,9 +22,6 @@ export default async function handler(
 		return res.status(400).json({ error: "The field 'address' doesn't seem valid." });
 	}
 
-	console.log(address);
-
-
 	try {
 		const regionAverage = await getAverageByRegion(client, address as string);
 		const user = await getFarysUserByDid(client, address as string);
