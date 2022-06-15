@@ -40,11 +40,11 @@ const LeaderboardPage = () => {
 	return (
 		<Layout
 			title={t("leaderboard.title")}
-			description={t("leaderboard.description", <b className="font-mono bg-emerald-900 rounded px-1.5 py-0.5">{ranking}</b>)}
+			description={t("leaderboard.description", <b className="font-mono bg-border rounded px-1.5 py-0.5">{ranking}</b>)}
 			withOverlap={false}
 		>
-			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-12 w-full">
-				<div className="u-card flex items-center justify-center">
+			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-8 w-full">
+				<div className="flex items-center justify-center bg-background border border-border">
 					<Chart
 						progress={participant.progress || 0}
 					>
@@ -53,7 +53,7 @@ const LeaderboardPage = () => {
 				</div>
 
 				<PlayerStats
-					title={t("leaderboard.stats")}
+					title='Progress'
 					data={data}
 				/>
 
@@ -61,12 +61,13 @@ const LeaderboardPage = () => {
 					<Leaderboard
 						data={participants}
 						className="xl:row-start-2 xl:col-span-2"
+
 					/>
 				) : (
 					<EmptyState
 						message={t("leaderboard.empty")}
 						icon="Ranking"
-						className="xl:row-start-2 xl:col-span-2"
+						className="xl:row-start-2 xl:col-span-2  min-h-[40rem]"
 					/>
 				)}
 			</div>

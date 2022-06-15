@@ -58,6 +58,7 @@ const NotificationsPage = () => {
 					<EmptyState
 						message={t("notifications.empty")}
 						icon="Bell"
+						className="w-full min-h-[30rem]"
 					/>
 				)}
 			</div>

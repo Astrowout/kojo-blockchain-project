@@ -18,8 +18,8 @@ const Link: FC<LinkProps> = ({
 	tooltip = "",
 	onClick,
 }) => {
-	const classes = cn(className, "inline-flex whitespace-nowrap items-center sm:text-lg hover:underline", {
-		"underline": !icon,
+	const classes = cn(className, "inline-flex whitespace-nowrap items-center hover:underline", {
+		"": !icon,
 		"text-emerald-900": !light,
 		"text-emerald-900 md:text-emerald-100": light,
 		"pointer-events-none opacity-80": loading,
@@ -67,7 +67,7 @@ const Link: FC<LinkProps> = ({
 
 	return tooltip ? (
 		<Popover
-			className="relative inline-flex"
+			className="relative inline-flex font-text text-xs"
 		>
 			<Popover.Button
 				as={Fragment}
@@ -92,7 +92,7 @@ const Link: FC<LinkProps> = ({
 				as={Fragment}
 			>
 				<Popover.Panel
-					className="absolute z-10 bottom-full mb-3 left-1/2 text-sm -translate-x-1/2 bg-black/80 text-white px-4 py-2 rounded-xl"
+					className="absolute z-10 bottom-full mb-3 left-1/2 -translate-x-1/2 bg-black/80 text-white px-4 py-2 rounded-sm"
 				>
 					{({ close }: any) => {
 						if (timer) {

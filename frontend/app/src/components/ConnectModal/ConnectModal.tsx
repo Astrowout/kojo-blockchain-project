@@ -31,11 +31,11 @@ const ConnectModal: FunctionComponent<ConnectModalProps> = ({ title, description
 	return (
 		<Modal isOpen={isOpen} close={close}>
 			<div className="flex flex-col pr-10">
-				<Dialog.Title as="h2" className="text-xl font-bold text-gray-900">
+				<Dialog.Title as="h2" className="font-bold text-gray-900 font-title uppercase text-sm">
 					{ title }
 				</Dialog.Title>
 
-				<p className="mt-0.5 text-sm md:text-base text-gray-500">
+				<p className="mt-0.5 text-black font-text text-xs">
 					{ description }
 				</p>
 			</div>
@@ -48,6 +48,13 @@ const ConnectModal: FunctionComponent<ConnectModalProps> = ({ title, description
 				<Loader />
 			) : (
 				<div className="flex flex-col pt-8 space-y-4">
+
+<label
+				htmlFor="email"
+				className="block text-sm text-center text-black font-title uppercase text-2xs mb-4 mt-6"
+			>
+				with Metamask
+			</label>
 					<Button
 						fluid
 						icon="MetaMask"
@@ -55,7 +62,7 @@ const ConnectModal: FunctionComponent<ConnectModalProps> = ({ title, description
 						onClick={connectMetaMask}
 						disabled={!isMetaMaskAvailable}
 					>
-						MetaMask
+						connect
 					</Button>
 
 					{/* <Button

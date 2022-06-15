@@ -7,7 +7,7 @@ import { Error, ErrorType } from "../types";
 import { delay } from "../helpers";
 
 const isMetaMaskAvailable = window && typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
-const MUMBAI_CHAIN_ID = 80001;
+const MUMBAI_CHAIN_ID =  137;
 
 const useMetaMask = (setProvider: (provider: any) => void) => {
 	const { t } = useTranslation();
@@ -44,7 +44,7 @@ const useMetaMask = (setProvider: (provider: any) => void) => {
 		const network = await provider.getNetwork();
 		const chainId = network.chainId;
 
-		if (chainId !== MUMBAI_CHAIN_ID) {
+		if (chainId !== (MUMBAI_CHAIN_ID || 80001)) {
 			present({
 				color: "secondary",
 				duration: 6000,
