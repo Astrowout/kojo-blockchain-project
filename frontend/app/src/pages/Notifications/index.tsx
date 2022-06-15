@@ -31,7 +31,7 @@ const NotificationsPage = () => {
 					<>
 						{(totalUnread && totalUnread > 0) ? (
 							<Link
-								className="ml-auto mb-6 md:mb-4 mt-6 md:mt-0"
+								className="ml-auto mb-6 md:mb-4 mt-6 md:mt-0 text-kojo"
 								light
 								loading={loading}
 								onClick={markAllAsRead}
