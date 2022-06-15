@@ -31,15 +31,21 @@ const Onboarding: FC<OnboardingProps> = ({ className }) => {
 				"px-6 sm:px-10 sm:py-4 flex items-end mt-auto sm:mb-auto"
 			)}
 		>
-			<div className="sm:px-10 py-12 sm:py-10 flex flex-col items-center text-center text-white max-w-md rounded-2xl sm:border sm:bg-white sm:text-emerald-900">
-				<Logo w={96} blank className="sm:hidden text-white" />
-				<Logo w={120} className="hidden sm:block" />
+			<div className="sm:px-10 py-12 sm:py-10 flex flex-col items-center text-center text-white max-w-md rounded-md border bg-background border-border sm:text-emerald-900">
+				{/* <Logo w={96} blank className="sm:hidden text-white" />
+				<Logo w={120} className="hidden sm:block" /> */}
 
-				<h1 className="text-lg mt-10 sm:mt-14 font-bold uppercase tracking-wider">
+						<div className="flex items-center">
+						<Logo w={132} />
+						<p className="font-display uppercase text-4xl -ml-16 text-black">Kōjō</p>
+					</div>
+
+
+				{/* <h1 className="text-lg mt-10 sm:mt-14 font-bold uppercase tracking-wider">
 					{ t("onboarding.title") }
-				</h1>
+				</h1> */}
 
-				<p className="mt-3">
+				<p className=" font-text text-sm text-black mt-6">
 					{ t(
 						"onboarding.description.1",
 						<b className="font-bold">{ t("onboarding.description.2") }</b>,

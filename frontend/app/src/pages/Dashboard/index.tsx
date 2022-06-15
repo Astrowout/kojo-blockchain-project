@@ -13,6 +13,9 @@ import { SessionContext } from "../../context";
 import { formatPlant } from "../../helpers";
 import { useTranslation } from "../../hooks";
 import { Plant } from "../../types";
+import Icon from "../../components/Icon/Icon";
+import { IonRouterLink } from "@ionic/react";
+
 
 const DashboardPage = () => {
 	const [latestPlant, setLatestPlant] = useState<Plant | null>(null);
@@ -89,6 +92,7 @@ const DashboardPage = () => {
 			<EmptyState
 				message={t("dashboard.mint")}
 				icon="Seeds"
+				className=" min-h-[40rem]"
 			>
 				<Button
 					url="/new-seed"
@@ -105,33 +109,55 @@ const DashboardPage = () => {
 			title={t("dashboard.title")}
 			description={t("dashboard.description.1", <b className="font-bold">{t("dashboard.description.2")}</b>)}
 		>
-			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-12 w-full">
+			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-8 w-full">
 				<Tokens compact={false} />
 
 				{(!balance || !!participant.allowedTokenBalance) && (
-					<EmptyState
-						message={t("dashboard.claim")}
-						icon="KojoToken"
+					<div
+					className="bg-black p-8 border border-border text-background rounded-md flex flex-col items-center justify-center"
+				>
+					<Icon
+							name="Token"
+							className="text-background flex-shrink-0 mb-2 mt-4"
+							size={48}
+						/>
+
+					<p
+						// className={cn("text-gray-600 max-w-prose font-text text-xs", {
+						// 	"mt-2 text-center": !compact,
+						// })}
+						className="text-center font-text text-xs py-2 leading-6"
 					>
-						<Button
-							url="/claim"
-							compact
+						{ t("dashboard.claim") }
+					</p>
+
+					<div
+							// className={cn({
+							// 	"mt-6": !compact,
+							// })}
 						>
-							{t("dashboard.claimCta")}
-						</Button>
-					</EmptyState>
+							<IonRouterLink
+				routerLink="/claim"
+			className='font-title uppercase text-xs text-kojo-light'
+		>
+			{t("dashboard.claimCta")}
+		</IonRouterLink>
+
+						</div>
+				</div>
+
 				)}
 
 				<PlayerStats
-					title={t("leaderboard.stats")}
+					title='Progress'
 					data={data}
 				/>
 
-				<div className="xl:col-span-2 grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12">
+				<div className="xl:col-span-2 grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-0 gap-x-8 gap-y-12 w-full">
 					<div className="lg:col-span-2">
-						<h2 className="font-bold text-xl lg:text-2xl mb-4">
+						{/* <h2 className="font-bold text-xl lg:text-2xl mb-4">
 							{ t("dashboard.plants") }
-						</h2>
+						</h2> */}
 
 						{loading ? (
 							<Loader />

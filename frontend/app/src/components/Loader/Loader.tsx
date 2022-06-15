@@ -11,11 +11,11 @@ const Loader: FC<LoaderProps> = ({ className }) => {
 
 	return (
 		<div
-			className={cn(className, "w-full h-full flex flex-col items-center justify-center px-8 py-16 text-emerald-900 space-y-4")}
+			className={cn(className, "w-full h-full flex flex-col items-center justify-center px-8 py-16 text-black space-y-4")}
 		>
 			<Icon name="Spinner" size={32} className="animate-spin" />
 
-			<p className="text-sm">
+			<p className="text-xs font-text">
 				{ t("general.loading") }
 			</p>
 		</div>

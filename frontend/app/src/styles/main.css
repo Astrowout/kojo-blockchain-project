@@ -2,12 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-body, .ion-page {
-	@apply bg-white;
+main {
+	background-color: #059669 !important;
 }
 
+/* body, .ion-page {
+	@apply bg-background !important;
+} */
+
 ion-tab-bar {
-	@apply h-16;
+	@apply h-16 bg-white;
+	background-color: white;
+}
+
+ion-tab-bar, ion-tab-button {
+	@apply h-16 bg-white;
+	background-color: white;
 }
 
 .tab-selected {
@@ -34,4 +44,8 @@ ion-content::part(scroll) {
 
 .walletconnect-modal__mobile__toggle a {
 	@apply text-black;
+}
+
+.ion-no-card-shadow {
+	box-shadow: none !important;
 }

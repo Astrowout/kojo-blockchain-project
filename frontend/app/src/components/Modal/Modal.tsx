@@ -37,7 +37,7 @@ const Modal: FC<ModalProps> = ({
 						leave="ease-in"
 						leaveFrom="opacity-100 translate-y-0 sm:scale-100"
 						leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-						className="bg-white w-full rounded-2xl mx-auto text-left overflow-hidden shadow-xl relative transform transition-all sm:align-middle max-w-md"
+						className="bg-background w-full rounded-md mx-auto text-left overflow-hidden shadow-xl relative transform transition-all sm:align-middle max-w-md"
 					>
 						<div className="px-4 py-6 sm:px-6 sm:py-8">
 							{children}

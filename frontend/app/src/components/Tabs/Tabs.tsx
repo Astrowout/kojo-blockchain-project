@@ -20,7 +20,7 @@ const Tabs: FC<TabsProps> = () => {
 				<Route path="/tabs/consumption" exact component={ConsumptionPage} />
 			</IonRouterOutlet>
 
-			<IonTabBar slot="bottom" className="md:hidden border-t border-emerald-600/20">
+			<IonTabBar slot="bottom" className="md:hidden bg-white" style={{ background: 'white' }}>
 				<IonTabButton tab="dashboard" href="/tabs/dashboard" className="space-y-1">
 					<Icon
 						name="Dashboard"

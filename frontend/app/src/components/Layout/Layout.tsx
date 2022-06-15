@@ -14,10 +14,10 @@ const AppLayout: FC<PropsWithChildren<AppLayoutProps>> = ({
 	backLink,
 	withOverlap = true,
 }) => (
-	<IonPage className="flex flex-row">
+	<IonPage className="flex flex-row bg-background">
 		<Sidebar className="hidden md:flex" />
 
-		<IonContent fullscreen>
+		<IonContent fullscreen className='bg-red-600 !important'>
 			<AppHeader
 				title={title}
 				description={description}
