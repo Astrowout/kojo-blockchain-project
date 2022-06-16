@@ -10,10 +10,8 @@ import { ErrorType } from '../../types';
 import { ConnectModalProps } from './ConnectModal.types';
 import { GlobalContext } from '../../context';
 import EmailForm from '../EmailForm/EmailForm';
-import { useTranslation } from '../../hooks';
 
 const ConnectModal: FunctionComponent<ConnectModalProps> = ({ title, description, close, isOpen }) => {
-	const { t } = useTranslation();
 	const {
 		loading,
 		error,
