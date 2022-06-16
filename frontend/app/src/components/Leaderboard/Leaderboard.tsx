@@ -12,13 +12,13 @@ const Leaderboard: FunctionComponent<LeaderboardProps> = ({
 }) => {
 	const { t } = useTranslation();
 
-	const headerCellClasses = "px-5 py-3 text-emerald-600 text-left font-semibold tracking-wider text-sm uppercase whitespace-nowrap";
-	const bodyCellClasses = "px-5 py-3";
+	const headerCellClasses = "px-5 py-3 text-black text-left tracking-wider text-xs uppercase whitespace-nowrap";
+	const bodyCellClasses = "px-5 py-3 font-text text-xs";
 
 	return (
-		<div className={cn(className, "overflow-auto border-solid border-t border-emerald-600 bg-white rounded-2xl shadow-2xl shadow-emerald-900/20")}>
+		<div className={cn(className, "overflow-auto border-solid bg-background rounded-md border border-border")}>
 			<table className="table-auto border-collapse w-full">
-				<thead className="bg-emerald-50 border-b border-emerald-100">
+				<thead className="border-b bg-border">
 					<tr>
 						<th className={cn(headerCellClasses, "w-20")}>
 							#
@@ -40,9 +40,9 @@ const Leaderboard: FunctionComponent<LeaderboardProps> = ({
 					{data.map((item, index) => (
 						<tr
 							key={index}
-							className="even:bg-gray-50"
+							className="even:bg border-t border-border"
 						>
-							<td className={cn(bodyCellClasses, "font-bold")}>
+							<td className={cn(bodyCellClasses, "font-title text-xs")}>
 								{ index + 1 }
 							</td>
 							<td className={cn(bodyCellClasses, "px-0")}>

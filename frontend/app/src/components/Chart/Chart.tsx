@@ -23,7 +23,7 @@ const Chart: FunctionComponent<ChartProps> = ({
 			</span>
 
 			{!!children && (
-				<div className="mt-3 text-xs tracking-wider whitespace-nowrap uppercase font-tex text-blackt">
+				<div className="mt-3 text-xs tracking-wider whitespace-nowrap uppercase font-tex text-black">
 					{ children }
 				</div>
 			)}
@@ -38,7 +38,7 @@ const Chart: FunctionComponent<ChartProps> = ({
 				></circle>
 
 				<circle
-					className="text-emerald-600 transition-all duration-1000 -rotate-90 origin-center"
+					className="text-kojo transition-all duration-1000 -rotate-90 origin-center"
 					pathLength="100"
 					strokeDasharray="100"
 					cx="50"

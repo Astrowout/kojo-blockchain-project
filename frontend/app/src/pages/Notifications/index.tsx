@@ -31,8 +31,7 @@ const NotificationsPage = () => {
 					<>
 						{(totalUnread && totalUnread > 0) ? (
 							<Link
-								className="ml-auto mb-6 md:mb-4 mt-6 md:mt-0 text-kojo"
-								light
+								className="text-black ml-auto text-center text-xs font-title uppercase tex-xs mb-6 md:mb-4 mt-6 md:mt-0"
 								loading={loading}
 								onClick={markAllAsRead}
 							>
@@ -40,7 +39,7 @@ const NotificationsPage = () => {
 							</Link>
 						) : ''}
 
-						<ul className="divide-y u-card overflow-hidden md:p-0 -mx-4 sm:-mx-8 md:mx-0 border-y md:border-none">
+						<ul className="divide-y overflow-hidden md:p-0 -mx-4 sm:-mx-8 md:mx-0 bg-background border border-border rounded-md">
 							{notifications?.map((notification) => (
 								<li key={notification.id}>
 									<NotificationItem

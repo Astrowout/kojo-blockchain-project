@@ -100,8 +100,8 @@ const Header: FunctionComponent<HeaderProps> = ({
 
 								{unread && (
 									<span className="absolute flex top-1.5 right-2">
-										<span className="animate-ping absolute flex w-full h-full rounded-full bg-red-500 opacity-60"></span>
-										<span className="relative flex rounded-full h-2 w-2 border border-white bg-red-500"></span>
+										<span className="animate-ping absolute flex w-full h-full rounded-full bg-red-800 opacity-60"></span>
+										<span className="relative flex rounded-full h-2 w-2 border border-white bg-red-800"></span>
 									</span>
 								)}
 							</IonRouterLink>

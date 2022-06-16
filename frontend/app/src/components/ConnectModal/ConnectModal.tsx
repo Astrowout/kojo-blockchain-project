@@ -49,12 +49,12 @@ const ConnectModal: FunctionComponent<ConnectModalProps> = ({ title, description
 			) : (
 				<div className="flex flex-col pt-8 space-y-4">
 
-<label
+{/* <label
 				htmlFor="email"
-				className="block text-sm text-center text-black font-title uppercase text-2xs mb-4 mt-6"
+				className="block text-center font-text text-xs mb-1 text-border-darkest mt-6"
 			>
 				with Metamask
-			</label>
+			</label> */}
 					<Button
 						fluid
 						icon="MetaMask"
@@ -74,9 +74,22 @@ const ConnectModal: FunctionComponent<ConnectModalProps> = ({ title, description
 						WalletConnect
 					</Button> */}
 
+					<div>
+
+					</div>
+
+<div className="relative">
+      <div className="absolute inset-0 flex items-center" aria-hidden="true">
+        <div className="w-full border-t border-border" />
+      </div>
+      <div className="relative flex justify-center">
+        <span className="px-4 bg-background text-border-darkest font-text text-xs">or connect with email</span>
+      </div>
+    </div>
+
 					<EmailForm
-						className="pt-6 border-t"
-						label={t("connect.email")}
+						className=""
+						label='or connect with email'
 						onSubmit={connectMagicLink}
 					/>
 				</div>

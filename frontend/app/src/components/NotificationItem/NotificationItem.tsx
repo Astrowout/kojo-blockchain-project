@@ -20,34 +20,34 @@ const NotificationItem: FC<NotificationItemProps> = ({
 		});
 	}
 
-	const classNames = cn(className, "flex justify-between group items-center w-full px-6 py-4 transition-colors hover:bg-emerald-50");
+	const classNames = cn(className, "flex justify-between group items-center w-full px-6 py-4 transition-colors hover:bg-border cursor-pointer");
 
 	const renderContent = () => (
 		<>
-			<span className="flex flex-col">
+			<div className="flex flex-col">
 				<p
-					className={cn("md:text-lg flex", {
+					className={cn("", {
 						"font-bold": !read
 					})}
 				>
 					{!read && (
-						<span className="inline-block mt-2 md:mt-2.5 rounded-full h-2 w-2 mr-1.5 border border-white bg-red-500"></span>
+						<span className="inline-block mt-2 md:mt-2.5 rounded-full h-2 w-2 mr-1.5 border bg-kojo"></span>
 					)}
 
-					<span>
+					<span className="font-text text-sm text-black">
 						{ message }
 					</span>
 				</p>
 
-				<p className="text-gray-400 text-sm mt-1">
+				<p className="text-black italic text-xs font-text mt-1">
 					{ renderRelativeDate() }
 				</p>
-			</span>
+			</div>
 
 			{url && (
 				<Icon
 					name="ArrowRight"
-					className="ml-4 text-gray-400 group-hover:text-emerald-900"
+					className="ml-4 text-black group-hover:text-kojo"
 					size={20}
 				/>
 			)}

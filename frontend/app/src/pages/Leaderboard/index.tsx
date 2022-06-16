@@ -48,7 +48,7 @@ const LeaderboardPage = () => {
 					<Chart
 						progress={participant.progress || 0}
 					>
-						{ t("leaderboard.nextLevel") }
+						{`${data[0]?.label} ${data[0]?.value}`}
 					</Chart>
 				</div>
 

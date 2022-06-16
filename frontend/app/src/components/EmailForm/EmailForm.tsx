@@ -34,12 +34,12 @@ const EmailForm: FunctionComponent<EmailFormProps> = ({
 			onSubmit={handleSubmit}
 			className={classes}
 		>
-			<label
+			{/* <label
 				htmlFor="email"
-				className="block text-sm text-center text-black font-title uppercase text-2xs mb-4 mt-6"
+				className="block text-center font-text text-xs mb-1 text-border-darkest mt-6"
 			>
 				{label}
-			</label>
+			</label> */}
 
 			<div className="flex justify-between mt-3 relative">
 				<input
