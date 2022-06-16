@@ -11,7 +11,7 @@ import {KojoUtils} from "./utils/KojoUtils.sol";
 import {KojoMixin} from "./utils/KojoMixin.sol";
 import {KojoAPIConsumer} from "./chainlink/KojoAPIConsumer.sol";
 
-contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatible {
+abstract contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatible {
   KojoStorage internal store;
   KojoUtils internal utils;
   KojoAPIConsumer internal api;
@@ -22,7 +22,6 @@ contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatible {
   event PlantMinted(Structs.Participant participant, Structs.Plant plant);
   event PlantWatered(Structs.Participant participant, Structs.Plant plant);
 
-  // Initialize contract.
   function initialize(
     address _store,
     address _utils,
@@ -38,6 +37,7 @@ contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatible {
     burnAddress = _burn;
   }
 
+  // Set contract metadata.
   function contractURI() public pure returns (string memory) {
     return "https://metadata-url.com/my-metadata";
   }
@@ -232,7 +232,8 @@ contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatible {
     safeTransferFrom(address(this), owner(), fungibleTokenId, balanceOf(address(this), fungibleTokenId), "");
   }
 
-  function checkUpkeep(bytes calldata _checkData) external view returns (bool upkeepNeeded, bytes memory performData) {
+  // Check if automatisation is needed.
+  function checkUpkeep() external view returns (bool upkeepNeeded, bytes memory performData) {
     address[] memory accounts = store.handleReadParticipantAddresses();
 
     for (uint256 i = 0; i < accounts.length; i++) {
@@ -248,7 +249,8 @@ contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatible {
     return (upkeepNeeded, "");
   }
 
-  function performUpkeep(bytes calldata _performData) external {
+  // Perform automated tasks.
+  function performUpkeep() external {
     address[] memory accounts = store.handleReadParticipantAddresses();
 
     for (uint i = 0; i < accounts.length; i++) {
