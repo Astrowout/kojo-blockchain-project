@@ -119,7 +119,7 @@ const translations = {
 		description: "You are currently positioned on place {$} in the overall ranking.",
 		stats: "Your statistics",
 		level: "Level",
-		xp: "XP points",
+		xp: "XP",
 		plants: "Plant token ID's",
 		plantsEmpty: "no plants yet",
 		ranking: "Leaderboard ranking",
