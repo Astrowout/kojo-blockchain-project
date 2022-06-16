@@ -7,28 +7,30 @@ import "../utils/KojoLibrary.sol";
 
 contract KojoStorage is OwnableUpgradeable {
   uint256 public constant plantPrice = 1;
-  // Every user gets it's first 100 kojos for free to kickstart their experience.
+
+  // Every user gets 100 $KOJO for free to kickstart the experience.
   uint256 public constant initialTokenAllowance = 100;
-  // Change to 2630000 seconds for mainnet (1 month).
+
+  // @TODO: Change to 2630000 seconds for mainnet (1 month).
   uint256 public constant secondsBetweenAllowanceUpdates = 300;
+
   // Participant levelCost is the experience points needed to level up as a participant.
   uint256 public constant levelCost = 180;
-  uint256 public plantTypeId;
-  address private oracleAddress;
 
   mapping(address => Structs.Participant) public participants;
   mapping(uint256 => Structs.Plant) public plants;
+
+  uint256 public plantTypeId;
+  address private oracleAddress;
   address[] public participantAddresses;
 
-  // Events
   event UpdateParticipant(Structs.Participant participant);
   event DeleteParticipant(Structs.Participant participant);
   event UpdatePlant(Structs.Plant plant);
   event DeletePlant(Structs.Plant plant);
 
-  // Modifiers
   modifier onlyOracle() {
-    require(msg.sender == oracleAddress);
+    require(msg.sender == oracleAddress, "Not allowed.");
     _;
   }
 
@@ -67,11 +69,10 @@ contract KojoStorage is OwnableUpgradeable {
     return participant;
   }
 
-  // Allows users to read participants.
+  // Allows the client to read participants.
   function handleReadParticipant(address account)
     external
     view
-    onlyOwner
     returns (Structs.Participant memory _participant)
   {
     Structs.Participant memory participant = participants[account];
@@ -94,23 +95,7 @@ contract KojoStorage is OwnableUpgradeable {
     return participant;
   }
 
-  // Set new allowance of participant.
-  function setAllowance(
-    uint256 _allowance,
-    address _account
-  ) external {
-    require(msg.sender == oracleAddress);
-    Structs.Participant memory participant = participants[_account];
-    require(participant.isPresent, "Participant does not exist.");
-
-    participant.allowedTokenBalance += _allowance;
-    participant.timestamp = block.timestamp + secondsBetweenAllowanceUpdates;
-
-    participants[_account] = participant;
-
-    emit UpdateParticipant(participant);
-  }
-
+  // Allows the owner to add a token id to a participant.
   function handleAddTokenIdToParticipant(
     address account,
     uint256 tokenId
@@ -229,5 +214,21 @@ contract KojoStorage is OwnableUpgradeable {
     returns (address[] memory)
   {
     return participantAddresses;
+  }
+
+  // Allows the oracle to set the allowance of a participant.
+  function setAllowance(
+    uint256 _allowance,
+    address _account
+  ) external onlyOracle {
+    Structs.Participant memory participant = participants[_account];
+    require(participant.isPresent, "Participant does not exist.");
+
+    participant.allowedTokenBalance += _allowance;
+    participant.timestamp = block.timestamp + secondsBetweenAllowanceUpdates;
+
+    participants[_account] = participant;
+
+    emit UpdateParticipant(participant);
   }
 }

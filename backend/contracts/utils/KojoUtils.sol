@@ -5,12 +5,12 @@ import "../utils/KojoLibrary.sol";
 import "@openzeppelin/contracts-upgradeable/utils/StringsUpgradeable.sol";
 
 contract KojoUtils {
+  // Construct URI from Plant.
   function handleBuildURI(Structs.Plant memory plant)
     external
     pure
     returns (string memory _uri)
   {
-    // Perform some checks
     require(plant.isPresent, "Plant does not exist.");
     require(
       plant.level == 1
@@ -39,6 +39,7 @@ contract KojoUtils {
     return result;
   }
 
+  // Create new Participant without given tokenId.
   function handleRemoveTokenIdFromParticipant(
     Structs.Participant memory participant,
     uint256 tokenId
@@ -57,6 +58,7 @@ contract KojoUtils {
     return participant;
   }
 
+  // Calculate allowed token balance for given Participant.
   function handleCalculateAllowedTokenBalanceFromParticipantLevel(
     Structs.Participant memory participant,
     uint256 amount
@@ -65,6 +67,7 @@ contract KojoUtils {
     return amount + ((amount * (participant.level - 1)) / 10);
   }
 
+  // Add XP to given Participant.
   function handleAddXPToParticipant(
     Structs.Participant memory participant,
     uint256 amount,
@@ -80,6 +83,7 @@ contract KojoUtils {
     return participant;
   }
 
+  // Calculate leven cost for a Participant.
   function calculateParticipantLevelCost(
     uint256 levelCost,
     uint256 level
@@ -90,6 +94,7 @@ contract KojoUtils {
     return participantLevelCost;
   }
 
+  // Add XP to given Plant.
   function handleAddXPToPlant(Structs.Plant memory plant, uint256 amount)
     external
     pure
@@ -107,6 +112,7 @@ contract KojoUtils {
     return plant;
   }
 
+  // Convert address to string.
   function toString(address x) external pure returns (string memory) {
       return StringsUpgradeable.toHexString(uint256(uint160(x)), 20);
   }
