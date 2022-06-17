@@ -2,11 +2,10 @@ import { FC, memo } from "react";
 import cn from "classnames";
 import { IonCard } from "@ionic/react";
 
-import { PlantCardProps } from "./PlantCard.types";
 import Stat from "../Stat/Stat";
 import Icon from "../Icon/Icon";
 
-const PlantCard: FC<PlantCardProps> = ({
+const PlantCard: FC<any> = ({
 	className,
 	id = 1,
 	type = "",
@@ -14,6 +13,7 @@ const PlantCard: FC<PlantCardProps> = ({
 	growth = 1,
 	hydration = 0,
 	waterNeeded = 2,
+	plant = {}
 }) => {
 
 	// const getGrowth = (value: number | null): ReactNode => {
@@ -57,46 +57,46 @@ const PlantCard: FC<PlantCardProps> = ({
 			</h2>
 
 			<div className="grid gap-y-8 px-4 lg:px-6 py-6 max-h-[13rem] overflow-y-scroll">
-				<Stat
+			<Stat
 
-					label="Family"
-				>
-					[mock]
-				</Stat>
-				<Stat
+label="Family"
+>
+{plant.family}
+</Stat>
+<Stat
 
-					label="Variant"
-				>
-					[mock]
-				</Stat>
-				<Stat
+label="Variant"
+>
+{plant.variant}
+</Stat>
+<Stat
 
-					label="Soil"
-				>
-					[mock]
-				</Stat>
-				<Stat
+label="Soil"
+>
+{plant.soil}
+</Stat>
+<Stat
 
-					label="Pot"
-				>
-					[mock]
-				</Stat>
-				<Stat
+label="Pot"
+>
+{plant.pot}
+</Stat>
+<Stat
 
-					label="Floating"
-				>
-					[mock]
-				</Stat>
-				<Stat
-					label="Setting"
-				>
-					[mock]
-				</Stat>
-				<Stat
-					label="Mark"
-				>
-					[mock]
-				</Stat>
+label="Floating"
+>
+{plant.floating}
+</Stat>
+<Stat
+label="Setting"
+>
+{plant.setting}
+</Stat>
+<Stat
+label="Mark"
+>
+{plant.mark}
+</Stat>
 			</div>
 	  	</IonCard>
 	)
