@@ -16,24 +16,20 @@ const About: FunctionComponent<AboutProps> = ({
 			<div className="max-w-prose mx-auto flex flex-col items-center">
 
 
-				<h2 className="text-4xl font-bold font-display text-border-dark flex items-center">
+				<h2 className="text-4xl font-bold font-display text-border-darkest flex items-center">
 				<Icon
 							name="Token"
-							className='text-border-dark mr-3'
+							className='text-border-darkest mr-3'
 							size={48}
 						/>	{ t("about.title") }
 				</h2>
 
-				<p className="text-border-dark font-text text-center text-xs mt-6">
+				<p className="text-border-darkest font-text text-center text-xs mt-6">
 					{ t("about.description.1") }
 				</p>
 
-				<p className="text-border-dark font-text text-center text-xs mt-6">
-					{ t("about.description.2") }
-				</p>
-
 				<Link
-					className="text-border-dark font-bold font-text text-center text-xs mt-6"
+					className="text-border-darkest font-bold font-text text-center text-xs mt-6"
 					url={process.env.REACT_APP_WEB_URL}
 					icon="ArrowRight"
 					external

@@ -29,16 +29,16 @@ const CTA: FunctionComponent = ({ className }: any) => {
 
 					<div className="flex flex-col md:flex-row items-center mt-8 md:mt-10 gap-x-8 gap-y-5">
 						<Button
-							url={process.env.NEXT_PUBLIC_DOWNLOAD_URL}
+							url={process.env.NEXT_PUBLIC_APP_URL}
 							compact
-							external
 							className="bg-[#0A845C]"
 						>
 							{ t("navigation.download") }
 						</Button>
 
 						<Link
-							url={process.env.NEXT_PUBLIC_APP_URL}
+							url={process.env.NEXT_PUBLIC_DOWNLOAD_URL}
+							external
 							className='text-white'
 						>
 							{ t("navigation.browser") }
