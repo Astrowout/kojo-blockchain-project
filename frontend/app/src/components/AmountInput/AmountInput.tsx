@@ -15,13 +15,13 @@ const AmountInput: FunctionComponent<AmountInputProps> = ({
 
 	return (
 		<div>
-			<label htmlFor="amount" className="text-sm text-gray-400">
+			<label htmlFor="amount" className="text-sm text-black uppercase font-title">
 				{ t("hydrate.amount") }
 			</label>
 
-			<div className="mt-1 flex justify-between rounded-2xl shadow-2xl shadow-emerald-900/20 h-20 overflow-hidden">
+			<div className="mt-1 flex justify-between rounded-md bg-background border border-border h-20 overflow-hidden">
 				<button
-					className="h-full w-20 flex items-center justify-center hover:bg-emerald-50 transition-shadow active:shadow-inner group border-solid border-r border-gray-100"
+					className="h-full w-20 flex items-center justify-center hover:bg-border transition-shadow active:shadow-inner group border-solid border-r border-gray-100"
 					onClick={() => onChange(value - 1)}
 				>
 					<Icon
@@ -42,7 +42,7 @@ const AmountInput: FunctionComponent<AmountInputProps> = ({
 						type="number"
 						name="amount"
 						id="amount"
-						className="focus:ring-emerald-500 bg-white font-bold text-3xl h-full w-16 border-gray-300 rounded-md outline-none"
+						className="bg-background  font-text font-bold text-3xl h-full w-16 border-gray-300 rounded-md outline-none"
 						step="1"
 						min="1"
 						max={balance}
