@@ -12,7 +12,7 @@ const Alert: FunctionComponent<AlertProps> = ({
 }) => {
 	return (
 		<div
-			className={cn(className, "bg-red-900 font-text text-xs text-background flex items-center px-4 py-8 sm:px-6 max-w-prose rounded-md overflow-hidden shadow-xl", {
+			className={cn(className, "bg-red-900 font-text text-xs text-background flex items-center px-4 py-6 sm:px-6 max-w-prose rounded-md overflow-hidden shadow-xl", {
 				'shadow-red-500/10 border-t text-red-00': type === AlertType.DANGER,
 			})}
 		>
