@@ -11,7 +11,7 @@ import {KojoUtils} from "./utils/KojoUtils.sol";
 import {KojoMixin} from "./utils/KojoMixin.sol";
 import {KojoAPIConsumer} from "./chainlink/KojoAPIConsumer.sol";
 
-abstract contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatible {
+contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatible {
   KojoStorage internal store;
   KojoUtils internal utils;
   KojoAPIConsumer internal api;
@@ -39,7 +39,7 @@ abstract contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatible {
 
   // Set contract metadata.
   function contractURI() public pure returns (string memory) {
-    return "https://metadata-url.com/my-metadata";
+    return "https://ipfs.io/ipfs/QmNdqB9ZFJ8tfre7pKeSyUfubTmaXdoVcCMLzqaa5MLvAk";
   }
 
   // Prohibits external contracts to call certain functions.
@@ -233,7 +233,7 @@ abstract contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatible {
   }
 
   // Check if automatisation is needed.
-  function checkUpkeep() external view returns (bool upkeepNeeded, bytes memory performData) {
+  function checkUpkeep(bytes calldata checkData) external view returns (bool upkeepNeeded, bytes memory performData) {
     address[] memory accounts = store.handleReadParticipantAddresses();
 
     for (uint256 i = 0; i < accounts.length; i++) {
@@ -250,7 +250,7 @@ abstract contract KojoV1 is KojoERC1155, KojoMixin, KeeperCompatible {
   }
 
   // Perform automated tasks.
-  function performUpkeep() external {
+  function performUpkeep(bytes calldata performData) external {
     address[] memory accounts = store.handleReadParticipantAddresses();
 
     for (uint i = 0; i < accounts.length; i++) {

@@ -33,7 +33,7 @@ contract KojoERC1155 is
     fungibleTokenId = 0;
     nonFungibleTokenCount = 1;
 
-    setTokenUri(fungibleTokenId, "https://ipfs.io/ipfs/QmR5vt8PED7sxjXzvQf1JPeeGQcdce3jfCDCWDKyxhsi2z");
+    setTokenUri(fungibleTokenId, "https://ipfs.io/ipfs/QmVreakSaVKbMnS3b8efmBsukpHorUazSxAYptzRCggYLB");
   }
 
   function supportsInterface(bytes4 interfaceId) public view virtual override(ERC1155Upgradeable, ERC1155ReceiverUpgradeable) returns (bool) {

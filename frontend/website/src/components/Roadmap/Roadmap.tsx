@@ -41,7 +41,7 @@ const Roadmap: FunctionComponent<HeroProps> = ({ className }) => {
 				<div className="w-full">
 					<ul className="w-full">
 					{items.map((item) => 	<li className="w-full bg-background p-8 rounded-md mb-5">
-							<p className="font-display text-4xl uppercase opacity-5">{item.period}</p>
+							<p className="font-display text-4xl uppercase opacity-20">{item.period}</p>
 							<p className="font-title uppercase text-xs font-bold mt-2 mb-4">{item.title}</p>
 							<p className="font-text text-xs leading-6">{item.paragraph}</p>
 						</li>)}

@@ -41,7 +41,6 @@ const translations = {
 		title: "KOJO",
 		description: {
 			1: "The water saving NFT-game where you can grow seeds into plants based on your sustainable water consumption.",
-			2: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.",
 		},
 		website: "Visit our project website",
 	},
