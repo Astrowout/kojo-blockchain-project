@@ -1,13 +1,12 @@
 import { FC, memo, ReactNode } from "react";
 import cn from "classnames";
 
-import { PlantDetailProps } from "./PlantDetail.types";
 import { useTranslation } from "../../hooks";
 import Stat from "../Stat/Stat";
 import Icon from "../Icon/Icon";
 import { IonRouterLink } from "@ionic/react";
 
-const PlantDetail: FC<PlantDetailProps> = ({
+const PlantDetail: FC<any> = ({
 	children,
 	className = "",
 	id = 1,
@@ -17,6 +16,7 @@ const PlantDetail: FC<PlantDetailProps> = ({
 	growth = 1,
 	hydration = 0,
 	waterNeeded = null,
+	plant = {}
 }) => {
 	const { t } = useTranslation();
 
@@ -116,41 +116,41 @@ const PlantDetail: FC<PlantDetailProps> = ({
 
 					label="Family"
 				>
-					[mock]
+					{plant.family}
 				</Stat>
 				<Stat
 
 					label="Variant"
 				>
-					[mock]
+					{plant.variant}
 				</Stat>
 				<Stat
 
 					label="Soil"
 				>
-					[mock]
+					{plant.soil}
 				</Stat>
 				<Stat
 
 					label="Pot"
 				>
-					[mock]
+					{plant.pot}
 				</Stat>
 				<Stat
 
 					label="Floating"
 				>
-					[mock]
+					{plant.floating}
 				</Stat>
 				<Stat
 					label="Setting"
 				>
-					[mock]
+					{plant.setting}
 				</Stat>
 				<Stat
 					label="Mark"
 				>
-					[mock]
+					{plant.mark}
 				</Stat>
 				</div>
 
