@@ -70,6 +70,7 @@ const PlantsPage = () => {
 						growth={plant.growth}
 						hydration={plant.hydration}
 						image={plant.image!}
+						plant={plant}
 					/>
 				))}
 			</div>
