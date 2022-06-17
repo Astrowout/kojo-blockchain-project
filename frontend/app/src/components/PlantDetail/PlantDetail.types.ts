@@ -10,4 +10,5 @@ export type PlantDetailProps = {
 	growth?: number;
 	hydration?: number;
 	waterNeeded?: number;
+	plant: any;
 }

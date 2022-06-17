@@ -16,10 +16,20 @@ const formatPlant = async (tokenId: number, data: any, uri: string): Promise<Pla
 			const imageUriParts = metadata.image.split("/");
 			const image = `${process.env.REACT_APP_STORAGE_URL}/ipfs/img/${imageUriParts[imageUriParts.length - 1]}`;
 
+			let attributes = {};
+
+			metadata?.attributes?.forEach((attribute: any)=> {
+				attributes = {
+					...attributes,
+					[attribute.trait_type.toLowerCase()]: attribute.value,
+				}
+			});
+
 			return {
 				id: tokenId,
 				type: metadata.name,
 				description: metadata.description,
+				...attributes,
 				growth: data.level.toNumber(),
 				health: data.lifes.toNumber(),
 				waterNeeded: WATER_COST_MAPPING[data.levelCost.toNumber()],
