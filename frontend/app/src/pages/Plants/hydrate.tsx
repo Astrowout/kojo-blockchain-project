@@ -118,6 +118,7 @@ const HydratePage = () => {
 						health={plant.health}
 						hydration={plant.hydration}
 						image={plant.image}
+						plant={plant}
 					>
 						<div className="space-y-6">
 							<AmountInput
