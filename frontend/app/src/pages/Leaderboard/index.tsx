@@ -44,7 +44,7 @@ const LeaderboardPage = () => {
 			withOverlap={false}
 		>
 			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-8 w-full">
-				<div className="flex items-center justify-center bg-background border border-border">
+				<div className="flex items-center justify-center bg-background border border-border p-8">
 					<Chart
 						progress={participant.progress || 0}
 					>

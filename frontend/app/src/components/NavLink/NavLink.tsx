@@ -11,6 +11,7 @@ const NavLink: FC<NavLinkProps> = ({
 	className,
 	children,
 	unread = false,
+	danger = false,
 	url = "",
 	icon = "Dashboard",
 	onClick = () => null,
@@ -21,24 +22,25 @@ const NavLink: FC<NavLinkProps> = ({
 	});
 
 	const classes = cn(className, "inline-flex space-x-5 lg:space-x-6 whitespace-nowrap items-center text-lg lg:text-xl", {
-		"text-emerald-900 hover:text-emerald-900": active,
-		"text-gray-400 hover:text-gray-600": !active,
+		"text-kojo": active,
+		"text-border-darkest hover:text-black": !active && !danger,
+		"text-red-700 hover:text-red-900": danger,
 	});
 
 	const renderContent = () => (
 		<span className={classes}>
 			<span className="relative">
-				<Icon name={icon} size={22} />
+				<Icon name={icon} size={24} />
 
 				{unread && (
-					<span className="absolute flex top-0.5 right-0.5">
+					<span className="absolute flex top-0 right-0">
 						<span className="animate-ping absolute flex w-full h-full rounded-full bg-red-500 opacity-60"></span>
 						<span className="relative flex rounded-full h-3 w-3 border border-white bg-red-500"></span>
 					</span>
 				)}
 			</span>
 
-			<span className="text-xs font-title uppercase text-black font-normal">
+			<span className="text-xs font-title uppercase font-normal">
 				{children}
 			</span>
 		</span>
@@ -54,6 +56,8 @@ const NavLink: FC<NavLinkProps> = ({
 	) : (
 		<button
 			type="button"
+			onClick={onClick}
+			className="inline-flex"
 		>
 			{ renderContent() }
 		</button>
