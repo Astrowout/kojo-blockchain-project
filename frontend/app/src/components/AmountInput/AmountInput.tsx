@@ -54,7 +54,7 @@ const AmountInput: FunctionComponent<AmountInputProps> = ({
 				</div>
 
 				<button
-					className="h-full w-20 flex items-center justify-center hover:bg-emerald-50 transition-shadow active:shadow-inner group border-solid border-l border-gray-100 disabled:opacity-50 disabled:bg-transparent disabled:pointer-events-none"
+					className="h-full w-20 flex items-center justify-center hover:bg-border transition-shadow active:shadow-inner group border-solid border-l border-gray-100 disabled:opacity-50 disabled:bg-transparent disabled:pointer-events-none"
 					onClick={() => onChange(value + 1)}
 					disabled={balance <= value}
 				>
