@@ -81,6 +81,7 @@ const DashboardPage = () => {
 			<div className="grid lg:grid-cols-2">
 				<PlantCard
 					id={latestPlant.id}
+					plant={latestPlant}
 					type={latestPlant.type}
 					waterNeeded={latestPlant.waterNeeded}
 					growth={latestPlant.growth}
