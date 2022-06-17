@@ -27,7 +27,7 @@ contract KojoUtils {
       "Plant lifes does not exist."
     );
 
-    string memory base = "https://ipfs.io/ipfs/Qmayj2bo241oD2Xrkcpd8g76usfnK6sbLt9ZuvUJ4k6aXj/";
+    string memory base = "https://ipfs.io/ipfs/QmYzLcJ8Hyp2z2du8JnXqmfgPJ8v9NTaprFHbuUVYsWgTt/";
     string memory result = string(abi.encodePacked(
       base,
       StringsUpgradeable.toString(plant.typeId),

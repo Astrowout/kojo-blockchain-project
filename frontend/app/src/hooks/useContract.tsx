@@ -106,8 +106,6 @@ const useContract = (provider: any, address?: string) => {
 		try {
 			const accounts = await contract!.handleReadParticipantAddresses();
 
-			console.log(accounts);
-
 			for (let i = 0; i < accounts.length; i++) {
 				const account = accounts[i];
 

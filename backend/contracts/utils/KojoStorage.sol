@@ -140,7 +140,7 @@ contract KojoStorage is OwnableUpgradeable {
     plant.experiencePoints = 0;
     plant.lifes = 3;
     // Change to 100 for mainnet.
-    plant.levelCost = 20;
+    plant.levelCost = 25;
     plant.isPresent = true;
 
     plants[tokenId] = plant;
