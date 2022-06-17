@@ -31,9 +31,6 @@ const PlantPage = () => {
 		getPlant();
 	}, [balance]); // eslint-disable-line react-hooks/exhaustive-deps
 
-
-	console.log(plant)
-
 	return (
 		<Layout
 			title={plant?.type || ""}
