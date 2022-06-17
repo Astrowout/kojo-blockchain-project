@@ -112,40 +112,30 @@ const DashboardPage = () => {
 			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-8 w-full">
 				<Tokens compact={false} />
 
-				{(!balance || !!participant.allowedTokenBalance) && (
+				{!balance && (
 					<div
-					className="bg-black p-8 border border-border text-background rounded-md flex flex-col items-center justify-center"
-				>
-					<Icon
+						className="bg-black p-8 border border-border text-background rounded-md flex flex-col items-center justify-center"
+					>
+						<Icon
 							name="Token"
 							className="text-background flex-shrink-0 mb-2 mt-4"
 							size={48}
 						/>
 
-					<p
-						// className={cn("text-gray-600 max-w-prose font-text text-xs", {
-						// 	"mt-2 text-center": !compact,
-						// })}
-						className="text-center font-text text-xs py-2 leading-6"
-					>
-						{ t("dashboard.claim") }
-					</p>
+						<p className="text-center font-text text-xs py-2 leading-6">
+							{ t("dashboard.claim") }
+						</p>
 
-					<div
-							// className={cn({
-							// 	"mt-6": !compact,
-							// })}
-						>
+						<div>
 							<IonRouterLink
-				routerLink="/claim"
-			className='font-title uppercase text-xs text-kojo-light'
-		>
-			{t("dashboard.claimCta")}
-		</IonRouterLink>
+								routerLink="/claim"
+								className='font-title uppercase text-xs text-kojo-light'
+							>
+								{t("dashboard.claimCta")}
+							</IonRouterLink>
 
 						</div>
-				</div>
-
+					</div>
 				)}
 
 				<PlayerStats
