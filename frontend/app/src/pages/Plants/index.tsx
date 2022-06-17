@@ -105,6 +105,7 @@ const PlantsPage = () => {
 						<Button
 							url="/new-seed"
 							compact
+							className="mt-2"
 						>
 							{t("plants.mintCta")}
 						</Button>
