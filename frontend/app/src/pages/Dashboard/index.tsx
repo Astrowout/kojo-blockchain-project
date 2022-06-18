@@ -1,5 +1,8 @@
 import { useContext, useEffect, useState } from "react";
+import { IonRouterLink } from "@ionic/react";
+
 import {
+	Icon,
 	Button,
 	EmptyState,
 	Layout,
@@ -13,8 +16,6 @@ import { SessionContext } from "../../context";
 import { formatPlant } from "../../helpers";
 import { useTranslation } from "../../hooks";
 import { Plant } from "../../types";
-import Icon from "../../components/Icon/Icon";
-import { IonRouterLink } from "@ionic/react";
 
 
 const DashboardPage = () => {
@@ -78,7 +79,7 @@ const DashboardPage = () => {
 
 	const renderLatestPlant = () => {
 		return latestPlant ? (
-			<div className="grid lg:grid-cols-2">
+			<div className="grid lg:grid-cols-2 gap-x-8">
 				<PlantCard
 					id={latestPlant.id}
 					plant={latestPlant}
@@ -93,7 +94,6 @@ const DashboardPage = () => {
 			<EmptyState
 				message={t("dashboard.mint")}
 				icon="Seeds"
-				className=" min-h-[40rem]"
 			>
 				<Button
 					url="/new-seed"
@@ -110,7 +110,7 @@ const DashboardPage = () => {
 			title={t("dashboard.title")}
 			description={t("dashboard.description.1", <b className="font-bold">{t("dashboard.description.2")}</b>)}
 		>
-			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-8 w-full">
+			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-8 lg:gap-y-12 w-full">
 				<Tokens compact={false} />
 
 				{!balance && (
@@ -130,7 +130,7 @@ const DashboardPage = () => {
 						<div>
 							<IonRouterLink
 								routerLink="/claim"
-								className='font-title uppercase text-xs text-kojo-light'
+								className='font-sans uppercase text-xs text-kojo-light'
 							>
 								{t("dashboard.claimCta")}
 							</IonRouterLink>
@@ -140,15 +140,15 @@ const DashboardPage = () => {
 				)}
 
 				<PlayerStats
-					title='Progress'
+					title={t("leaderboard.stats")}
 					data={data}
 				/>
 
 				<div className="xl:col-span-2 grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-0 gap-x-8 gap-y-12 w-full">
 					<div className="lg:col-span-2">
-						{/* <h2 className="font-bold text-xl lg:text-2xl mb-4">
+						<h2 className="font-bold font-display uppercase lg:text-lg mb-4">
 							{ t("dashboard.plants") }
-						</h2> */}
+						</h2>
 
 						{loading ? (
 							<Loader />

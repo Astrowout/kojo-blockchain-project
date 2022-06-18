@@ -21,7 +21,7 @@ const NavLink: FC<NavLinkProps> = ({
 		exact: true,
 	});
 
-	const classes = cn(className, "inline-flex space-x-5 lg:space-x-6 whitespace-nowrap items-center text-lg lg:text-xl", {
+	const classes = cn(className, "inline-flex space-x-6 whitespace-nowrap items-center text-sm", {
 		"text-kojo": active,
 		"text-border-darkest hover:text-black": !active && !danger,
 		"text-red-700 hover:text-red-900": danger,
@@ -30,7 +30,7 @@ const NavLink: FC<NavLinkProps> = ({
 	const renderContent = () => (
 		<span className={classes}>
 			<span className="relative">
-				<Icon name={icon} size={24} />
+				<Icon name={icon} size={26} />
 
 				{unread && (
 					<span className="absolute flex top-0 right-0">
@@ -40,7 +40,7 @@ const NavLink: FC<NavLinkProps> = ({
 				)}
 			</span>
 
-			<span className="text-xs font-title uppercase font-normal">
+			<span className="font-sans uppercase font-normal">
 				{children}
 			</span>
 		</span>

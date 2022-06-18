@@ -18,7 +18,7 @@ const Button: FunctionComponent<ButtonProps> = ({
 	icon = null,
 	onClick,
 }) => {
-	const contentClasses = cn("flex w-full text-center justify-center duration-300 transition whitespace-nowrap items-center rounded-md font-title uppercase text-xs font-medium", {
+	const contentClasses = cn("flex w-full text-center justify-center duration-300 transition whitespace-nowrap items-center rounded-md font-sans uppercase text-xs font-medium", {
 		"text-white bg-kojo": context === ButtonContext.PRIMARY,
 		"text-emerald-900 bg-white": context === ButtonContext.ALT,
 		"text-red-500 bg-red-100": context === ButtonContext.DANGER,

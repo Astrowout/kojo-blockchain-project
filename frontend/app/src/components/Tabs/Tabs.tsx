@@ -27,7 +27,7 @@ const Tabs: FC<TabsProps> = () => {
 						size={24}
 					/>
 
-					<IonLabel className="whitespace-nowrap font-bold text-2xs sm:text-xs">
+					<IonLabel className="whitespace-nowrap font-bold font-text text-2xs sm:text-xs">
 						{ t("navigation.dashboard") }
 					</IonLabel>
 				</IonTabButton>
@@ -38,7 +38,7 @@ const Tabs: FC<TabsProps> = () => {
 						size={24}
 					/>
 
-					<IonLabel className="whitespace-nowrap font-bold text-2xs sm:text-xs">
+					<IonLabel className="whitespace-nowrap font-bold font-text text-2xs sm:text-xs">
 						{ t("navigation.plants") }
 					</IonLabel>
 				</IonTabButton>
@@ -49,7 +49,7 @@ const Tabs: FC<TabsProps> = () => {
 						size={24}
 					/>
 
-					<IonLabel className="whitespace-nowrap font-bold text-2xs sm:text-xs">
+					<IonLabel className="whitespace-nowrap font-bold font-text text-2xs sm:text-xs">
 						{ t("navigation.leaderboard") }
 					</IonLabel>
 				</IonTabButton>
@@ -60,7 +60,7 @@ const Tabs: FC<TabsProps> = () => {
 						size={24}
 					/>
 
-					<IonLabel className="whitespace-nowrap font-bold text-2xs sm:text-xs">
+					<IonLabel className="whitespace-nowrap font-bold font-text text-2xs sm:text-xs">
 						{ t("navigation.consumption") }
 					</IonLabel>
 				</IonTabButton>

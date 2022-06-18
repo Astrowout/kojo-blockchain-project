@@ -15,7 +15,7 @@ const Claim: FunctionComponent<ClaimProps> = ({
 		<div className={cn(className, "bg-background rounded-md flex flex-col items-center w-full relative px-5 py-12 overflow-hidden border border-border")}>
 			<Icon name="Token" size={160} className="absolute -right-10 -bottom-8 text-border" />
 
-			<p className=" text-center font-title text-xs uppercase text-black">
+			<p className=" text-center font-sans text-xs uppercase text-black">
 				{ t("claim.amount") }
 			</p>
 

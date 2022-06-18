@@ -5,10 +5,8 @@ module.exports = {
 	],
 	theme: {
 		fontFamily: {
-			'sans': ['Plus Jakarta Sans', 'ui-sans-serif', 'sans-serif'],
-			'serif': ['Abhaya Libre', 'ui-serif', 'serif'],
-			'display': ['Montserrat Black'],
-			'title': ['Lexend Deca'],
+			'display': ['Montserrat'],
+			'sans': ['Lexend Deca', 'ui-sans-serif', 'sans-serif'],
 			'text': ['PT Mono']
 		},
 		container: {
@@ -22,6 +20,9 @@ module.exports = {
 				'border': '#EBE6DF',
 				'border-dark': "#CFCAC4",
 				"border-darkest": "#6E6B68"
+			},
+			fontSize: {
+				"2xs": "0.625rem",
 			}
 		},
 	},

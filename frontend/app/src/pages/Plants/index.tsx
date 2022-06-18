@@ -95,7 +95,7 @@ const PlantsPage = () => {
 			title={t("plants.title")}
 			description={t("plants.description", <b className="font-bold">{participant?.plantIds?.length || 0}</b>)}
 		>
-			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-8 md:gap-y-7 w-full">
+			<div className="grid xl:grid-cols-2 gap-x-8 gap-y-8 lg:gap-y-12 w-full">
 				<Tokens />
 
 				{plants && !!plants.length && (

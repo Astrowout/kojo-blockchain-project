@@ -53,7 +53,7 @@ const LeaderboardPage = () => {
 				</div>
 
 				<PlayerStats
-					title='Progress'
+					title={t("leaderboard.stats")}
 					data={data}
 				/>
 

@@ -15,7 +15,7 @@ const AmountInput: FunctionComponent<AmountInputProps> = ({
 
 	return (
 		<div>
-			<label htmlFor="amount" className="text-sm text-black uppercase font-title">
+			<label htmlFor="amount" className="text-sm text-black uppercase font-sans">
 				{ t("hydrate.amount") }
 			</label>
 
