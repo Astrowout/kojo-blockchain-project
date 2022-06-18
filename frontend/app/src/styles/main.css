@@ -1,57 +1,23 @@
-@font-face {
-	font-family: 'Montserrat Black';
-	src: url('../assets/fonts/Montserrat-Black.ttf');
-	font-weight: bold;
-  }
-
-  @font-face {
-	font-family: 'Lexend Deca';
-	src: url('../assets/fonts/LexendDeca-Black.ttf');
-	font-weight: bold;
-
-  }
-
-
-  @font-face {
-	font-family: 'Lexend Deca';
-	src: url('../assets/fonts/LexendDeca-Regular.ttf');
-	font-weight: normal;
-
-  }
-
-
-  @font-face {
-	font-family: 'PT Mono';
-	src: url('../assets/fonts/PTMono-Regular.ttf');
-	font-weight: bold;
-  }
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-main {
-	background-color: #059669 !important;
-}
-
-/* body, .ion-page {
+body, .ion-page {
 	@apply bg-background !important;
-} */
+}
 
 ion-tab-bar {
-	@apply h-16 bg-white;
-	background-color: white;
+	@apply h-16 bg-white border-t;
 }
 
-ion-tab-bar, ion-tab-button {
+ion-tab-button {
 	@apply h-16 bg-white;
-	background-color: white;
 }
 
 .tab-selected {
 	-webkit-box-shadow: inset 0px 2px 0px 0px #059669;
-	-moz-box-shadow: inset 0px 2px 0px 0px  #059669;
-	box-shadow: inset 0px 2px 0px 0px  #059669;
+	-moz-box-shadow: inset 0px 2px 0px 0px #059669;
+	box-shadow: inset 0px 2px 0px 0px #059669;
 }
 
 .u-card {
@@ -68,10 +34,6 @@ ion-footer::before {
 
 ion-content::part(scroll) {
 	@apply flex flex-col;
-}
-
-.walletconnect-modal__mobile__toggle a {
-	@apply text-black;
 }
 
 .ion-no-card-shadow {

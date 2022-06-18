@@ -32,13 +32,10 @@ const Sidebar: FC<SidebarProps> = ({ className }) => {
 					routerLink="/tabs/dashboard"
 					routerDirection="root"
 				>
-					<div className="flex items-center">
-						<Logo w={132} />
-						<p className="font-display uppercase text-4xl -ml-16 text-black">Kōjō</p>
-					</div>
+					<Logo w={120} />
 				</IonRouterLink>
 
-				<div className="mt-20 flex flex-col space-y-10 p-6">
+				<div className="mt-20 flex flex-col space-y-10 px-4">
 					<NavLink url="/tabs/dashboard" icon="Dashboard">
 						{ t("navigation.dashboard") }
 					</NavLink>
@@ -57,7 +54,7 @@ const Sidebar: FC<SidebarProps> = ({ className }) => {
 				</div>
 			</div>
 
-			<div className="flex flex-col space-y-8 p-6">
+			<div className="flex flex-col space-y-8 px-4">
 				<NavLink url="/notifications" icon="Bell" unread={unread}>
 					{ t("navigation.notifications") }
 				</NavLink>

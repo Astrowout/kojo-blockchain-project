@@ -42,7 +42,7 @@ const Leaderboard: FunctionComponent<LeaderboardProps> = ({
 							key={index}
 							className="even:bg border-t border-border"
 						>
-							<td className={cn(bodyCellClasses, "font-title text-xs")}>
+							<td className={cn(bodyCellClasses, "font-sans text-xs")}>
 								{ index + 1 }
 							</td>
 							<td className={cn(bodyCellClasses, "px-0")}>

@@ -29,7 +29,7 @@ const ConnectModal: FunctionComponent<ConnectModalProps> = ({ title, description
 	return (
 		<Modal isOpen={isOpen} close={close}>
 			<div className="flex flex-col pr-10">
-				<Dialog.Title as="h2" className="font-bold text-gray-900 font-title uppercase text-sm">
+				<Dialog.Title as="h2" className="font-bold text-gray-900 font-sans uppercase text-sm">
 					{ title }
 				</Dialog.Title>
 

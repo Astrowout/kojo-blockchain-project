@@ -8,7 +8,6 @@ import {
 	Button,
 } from "../../components";
 import ConnectModal from "../ConnectModal/ConnectModal";
-import { ButtonContext } from "../Button/Button.types";
 import { useIonViewWillLeave } from "@ionic/react";
 
 const Onboarding: FC<OnboardingProps> = ({ className }) => {
@@ -28,22 +27,11 @@ const Onboarding: FC<OnboardingProps> = ({ className }) => {
 		<section
 			className={cn(
 				className,
-				"px-6 sm:px-10 sm:py-4 flex items-end mt-auto sm:mb-auto"
+				"px-6 sm:px-10 sm:py-4 flex items-center"
 			)}
 		>
-			<div className="sm:px-10 py-12 sm:py-10 flex flex-col items-center text-center text-white max-w-md rounded-md border bg-background border-border sm:text-emerald-900">
-				{/* <Logo w={96} blank className="sm:hidden text-white" />
-				<Logo w={120} className="hidden sm:block" /> */}
-
-						<div className="flex items-center">
-						<Logo w={132} />
-						<p className="font-display uppercase text-4xl -ml-16 text-black">Kōjō</p>
-					</div>
-
-
-				{/* <h1 className="text-lg mt-10 sm:mt-14 font-bold uppercase tracking-wider">
-					{ t("onboarding.title") }
-				</h1> */}
+			<div className="px-4 sm:px-8 py-8 sm:py-12 flex flex-col items-center text-center text-white max-w-md rounded-md border bg-background border-border sm:text-emerald-900">
+				<Logo w={120} />
 
 				<p className=" font-text text-sm text-black mt-6">
 					{ t(
@@ -54,16 +42,7 @@ const Onboarding: FC<OnboardingProps> = ({ className }) => {
 				</p>
 
 				<Button
-					className="mt-12 sm:hidden"
-					fluid
-					context={ButtonContext.ALT}
-					onClick={() => setIsModalOpen(true)}
-				>
-					{ t("onboarding.cta") }
-				</Button>
-
-				<Button
-					className="mt-10 hidden sm:flex"
+					className="mt-10"
 					fluid
 					onClick={() => setIsModalOpen(true)}
 				>

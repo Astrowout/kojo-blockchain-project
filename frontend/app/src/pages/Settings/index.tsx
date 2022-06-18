@@ -52,7 +52,7 @@ const SettingsPage = () => {
 									href="https://faucet.polygon.technology/"
 									target="_blank"
 									rel="noopener noreferrer"
-									className="font-title uppercase text-kojo-light text-xs  min-w-[9em]"
+									className="font-sans uppercase text-kojo-light text-xs  min-w-[9em]"
 								>
 									{ t("general.faucet") }
 								</a>
@@ -66,7 +66,7 @@ const SettingsPage = () => {
 								<div className="flex flex-col space-y-8">
 									<Link
 									 	onClick={handleCopyAddress}
-										className="mx-auto text-xs font-title uppercase text-kojo mb-4"
+										className="mx-auto text-xs font-sans uppercase text-kojo mb-4"
 										icon="Clipboard"
 										tooltip={t("settings.copySuccess")}
 									>
@@ -99,7 +99,7 @@ const SettingsPage = () => {
 
 				<Footer
 					version={process.env.REACT_APP_VERSION!}
-					className="mt-10"
+					className="mt-16"
 				/>
 			</div>
 		</Layout>

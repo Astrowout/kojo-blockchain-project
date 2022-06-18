@@ -15,7 +15,7 @@ const Stat: FunctionComponent<any> = ({
 			<div className="space-x-1.5 flex justify-between item-center">
 				{/* <Icon name={icon} size={20} className="flex-shrink-0" /> */}
 
-				<p className="font-title uppercase text-xs text-black">
+				<p className="font-sans uppercase text-xs text-black">
 					{ label }
 				</p>
 

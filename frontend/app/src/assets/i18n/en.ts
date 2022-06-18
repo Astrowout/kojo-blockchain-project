@@ -29,7 +29,6 @@ const translations = {
 		settings: "Settings",
 	},
 	onboarding: {
-		title: "Welcome to kojo",
 		description: {
 			1: "The {$} where you can grow seeds into plants based on your {$}",
 			2: "water saving NFT-game",
@@ -39,9 +38,7 @@ const translations = {
 	},
 	about: {
 		title: "KOJO",
-		description: {
-			1: "The water saving NFT-game where you can grow seeds into plants based on your sustainable water consumption.",
-		},
+		description: "The water saving NFT-game where you can grow seeds into plants based on your sustainable water consumption.",
 		website: "Visit our project website",
 	},
 	connect: {
@@ -116,7 +113,7 @@ const translations = {
 		title: "Leaderbōard",
 		empty: "No data to compare your performance with other people.",
 		description: "You are currently positioned on place {$} in the overall ranking.",
-		stats: "Your statistics",
+		stats: "Progress",
 		level: "Level",
 		xp: "XP",
 		plants: "Plant token ID's",
@@ -162,6 +159,7 @@ const translations = {
 		claim: "Claim $KOJO",
 		nextClaim: "Next distribution of $KOJO happens in",
 		nextClaimEmpty: "a few seconds",
+		balance: "Balance",
 		disclaimer: "This can change according to the current block time.",
 	},
 	claim: {

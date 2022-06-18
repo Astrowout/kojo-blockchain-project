@@ -24,8 +24,8 @@ const EmptyState: FC<EmptyStateProps> = ({
 			)}
 
 			<p
-				className={cn("text-gray-600 max-w-prose font-text text-xs", {
-					"mt-2 text-center": !compact,
+				className={cn("text-gray-600 max-w-prose font-text text-xs text-center", {
+					"mt-2": !compact,
 				})}
 			>
 				{ message }

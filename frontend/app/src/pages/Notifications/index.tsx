@@ -31,7 +31,7 @@ const NotificationsPage = () => {
 					<>
 						{(totalUnread && totalUnread > 0) ? (
 							<Link
-								className="text-black ml-auto text-center text-xs font-title uppercase tex-xs mb-6 md:mb-4 mt-6 md:mt-0"
+								className="text-black ml-auto text-center text-xs font-sans uppercase tex-xs mb-6 md:mb-4 mt-6 md:mt-0"
 								loading={loading}
 								onClick={markAllAsRead}
 							>
