@@ -25,19 +25,14 @@ const HomePage: NextPage = () => (
 
 		<main className="mt-40">
 			<div id='hero'>
-				<Hero />
-			</div>
-			<div id='how' style={{scrollMarginTop: "4rem"}}>
-				<How />
+				<Hero id="hero" />
 			</div>
 
-			<div id='roadmap' style={{scrollMarginTop: "4rem"}}>
-				<Roadmap />
-			</div>
+			<How id="how" />
 
-			<div id='trust' style={{scrollMarginTop: "4rem"}}>
-				<Trust />
-			</div>
+			<Roadmap id="roadmap" />
+
+			<Trust id="trust" />
 
 			<div id='team' style={{scrollMarginTop: "4rem"}}>
 				<Team />

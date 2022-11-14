@@ -5,11 +5,9 @@ module.exports = {
 	],
 	theme: {
 		fontFamily: {
-			'sans': ['Plus Jakarta Sans', 'ui-sans-serif', 'sans-serif'],
-			'serif': ['Abhaya Libre', 'ui-serif', 'serif'],
+			'sans': ['Lexend Deca', 'ui-sans-serif', 'sans-serif'],
+			'mono': ['PT Mono', 'ui-mono', 'mono'],
 			'display': ['Montserrat Black'],
-			'title': ['Lexend Deca'],
-			'text': ['PT Mono']
 		},
 		container: {
 			center: true,

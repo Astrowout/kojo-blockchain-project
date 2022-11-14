@@ -1,6 +1,5 @@
-import { FunctionComponent } from "react";
+import { FC } from "react";
 import cn from "classnames";
-import Image from "next/image";
 
 import { HeroProps } from "./Hero.types";
 
@@ -10,11 +9,14 @@ import {
 	Link,
 } from "@/components";
 
-const Hero: FunctionComponent<HeroProps> = ({ className }) => {
+const Hero: FC<HeroProps> = ({
+	className = "",
+	id = "",
+}) => {
 	const { t } = useTranslation();
 
 	return (
-		<section className={cn(className, "")}>
+		<section id={id} className={cn(className, "")}>
 			<div className='mx-auto flex flex-col items-center gap-x-24 gap-y-12 px-6 sm:px-10 sm:py-16 justify-center min-h-[60vh] my-10  max-w-screen overflow-hidden'>
 
 			<div className="flex">
@@ -30,7 +32,7 @@ const Hero: FunctionComponent<HeroProps> = ({ className }) => {
 						{ t("hero.title.1") }
 					</h1>
 
-					<p className="font-text text-center text-xs leading-6 mt-4">
+					<p className="font-mono text-center text-xs leading-6 mt-4">
 						The Kojo project raises awareness about water consumption by developing gamified ways to encourage people to reduce global water consumption.
 					</p>
 

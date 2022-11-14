@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FC } from "react";
 import cn from "classnames";
 
 import { BottomBarProps } from "./BottomBar.types";
@@ -7,7 +7,7 @@ import {
 	Icon,
 } from "@/components";
 
-const BottomBar: FunctionComponent<BottomBarProps> = ({
+const BottomBar: FC<BottomBarProps> = ({
 	className = ""
 }) => {
 	const { t } = useTranslation();

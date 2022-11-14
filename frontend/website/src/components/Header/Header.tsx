@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FC } from "react";
 import NextLink from "next/link";
 import { Popover, Transition } from "@headlessui/react";
 
@@ -13,7 +13,7 @@ import {
 } from "@/components";
 import { HeaderProps } from "./Header.types";
 
-const Header: FunctionComponent<HeaderProps> = ({
+const Header: FC<HeaderProps> = ({
 	className = "",
 }) => {
 	const { t } = useTranslation();
