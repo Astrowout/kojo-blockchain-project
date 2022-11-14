@@ -1,11 +1,11 @@
-import { FunctionComponent } from "react";
+import { FC } from "react";
 import Link from "next/link";
 import cn from "classnames";
 
 import { Icon } from "@/components";
 import { ButtonProps } from "./Button.types";
 
-const Button: FunctionComponent<ButtonProps> = ({
+const Button: FC<ButtonProps> = ({
 	className,
 	fluid = false,
 	children,
@@ -18,7 +18,7 @@ const Button: FunctionComponent<ButtonProps> = ({
 	icon = null,
 	onClick,
 }) => {
-	const classes = cn(className, "inline-flex space-x-2 text-center justify-center duration-300 transition hover:scale-105 whitespace-nowrap items-center rounded-md font-title uppercase text-xs cursor-pointer", {
+	const classes = cn(className, "inline-flex space-x-2 text-center justify-center duration-300 transition hover:scale-105 whitespace-nowrap items-center rounded-md font-sans uppercase text-xs cursor-pointer", {
 		"text-white bg-kojo": !alt,
 		"text-kojo bg-white": alt,
 		"px-12 sm:px-14 h-16 sm:h-20 text-lg sm:text-xl": !compact,

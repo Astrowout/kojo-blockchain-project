@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FC } from "react";
 import cn from "classnames";
 
 import { TokenProps } from "./Token.types";
@@ -8,7 +8,10 @@ import {
 	Icon,
 } from "@/components";
 
-const Token: FunctionComponent<TokenProps> = ({ className }) => {
+const Token: FC<TokenProps> = ({
+	className = "",
+	id = "",
+}) => {
 	const { t } = useTranslation();
 
 	return (

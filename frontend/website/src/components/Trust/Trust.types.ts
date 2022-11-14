@@ -1,3 +1,4 @@
-export type HeroProps = {
-	className?: string,
+export type TrustProps = {
+	className?: string;
+	id?: string;
 }

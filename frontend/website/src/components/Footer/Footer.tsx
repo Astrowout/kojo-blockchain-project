@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FC } from "react";
 import cn from "classnames";
 import {Link} from "@/components";
 
@@ -11,7 +11,7 @@ import {
 
 import footerImage from "@/assets/img/footer.png"
 
-const Footer: FunctionComponent<FooterProps> = ({
+const Footer: FC<FooterProps> = ({
 	className = "",
 }) => {
 	const { t } = useTranslation();
@@ -42,17 +42,17 @@ const Footer: FunctionComponent<FooterProps> = ({
 				</div>
 			</div> */}
 
-			{/* <BottomBar
+			<BottomBar
 				className="max-w-screen-2xl mx-auto"
-			/> */}
+			/>
 			<div className="flex justify-center items-center h-full flex-col">
-			<p className="text-white font-display uppercase text-4xl">Kōjō</p>
-			<p className="font-text text-white text-xs mt-3">© 2022 KOJO. All rights reserved.</p>
+				<p className="text-white font-display uppercase text-4xl">Kōjō</p>
+				<p className="font-mono text-white text-xs mt-3">© 2022 KOJO. All rights reserved.</p>
 
-			<div className="text-white mt-4">
-				<Link url="https://github.com/wowtvds/kojo-blockchain-project" className="mx-2">Github</Link>
-				<Link url="https://app.pitch.com/app/presentation/12943a1f-f988-45f2-91e3-fded8b334df6/c3458a69-2c47-45eb-be04-bb3ada5b15df" className="mx-2">Pitch</Link>
-			</div>
+				<div className="text-white mt-4">
+					<Link url="https://github.com/wowtvds/kojo-blockchain-project" className="mx-2">Github</Link>
+					<Link url="https://app.pitch.com/app/presentation/12943a1f-f988-45f2-91e3-fded8b334df6/c3458a69-2c47-45eb-be04-bb3ada5b15df" className="mx-2">Pitch</Link>
+				</div>
 			</div>
 
 		</footer>

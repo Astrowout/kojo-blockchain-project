@@ -7,14 +7,14 @@ import { Icon } from "@/components";
 import { LinkProps } from "./Link.types";
 
 const Link: FunctionComponent<LinkProps> = ({
+	children,
 	className = "",
 	external = false,
-	children,
 	url = "/",
 	icon = null
 }) => {
-	const classes = cn(className, "inline-flex whitespace-nowrap items-center font-title uppercase text-xs hover:underline cursor-pointer", {
-		// "underline": !icon,
+	const classes = cn(className, "inline-flex whitespace-nowrap items-center font-sans uppercase text-xs hover:underline cursor-pointer", {
+		"underline": !icon,
 	});
 
 	const renderContent = () => (

@@ -1,3 +1,4 @@
 export type TokenProps = {
-	className?: string,
+	className?: string;
+	id?: string;
 }

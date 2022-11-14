@@ -10,7 +10,10 @@ import farysLogo from "@/assets/img/farys.png";
 import polygonLogo from "@/assets/img/polygon.png";
 import howestLogo from "@/assets/img/howest.png";
 
-const Partners: FunctionComponent<PartnersProps> = ({ className }) => {
+const Partners: FunctionComponent<PartnersProps> = ({
+	className = "",
+	id = "",
+}) => {
 	const { t } = useTranslation();
 
 	return (

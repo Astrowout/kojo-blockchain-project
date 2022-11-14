@@ -25,7 +25,7 @@ const CTA: FunctionComponent = ({ className }: any) => {
 						Start growing
 					</h1>
 
-					<p className="text-white font-text text-xs text-center leading-6">Thrilled to grow your first virtual plant?! Go ahead and buy your very first seed in our in-browser dApp. The mobile dApp version is on its way, sit tight!</p>
+					<p className="text-white font-mono text-xs text-center leading-6">Thrilled to grow your first virtual plant?! Go ahead and buy your very first seed in our in-browser dApp. The mobile dApp version is on its way, sit tight!</p>
 
 					<div className="flex flex-col md:flex-row items-center mt-8 md:mt-10 gap-x-8 gap-y-5">
 						<Button

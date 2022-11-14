@@ -1,3 +1,4 @@
 export type HowProps = {
-	className?: string,
+	className?: string;
+	id?: string;
 }

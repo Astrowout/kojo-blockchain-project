@@ -1,13 +1,15 @@
-import { FunctionComponent, useState } from "react";
+import { FC, useState } from "react";
 import cn from "classnames";
 import { motion } from "framer-motion";
-import Image from "next/image";
 
 import { HowProps } from "./How.types";
 
 import { useTranslation } from "@/hooks";
 
-const How: FunctionComponent<HowProps> = ({ className }) => {
+const How: FC<HowProps> = ({
+	className = "",
+	id = "",
+}) => {
 	const { t } = useTranslation();
 	const [activeIndex, setActiveIndex] = useState(0);
 
@@ -30,7 +32,7 @@ const How: FunctionComponent<HowProps> = ({ className }) => {
 	];
 
 	return (
-		<section className={cn(className, "bg-background flex flex-col")}>
+		<section id={id} className={cn(className, "bg-background flex flex-col")}>
 			<div className='w-full max-w-screen-xl mx-auto grid md:grid-cols-2 gap-x-16 xl:gap-x-24 gap-y-12 px-6 sm:px-10 py-10 sm:py-16'>
 				<div className="h-64 hidden md:flex md:h-screen md:sticky md:top-36">
 					{CONTENT.map((step, index) => (
@@ -76,7 +78,7 @@ const How: FunctionComponent<HowProps> = ({ className }) => {
 
 								</div>
 
-								<h1 className="hidden md:block mt-4 font-title uppercase tracking-widest">
+								<h1 className="hidden md:block mt-4 font-sans uppercase tracking-widest">
 									{ `${t("how.title")} - Step ${index + 1}` }
 								</h1>
 
@@ -84,7 +86,7 @@ const How: FunctionComponent<HowProps> = ({ className }) => {
 									{ step.title }
 								</h2>
 
-								<p className="font-text leading-8  mt-6 text-sm">
+								<p className="font-mono leading-8  mt-6 text-sm">
 									{ step.description }
 								</p>
 							</motion.div>
