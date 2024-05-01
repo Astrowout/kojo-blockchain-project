@@ -1,51 +1,51 @@
 generator client {
-    provider        = "prisma-client-js"
-    previewFeatures = ["interactiveTransactions"]
+  provider        = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
 }
 
 datasource db {
-    provider = "cockroachdb"
-    url      = env("DB_URL")
+  provider = "cockroachdb"
+  url      = env("DB_URL")
 }
 
 model Notification {
-    id        BigInt   @id(map: "primary") @default(autoincrement()) @db.Int8
-    createdAt DateTime @default(now()) @db.Timestamp(6)
-    message   String
-    read      Boolean
-    url       String
-    userId    BigInt   @db.Int8
-    user      User     @relation(fields: [userId], references: [id])
+  id        BigInt   @id(map: "primary") @default(autoincrement())
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  message   String
+  read      Boolean
+  userId    BigInt
+  url       String
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model Profile {
-    id         BigInt  @id(map: "primary") @default(autoincrement()) @db.Int8
-    postalCode String? @default("9000")
-    firstName  String?
-    lastName   String?
-    userId     BigInt  @unique @db.Int8
-    user       User    @relation(fields: [userId], references: [id])
+  id         BigInt  @id(map: "primary") @default(autoincrement())
+  postalCode String? @default("9000")
+  firstName  String?
+  lastName   String?
+  userId     BigInt  @unique
+  user       User    @relation(fields: [userId], references: [id])
 }
 
 model User {
-    id            BigInt         @id(map: "primary") @default(autoincrement()) @db.Int8
-    email         String?        @unique @db.String(255)
-    did           String         @unique
-    role          Role           @default(VISITOR)
-    profile       Profile?
-    notifications Notification[]
+  id            BigInt         @id(map: "primary") @default(autoincrement())
+  email         String?        @unique @db.String(255)
+  did           String         @unique
+  role          Role           @default(VISITOR)
+  notifications Notification[]
+  profile       Profile?
 }
 
 model FarysUser {
-    id         BigInt @id(map: "primary") @default(autoincrement()) @db.Int8
-    did        String @unique
-    familySize Int    @default(1) @db.Int2
-    usage      Int    @default(0) @db.Int4
-    postalCode String @default("9000")
+  id         BigInt @id(map: "primary") @default(autoincrement())
+  did        String @unique
+  familySize Int    @default(1) @db.Int2
+  postalCode String @default("9000")
+  usage      Int    @default(0)
 }
 
 enum Role {
-    VISITOR
-    PARTICIPANT
-    VERIFIED_PARTICIPANT
+  VISITOR
+  PARTICIPANT
+  VERIFIED_PARTICIPANT
 }
