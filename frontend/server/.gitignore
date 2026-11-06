@@ -3,3 +3,6 @@
 # dependencies
 /node_modules
 .vercel
+
+# environment variables (never commit)
+.env
