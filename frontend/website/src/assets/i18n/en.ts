@@ -1,4 +1,7 @@
 const translations = {
+	banner: {
+		shutdown: "Kōjō was a test project and has been shut down. The app stays online to look around, but it no longer works.",
+	},
 	navigation: {
 		download: "Get a seed",
 		app: "To the app",

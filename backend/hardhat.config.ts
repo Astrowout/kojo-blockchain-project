@@ -51,22 +51,7 @@ const config: HardhatUserConfig = {
     hardhat: {
       chainId: 80001,
     },
-    mumbai: {
-      chainId: 80001,
-      url: process.env.MUMBAI_API_URL,
-      accounts: [process.env.PRIVATE_KEY!],
-    },
-    goerli: {
-      chainId: 5,
-      url: process.env.GOERLI_API_URL,
-      accounts: [process.env.PRIVATE_KEY!],
-    },
   },
-  etherscan: {
-    apiKey: {
-      polygonMumbai: process.env.POLYGONSCAN_API_KEY!,
-    }
-  }
 };
 
 export default config;

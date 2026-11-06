@@ -23,7 +23,7 @@ const HomePage: NextPage = () => (
 
 		<Header />
 
-		<main className="mt-40">
+		<main className="mt-56">
 			<div id='hero'>
 				<Hero />
 			</div>

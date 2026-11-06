@@ -6,6 +6,7 @@ import cn from "classnames";
 
 import { useTranslation } from "@/hooks";
 import {
+	Banner,
 	Logo,
 	Icon,
 	Button,
@@ -58,6 +59,8 @@ const Header: FunctionComponent<HeaderProps> = ({
 	return (
 		<Popover as="header" className={cn(className, "z-50 fixed w-full shadow-sm bg-white")}>
 			<>
+				<Banner className="relative z-30" />
+
 				<Transition
 					enter="transition duration-300"
 					enterFrom="opacity-0"

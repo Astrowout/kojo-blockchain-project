@@ -2,6 +2,7 @@ export { default as Logo } from "./Logo/Logo";
 export { default as Icon } from "./Icon/Icon";
 export { default as Link } from "./Link/Link";
 export { default as Button } from "./Button/Button";
+export { default as Banner } from "./Banner/Banner";
 export { default as Header } from "./Header/Header";
 export { default as Footer } from "./Footer/Footer";
 export { default as BottomBar } from "./BottomBar/BottomBar";
