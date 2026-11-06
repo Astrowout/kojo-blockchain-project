@@ -3,16 +3,5 @@
 	"name": "server",
 	"author": "Wout Vandesompele",
 	"version": "0.0.1",
-	"description": "kojo off-chain server",
-	"scripts": {
-		"vercel-build": "prisma generate && prisma migrate deploy",
-		"prisma": "prisma"
-	},
-	"devDependencies": {
-		"@vercel/node": "^1.15.3",
-		"prisma": "5.13.0"
-	},
-	"dependencies": {
-		"@prisma/client": "5.13.0"
-	}
+	"description": "kojo static storage for NFT images and metadata"
 }
